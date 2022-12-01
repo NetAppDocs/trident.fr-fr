@@ -1569,7 +1569,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 22:57:14 +0000">11/16/2022</time>
+    <time datetime="2022-12-01 19:33:48 +0000">12/01/2022</time>
     
   
 
@@ -1836,8 +1836,8 @@ Pour tous les volumes créés sur un back-end ANF, Astra Trident copie les étiq
 <div class="sect1">
 <h2 id="exemples-de-configurations">Exemples de configurations</h2>
 <div class="sectionbody">
-<div class="exampleblock">
-<div class="title">Exemple 1. Exemple 1 : configuration minimale</div>
+<details open>
+<summary class="title">Exemple 1 : configuration minimale</summary>
 <div class="content">
 <div class="paragraph">
 <p>Il s&#8217;agit de la configuration back-end minimale absolue. Avec cette configuration, Astra Trident détecte tous vos comptes, pools de capacité et sous-réseaux NetApp délégués à ANF à l&#8217;emplacement configuré et place les nouveaux volumes sur l&#8217;un de ces pools et sous-réseaux de manière aléatoire. Parce que <code>nasType</code> est omis, le <code>nfs</code> La valeur par défaut s&#8217;applique et le système back-end provisionne les volumes NFS.</p>
@@ -1859,9 +1859,9 @@ Pour tous les volumes créés sur un back-end ANF, Astra Trident copie les étiq
 </div>
 </div>
 </div>
-</div>
-<div class="exampleblock">
-<div class="title">Exemple 2. Exemple 2 : configuration de niveau de service spécifique avec des filtres de pool de capacité</div>
+</details>
+<details open>
+<summary class="title">Exemple 2 : configuration de niveau de service spécifique avec des filtres de pool de capacité</summary>
 <div class="content">
 <div class="paragraph">
 <p>Cette configuration back-end place les volumes dans des Azure <code>eastus</code> emplacement dans un <code>Ultra</code> pool de capacité. Astra Trident détecte automatiquement tous les sous-réseaux délégués à ANF dans cet emplacement et place un nouveau volume de façon aléatoire sur l&#8217;un d&#8217;entre eux.</p>
@@ -1885,9 +1885,9 @@ Pour tous les volumes créés sur un back-end ANF, Astra Trident copie les étiq
 </div>
 </div>
 </div>
-</div>
-<div class="exampleblock">
-<div class="title">Exemple 3. Exemple 3 : configuration avancée</div>
+</details>
+<details open>
+<summary class="title">Exemple 3 : configuration avancée</summary>
 <div class="content">
 <div class="paragraph">
 <p>Cette configuration back-end réduit davantage l&#8217;étendue du placement des volumes sur un seul sous-réseau et modifie également certains paramètres par défaut du provisionnement des volumes.</p>
@@ -1922,9 +1922,9 @@ Pour tous les volumes créés sur un back-end ANF, Astra Trident copie les étiq
 </div>
 </div>
 </div>
-</div>
-<div class="exampleblock">
-<div class="title">Exemple 4. Exemple 4 : configuration de pool de stockage virtuel</div>
+</details>
+<details open>
+<summary class="title">Exemple 4 : configuration de pool de stockage virtuel</summary>
 <div class="content">
 <div class="paragraph">
 <p>Cette configuration back-end définit plusieurs pools de stockage dans un seul fichier. Cette fonction est utile lorsque plusieurs pools de capacité prennent en charge différents niveaux de service, et que vous souhaitez créer des classes de stockage dans Kubernetes qui les représentent.</p>
@@ -1975,7 +1975,7 @@ Pour tous les volumes créés sur un back-end ANF, Astra Trident copie les étiq
 </div>
 </div>
 </div>
-</div>
+</details>
 </div>
 </div>
 <div class="sect1">
@@ -2025,8 +2025,8 @@ allowVolumeExpansion: true</pre>
 <div class="paragraph">
 <p>À l&#8217;aide de <code>nasType</code>, <code>node-stage-secret-name</code>, et  <code>node-stage-secret-namespace</code>, Vous pouvez spécifier un volume SMB et fournir les informations d&#8217;identification Active Directory requises.</p>
 </div>
-<div class="exampleblock">
-<div class="title">Exemple 5. Exemple 1 : configuration de base sur l&#8217;espace de noms par défaut</div>
+<details open>
+<summary class="title">Exemple 1 : configuration de base sur l&#8217;espace de noms par défaut</summary>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -2043,9 +2043,9 @@ parameters:
 </div>
 </div>
 </div>
-</div>
-<div class="exampleblock">
-<div class="title">Exemple 6. Exemple 2 : utilisation de secrets différents par espace de noms</div>
+</details>
+<details open>
+<summary class="title">Exemple 2 : utilisation de secrets différents par espace de noms</summary>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -2062,9 +2062,9 @@ parameters:
 </div>
 </div>
 </div>
-</div>
-<div class="exampleblock">
-<div class="title">Exemple 7. Exemple 3 : utilisation de différents secrets par volume</div>
+</details>
+<details open>
+<summary class="title">Exemple 3 : utilisation de différents secrets par volume</summary>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -2081,7 +2081,7 @@ parameters:
 </div>
 </div>
 </div>
-</div>
+</details>
 <div class="admonitionblock note">
 <table>
 <tr>
