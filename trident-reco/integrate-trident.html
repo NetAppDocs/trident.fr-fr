@@ -1569,7 +1569,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 22:57:14 +0000">11/16/2022</time>
+    <time datetime="2022-12-15 17:46:57 +0000">12/15/2022</time>
     
   
 
@@ -1589,16 +1589,19 @@
 <div class="sect1">
 <h2 id="choix-et-déploiement-du-conducteur">Choix et déploiement du conducteur</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="choisir-un-pilote-back-end-pour-ontap">Choisir un pilote back-end pour ONTAP</h3>
 <div class="paragraph">
-<p>Les systèmes ONTAP intègrent quatre pilotes de système back-end différents. Ces pilotes sont différenciés par le protocole utilisé et le mode de provisionnement des volumes sur le système de stockage. Par conséquent, prenez garde à prendre en compte le pilote à déployer.</p>
+<p>Sélectionnez et déployez un pilote backend pour votre système de stockage.</p>
+</div>
+<div class="sect2">
+<h3 id="pilotes-ontap-backend">Pilotes ONTAP backend</h3>
+<div class="paragraph">
+<p>Les pilotes back-end ONTAP sont différenciés par le protocole utilisé et le mode de provisionnement des volumes sur le système de stockage. Par conséquent, réfléchissez bien au choix du conducteur à déployer.</p>
 </div>
 <div class="paragraph">
 <p>À un niveau plus élevé, si votre application dispose de composants qui nécessitent un stockage partagé (plusieurs modules accédant au même volume de demande de volume persistant), les pilotes NAS seraient la solution par défaut, tandis que les pilotes iSCSI basés sur les blocs répondent aux besoins d&#8217;un stockage non partagé. Choisir le protocole en fonction des besoins de l&#8217;application et du niveau de confort des équipes chargées du stockage et de l&#8217;infrastructure. En règle générale, ces différences sont peu nombreuses pour la plupart des applications. La décision dépend donc souvent de la nécessité d&#8217;un stockage partagé (dans lequel plusieurs pods auront besoin d&#8217;un accès simultané).</p>
 </div>
 <div class="paragraph">
-<p>Les cinq pilotes des systèmes ONTAP back-end sont répertoriés ci-dessous :</p>
+<p>Les pilotes ONTAP backend disponibles sont les suivants :</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1753,19 +1756,19 @@ Le <code>solidfire-san</code> Le pilote est également capable de cloner des dem
 </div>
 </div>
 <div class="sect2">
-<h3 id="choisir-un-pilote-back-end-pour-cloud-volumes-ontap">Choisir un pilote back-end pour Cloud Volumes ONTAP</h3>
+<h3 id="pilotes-cloud-volumes-ontap-backend">Pilotes Cloud Volumes ONTAP backend</h3>
 <div class="paragraph">
 <p>Cloud Volumes ONTAP assure le contrôle des données et des fonctionnalités de stockage haute performance dans divers cas d&#8217;utilisation, notamment pour les partages de fichiers et le stockage de niveau bloc qui servent les protocoles NAS et SAN (NFS, SMB/CIFS et iSCSI). Les pilotes compatibles avec Cloud Volume ONTAP sont les <code>ontap-nas</code>, <code>ontap-nas-economy</code>, <code>ontap-san</code> et <code>ontap-san-economy</code>. Applicable à Cloud Volume ONTAP pour Azure, Cloud Volume ONTAP pour GCP.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="choisissez-un-pilote-back-end-pour-amazon-fsx-pour-ontap">Choisissez un pilote back-end pour Amazon FSX pour ONTAP</h3>
+<h3 id="pilotes-backend-amazon-fsx-pour-ontap">Pilotes backend Amazon FSX pour ONTAP</h3>
 <div class="paragraph">
 <p>Avec Amazon FSX pour ONTAP, les clients peuvent exploiter les fonctions, les performances et les fonctionnalités d&#8217;administration NetApp qu&#8217;ils connaissent bien, tout en bénéficiant de la simplicité, de l&#8217;agilité, de la sécurité et de l&#8217;évolutivité du stockage de données sur AWS. FSX pour ONTAP prend en charge de nombreuses fonctionnalités de système de fichiers et API d&#8217;administration d&#8217;ONTAP. Les pilotes compatibles avec Cloud Volume ONTAP sont les <code>ontap-nas</code>, <code>ontap-nas-economy</code>, <code>ontap-nas-flexgroup</code>, <code>ontap-san</code> et <code>ontap-san-economy</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="choisissez-un-pilote-back-end-pour-netapp-hcisolidfire">Choisissez un pilote back-end pour NetApp HCI/SolidFire</h3>
+<h3 id="pilotes-back-end-netapp-hcisolidfire">Pilotes back-end NetApp HCI/SolidFire</h3>
 <div class="paragraph">
 <p>Le <code>solidfire-san</code> Pilote utilisé avec les plateformes NetApp HCI/SolidFire pour aider l&#8217;administrateur à configurer un back-end Element pour Trident sur la base des limites de QoS. Si vous voulez concevoir votre système back-end pour définir les limites de QoS spécifiques sur les volumes provisionnés par Trident, utilisez la <code>type</code> paramètre dans le fichier backend. L&#8217;administrateur peut également restreindre la taille du volume pouvant être créé sur le stockage à l&#8217;aide de <code>limitVolumeSize</code> paramètre. Pour le moment, les fonctionnalités de stockage Element telles que le redimensionnement des volumes et la réplication des volumes ne sont pas prises en charge via le <code>solidfire-san</code> conducteur. Ces opérations doivent être effectuées manuellement via l&#8217;interface utilisateur Web du logiciel Element.</p>
 </div>
@@ -1810,7 +1813,7 @@ Le <code>solidfire-san</code> Le pilote est également capable de cloner des dem
 </div>
 </div>
 <div class="sect2">
-<h3 id="choisir-un-pilote-back-end-pour-azure-netapp-files">Choisir un pilote back-end pour Azure NetApp Files</h3>
+<h3 id="pilotes-azure-netapp-files-backend">Pilotes Azure NetApp Files backend</h3>
 <div class="paragraph">
 <p>Astra Trident utilise le <code>azure-netapp-files</code> pilote pour gérer le <a href="https://azure.microsoft.com/en-us/services/netapp/" target="_blank" rel="noopener">"Azure NetApp Files"</a> services.</p>
 </div>
@@ -1855,7 +1858,7 @@ Le <code>solidfire-san</code> Le pilote est également capable de cloner des dem
 </div>
 </div>
 <div class="sect2">
-<h3 id="choisir-un-pilote-back-end-pour-cloud-volumes-service-avec-gcp">Choisir un pilote back-end pour Cloud Volumes Service avec GCP</h3>
+<h3 id="cloud-volumes-service-avec-pilotes-gcp-backend">Cloud Volumes Service avec pilotes GCP backend</h3>
 <div class="paragraph">
 <p>Astra Trident utilise le <code>gcp-cvs</code> Pilote à lier à Cloud Volumes Service sur le back-end GCP. Pour configurer le back-end GCP sur Trident, vous devez spécifier <code>projectNumber</code>, <code>apiRegion</code>, et <code>apiKey</code> dans le fichier backend. Le numéro de projet est disponible sur le portail Web GCP, tandis que la clé d&#8217;API doit être prise depuis le fichier de clé privée du compte de service que vous avez créé lors de la configuration de l&#8217;accès aux API pour Cloud volumes sur GCP. Astra Trident peut créer des volumes CVS dans un des deux <a href="https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types" target="_blank" rel="noopener">"types de service"</a>:</p>
 </div>
@@ -1871,18 +1874,6 @@ Le <code>solidfire-san</code> Le pilote est également capable de cloner des dem
 </div>
 <div class="paragraph">
 <p>La taille minimale des volumes CVS et CVS-Performance est de 100 Gio.</p>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<img src="/us-en/trident/images/caution.svg" alt="Avertissement">
-</td>
-<td class="content">
-Lors du déploiement des systèmes back-end avec le type de service CVS par défaut [<code>storageClass=software</code>], les utilisateurs <strong>doivent obtenir un accès</strong> à la fonctionnalité de volumes de sous-Tio dans GCP pour le(s) numéro(s) de projet et ID de projet en question. Il est nécessaire que Trident provisionne les volumes de sous-Tio. Si ce n&#8217;est pas le cas, les créations de volume <strong>échoueront</strong> pour les ESV de &lt;600 Gio. Utiliser <a href="https://docs.google.com/forms/d/e/1FAIpQLSc7_euiPtlV8bhsKWvwBl3gm9KUL4kOhD7lnbHC3LlQ7m02Dw/viewform" target="_blank" rel="noopener">"ce formulaire"</a> Pour obtenir l&#8217;accès aux volumes de sous-Tio.
-</td>
-</tr>
-</table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1933,7 +1924,7 @@ Lors du déploiement des systèmes back-end avec le type de service CVS par déf
 <p>Chaque classe de stockage doit être configurée et appliquée pour créer un objet de classe de stockage Kubernetes. Cette section décrit comment concevoir un système de stockage pour votre application.</p>
 </div>
 <div class="sect2">
-<h3 id="conception-de-la-classe-de-stockage-pour-une-utilisation-back-end-spécifique">Conception de la classe de stockage pour une utilisation back-end spécifique</h3>
+<h3 id="utilisation-du-système-back-end-spécifique">Utilisation du système back-end spécifique</h3>
 <div class="paragraph">
 <p>Le filtrage peut être utilisé au sein d&#8217;un objet de classe de stockage spécifique pour déterminer le pool de stockage ou l&#8217;ensemble de pools à utiliser avec cette classe de stockage spécifique. Trois ensembles de filtres peuvent être définis dans la classe de stockage : <code>storagePools</code>, <code>additionalStoragePools</code>, et/ou <code>excludeStoragePools</code>.</p>
 </div>
@@ -1945,19 +1936,19 @@ Lors du déploiement des systèmes back-end avec le type de service CVS par déf
 </div>
 </div>
 <div class="sect2">
-<h3 id="conception-de-classe-de-stockage-pour-émuler-les-règles-de-qos">Conception de classe de stockage pour émuler les règles de QoS</h3>
+<h3 id="émuler-les-règles-de-qos">Émuler les règles de QoS</h3>
 <div class="paragraph">
 <p>Si vous souhaitez concevoir des classes de stockage pour émuler les règles de qualité de service, créez une classe de stockage avec le <code>media</code> attribut en tant que <code>hdd</code> ou <code>ssd</code>. Basé sur <code>media</code> Attribut mentionné dans la classe de stockage, Trident sélectionne le back-end approprié qui sert <code>hdd</code> ou <code>ssd</code> les agrégats correspondent à l&#8217;attribut du support, puis dirigent le provisionnement des volumes sur l&#8217;agrégat spécifique. Nous pouvons donc créer une PRIME de classe de stockage qui aurait été nécessaire <code>media</code> attribut défini comme <code>ssd</code> Qui peuvent être classées comme politique DE qualité de service PREMIUM. Nous pouvons créer une autre NORME de classe de stockage dont l&#8217;attribut de support est défini comme `hdd', qui pourrait être classé comme règle de QoS STANDARD. Nous pourrions également utiliser l&#8217;attribut « IOPS » de la classe de stockage pour rediriger le provisionnement vers une appliance Element qui peut être définie comme une règle de QoS.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="la-conception-des-classes-de-stockage-permettant-dutiliser-le-système-back-end-en-fonction-de-fonctionnalités-spécifiques">La conception des classes de stockage permettant d&#8217;utiliser le système back-end en fonction de fonctionnalités spécifiques</h3>
+<h3 id="utilisation-du-système-back-end-en-fonction-de-fonctionnalités-spécifiques">Utilisation du système back-end en fonction de fonctionnalités spécifiques</h3>
 <div class="paragraph">
 <p>Les classes de stockage peuvent être conçues pour diriger le provisionnement des volumes sur un système back-end spécifique, où des fonctionnalités telles que le provisionnement fin et lourd, les copies Snapshot, les clones et le chiffrement sont activées. Pour spécifier le stockage à utiliser, créez des classes de stockage qui spécifient le back-end approprié avec la fonction requise activée.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="conception-de-la-classe-de-stockage-pour-les-pools-de-stockage-virtuel">Conception de la classe de stockage pour les pools de stockage virtuel</h3>
+<h3 id="pools-de-stockage-virtuel">Pools de stockage virtuel</h3>
 <div class="paragraph">
 <p>Tous les systèmes back-end Trident utilisent des pools de stockage virtuel. Vous pouvez définir des pools de stockage virtuel pour tout système back-end, à l&#8217;aide de tout pilote fourni par Astra Trident.</p>
 </div>
@@ -1968,7 +1959,7 @@ Lors du déploiement des systèmes back-end avec le type de service CVS par déf
 </div>
 </div>
 <div class="sect1">
-<h2 id="conception-du-pool-de-stockage-virtuel">Conception du pool de stockage virtuel</h2>
+<h2 id="conception-de-pool-de-stockage-virtuel">Conception de pool de stockage virtuel</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Lors de la création d&#8217;un backend, vous pouvez généralement spécifier un ensemble de paramètres. Il était impossible pour l&#8217;administrateur de créer un autre système back-end avec les mêmes identifiants de stockage et avec un ensemble de paramètres différent. Grâce à l&#8217;introduction de Virtual Storage pools, ce problème a été résolu. Les pools de stockage virtuel sont une abstraction de niveau introduit entre le back-end et la classe de stockage Kubernetes. L&#8217;administrateur peut ainsi définir des paramètres et des étiquettes qui peuvent être référencés par les classes de stockage Kubernetes comme sélecteur, de façon indépendante du back-end. Il est possible de définir des pools de stockage virtuel pour tous les systèmes back-end NetApp pris en charge avec Astra Trident. Il s&#8217;agit notamment des systèmes SolidFire/NetApp HCI, ONTAP, Cloud Volumes Service sur GCP et Azure NetApp Files.</p>
@@ -1986,13 +1977,13 @@ Lors de la définition des pools de stockage virtuel, il est recommandé de ne p
 </table>
 </div>
 <div class="sect2">
-<h3 id="concevoir-des-pools-de-stockage-virtuel-pour-émuler-différents-niveaux-de-servicesqos">Concevoir des pools de stockage virtuel pour émuler différents niveaux de services/QoS</h3>
+<h3 id="émulation-de-différents-niveaux-de-serviceqos">Émulation de différents niveaux de service/QoS</h3>
 <div class="paragraph">
 <p>Il est possible de concevoir des pools de stockage virtuel pour émuler des classes de service. Grâce à l&#8217;implémentation du pool virtuel pour Cloud volumes Service pour Azure NetApp Files, examinons comment nous pouvons configurer différentes classes de service. Configurez le back-end ANF avec plusieurs étiquettes représentant différents niveaux de performance. Réglez <code>servicelevel</code> aspect au niveau de performance approprié et ajouter d&#8217;autres aspects requis sous chaque étiquette. Créez désormais différentes classes de stockage Kubernetes qui seraient mappées sur différents pools de stockage virtuels. À l&#8217;aide du <code>parameters.selector</code> Chaque classe de stockage indique quel(s) pool(s) virtuel(s) peut(s) être utilisé(s) pour héberger un volume.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="concevoir-des-pools-virtuels-pour-lattribution-dun-ensemble-spécifique-daspects">Concevoir des pools virtuels pour l&#8217;attribution d&#8217;un ensemble spécifique d&#8217;aspects</h3>
+<h3 id="attribution-dun-ensemble-spécifique-daspects">Attribution d&#8217;un ensemble spécifique d&#8217;aspects</h3>
 <div class="paragraph">
 <p>Il est possible de concevoir plusieurs pools de stockage virtuel comprenant un ensemble spécifique d&#8217;aspects à partir d&#8217;un système back-end unique. Pour ce faire, configurez le back-end avec plusieurs étiquettes et définissez les aspects requis sous chaque étiquette. Créez désormais des classes de stockage Kubernetes différentes avec le <code>parameters.selector</code> Champ correspondant aux différents pools de stockage virtuel. Les volumes provisionnés sur le back-end possèdent les aspects définis dans le pool de stockage virtuel choisi.</p>
 </div>
