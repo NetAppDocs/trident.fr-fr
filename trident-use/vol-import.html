@@ -1569,7 +1569,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 22:57:14 +0000">11/16/2022</time>
+    <time datetime="2022-12-14 18:14:42 +0000">12/14/2022</time>
     
   
 
@@ -1713,7 +1713,7 @@ spec:
 </div>
 </div>
 <div class="sect1">
-<h2 id="importations-ontap-nas-et-ontap-nas-flexgroup">importations ontap-nas et ontap-nas-flexgroup</h2>
+<h2 id="ontap-nas-et-ontap-nas-flexgroup-importations"><code>ontap-nas</code> et <code>ontap-nas-flexgroup</code> importations</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Chaque volume créé avec le <code>ontap-nas</code> Le pilote est un FlexVol sur le cluster ONTAP. Importation de volumes FlexVol avec <code>ontap-nas</code> le pilote fonctionne de la même manière. Une FlexVol qui existe déjà sur un cluster ONTAP peut être importée en tant que <code>ontap-nas</code> PVC. De même, les volumes FlexGroup peuvent être importés en tant que <code>ontap-nas-flexgroup</code> ESV.</p>
@@ -1788,7 +1788,7 @@ Un bogue existant précédemment avec l&#8217;importation de volumes avec Unixpe
 </div>
 </div>
 <div class="sect1">
-<h2 id="importation-dontap-san">importation d&#8217;ontap-san</h2>
+<h2 id="ontap-san-importer"><code>ontap-san</code> importer</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Astra Trident peut également importer des volumes FlexVol SAN de ONTAP contenant un seul LUN. Ceci est cohérent avec le <code>ontap-san</code> Pilote, qui crée un FlexVol pour chaque demande de volume persistant et une LUN au sein de la FlexVol. Vous pouvez utiliser le <code>tridentctl import</code> commande de la même manière que dans les autres cas :</p>
@@ -1868,7 +1868,7 @@ Pour être importé par Astra Trident, un volume ONTAP doit être de type rw. Si
 </div>
 </div>
 <div class="sect1">
-<h2 id="importation-déléments">importation d&#8217;éléments</h2>
+<h2 id="element-importer"><code>element</code> importer</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Vous pouvez importer le logiciel NetApp Element/les volumes NetApp HCI dans votre cluster Kubernetes avec Trident. Vous avez besoin du nom de votre back-end Astra Trident, ainsi que du nom unique du volume et du fichier PVC comme arguments pour le <code>tridentctl import</code> commande.</p>
@@ -1899,7 +1899,7 @@ Le pilote d&#8217;élément prend en charge les noms de volume dupliqués. S&#82
 </div>
 </div>
 <div class="sect1">
-<h2 id="importation-gcp-cvs">importation gcp-cvs</h2>
+<h2 id="gcp-cvs-importer"><code>gcp-cvs</code> importer</h2>
 <div class="sectionbody">
 <div class="admonitionblock tip">
 <table>
@@ -1942,7 +1942,7 @@ Le chemin du volume correspond à la partie du chemin d&#8217;exportation du vol
 </div>
 </div>
 <div class="sect1">
-<h2 id="importation-dazure-netapp-files">importation d&#8217;azure-netapp-files</h2>
+<h2 id="azure-netapp-files-importer"><code>azure-netapp-files</code> importer</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Pour importer un <code>azure-netapp-files</code> volume sur le back-end appelé <code>azurenetappfiles_40517</code> avec le chemin de volume <code>importvol1</code>, exécutez la commande suivante :</p>

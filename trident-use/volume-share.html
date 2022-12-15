@@ -1569,7 +1569,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 22:57:14 +0000">11/16/2022</time>
+    <time datetime="2022-12-14 18:14:42 +0000">12/14/2022</time>
     
   
 
@@ -1622,15 +1622,19 @@
 <p>Vous pouvez configurer le partage de volumes NFS en quelques étapes seulement.</p>
 </div>
 <div class="paragraph quick-margin-para">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png" alt="Une seule"></span> Configurez la demande de volume persistant source pour partager le volume</div>
 <p>Le propriétaire de l&#8217;espace de noms source autorise l&#8217;accès aux données dans la demande de volume persistant source.</p>
 </div>
 <div class="paragraph quick-margin-para">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png" alt="Deux"></span> Accorder l&#8217;autorisation de créer une demande de modification dans l&#8217;espace de noms de destination</div>
 <p>L&#8217;administrateur de cluster accorde l&#8217;autorisation au propriétaire de l&#8217;espace de noms de destination pour créer le CR TridentVolumeReference.</p>
 </div>
 <div class="paragraph quick-margin-para">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png" alt="Trois"></span> Créer TridentVolumeReference dans l&#8217;espace de noms de destination</div>
 <p>Le propriétaire de l&#8217;espace de noms de destination crée le CR TridentVolumeReference pour faire référence au PVC source.</p>
 </div>
 <div class="paragraph quick-margin-para">
+<div class="title"><span class="image"><img src="https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png" alt="Quatre"></span> Créez le PVC subalterne dans l&#8217;espace de noms de destination</div>
 <p>Le propriétaire de l&#8217;espace de noms de destination crée le PVC subalterne pour utiliser la source de données à partir du PVC source.</p>
 </div>
 </div>
@@ -1746,6 +1750,7 @@ La taille du PVC de destination doit être inférieure ou égale à la PVC sourc
 </ol>
 </div>
 <div class="paragraph">
+<div class="title">Résultats</div>
 <p>Découvrez Astra Trident <code>shareFromPVC</code> Annotation sur la demande de volume persistant de destination et création du volume persistant de destination en tant que volume subalterne, sans ressource de stockage correspondant au volume persistant source et partage la ressource de stockage PV source. La demande de volume persistant et la demande de volume persistant de destination apparaissent comme normales.</p>
 </div>
 </div>
@@ -1759,7 +1764,7 @@ La taille du PVC de destination doit être inférieure ou égale à la PVC sourc
 </div>
 </div>
 <div class="sect1">
-<h2 id="utilisez-tridentctl-get-pour-interroger-les-volumes-subordonnés">Utilisez tridentctl get pour interroger les volumes subordonnés</h2>
+<h2 id="utiliser-tridentctl-get-pour-interroger-des-volumes-subordonnés">Utiliser <code>tridentctl get</code> pour interroger des volumes subordonnés</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>À l&#8217;aide du[<code>tridentctl</code> vous pouvez exécuter l' <code>get</code> commande pour obtenir des volumes subordonnés. Pour plus d&#8217;informations, consultez le lien :../trident-Reference/tridentctl.html[<code>tridentctl</code> commandes et options].</p>

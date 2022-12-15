@@ -1569,7 +1569,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 22:57:14 +0000">11/16/2022</time>
+    <time datetime="2022-12-14 18:14:42 +0000">12/14/2022</time>
     
   
 
@@ -1638,7 +1638,7 @@ Pour en savoir plus sur les objets Kubernetes, nous vous recommandons vivement d
 </div>
 </div>
 <div class="sect1">
-<h2 id="objets-kubernetes-persistentvolumeclaim">Objets Kubernetes PersistentVolumeClaim</h2>
+<h2 id="kubernetes-persistentvolumeclaim-objets">Kubernetes <code>PersistentVolumeClaim</code> objets</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Un Kubernetes <code>PersistentVolumeClaim</code> Cet objet est une demande de stockage faite par un utilisateur du cluster Kubernetes.</p>
@@ -1758,7 +1758,7 @@ Vous pouvez utiliser le <code>cloneFromPVC</code> et <code>splitOnClone</code> A
 </div>
 </div>
 <div class="sect1">
-<h2 id="objets-de-volume-persistant-kubernetes">Objets de volume persistant Kubernetes</h2>
+<h2 id="kubernetes-persistentvolume-objets">Kubernetes <code>PersistentVolume</code> objets</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Un Kubernetes <code>PersistentVolume</code> Cet objet représente un élément de stockage mis à disposition du cluster Kubernetes. Il dispose d&#8217;un cycle de vie indépendant du pod qui l&#8217;utilise.</p>
@@ -1791,7 +1791,7 @@ Création de Trident <code>PersistentVolume</code> Les objets et les enregistre 
 </div>
 </div>
 <div class="sect1">
-<h2 id="objets-de-classe-de-stockage-kubernetes">Objets de classe de stockage Kubernetes</h2>
+<h2 id="kubernetes-storageclass-objets">Kubernetes <code>StorageClass</code> objets</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Kubernetes <code>StorageClass</code> les objets sont spécifiés par le nom dans <code>PersistentVolumeClaims</code> provisionner le stockage avec un ensemble de propriétés. La classe de stockage elle-même identifie le mécanisme de provisionnement à utiliser et définit cet ensemble de propriétés, comme le mécanisme de provisionnement le comprend.</p>
@@ -2069,7 +2069,7 @@ volumeBindingMode: Immediate</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="objets-kubernetes-volumeclass">Objets Kubernetes VolumeClass</h2>
+<h2 id="kubernetes-volumesnapshotclass-objets">Kubernetes <code>VolumeSnapshotClass</code> objets</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Kubernetes <code>VolumeSnapshotClass</code> les objets sont similaires à <code>StorageClasses</code>. Ils aident à définir plusieurs classes de stockage. Ils sont référencés par les snapshots de volume pour associer le snapshot à la classe d&#8217;instantanés requise. Chaque snapshot de volume est associé à une classe de snapshot de volume unique.</p>
@@ -2093,7 +2093,7 @@ deletionPolicy: Delete</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="objets-kubernetes-volumesnapshot">Objets Kubernetes VolumeSnapshot</h2>
+<h2 id="kubernetes-volumesnapshot-objets">Kubernetes <code>VolumeSnapshot</code> objets</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Un Kubernetes <code>VolumeSnapshot</code> objet est une demande de création d&#8217;un snapshot de volume. Tout comme un volume persistant représente une demande de copie Snapshot d&#8217;un volume effectuée par un utilisateur, une copie Snapshot de volume est une demande de création d&#8217;un snapshot d&#8217;une demande de volume persistant existante.</p>
@@ -2117,7 +2117,7 @@ Le silecyle d&#8217;un VolumeSnapshot est indépendant de la demande de volume p
 </div>
 </div>
 <div class="sect1">
-<h2 id="objets-kubernetes-volumecontent">Objets Kubernetes VolumeContent</h2>
+<h2 id="kubernetes-volumesnapshotcontent-objets">Kubernetes <code>VolumeSnapshotContent</code> objets</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Un Kubernetes <code>VolumeSnapshotContent</code> objet représente un snapshot pris à partir d&#8217;un volume déjà provisionné. Il est similaire à un <code>PersistentVolume</code> la désignation rr signifie un snapshot provisionné sur le cluster de stockage. Similaire à <code>PersistentVolumeClaim</code> et <code>PersistentVolume</code> lors de la création d&#8217;un snapshot, le <code>VolumeSnapshotContent</code> l&#8217;objet conserve un mappage un-à-un avec le <code>VolumeSnapshot</code> objet, qui avait demandé la création de snapshot.</p>
@@ -2143,7 +2143,7 @@ Création de Trident <code>VolumeSnapshotContent</code> Les objets et les enregi
 </div>
 </div>
 <div class="sect1">
-<h2 id="objets-kubernetes-customresourcedefinition">Objets Kubernetes CustomResourceDefinition</h2>
+<h2 id="kubernetes-customresourcedefinition-objets">Kubernetes <code>CustomResourceDefinition</code> objets</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Les ressources personnalisées Kubernetes sont des terminaux de l&#8217;API Kubernetes définis par l&#8217;administrateur et utilisés pour regrouper des objets similaires. Kubernetes prend en charge la création de ressources personnalisées pour le stockage d&#8217;une collection d&#8217;objets. Vous pouvez obtenir ces définitions de ressources en cours d&#8217;exécution <code>kubectl get crds</code>.</p>
@@ -2176,7 +2176,7 @@ Création de Trident <code>VolumeSnapshotContent</code> Les objets et les enregi
 </div>
 </div>
 <div class="sect1">
-<h2 id="classes-de-stockage-trident">Classes de stockage Trident</h2>
+<h2 id="trident-storageclass-objets">Trident <code>StorageClass</code> objets</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Trident crée des classes de stockage correspondantes pour Kubernetes <code>StorageClass</code> objets spécifiés <code>csi.trident.netapp.io</code>/<code>netapp.io/trident</code> dans leur champ de provisionnement. Le nom de classe de stockage correspond à celui du système Kubernetes <code>StorageClass</code> objet qu&#8217;il représente.</p>
@@ -2225,7 +2225,7 @@ Il s&#8217;agit de l&#8217;un des deux types d&#8217;objet que vous créez et g�
 </div>
 </div>
 <div class="sect1">
-<h2 id="objets-storagepool-pour-trident">Objets StoragePool pour Trident</h2>
+<h2 id="trident-storagepool-objets">Trident <code>StoragePool</code> objets</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Les pools de stockage représentent les emplacements distincts disponibles pour le provisionnement sur chaque système back-end. Pour ONTAP, ces derniers correspondent à des agrégats dans des SVM. Pour NetApp HCI/SolidFire, ils correspondent aux bandes QoS spécifiées par l&#8217;administrateur. Pour Cloud Volumes Service, ces régions correspondent à des régions du fournisseur cloud. Chaque pool de stockage dispose d&#8217;un ensemble d&#8217;attributs de stockage distincts, qui définissent ses caractéristiques de performances et ses caractéristiques de protection des données.</p>
@@ -2236,7 +2236,7 @@ Il s&#8217;agit de l&#8217;un des deux types d&#8217;objet que vous créez et g�
 </div>
 </div>
 <div class="sect1">
-<h2 id="objets-de-volume-trident">Objets de volume Trident</h2>
+<h2 id="trident-volume-objets">Trident <code>Volume</code> objets</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Les volumes sont l&#8217;unité de provisionnement de base, comprenant les terminaux back-end, tels que les partages NFS et les LUN iSCSI. Dans Kubernetes, ces derniers correspondent directement à <code>PersistentVolumes</code>. Lorsque vous créez un volume, assurez-vous qu&#8217;il possède une classe de stockage, qui détermine l&#8217;emplacement de provisionnement de ce volume, ainsi que sa taille.</p>
@@ -2385,7 +2385,7 @@ Lors de la suppression d&#8217;un volume persistant avec des snapshots associés
 </div>
 </div>
 <div class="sect1">
-<h2 id="objets-snapshot-trident">Objets Snapshot Trident</h2>
+<h2 id="trident-snapshot-objets">Trident <code>Snapshot</code> objets</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Les snapshots sont une copie de volumes à un point dans le temps, qui peut être utilisée pour provisionner de nouveaux volumes ou restaurer l&#8217;état de ces volumes. Dans Kubernetes, ces derniers correspondent directement à <code>VolumeSnapshotContent</code> objets. Chaque snapshot est associé à un volume, qui est la source des données du snapshot.</p>
@@ -2469,7 +2469,7 @@ Dans Kubernetes, ces objets sont gérés automatiquement. Vous pouvez les affich
 </div>
 </div>
 <div class="sect1">
-<h2 id="objet-resourcequota-astra-trident">Objet Resourcequota Astra Trident</h2>
+<h2 id="astra-trident-resourcequota-objet">Astra Trident <code>ResourceQuota</code> objet</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>La déamOnset Trident utilise un <code>system-node-critical</code> Classe de priorité&#8212;&#8203;la classe de priorité la plus élevée disponible dans Kubernetes&#8212;&#8203;pour s&#8217;assurer que Astra Trident peut identifier et nettoyer les volumes lors de l&#8217;arrêt normal des nœuds. Il permet également aux pods Trident de s&#8217;assurer que ces derniers anticipent les charges de travail dans les clusters où la pression des ressources est élevée.</p>
@@ -2503,7 +2503,7 @@ spec:
 <p>Pour plus d&#8217;informations sur les quotas de ressources, reportez-vous à la section <a href="https://kubernetes.io/docs/concepts/policy/resource-quotas/" target="_blank" rel="noopener">"Kubernetes : quotas de ressources"</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="nettoyez-resourcequota-si-linstallation-échoue">Nettoyez Resourcequota si l&#8217;installation échoue</h3>
+<h3 id="nettoyez-resourcequota-si-linstallation-échoue">Nettoyez <code>ResourceQuota</code> si l&#8217;installation échoue</h3>
 <div class="paragraph">
 <p>Dans les rares cas où l&#8217;installation échoue après le <code>ResourceQuota</code> l&#8217;objet est créé, commencez par essayer <a href="../trident-managing-k8s/uninstall-trident.html">"désinstallation"</a> puis réinstaller.</p>
 </div>
@@ -2512,7 +2512,7 @@ spec:
 </div>
 </div>
 <div class="sect2">
-<h3 id="supprimez-resourcequota">Supprimez Resourcequota</h3>
+<h3 id="déposer-resourcequota">Déposer <code>ResourceQuota</code></h3>
 <div class="paragraph">
 <p>Si vous préférez contrôler l&#8217;allocation de vos ressources, vous pouvez supprimer Astra Trident <code>ResourceQuota</code> objet utilisant la commande :</p>
 </div>

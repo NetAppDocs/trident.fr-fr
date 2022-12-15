@@ -1569,7 +1569,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 22:57:14 +0000">11/16/2022</time>
+    <time datetime="2022-12-14 18:14:42 +0000">12/14/2022</time>
     
   
 
@@ -1597,7 +1597,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="gestion-des-systèmes-back-end-tridentctl-avec-tridentbackendconfig">Gestion des systèmes back-end tridentctl avec TridentBackendConfig</h2>
+<h2 id="gérez-tridentctl-utilisation-de-systèmes-back-end-tridentbackendconfig">Gérez <code>tridentctl</code> utilisation de systèmes back-end <code>TridentBackendConfig</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Cette section aborde les étapes requises pour gérer les systèmes back-end créés à l&#8217;aide de <code>tridentctl</code> Directement via l&#8217;interface Kubernetes en créant la <code>TridentBackendConfig</code> objets.</p>
@@ -1721,7 +1721,7 @@ secret/backend-tbc-ontap-san-secret created</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="étape-2-création-dun-cr-tridentbackendconfig">Étape 2 : création d&#8217;un CR TridentBackendConfig</h3>
+<h3 id="étape-2-créer-un-tridentbackendconfig-cr">Étape 2 : créer un <code>TridentBackendConfig</code> CR</h3>
 <div class="paragraph">
 <p>L&#8217;étape suivante consiste à créer un <code>TridentBackendConfig</code> CR qui se lie automatiquement au pré-existant <code>ontap-nas-backend</code> (comme dans cet exemple). Assurez-vous que les exigences suivantes sont respectées :</p>
 </div>
@@ -1790,7 +1790,7 @@ tridentbackendconfig.trident.netapp.io/tbc-ontap-nas-backend created</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="étape-3-vérifier-létat-du-cr-tridentbackendconfig">Étape 3 : vérifier l&#8217;état du CR TridentBackendConfig</h3>
+<h3 id="étape-3-vérifier-létat-du-tridentbackendconfig-cr">Étape 3 : vérifier l&#8217;état du <code>TridentBackendConfig</code> CR</h3>
 <div class="paragraph">
 <p>Après le <code>TridentBackendConfig</code> a été créée, sa phase doit être <code>Bound</code>. Il devrait également refléter le même nom de back-end et UUID que celui du back-end existant.</p>
 </div>
@@ -1816,7 +1816,7 @@ tridentctl get backend -n trident
 </div>
 </div>
 <div class="sect1">
-<h2 id="gestion-des-systèmes-back-end-tridentbackendconfig-à-laide-de-tridentctl">Gestion des systèmes back-end TridentBackendConfig à l&#8217;aide de tridentctl</h2>
+<h2 id="gérez-tridentbackendconfig-utilisation-de-systèmes-back-end-tridentctl">Gérez <code>TridentBackendConfig</code> utilisation de systèmes back-end <code>tridentctl</code></h2>
 <div class="sectionbody">
 <div class="literalblock">
 <div class="content">
@@ -1847,7 +1847,7 @@ tridentctl get backend ontap-san-backend -n trident
 </div>
 </div>
 <div class="sect2">
-<h3 id="étape-1-confirmer-la-suppression-de-la-stratégie-est-définie-sur-conserver">Étape 1 : confirmer la suppression de la stratégie est définie sur conserver</h3>
+<h3 id="étape-1-confirmer-deletionpolicy-est-défini-sur-retain">Étape 1 : confirmer <code>deletionPolicy</code> est défini sur <code>retain</code></h3>
 <div class="paragraph">
 <p>Passons en revue les avantages de <code>deletionPolicy</code>. Il doit être défini sur <code>retain</code>. Cela permet de s&#8217;assurer que lorsqu&#8217;un <code>TridentBackendConfig</code> La demande de modification est supprimée, la définition de l&#8217;arrière-plan est toujours présente et peut être gérée avec <code>tridentctl</code>.</p>
 </div>
@@ -1881,7 +1881,7 @@ Ne pas passer à l&#8217;étape suivante sauf si <code>deletionPolicy</code> est
 </div>
 </div>
 <div class="sect2">
-<h3 id="étape-2-supprimez-le-cr-tridentbackendconfig">Étape 2 : supprimez le CR TridentBackendConfig</h3>
+<h3 id="étape-2-supprimez-le-tridentbackendconfig-cr">Étape 2 : supprimez le <code>TridentBackendConfig</code> CR</h3>
 <div class="paragraph">
 <p>La dernière étape consiste à supprimer le <code>TridentBackendConfig</code> CR. Après avoir confirmé le <code>deletionPolicy</code> est défini sur <code>retain</code>, vous pouvez poursuivre la suppression :</p>
 </div>

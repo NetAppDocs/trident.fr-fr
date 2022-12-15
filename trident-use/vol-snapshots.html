@@ -1569,7 +1569,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 22:57:14 +0000">11/16/2022</time>
+    <time datetime="2022-12-14 18:14:42 +0000">12/14/2022</time>
     
   
 
@@ -1597,6 +1597,7 @@ Cette fonctionnalité est disponible à partir de Kubernetes 1.17 (version bêta
 </table>
 </div>
 <div class="paragraph">
+<div class="title">Ce dont vous avez besoin</div>
 <p>La création de snapshots de volumes nécessite la création d&#8217;un contrôleur d&#8217;instantanés externe et de définitions de ressources personnalisées (CRD). Il en va de la responsabilité de l&#8217;orchestrateur Kubernetes utilisé (par exemple : Kubeadm, GKE, OpenShift).</p>
 </div>
 </div>
@@ -1713,7 +1714,7 @@ CSI Snapshotter fournit un <a href="https://github.com/kubernetes-csi/external-s
 </div>
 </div>
 <div class="sect1">
-<h2 id="étape-1-configurer-une-classe-volumesnapshotclass">Étape 1 : configurer une classe VolumeSnapshotClass</h2>
+<h2 id="étape-1-configurer-un-volumesnapshotclass">Étape 1 : configurer un <code>VolumeSnapshotClass</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Avant de créer un snapshot de volume, configurez un lien :../trident-Reference/objects.html[<code>VolumeSnapshotClass</code>^].</p>
