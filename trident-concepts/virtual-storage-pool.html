@@ -1569,7 +1569,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 22:57:14 +0000">11/16/2022</time>
+    <time datetime="2023-01-03 18:22:05 +0000">01/03/2023</time>
     
   
 
@@ -1616,7 +1616,7 @@ Lors de la définition des pools de stockage virtuel, n&#8217;essayez pas de ré
 <p>La plupart des aspects sont spécifiés dans des termes spécifiques au système back-end. Il est primordial que les valeurs de l&#8217;aspect ne soient pas exposées en dehors du conducteur du back-end et ne soient pas disponibles pour la correspondance dans <code>StorageClasses</code>. À la place, l&#8217;administrateur définit un ou plusieurs libellés pour chaque pool virtuel. Chaque étiquette est une paire clé:valeur et les étiquettes sont souvent répandues sur différents systèmes back-end. Tout comme les aspects, les étiquettes peuvent être spécifiées par pool ou globales au back-end. Contrairement aux aspects, qui ont des noms et des valeurs prédéfinis, l&#8217;administrateur dispose d&#8217;une entière discrétion pour définir les clés et les valeurs de libellé selon les besoins.</p>
 </div>
 <div class="paragraph">
-<p>A <code>StorageClass</code> identifie le pool virtuel à utiliser en référençant les étiquettes dans un paramètre de sélection. Les sélecteurs de pool virtuel prennent en charge six opérateurs :</p>
+<p>A <code>StorageClass</code> identifie le pool virtuel à utiliser en référençant les étiquettes dans un paramètre de sélection. Les sélecteurs de pool virtuel prennent en charge les opérateurs suivants :</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1628,29 +1628,39 @@ Lors de la définition des pools de stockage virtuel, n&#8217;essayez pas de ré
 <tr>
 <th class="tableblock halign-left valign-top">Opérateur</th>
 <th class="tableblock halign-left valign-top">Exemple</th>
-<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">La valeur d&#8217;étiquette d&#8217;un pool doit :</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>=</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">performance=premium</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">La valeur d&#8217;étiquette d&#8217;un pool doit correspondre</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Correspondance</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>!=</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">performance !=extrême</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">La valeur d&#8217;étiquette d&#8217;un pool ne doit pas correspondre</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ne correspond pas</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>in</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">emplacement à (est, ouest)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">La valeur d&#8217;étiquette d&#8217;un pool doit être comprise dans l&#8217;ensemble de valeurs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Être dans l&#8217;ensemble de valeurs</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>notin</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">performances notin (argent, bronze)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">La valeur d&#8217;étiquette d&#8217;un pool ne doit pas être b</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ne pas être dans l&#8217;ensemble de valeurs</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;key&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">la protection</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Existe avec n&#8217;importe quelle valeur</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>!&lt;key&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">!protection</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N&#8217;existe pas</p></td>
 </tr>
 </tbody>
 </table>
