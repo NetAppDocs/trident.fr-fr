@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>trident | NetApp Documentation</title>
+    <atom:link href="https://docs.netapp.com/fr-fr/trident/feed.xml" rel="self" type="application/rss+xml"/>
+    <link>https://docs.netapp.com/fr-fr/trident</link>
+    <description>The latest updates from NetApp Documentation</description>
+    <language>fr-fr</language>
+    <ttl>60</ttl>
+    <pubDate>Mon, 11 Mar 2024 09:29:18 +0000</pubDate>
+    <lastBuildDate>Mon, 11 Mar 2024 09:29:18 +0000</lastBuildDate>
+    
+    
+    
+    <item>
+      <title>Quoi de neuf (7 Mar 2024)</title>
+      <pubDate>Thu, 07 Mar 2024 06:20:42 +0000</pubDate>
+      <link>https://docs.netapp.com/fr-fr/trident/trident-rn.html?time=1709792442</link>
+      <guid isPermaLink="false">Thu, 07 Mar 2024 06:20:42 +0000</guid>
+      <description><![CDATA[ NetApp améliore et améliore continuellement ses produits et services. Voici quelques-unes des dernières fonctionnalités, améliorations et correctifs de la dernière version d&quot;Astra Trident. ]]></description>
+    </item>
+    
+    
+  </channel>
+</rss>
