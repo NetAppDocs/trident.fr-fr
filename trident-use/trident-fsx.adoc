@@ -43,7 +43,7 @@ NOTE: Assurez-vous de suivre les étapes de préparation des nœuds requises pou
 +
 ** Les volumes SMB sont pris en charge à l'aide de `ontap-nas` conducteur uniquement.
 ** Les volumes SMB ne sont pas pris en charge par le module d'extension Astra Trident EKS.
-** Astra Trident prend en charge les volumes SMB montés sur des pods qui s'exécutent uniquement sur des nœuds Windows. Reportez-vous à la section <<Préparez-vous au provisionnement des volumes SMB>> pour plus d'informations.
+** Astra Trident prend en charge les volumes SMB montés sur des pods qui s'exécutent uniquement sur des nœuds Windows. Voir link:../trident-use/trident-fsx-storage-backend.html#prepare-to-provision-smb-volumes["Préparez-vous au provisionnement des volumes SMB"] pour plus de détails.
 
 
 * Avant Astra Trident 24.02, les volumes créés sur des systèmes de fichiers Amazon FSX pour lesquels les sauvegardes automatiques sont activées ne pouvaient pas être supprimés par Trident. Pour éviter ce problème dans Astra Trident 24.02 ou version ultérieure, spécifiez le `fsxFilesystemID`, AWS `apiRegion`, AWS `apikey`Et AWS `secretKey` Dans le fichier de configuration back-end pour AWS FSX pour ONTAP.

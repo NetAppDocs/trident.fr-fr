@@ -747,8 +747,6 @@
   <block id="7669b0b69333e81c7c208aea3d1a3c6f" category="list-text"><block ref="7669b0b69333e81c7c208aea3d1a3c6f" category="inline-link-rx"></block></block>
   <block id="cce172403b73af5c2a4e93081affcc7f" category="inline-link">Astra Trident 21.10</block>
   <block id="606b9e83fb467a43b3065d4fd5037094" category="list-text"><block ref="606b9e83fb467a43b3065d4fd5037094" category="inline-link-rx"></block></block>
-  <block id="a93e9e44b7a375a4236260f5ff2b251e" category="inline-link">Astra Trident 21.07</block>
-  <block id="3830d427e146a8a64454dc373d9b1502" category="list-text"><block ref="3830d427e146a8a64454dc373d9b1502" category="inline-link-rx"></block></block>
   <block id="c217b0ac2dd5504f79ba78b220a9c358" category="summary">NetApp prend en charge Trident de plusieurs façons. De nombreuses options d'auto-assistance gratuites sont disponibles 24 h/24 et 7 j/7, par exemple un canal de discorde.</block>
   <block id="db5eb84117d06047c97c9a0191b5fffe" category="doc">Assistance</block>
   <block id="0f5dc79c8003190ab8f758b1748ba0d8" category="summary">NetApp améliore et améliore continuellement ses produits et services. Voici quelques-unes des dernières fonctionnalités, améliorations et correctifs de la dernière version d'Astra Trident.</block>
@@ -3323,8 +3321,6 @@ Yesfootnote:5[] : pris en charge par Astra Trident</block>
   <block id="1d6d13ec4b4db5f5d3487f7624ba2730" category="paragraph"><block ref="1d6d13ec4b4db5f5d3487f7624ba2730" category="inline-link-macro-rx"></block></block>
   <block id="ecdd0ca053bad0e4dd13561a556a27a2" category="inline-link-macro">21.10</block>
   <block id="26868cf4e34a30cd32082fe3a81f7a5b" category="paragraph"><block ref="26868cf4e34a30cd32082fe3a81f7a5b" category="inline-link-macro-rx"></block></block>
-  <block id="b327964aef72f8262abc54b607c5acf2" category="inline-link-macro">21.07</block>
-  <block id="989e34685c65cba24936de4972bf6714" category="paragraph"><block ref="989e34685c65cba24936de4972bf6714" category="inline-link-macro-rx"></block></block>
   <block id="1cf7168782187634fbc408c66b895dbc" category="section-title">Soutien de la communauté</block>
   <block id="314c5cdde6da009a7b0571d60c8422ae" category="paragraph">Notre projet Astra comprend une communauté publique très vivante d'utilisateurs de conteneurs (y compris les développeurs Astra Trident) <block ref="6130664377fa14615bb1abd5257e9714" category="inline-link-macro-rx"></block>. C'est un endroit idéal pour poser des questions d'ordre général sur le projet et discuter de sujets connexes avec des pairs partageant des mêmes idées.</block>
   <block id="965b11d07d6acceebc9efec23e5e74a9" category="section-title">Support technique NetApp</block>
@@ -3878,11 +3874,9 @@ ou<block ref="28994d623a492f2e5b2eb3ffbcdd4dd0" prefix=" " category="inline-code
   <block id="2af6474930eac7fe47a45b3658bef5bf" category="image-alt">eks aws 05</block>
   <block id="cec2926f3f12e3edd6577d4f1edd4e22" category="section-title">Installez/désinstallez le module complémentaire Astra Trident EKS à l'aide de l'interface de ligne de commande</block>
   <block id="64f82c86eee854db6eefc72dbf352f85" category="paragraph-title">Installez le module complémentaire Astra Trident EKS à l'aide de l'interface de ligne de commande :</block>
-  <block id="8a9b3d7ba157ca60525a14459fd3f806" category="paragraph">Les exemples de commandes suivants installent le module complémentaire Astra Trident EKS :<block ref="b0cca58f8f0307eaab81f8066a9e1952" prefix=" " category="inline-code"></block><block ref="c1ad0081ff15bc4dd47b3591865bef09" prefix=" " category="inline-code"></block> (avec une version dédiée)</block>
   <block id="5fef1c4f3767262a0ef823aaa69e1703" category="paragraph-title">Désinstallez le module complémentaire Astra Trident EKS à l'aide de l'interface de ligne de commande :</block>
   <block id="e1f272eb0b2aaba7b1cb689543f653e0" category="paragraph">La commande suivante désinstalle le module complémentaire Astra Trident EKS :<block ref="09a3e9c644b219341aa6e2e8a8922e59" prefix=" " category="inline-code"></block></block>
   <block id="c6861e88433ccd90f1ce8143d7e5fed0" category="sidebar">Configurer le module complémentaire Astra Trident EKS sur le cluster EKS</block>
-  <block id="7ed15597cafdca20d5859b7e394bc0ab" category="doc">Configurez le module complémentaire Astra Trident EKS version 23.10 sur le cluster EKS</block>
   <block id="4262957957c18f0bab73d8ddafcb642f" category="list-text">Le service Azure NetApp Files ne prend pas en charge des volumes de moins de 100 Go. ASTRA Trident crée automatiquement des volumes de 100 Gio si un volume plus petit est demandé.</block>
   <block id="f825c914a8659f5b0de8a9219ab365b6" category="paragraph">Pour redimensionner le volume persistant 20MiB nouvellement créé à 1 Gio, modifiez la demande de volume persistant et définissez-la<block ref="02b011e6fe36e26e5f7365ba08bf5a48" prefix=" " category="inline-code"></block> À 1 Gio :</block>
   <block id="f3554362e5b550c58586036685aca0f6" category="list-text">Basé sur les informations d'identification : ce mode requiert des autorisations suffisantes pour le backend ONTAP. Il est recommandé d'utiliser un compte associé à un rôle de connexion de sécurité prédéfini, par exemple<block ref="21232f297a57a5a743894a0e4a801fc3" prefix=" " category="inline-code"></block> ou<block ref="6173aa5206484b5224450952747c7148" prefix=" " category="inline-code"></block> Pour garantir une compatibilité maximale avec les versions ONTAP.</block>
@@ -4273,4 +4267,7 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="53f64465dc89ebfc8f426b3cdf4d1614" category="sidebar">Créez un rôle IAM et le code AWS secret</block>
   <block id="0a3c6c3b1b9418c792ec73b934ca8fdd" category="sidebar">Configurer le back-end de stockage</block>
   <block id="50399b7d6597b32502708277dd2be03c" category="sidebar">Configuration de la classe de stockage et de la PVC</block>
+  <block id="264f54d7bb69e0d02e466e1cb2cf3f28" category="doc">Configurez le module d'extension Astra Trident EKS sur un cluster EKS</block>
+  <block id="1cc677653e529e467295ac3f9837cb49" category="paragraph">L'exemple de commandes suivant installe le module complémentaire Astra Trident EKS :<block ref="b953d7904e30d543f476863b48e725fe" prefix=" " category="inline-code"></block><block ref="f8f93460dda1ad1de5db2f2f1c577532" prefix=" " category="inline-code"></block> (avec une version dédiée)</block>
+  <block id="5ec02c0ee9e1b493e42f3bb5a9e8b94c" category="list-text">Astra Trident prend en charge les volumes SMB montés sur des pods qui s'exécutent uniquement sur des nœuds Windows. Voir <block ref="5d9770278862f1ca4af19e761a5fa655" category="inline-link-macro-rx"></block> pour plus de détails.</block>
 </blocks>
