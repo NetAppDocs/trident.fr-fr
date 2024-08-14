@@ -16,6 +16,14 @@ entries:
       url: "/trident-use/anf-prep.html"
     - title: Exemples et options de configuration
       url: "/trident-use/anf-examples.html"
+  - title: Google Cloud NetApp volumes
+    entries:
+    - title: Présentation
+      url: "/trident-use/gcnv.html"
+    - title: Préparez la configuration
+      url: "/trident-use/gcnv-prep.html"
+    - title: Exemples et options de configuration
+      url: "/trident-use/gcnv-examples.html"
   - title: Cloud Volumes Service pour Google Cloud
     url: "/trident-use/gcp.html"
   - title: NetApp HCI ou SolidFire
