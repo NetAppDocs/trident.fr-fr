@@ -163,6 +163,9 @@ Le cryptage LUKS n'est pas pris en charge pour NVMe/TCP. | « »
 
 
 | `nameTemplate` | Modèle pour créer des noms de volume personnalisés. | « » 
+
+
+| `limitVolumePoolSize` | Taille maximale des FlexVol pouvant être demandées lors de l'utilisation de LUN dans le back-end ONTAP-san Economy. | « » (non appliqué par défaut) 
 |===
 
 

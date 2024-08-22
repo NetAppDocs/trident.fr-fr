@@ -475,7 +475,6 @@
   <block id="876885770cf58d20ef5672cc5594e85d" category="inline-link">Pour plus d'informations sur la configuration de l'hôte NFS, consultez ici</block>
   <block id="0a19ca3d1db7e5bc24b58f73b91c3f49" category="paragraph">Contrôle granulaire des options de montage NFS ; par défaut : «-o nfssvers=3 ». *Disponible uniquement pour le<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> et<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> pilotes*.<block ref="71f7a3f48cfd3876cffba401813b7db0" category="inline-link-rx"></block>.</block>
   <block id="3b890f58db76bb3003ada171cd18c4db" category="cell"><block ref="9d8592d88bbb76c68c01d830f091dacc" prefix="" category="inline-code"></block></block>
-  <block id="5c5adadf8175fd69d4af9bfdb608c42c" category="paragraph">Taille maximale du volume requesable et taille du volume parent qtree. *Pour le<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> Driver, cette option limite en outre la taille des volumes FlexVol qu'elle crée*.</block>
   <block id="07f6b23cad3d6da54012935ff972affe" category="cell"><block ref="8b08152c170e621ffcc8bfac7c4d6785" prefix="" category="inline-code"></block></block>
   <block id="3890063556e337d458019437f027030b" category="paragraph">Les options par défaut sont disponibles pour éviter d'avoir à les spécifier sur chaque volume que vous créez :</block>
   <block id="a6bddf19eed00dbe2199864dee8454ce" category="cell"><block ref="cae77b049bf504af7afc43b99b6c5213" prefix="" category="inline-code"></block></block>
@@ -4325,4 +4324,11 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="23fa813a6884f33dc0d2070ae5260e6a" category="section-title">Détails du pilote Google Cloud NetApp volumes</block>
   <block id="5fb193ca50759ba375397b4085f1116f" category="paragraph">ASTRA Trident fournit le<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block> pilote pour communiquer avec le cluster. Les modes d'accès pris en charge sont : _ReadWriteOnce_ (RWO), _ReadOnlyMey_ (ROX), _ReadWriteMaly_ (RWX), _ReadWriteOncePod_ (RWOP).</block>
   <block id="5ab9649a1218ec1b35bfb38efbeaea76" category="cell"><block ref="94594b2ccbc8e0d220ad37504461650b" prefix="" category="inline-code"></block></block>
+  <block id="74d08e13aea757b8172499f067668443" category="paragraph">Taille maximale du volume éligible.</block>
+  <block id="f14a3ef36727dfbbea91c1d6b3fdbede" category="cell"><block ref="c8f83e727d4a4255a6485c24776e86bb" prefix="" category="inline-code"></block></block>
+  <block id="33fefa32caf35cd4691465f3592a0539" category="cell">*Pris en charge pour<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> les<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> pilotes et uniquement.* Limite la taille des FlexVol pour les modèles économiques ONTAP ONTAP-nas et ONTAP-SAN.</block>
+  <block id="1b75c146ff0568d5fc11072b08cfe580" category="section-title">Limitez la taille maximale des volumes FlexVol créés par Trident</block>
+  <block id="913d5950907a31c9d3ea6cd0a3b6a524" category="paragraph">Pour configurer la taille maximale des volumes FlexVol utilisés comme pools pour les pilotes ONTAP-san-Economy et ONTAP-nas-Economy, utilisez le<block ref="c8f83e727d4a4255a6485c24776e86bb" prefix=" " category="inline-code"></block> paramètre dans votre<block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block> définition.</block>
+  <block id="ae7be78c2d3d933d426bc82820accfae" category="cell">Taille de FlexVol maximale requise lors de l'utilisation de qtrees dans le back-end ONTAP-nas-Economy.</block>
+  <block id="d981d675ba14b9478a2c2da5c7df780b" category="cell">Taille maximale des FlexVol pouvant être demandées lors de l'utilisation de LUN dans le back-end ONTAP-san Economy.</block>
 </blocks>
