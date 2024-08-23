@@ -115,12 +115,6 @@ Lorsque la version Kubernetes du cluster est mise à niveau vers une version pri
 NOTE: Si le cluster est mis à niveau vers une version non prise en charge, l'opérateur empêche l'installation d'Astra Trident. Si Astra Trident a déjà été installé avec l'opérateur, un avertissement s'affiche pour indiquer que l'Astra Trident est installé sur une version Kubernetes non prise en charge.
 
 ====
-.Gestion de clusters <strong>™ avec BlueXP (anciennement Cloud Manager)</strong>
-[%collapsible]
-====
-Avec link:https://docs.netapp.com/us-en/cloud-manager-kubernetes/concept-kubernetes.html["Astra Trident avec BlueXP"^], Vous pouvez effectuer la mise à niveau vers la dernière version d'Astra Trident, ajouter et gérer des classes de stockage, les connecter aux environnements de travail et sauvegarder des volumes persistants à l'aide de Cloud Backup Service. BlueXP prend en charge le déploiement Astra Trident à l'aide de l'opérateur Trident, soit manuellement, soit via Helm.
-
-====
 
 
 === À l'aide de `tridentctl`
