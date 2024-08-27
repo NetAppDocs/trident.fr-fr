@@ -115,6 +115,29 @@ defaults:
 ----
 
 
+== Configuration PVC pour l'importation de volumes LUKS
+
+Pour importer des volumes LUKS de façon dynamique, définissez l'annotation `trident.netapp.io/luksEncryption` sur `true` et incluez une classe de stockage LUKS activée dans la demande de volume virtuel, comme indiqué dans cet exemple.
+
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: luks-pvc
+  namespace: trident
+  annotations:
+    trident.netapp.io/luksEncryption: "true"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: luks-sc
+----
+
+
 == Faites pivoter une phrase de passe LUKS
 
 Vous pouvez faire pivoter la phrase de passe LUKS et confirmer la rotation.
