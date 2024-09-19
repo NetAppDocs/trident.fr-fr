@@ -112,6 +112,13 @@ NOTE: Par exemple, si les secrets CHAP ont tourné sur le contrôleur de stockag
 * LUN manquantes
 
 
+*Points à prendre en compte avant de mettre à niveau Trident*
+
+* Si seuls les igroups par nœud (introduits dans 23.04+) sont utilisés, l'auto-rétablissement iSCSI lance des renumérisations SCSI pour tous les périphériques du bus SCSI.
+* Si seuls les igroups dont le périmètre est back-end (obsolète à partir de la version 23.04) sont utilisés, l'auto-rétablissement iSCSI lance des renumérisations SCSI pour obtenir les ID de LUN exacts dans le bus SCSI.
+* Si une combinaison d'igroups par nœud et d'igroups scoped back-end est utilisée, l'autorétablissement iSCSI lance des renumérisations SCSI pour obtenir des ID de LUN exacts sur le bus SCSI.
+
+
 
 
 === Installez les outils iSCSI
