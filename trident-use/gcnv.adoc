@@ -49,13 +49,13 @@ Pour tirer parti de l'identité cloud dans Google Cloud, vous devez disposer des
 
 * Cluster Kubernetes déployé à l'aide de GKE.
 * Identité de la charge de travail et émetteur oidc configurés sur le cluster GKE.
-* ASTRA Trident installé, qui inclut le système `cloudProvider` à spécifier `"GCP"` et `cloudIdentity` spécifier l'identité de workload.
+* Trident installé, qui inclut le `cloudProvider` à spécifier `"GCP"` et `cloudIdentity` spécifier l'identité de la charge de travail.
 +
 [role="tabbed-block"]
 ====
 .Opérateur Trident
 --
-Pour installer Astra Trident à l'aide de l'opérateur Trident, modifiez `tridentorchestrator_cr.yaml` pour définir sur `cloudProvider` `"GCP"` et définir `cloudIdentity` sur `iam.gke.io/gcp-service-account: \cloudvolumes-admin-sa@mygcpproject.iam.gserviceaccount.com`.
+Pour installer Trident à l'aide de l'opérateur Trident, modifiez `tridentorchestrator_cr.yaml` pour définir sur `cloudProvider` `"GCP"` et définir `cloudIdentity` sur `iam.gke.io/gcp-service-account: \cloudvolumes-admin-sa@mygcpproject.iam.gserviceaccount.com`.
 
 Par exemple :
 
@@ -80,7 +80,7 @@ Définissez les valeurs des indicateurs *cloud-Provider (CP)* et *cloud-Identity
 `export CP="GCP"`
 `export ANNOTATION="iam.gke.io/gcp-service-account: \cloudvolumes-admin-sa@mygcpproject.iam.gserviceaccount.com"`
 
-L'exemple suivant installe Astra Trident et définit `cloudProvider` dans GCP à l'aide de la variable d'environnement `$CP` et définit le `cloudIdentity` à l'aide de la variable d'environnement `$ANNOTATION` :
+L'exemple suivant installe Trident et définit `cloudProvider` GCP à l'aide de la variable d'environnement `$CP` et définit le `cloudIdentity` à l'aide de la variable d'environnement `$ANNOTATION` :
 
 [listing]
 ----
@@ -94,7 +94,7 @@ Définissez les valeurs des indicateurs *cloud Provider* et *cloud Identity* à 
 `export CP="GCP"`
 `export ANNOTATION="iam.gke.io/gcp-service-account: \cloudvolumes-admin-sa@mygcpproject.iam.gserviceaccount.com"`
 
-L'exemple suivant installe Astra Trident et définit le `cloud-provider` drapeau sur `$CP`, et `cloud-identity` sur `$ANNOTATION`:
+L'exemple suivant installe Trident et définit l' `cloud-provider`indicateur sur `$CP`, et `cloud-identity` sur `$ANNOTATION`:
 
 [listing]
 ----
