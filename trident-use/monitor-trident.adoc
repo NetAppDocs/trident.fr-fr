@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/monitor-trident.html 
-keywords: telemetry, astra trident, monitor, metrics, health, volume usage, autosupport 
-summary: 'Astra Trident fournit un ensemble de terminaux de metrics de Prometheus que vous pouvez utiliser pour surveiller les performances d"Astra Trident.' 
+keywords: telemetry, Trident, monitor, metrics, health, volume usage, autosupport 
+summary: 'Trident fournit un ensemble de terminaux de metrics Prometheus que vous pouvez utiliser pour contrôler les performances d"Trident.' 
 ---
-= Contrôle d'Astra Trident
+= Surveillez Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,25 +12,25 @@ summary: 'Astra Trident fournit un ensemble de terminaux de metrics de Prometheu
 
 
 [role="lead"]
-ASTRA Trident fournit un ensemble de terminaux de metrics Prometheus que vous pouvez utiliser pour contrôler les performances d'Astra Trident.
+Trident fournit un ensemble de terminaux de metrics Prometheus que vous pouvez utiliser pour contrôler les performances d'Trident.
 
 
 
 == Présentation
 
-Avec les metrics d'Astra Trident, vous pouvez :
+Grâce aux mesures fournies par Trident, vous pouvez :
 
-* Surveillez l'état et la configuration d'Astra Trident. Vous avez la possibilité d'examiner la réussite des opérations et de savoir si elles peuvent communiquer avec les systèmes back-end comme prévu.
+* Surveillez l'état et la configuration de Trident. Vous avez la possibilité d'examiner la réussite des opérations et de savoir si elles peuvent communiquer avec les systèmes back-end comme prévu.
 * Examiner les informations d'utilisation du système back-end et comprendre le nombre de volumes provisionnés sur un système back-end, ainsi que la quantité d'espace consommé, etc.
 * Conservez un mappage de la quantité de volumes provisionnés sur les systèmes back-end disponibles.
-* Suivi des performances. Découvrez le temps nécessaire pour communiquer avec Astra Trident aux systèmes back-end et effectuer les opérations.
+* Suivi des performances. Vous pouvez examiner le temps nécessaire à Trident pour communiquer avec les systèmes back-end et effectuer les opérations.
 
 
 
 NOTE: Par défaut, les metrics de Trident sont visibles sur le port cible `8001` au `/metrics` point final. Ces mesures sont *activées par défaut* lors de l'installation de Trident.
 
 .Ce dont vous avez besoin
-* Cluster Kubernetes avec Astra Trident installé.
+* Cluster Kubernetes avec Trident installé.
 * Instance Prometheus. Il peut s'agir d'un https://github.com/prometheus-operator/prometheus-operator["Déploiement conteneurisé par Prometheus"^] Vous pouvez également utiliser Prometheus en tant que https://prometheus.io/download/["application native"^].
 
 
@@ -38,7 +38,7 @@ NOTE: Par défaut, les metrics de Trident sont visibles sur le port cible `8001`
 
 == Étape 1 : définir une cible Prometheus
 
-Vous devez définir une cible Prometheus pour collecter les metrics et obtenir des informations sur les systèmes back-end gérés par Trident, les volumes qu'elle crée, etc. C'est ça https://netapp.io/2020/02/20/prometheus-and-trident/["Blog"^] Vous apprendrez comment utiliser Prometheus et Grafana avec Astra Trident pour récupérer des metrics. Découvrez sur ce blog comment exécuter Prometheus en tant qu'opérateur dans votre cluster Kubernetes et comment créer un ServiceMonitor pour obtenir des metrics Astra Trident.
+Vous devez définir une cible Prometheus pour collecter les metrics et obtenir des informations sur les systèmes back-end gérés par Trident, les volumes qu'elle crée, etc.  https://netapp.io/2020/02/20/prometheus-and-trident/["Blog"^]Vous apprendrez ainsi à utiliser Prometheus et Grafana avec Trident pour récupérer des metrics. Découvrez sur ce blog comment exécuter Prometheus en tant qu'opérateur dans votre cluster Kubernetes et comment créer un ServiceMonitor pour obtenir des metrics Trident.
 
 
 
@@ -67,9 +67,9 @@ spec:
   - port: metrics
     interval: 15s
 ----
-Cette définition de ServiceMonitor récupère les mesures renvoyées par le `trident-csi` et recherche spécifiquement le `metrics` point d'extrémité du service. Par conséquent, Prometheus est désormais configuré pour être en mesure de comprendre les metrics d'Astra Trident.
+Cette définition de ServiceMonitor récupère les mesures renvoyées par le `trident-csi` service et recherche spécifiquement le `metrics` point final du service. Par conséquent, Prometheus est désormais configuré pour comprendre les metrics de Trident.
 
-Outre les metrics directement disponibles par Astra Trident, kubelet expose beaucoup `kubelet_volume_*` metrics via son propre terminal de metrics Kubelet peut fournir des informations sur les volumes reliés, ainsi que sur les pods et autres opérations internes qu'elle gère. Reportez-vous à la section https://kubernetes.io/docs/concepts/cluster-administration/monitoring/["ici"^].
+Outre les mesures directement disponibles auprès de Trident, kubelet expose de nombreuses `kubelet_volume_*` mesures via son propre terminal de metrics. Kubelet peut fournir des informations sur les volumes reliés, ainsi que sur les pods et autres opérations internes qu'elle gère. Reportez-vous à la https://kubernetes.io/docs/concepts/cluster-administration/monitoring/["ici"^].
 
 
 
@@ -83,21 +83,21 @@ Voici quelques questions PromQL que vous pouvez utiliser :
 
 === Accédez aux informations sur l'état de santé de Trident
 
-* **Pourcentage de réponses HTTP 2XX d'Astra Trident**
+* **Pourcentage de réponses HTTP 2XX de Trident**
 
 
 [listing]
 ----
 (sum (trident_rest_ops_seconds_total_count{status_code=~"2.."} OR on() vector(0)) / sum (trident_rest_ops_seconds_total_count)) * 100
 ----
-* **Pourcentage de réponses REST d'Astra Trident par le code d'état**
+* **Pourcentage de réponses de REPOS de Trident via le code d'état**
 
 
 [listing]
 ----
 (sum (trident_rest_ops_seconds_total_count) by (status_code)  / scalar (sum (trident_rest_ops_seconds_total_count))) * 100
 ----
-* **Durée moyenne en ms des opérations effectuées par Astra Trident**
+* **Durée moyenne en ms des opérations effectuées par Trident**
 
 
 [listing]
@@ -106,7 +106,7 @@ sum by (operation) (trident_operation_duration_milliseconds_sum{success="true"})
 ----
 
 
-=== Découvrez les informations d'utilisation d'Astra Trident
+=== Obtenez des informations sur l'utilisation de Trident
 
 * **Taille moyenne du volume**
 
@@ -138,18 +138,18 @@ kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes * 100
 ----
 
 
-== Découvrez la télémétrie AutoSupport d'Astra Trident
+== En savoir plus sur la télémétrie Trident AutoSupport
 
-Par défaut, Astra Trident envoie des metrics de Prometheus et des informations de base back-end à NetApp dans un rythme quotidien.
+Par défaut, Trident envoie chaque jour des metrics Prometheus et des informations de base sur le back-end à NetApp.
 
-* Pour empêcher Astra Trident d'envoyer des metrics de Prometheus et des informations de base back-end à NetApp, passez le `--silence-autosupport` Indicateur lors de l'installation d'Astra Trident.
-* Astra Trident peut également envoyer des journaux de conteneur à NetApp support à la demande via `tridentctl send autosupport`. Vous devrez déclencher Astra Trident pour télécharger ses journaux. Avant de communiquer les journaux, vous devez accepter celui de NetApphttps://www.netapp.com/company/legal/privacy-policy/["politique de confidentialité"^].
-* Sauf mention contraire, Astra Trident extrait les journaux des 24 dernières heures.
-* Vous pouvez spécifier la période de rétention du journal avec le `--since` drapeau. Par exemple : `tridentctl send autosupport --since=1h`. Ces informations sont collectées et envoyées via un `trident-autosupport` Conteneur installé avec Astra Trident. Vous pouvez obtenir l'image conteneur à https://hub.docker.com/r/netapp/trident-autosupport["AutoSupport Trident"^].
+* Pour empêcher Trident d'envoyer des metrics Prometheus et des informations back-end de base à NetApp, transmettez le `--silence-autosupport` drapeau pendant l'installation de Trident.
+* Trident peut également envoyer des journaux de conteneur au support NetApp à la demande via `tridentctl send autosupport`. Vous devrez déclencher Trident pour télécharger ses journaux. Avant de soumettre des journaux, vous devez accepter les fichiers NetApp https://www.netapp.com/company/legal/privacy-policy/["politique de confidentialité"^].
+* Sauf mention contraire, Trident récupère les journaux des 24 dernières heures.
+* Vous pouvez spécifier la durée de conservation du journal avec l' `--since`indicateur. Par exemple : `tridentctl send autosupport --since=1h`. Ces informations sont collectées et envoyées via un `trident-autosupport` conteneur installé en même temps que Trident. Vous pouvez obtenir l'image du conteneur à l'adresse https://hub.docker.com/r/netapp/trident-autosupport["AutoSupport Trident"^].
 * Le AutoSupport Trident ne collecte pas et ne transmet pas d'informations à caractère personnel (PII) ou de données personnelles. Il est fourni avec un https://www.netapp.com/us/media/enduser-license-agreement-worldwide.pdf["CLUF"^] qui ne s'applique pas à l'image du conteneur Trident. Pour en savoir plus sur l'engagement de NetApp en faveur de la sécurité et de la confiance des données https://www.netapp.com/pdf.html?item=/media/14114-enduserlicenseagreementworldwidepdf.pdf["ici"^].
 
 
-Voici un exemple de charge utile envoyée par Astra Trident :
+Voici un exemple de charge envoyée par Trident :
 
 [listing]
 ----
@@ -176,6 +176,6 @@ items:
 
 
 
-== Désactivation des metrics d'Astra Trident
+== Désactivez les mesures Trident
 
 Pour désactiver** les mesures signalées, vous devez générer des YAML personnalisées (à l'aide de l' `--generate-custom-yaml` marquer) et modifiez-les pour supprimer le `--metrics` indicateur d'être appelé pour le `trident-main`conteneur.

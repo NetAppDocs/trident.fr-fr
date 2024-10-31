@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-docker/stor-config.html 
 keywords: deploy, trident, docker, trident for docker, nfs, iscsi, protocol, nfs protocol, iscsi protocol, configure host, host config, storage config, options, variables, ontap, element, storage pool, cvs, cvs-performance, service type, service level, cloud volumes service, cloud volumes 
-summary: Découvrez les options de configuration disponibles pour vos configurations Astra Trident. 
+summary: Consultez les options de configuration disponibles pour vos configurations Trident. 
 ---
 = Options de configuration du stockage
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: Découvrez les options de configuration disponibles pour vos configurat
 
 
 [role="lead"]
-Découvrez les options de configuration disponibles pour vos configurations Astra Trident.
+Consultez les options de configuration disponibles pour vos configurations Trident.
 
 
 
 == Options de configuration globale
 
-Ces options de configuration s'appliquent à toutes les configurations Astra Trident, quelle que soit la plateforme de stockage utilisée.
+Ces options de configuration s'appliquent à toutes les configurations Trident, quelle que soit la plateforme de stockage utilisée.
 
 [cols="3*"]
 |===
@@ -90,9 +90,9 @@ Adresse IP de la LIF de management ONTAP. Vous pouvez spécifier un nom de domai
 | `dataLIF`  a| 
 Adresse IP de la LIF de protocole.
 
-*Pilotes NAS ONTAP*: Nous vous recommandons de spécifier `dataLIF`. Si elle n'est pas fournie, Astra Trident extrait les LIF de données du SVM. Vous pouvez spécifier un nom de domaine complet (FQDN) à utiliser pour les opérations de montage NFS, permettant de créer un DNS Round-Robin pour équilibrer la charge sur plusieurs LIF de données.
+*Pilotes NAS ONTAP*: Nous vous recommandons de spécifier `dataLIF`. Si non fourni, Trident récupère les LIFs de données du SVM. Vous pouvez spécifier un nom de domaine complet (FQDN) à utiliser pour les opérations de montage NFS, permettant de créer un DNS Round-Robin pour équilibrer la charge sur plusieurs LIF de données.
 
-*Pilotes SAN ONTAP* : ne pas spécifier pour iSCSI. Astra Trident utilise link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["Mappage de LUN sélectif ONTAP"^] Pour découvrir les LIFs iSCI nécessaires à l'établissement d'une session multi-chemin. Un avertissement est généré si `dataLIF` est explicitement défini.
+*Pilotes SAN ONTAP* : ne pas spécifier pour iSCSI. Trident utilise link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["Mappage de LUN sélectif ONTAP"^] pour découvrir les LIF iSCI nécessaires à l'établissement d'une session à chemins multiples. Un avertissement est généré si `dataLIF` est explicitement défini.
  a| 
 `10.0.0.2`
 
@@ -120,7 +120,7 @@ Mot de passe pour se connecter au périphérique de stockage
 
 
 | `aggregate`  a| 
-Agrégat pour le provisionnement (facultatif ; si défini, doit être attribué au SVM) Pour le `ontap-nas-flexgroup` pilote, cette option est ignorée. Tous les agrégats affectés à un SVM sont utilisés pour provisionner un volume FlexGroup.
+Agrégat pour le provisionnement (facultatif ; si défini, doit être attribué au SVM) Pour le `ontap-nas-flexgroup` pilote, cette option est ignorée. Tous les agrégats affectés au SVM sont utilisés pour provisionner un volume FlexGroup.
  a| 
 `aggr1`
 
@@ -141,7 +141,7 @@ Contrôle granulaire des options de montage NFS ; par défaut : «-o nfssvers=3 
 
 
 | `igroupName`  a| 
-ASTRA Trident crée et gère chaque nœud `igroups` comme `netappdvp`.
+Trident crée et gère par nœud `igroups` en tant que `netappdvp`.
 
 Cette valeur ne peut pas être modifiée ou omise.
 
@@ -167,9 +167,9 @@ Le nombre maximal de qtrees par FlexVol doit être compris dans la plage [50, 30
 
 
 
-| `sanType` | *Pris en charge pour `ontap-san` pilote uniquement.*
-
-Utilisez pour sélectionner `iscsi` Pour iSCSI ou `nvme` Pour NVMe/TCP. | `iscsi` si vide 
+ a| 
+`sanType`
+| *Pris en charge pour le `ontap-san` pilote uniquement.* Utilisez pour sélectionner `iscsi` pour iSCSI, `nvme` pour NVMe/TCP ou `fcp` pour SCSI over Fibre Channel (FC). *'fcp' (SCSI over FC) est une fonctionnalité de présentation technique dans la version Trident 24.10.* | `iscsi` si vide 
 
 
 | `limitVolumePoolSize` | *Pris en charge pour `ontap-san-economy` les `ontap-san-economy` pilotes et uniquement.* Limite la taille des FlexVol pour les modèles économiques ONTAP ONTAP-nas et ONTAP-SAN.  a| 
@@ -214,9 +214,9 @@ Séparer un clone de son parent lors de sa création. Par défaut, la valeur est
 | `encryption`  a| 
 Active NetApp Volume Encryption (NVE) sur le nouveau volume ; valeur par défaut sur `false`. Pour utiliser cette option, NVE doit être sous licence et activé sur le cluster.
 
-Si NAE est activé sur le back-end, tous les volumes provisionnés dans Astra Trident seront activés par NAE.
+Si NAE est activé sur le back-end, tout volume provisionné dans Trident est activé.
 
-Pour plus d'informations, se reporter à : link:../trident-reco/security-reco.html["Fonctionnement d'Astra Trident avec NVE et NAE"].
+Pour plus d'informations, reportez-vous à la section : link:../trident-reco/security-reco.html["Fonctionnement de Trident avec NVE et NAE"].
  a| 
 vrai
 
@@ -230,9 +230,9 @@ L'option NAS pour les volumes NFS provisionnés est définie par défaut sur `77
 
 
 | `snapshotDir`  a| 
-Option NAS pour accéder à l' `.snapshot` répertoire, par défaut sur `false`
+Option NAS pour accéder au `.snapshot` répertoire.
  a| 
-`true`
+« True » pour NFSv4 « false » pour NFSv3
 
 
 
@@ -280,18 +280,77 @@ NOTE: Le `ontap-nas-economy` Le pilote n'est pas pris en charge par Docker Swarm
 
 Le `ontap-san-economy` Le pilote crée des volumes Docker en tant que LUN ONTAP dans un pool partagé de volumes FlexVol gérés automatiquement. De cette façon, chaque FlexVol n'est pas limité à un seul LUN et offre une meilleure évolutivité pour les charges de travail SAN. Selon les baies de stockage, ONTAP prend en charge jusqu'à 16384 LUN par cluster. Comme les volumes sont sous-LUN, ce pilote prend en charge les snapshots et le clonage granulaires par volume Docker.
 
-Choisissez le `ontap-nas-flexgroup` pilote pour augmenter le parallélisme vers un seul volume qui peut atteindre plusieurs pétaoctets avec des milliards de fichiers. Les utilisations idéales de FlexGroups sont l'IA, LE ML, le Big Data et l'analytique, les logiciels, le streaming, les référentiels de fichiers, etc. Trident utilise tous les agrégats attribués à un SVM lors du provisionnement d'un volume FlexGroup. La prise en charge d'FlexGroup dans Trident comporte également plusieurs considérations :
+Choisissez le `ontap-nas-flexgroup` pilote pour augmenter le parallélisme vers un volume unique pouvant atteindre plusieurs pétaoctets avec des milliards de fichiers. Les utilisations idéales de FlexGroups sont l'IA, LE ML, le Big Data et l'analytique, les logiciels, le streaming, les référentiels de fichiers, etc. Lors du provisionnement d'un volume FlexGroup, Trident utilise tous les agrégats affectés à un SVM. La prise en charge d'FlexGroup dans Trident comporte également plusieurs considérations :
 
 * Requiert ONTAP version 9.2 ou supérieure
 * À ce jour, FlexGroups prend uniquement en charge NFS v3.
 * Recommandé pour activer les identifiants NFSv3 64 bits pour la SVM.
 * La taille minimale recommandée du membre/volume FlexGroup est de 100 Gio.
-* Le clonage n'est pas pris en charge pour FlexGroup volumes.
+* Le clonage n'est pas pris en charge pour les volumes FlexGroup.
 
 
-Pour plus d'informations sur FlexGroups et les workloads appropriés à FlexGroups, consultez le https://www.netapp.com/pdf.html?item=/media/12385-tr4571pdf.pdf["NetApp FlexGroup Volume Guide des meilleures pratiques et de mise en œuvre"^].
+Pour plus d'informations sur les FlexGroups et les charges de travail appropriées pour FlexGroups, reportez-vous au https://www.netapp.com/pdf.html?item=/media/12385-tr4571pdf.pdf["Guide des meilleures pratiques et d'implémentation des volumes NetApp FlexGroup"^] .
 
 Pour bénéficier de fonctionnalités avancées et d'une évolutivité massive dans le même environnement, vous pouvez exécuter plusieurs instances du plug-in de volume Docker, en utilisant une seule instance `ontap-nas` et une autre utilisation `ontap-nas-economy`.
+
+
+
+=== Rôle ONTAP personnalisé pour Trident
+
+Vous pouvez créer un rôle de cluster ONTAP avec une Privileges minimale afin de ne pas avoir à utiliser le rôle ONTAP admin pour effectuer des opérations dans Trident. Lorsque vous incluez le nom d'utilisateur dans une configuration Trident backend, Trident utilise le rôle de cluster ONTAP que vous avez créé pour effectuer les opérations.
+
+Pour plus d'informations sur la création de rôles personnalisés Trident, reportez-vous à la sectionlink:https://github.com/NetApp/trident/tree/master/contrib/ontap/trident_role["Générateur de rôle personnalisé Trident"].
+
+[role="tabbed-block"]
+====
+.Utilisation de l'interface de ligne de commandes ONTAP
+--
+. Créez un rôle à l'aide de la commande suivante :
++
+`security login role create <role_name\> -cmddirname "command" -access all –vserver <svm_name\>`
+
+. Créez un nom d'utilisateur pour l'utilisateur Trident :
++
+`security login create -username <user_name\> -application ontapi -authmethod <password\> -role <name_of_role_in_step_1\> –vserver <svm_name\> -comment "user_description"`
+
+. Mapper le rôle à l'utilisateur :
++
+`security login modify username <user_name\> –vserver <svm_name\> -role <role_name\> -application ontapi -application console -authmethod <password\>`
+
+
+
+--
+.À l'aide de System Manager
+--
+Dans ONTAP System Manager, effectuez les opérations suivantes :
+
+. *Créer un rôle personnalisé* :
++
+.. Pour créer un rôle personnalisé au niveau du cluster, sélectionnez *Cluster > Paramètres*.
++
+(Ou) pour créer un rôle personnalisé au niveau du SVM, sélectionner *stockage > Storage VM > >> Paramètres > `required SVM` utilisateurs et rôles*.
+
+.. Sélectionnez l'icône de flèche (*->*) en regard de *utilisateurs et rôles*.
+.. Sélectionnez *+Ajouter* sous *rôles*.
+.. Définissez les règles du rôle et cliquez sur *Enregistrer*.
+
+
+. *Mapper le rôle à l'utilisateur Trident*: + effectuez les étapes suivantes sur la page *utilisateurs et rôles* :
++
+.. Sélectionnez Ajouter l'icône *+* sous *utilisateurs*.
+.. Sélectionnez le nom d'utilisateur requis et sélectionnez un rôle dans le menu déroulant pour *role*.
+.. Cliquez sur *Enregistrer*.
+
+
+
+
+--
+====
+Pour plus d'informations, reportez-vous aux pages suivantes :
+
+* link:https://kb.netapp.com/on-prem/ontap/Ontap_OS/OS-KBs/FAQ__Custom_roles_for_administration_of_ONTAP["Rôles personnalisés pour l'administration de ONTAP"^] ou link:https://docs.netapp.com/us-en/ontap/authentication/define-custom-roles-task.html["Définissez des rôles personnalisés"^]
+* link:https://docs.netapp.com/us-en/ontap-automation/rest/rbac_roles_users.html#rest-api["Travaillez avec les rôles et les utilisateurs"^]
+
 
 
 

@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-get-started/intro.html 
-keywords: product overview, astra trident, fsx, element, astra, google cloud, cvs, architecture, test drive, node pod, controller pod, pods, csi, sidecar 
-summary: 'Astra Trident est un projet open source entièrement pris en charge, géré par NetApp dans la gamme de produits Astra. Il a été conçu pour vous aider à répondre aux exigences de persistance de vos applications conteneurisées en utilisant des interfaces standard telles que l"interface CSI (Container Storage interface).' 
+keywords: product overview, Trident, fsx, element, google cloud, cvs, architecture, test drive, node pod, controller pod, pods, csi, sidecar 
+summary: 'Trident est un projet open source entièrement pris en charge et géré par NetApp. Il a été conçu pour vous aider à répondre aux exigences de persistance de vos applications conteneurisées en utilisant des interfaces standard telles que l"interface CSI (Container Storage interface).' 
 ---
-= Découvrez Astra Trident
+= Découvrez Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,36 +12,26 @@ summary: 'Astra Trident est un projet open source entièrement pris en charge, g
 
 
 [role="lead"]
-ASTRA Trident est un projet open source entièrement pris en charge et géré par NetApp dans le cadre du link:https://docs.netapp.com/us-en/astra-family/intro-family.html["Gamme de produits Astra"^]. Il a été conçu pour vous aider à répondre aux exigences de persistance de vos applications conteneurisées en utilisant des interfaces standard telles que l'interface CSI (Container Storage interface).
+Trident est un projet open source entièrement pris en charge et géré par NetApp. Il a été conçu pour vous aider à répondre aux exigences de persistance de vos applications conteneurisées en utilisant des interfaces standard telles que l'interface CSI (Container Storage interface).
 
 
 
-== Qu'est-ce qu'Astra ?
+== Qu'est-ce que Trident ?
 
-Astra facilite la gestion, la protection et le déplacement de leurs workloads riches en données qui s'exécutent sur Kubernetes, dans les clouds publics et sur site.
+NetApp Trident permet de consommer et de gérer les ressources de stockage sur toutes les plateformes de stockage NetApp les plus populaires, dans le cloud public ou sur site, notamment ONTAP (AFF, FAS, Select, Cloud, Amazon FSX pour NetApp ONTAP), le logiciel Element (NetApp HCI, SolidFire), le service Azure NetApp Files et Cloud Volumes Service sur Google Cloud.
 
-ASTRA provisionne et fournit un stockage persistant de conteneur basé sur Astra Trident. Il offre également des fonctionnalités avancées de gestion des données compatible avec les applications, telles que les copies Snapshot, la sauvegarde et la restauration, les journaux d'activité et le clonage actif pour la protection des données, la reprise d'activité et les données, l'audit des données et la migration pour les workloads Kubernetes.
+Trident est un orchestrateur de stockage dynamique conforme à la norme Container Storage interface (CSI) qui s'intègre de manière native à link:https://kubernetes.io/["Kubernetes"^]. Trident s'exécute comme un seul pod de contrôleur et un pod de nœuds sur chaque nœud worker du cluster. Voir link:../trident-get-started/architecture.html["Architecture Trident"] pour plus de détails.
 
-En savoir plus sur link:https://bluexp.netapp.com/astra["ASTRA ou inscrivez-vous pour un essai gratuit"^].
-
-
-
-== Qu'est-ce qu'Astra Trident ?
-
-ASTRA Trident permet la consommation et la gestion des ressources de stockage sur toutes les plateformes de stockage NetApp populaires, dans le cloud public ou sur site, y compris ONTAP (AFF, FAS, Select, Cloud, Amazon FSX pour NetApp ONTAP), Element (NetApp HCI, SolidFire), Azure NetApp Files service et Cloud Volumes Service sur Google Cloud.
-
-ASTRA Trident est un orchestrateur de stockage dynamique conforme à CSI (Container Storage interface) qui s'intègre de manière native link:https://kubernetes.io/["Kubernetes"^]. ASTRA Trident s'exécute en tant que pod unique de contrôleur et comme pod de nœud sur chaque nœud worker dans le cluster. Reportez-vous à la section link:../trident-get-started/architecture.html["Architecture d'Astra Trident"] pour plus d'informations.
-
-ASTRA Trident assure également une intégration directe avec l'écosystème Docker pour les plateformes de stockage NetApp. Le plug-in de volume Docker (nDVP) de NetApp prend en charge le provisionnement et la gestion des ressources de stockage depuis la plateforme de stockage jusqu'aux hôtes Docker. Reportez-vous à la section link:../trident-docker/deploy-docker.html["Déployez Astra Trident pour Docker"] pour plus d'informations.
+Trident propose également une intégration directe avec l'écosystème Docker pour les plateformes de stockage NetApp. Le plug-in de volume Docker (nDVP) de NetApp prend en charge le provisionnement et la gestion des ressources de stockage depuis la plateforme de stockage jusqu'aux hôtes Docker. Voir link:../trident-docker/deploy-docker.html["Déployez Trident pour Docker"] pour plus de détails.
 
 
 NOTE: Si vous utilisez Kubernetes pour la première fois, familiarisez-vous avec le link:https://kubernetes.io/docs/home/["Concepts et outils Kubernetes"^].
 
 
 
-== Testez Astra Trident
+== Testez Trident
 
-Pour tester la solution, demandez l'accès au « déploiement et clonage simplifiés du stockage persistant pour les workloads conteneurisés ». link:https://www.netapp.com/us/try-and-buy/test-drive/index.aspx["Test Drive NetApp"^] utilisation d'une image de laboratoire prête à l'emploi. Le test Drive fournit un environnement sandbox avec un cluster Kubernetes à trois nœuds et Astra Trident installé et configuré. C'est un excellent moyen de vous familiariser avec Astra Trident et d'explorer ses fonctionnalités.
+Pour tester un disque, demandez l'accès au « déploiement et clonage simplifiés du stockage persistant pour les workloads conteneurisés » link:https://www.netapp.com/us/try-and-buy/test-drive/index.aspx["Test Drive NetApp"^] à l'aide d'une image de laboratoire prête à l'emploi. Le lecteur de test fournit un environnement sandbox avec un cluster Kubernetes à trois nœuds et Trident installés et configurés. C'est un excellent moyen de vous familiariser avec Trident et d'explorer ses fonctionnalités.
 
 Une autre option est la link:https://kubernetes.io/docs/setup/independent/install-kubeadm/["Guide d'installation de kubeadm"] Fourni par Kubernetes.
 
@@ -89,7 +79,7 @@ https://www.netapp.com/data-management/element-software/["Elément"^] offre à l
 ====
 link:https://docs.netapp.com/us-en/hci/docs/concept_hci_product_overview.html["NetApp HCI"^] simplifie la gestion et l'évolutivité du data center en automatisant les tâches de routine et en permettant aux administrateurs d'infrastructure de se concentrer sur des fonctions plus importantes.
 
-ASTRA Trident peut provisionner et gérer des dispositifs de stockage pour des applications conteneurisées directement à partir de la plateforme de stockage NetApp HCI sous-jacente.
+Trident peut provisionner et gérer des terminaux de stockage pour les applications conteneurisées directement sur la plateforme de stockage NetApp HCI sous-jacente.
 
 ====
 .NetApp ONTAP
@@ -97,15 +87,6 @@ ASTRA Trident peut provisionner et gérer des dispositifs de stockage pour des a
 ====
 link:https://docs.netapp.com/us-en/ontap/index.html["NetApp ONTAP"^] Il s'agit du système d'exploitation de stockage unifié multiprotocole NetApp qui offre des fonctionnalités avancées de gestion des données pour toutes les applications.
 
-Les systèmes ONTAP sont dotés de configurations 100 % Flash, hybrides ou 100 % HDD et proposent différents modèles de déploiement, notamment du matériel spécialisé (FAS et AFF), de l'infrastructure générique (ONTAP Select) et du cloud uniquement (Cloud Volumes ONTAP). ASTRA Trident prend en charge ces modèles de déploiement ONTAP.
+Les systèmes ONTAP sont dotés de configurations 100 % Flash, hybrides ou 100 % HDD et proposent différents modèles de déploiement, notamment du matériel spécialisé (FAS et AFF), de l'infrastructure générique (ONTAP Select) et du cloud uniquement (Cloud Volumes ONTAP). Trident prend en charge ces modèles de déploiement ONTAP.
 
 ====
-
-
-== Pour en savoir plus
-
-* https://docs.netapp.com/us-en/astra-family/intro-family.html["Gamme NetApp Astra"^]
-* https://docs.netapp.com/us-en/astra/get-started/intro.html["Documentation relative au service après-vente Astra Control"^]
-* https://docs.netapp.com/us-en/astra-control-center/index.html["Documentation Astra Control Center"^]
-* https://docs.netapp.com/us-en/astra-automation/get-started/before_get_started.html["Documentation de l'API Astra"^]
-

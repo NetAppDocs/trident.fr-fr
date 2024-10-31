@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-get-started/kubernetes-customize-deploy-tridentctl.html 
-keywords: deploy, astra trident, methods, operator, tridentctl, helm, attributes, customize 
-summary: 'Vous pouvez utiliser le programme d"installation d"Astra Trident pour personnaliser le déploiement.' 
+keywords: deploy, Trident, methods, operator, tridentctl, helm, attributes, customize 
+summary: 'Vous pouvez utiliser le programme d"installation de Trident pour personnaliser le déploiement.' 
 ---
 = Personnalisez l'installation tridentctl
 :hardbreaks:
@@ -12,13 +12,16 @@ summary: 'Vous pouvez utiliser le programme d"installation d"Astra Trident pour 
 
 
 [role="lead"]
-Vous pouvez utiliser le programme d'installation d'Astra Trident pour personnaliser l'installation.
+Vous pouvez utiliser le programme d'installation de Trident pour personnaliser l'installation.
 
 
 
 == En savoir plus sur le programme d'installation
 
-Le programme d'installation d'Astra Trident vous permet de personnaliser les attributs. Par exemple, si vous avez copié l'image Trident dans un référentiel privé, vous pouvez spécifier le nom de l'image à l'aide de `--trident-image`. Si vous avez copié l'image Trident ainsi que les images sidecar CSI nécessaires dans un référentiel privé, il est peut-être préférable de spécifier l'emplacement de ce référentiel à l'aide du `--image-registry` commutateur, qui prend la forme `<registry FQDN>[:port]`.
+Le programme d'installation de Trident vous permet de personnaliser les attributs. Par exemple, si vous avez copié l'image Trident dans un référentiel privé, vous pouvez spécifier le nom de l'image en utilisant `--trident-image`. Si vous avez copié l'image Trident ainsi que les images de side-car CSI nécessaires dans un référentiel privé, il peut être préférable de spécifier l'emplacement de ce référentiel à l'aide du `--image-registry` commutateur, qui prend la forme `<registry FQDN>[:port]`.
+
+
+IMPORTANT: Lors de l'installation de Trident dans un référentiel privé, si vous utilisez le `--image-registry` commutateur pour spécifier l'emplacement du référentiel, n'utilisez pas `/netapp/` dans le chemin du référentiel. Par exemple : `./tridentctl install --image-registry <image-registry> -n <namespace>`
 
 Si vous utilisez une distribution de Kubernetes, où `kubelet` conserve ses données sur un chemin différent de la normale `/var/lib/kubelet`, vous pouvez spécifier la trajectoire alternative en utilisant `--kubelet-dir`.
 

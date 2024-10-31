@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/backends.html 
 keywords: backends, storage system, anf, cvs for gcp, element, hci, solidfire, ontap, aff, fas, ontap select, configure backends, fsx 
-summary: Un système back-end définit la relation entre Astra Trident et un système de stockage. Il explique à Astra Trident comment communiquer avec ce système de stockage et comment Astra Trident doit provisionner des volumes à partir de celui-ci. 
+summary: Un back-end définit la relation entre Trident et un système de stockage. Il explique à Trident comment communiquer avec ce système de stockage et comment Trident doit provisionner les volumes à partir de celui-ci. 
 ---
 = Configuration des systèmes back-end
 :hardbreaks:
@@ -12,14 +12,14 @@ summary: Un système back-end définit la relation entre Astra Trident et un sys
 
 
 [role="lead"]
-Un système back-end définit la relation entre Astra Trident et un système de stockage. Il explique à Astra Trident comment communiquer avec ce système de stockage et comment Astra Trident doit provisionner des volumes à partir de celui-ci.
+Un back-end définit la relation entre Trident et un système de stockage. Il explique à Trident comment communiquer avec ce système de stockage et comment Trident doit provisionner les volumes à partir de celui-ci.
 
-Astra Trident propose automatiquement des pools de stockage back-end correspondant aux exigences définies par une classe de stockage. Découvrez comment configurer le système back-end pour votre système de stockage.
+Trident propose automatiquement des pools de stockage back-end correspondant aux exigences définies par une classe de stockage. Découvrez comment configurer le système back-end pour votre système de stockage.
 
 * link:anf.html["Configurer un back-end Azure NetApp Files"^]
 * link:gcp.html["Configurer un système back-end Cloud Volumes Service pour Google Cloud Platform"^]
 * link:element.html["Configurer un système NetApp HCI ou SolidFire backend"^]
 * link:ontap-nas.html["Configurer un système back-end avec des pilotes NAS ONTAP ou Cloud Volumes ONTAP"^]
 * link:ontap-san.html["Configurer un système back-end avec des pilotes ONTAP ou Cloud Volumes ONTAP SAN"^]
-* link:trident-fsx.html["Utilisez Astra Trident avec Amazon FSX pour NetApp ONTAP"^]
+* link:trident-fsx.html["Utilisez Trident avec Amazon FSX pour NetApp ONTAP"^]
 

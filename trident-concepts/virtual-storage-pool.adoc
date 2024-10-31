@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-concepts/virtual-storage-pool.html 
-keywords: virtual pools, astra trident, backends 
-summary: 'Les pools virtuels fournissent une couche d"abstraction entre les systèmes back-end de stockage d"Astra Trident et les classes de stockage de Kubernetes. Ils permettent à l"administrateur de définir des aspects, tels que l"emplacement, les performances et la protection pour chaque système back-end de façon commune et indépendante du système de stockage, sans qu"il précise le système back-end physique, le pool back-end ou le type de système back-end à utiliser pour répondre aux critères souhaités.' 
+keywords: virtual pools, Trident, backends 
+summary: 'Les pools virtuels fournissent une couche d"abstraction entre les systèmes back-end de stockage de Trident et les classes de stockage de Kubernetes. Ils permettent à l"administrateur de définir des aspects, tels que l"emplacement, les performances et la protection pour chaque système back-end de façon commune et indépendante du système de stockage, sans qu"il précise le système back-end physique, le pool back-end ou le type de système back-end à utiliser pour répondre aux critères souhaités.' 
 ---
 = Pools virtuels
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: 'Les pools virtuels fournissent une couche d"abstraction entre les syst
 
 
 [role="lead"]
-Les pools virtuels fournissent une couche d'abstraction entre les systèmes back-end de stockage Astra Trident et Kubernetes `StorageClasses`. Ils permettent à un administrateur de définir des aspects, tels que l'emplacement, les performances et la protection pour chaque système back-end, de façon commune et indépendante du système back-end `StorageClass` spécifiez le type de back-end physique, de pool back-end ou de type back-end à utiliser pour répondre aux critères souhaités.
+Les pools virtuels fournissent une couche d'abstraction entre les systèmes back-end de stockage Trident et Kubernetes `StorageClasses`. Ils permettent à un administrateur de définir des aspects, tels que l'emplacement, les performances et la protection de chaque back-end de manière commune et indépendante du back-end, sans `StorageClass` spécifier le backend physique, le pool back-end ou le type de back-end à utiliser pour répondre aux critères souhaités.
 
 
 
 == En savoir plus sur les pools virtuels
 
-L'administrateur du stockage peut définir des pools virtuels sur n'importe quel système back-end Trident Astra dans un fichier de définition JSON ou YAML.
+L'administrateur du stockage peut définir des pools virtuels sur l'un des systèmes Trident back-end dans un fichier de définition JSON ou YAML.
 
 image::virtual_storage_pools.png[La illustre le schéma conceptuel des pools virtuels.]
 

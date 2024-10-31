@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-concepts/snapshots.html 
-keywords: provisioning, astra trident 
-summary: Découvrez comment Astra Trident gère la création de copies Snapshot de volume pour ses pilotes. 
+keywords: provisioning, Trident 
+summary: Découvrez comment Trident gère la création de snapshots de volumes pour ses pilotes. 
 ---
 = Snapshots de volume
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Découvrez comment Astra Trident gère la création de copies Snapshot 
 
 
 [role="lead"]
-Découvrez comment Astra Trident gère la création de copies Snapshot de volume pour ses pilotes.
+Découvrez comment Trident gère la création de snapshots de volumes pour ses pilotes.
 
 
 
@@ -22,7 +22,7 @@ Découvrez comment Astra Trident gère la création de copies Snapshot de volume
 * Pour le `ontap-nas-flexgroup` Chaque pilote de volume persistant est mappé à un FlexGroup. Par conséquent, des snapshots de volume sont créés sous forme de snapshots NetApp FlexGroup. La technologie Snapshot de NetApp offre davantage de stabilité, d'évolutivité, de capacité de restauration et de performances que les technologies Snapshot concurrentes. Ces copies Snapshot sont extrêmement efficaces, aussi bien en termes de temps de création que d'espace de stockage.
 * Pour le `ontap-san-economy` Le pilote et les volumes persistants sont mis en correspondance avec les LUN créées sur les volumes FlexVol partagés. Les copies FlexClone de la LUN associée permettent d'obtenir les copies Snapshot VolumeSnapshot de la LUN associée. Grâce à la technologie FlexClone de ONTAP, il est possible de créer quasi instantanément des copies des jeux de données les plus volumineux, même les plus volumineux. Les copies partagent les blocs de données avec leurs parents. Aucun stockage n'est nécessaire, sauf pour les métadonnées.
 * Pour le `solidfire-san` Pilote, chaque volume persistant est mappé sur une LUN créée dans le cluster NetApp Element/NetApp HCI. Les copies Snapshot VolumeCas sont représentées par des copies Snapshot Element de la LUN sous-jacente. Ces snapshots sont des copies à un point dans le temps et ne prennent en charge qu'une petite quantité de ressources et d'espace système.
-* Lorsque vous travaillez avec le `ontap-nas` et `ontap-san` Les snapshots ONTAP sont des copies ponctuelles de la FlexVol et consomment de l'espace sur la FlexVol elle-même. Cela peut entraîner la quantité d'espace inscriptible dans le volume pour une réduction du temps lors de la création ou de la planification des snapshots. L'une des façons simples de résoudre ce problème est d'augmenter le volume en le redimensionnant via Kubernetes. Une autre option consiste à supprimer les snapshots qui ne sont plus nécessaires. Lors de la suppression d'un Snapshot VolumeCas créé via Kubernetes, Astra Trident supprime le snapshot ONTAP associé. Les snapshots ONTAP qui n'ont pas été créés par Kubernetes peuvent également être supprimés.
+* Lorsque vous travaillez avec les `ontap-nas` pilotes et `ontap-san`, les snapshots ONTAP sont des copies instantanées de la FlexVol et consomment de l'espace sur la FlexVol elle-même. Cela peut entraîner la quantité d'espace inscriptible dans le volume pour une réduction du temps lors de la création ou de la planification des snapshots. L'une des façons simples de résoudre ce problème est d'augmenter le volume en le redimensionnant via Kubernetes. Une autre option consiste à supprimer les snapshots qui ne sont plus nécessaires. Lorsqu'un volume Snapshot créé via Kubernetes est supprimé, Trident supprime le snapshot ONTAP associé. Les snapshots ONTAP qui n'ont pas été créés par Kubernetes peuvent également être supprimés.
 
 
-Avec Astra Trident, vous pouvez utiliser Volumesnapshots pour créer de nouveaux volumes persistants à partir d'entre eux. La création de volumes persistants est effectuée à partir de ces copies Snapshot à l'aide de la technologie FlexClone pour les systèmes back-end ONTAP et CVS pris en charge. Lors de la création d'un volume persistant à partir d'un snapshot, le volume de sauvegarde est un volume FlexClone du volume parent du snapshot. Le `solidfire-san` Le pilote utilise des clones de volumes logiciels Element pour créer des volumes persistants à partir de snapshots. Ici, cela crée un clone à partir du snapshot Element.
+Avec Trident, vous pouvez utiliser Volumesnapshots pour créer de nouveaux volumes persistants à partir de ces volumes. La création de volumes persistants est effectuée à partir de ces copies Snapshot à l'aide de la technologie FlexClone pour les systèmes back-end ONTAP et CVS pris en charge. Lors de la création d'un volume persistant à partir d'un snapshot, le volume de sauvegarde est un volume FlexClone du volume parent du snapshot. Le `solidfire-san` pilote utilise des clones de volume du logiciel Element pour créer des volumes persistants à partir de snapshots. Ici, cela crée un clone à partir du snapshot Element.

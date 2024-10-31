@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/collect-logs-docker.html 
-keywords: deploy, astra trident, trident for docker, docker, logs, binary, managed plugin 
+keywords: deploy, Trident, trident for docker, docker, logs, binary, managed plugin 
 summary: 'Vous pouvez recueillir des journaux pour obtenir de l"aide en matière de dépannage. La méthode que vous utilisez pour collecter les journaux varie en fonction de l"exécution du plug-in Docker.' 
 ---
 = Collecte des journaux
@@ -19,7 +19,7 @@ Vous pouvez recueillir des journaux pour obtenir de l'aide en matière de dépan
 == Collecte des journaux pour le dépannage
 
 .Étapes
-. Si vous exécutez Astra Trident à l'aide de la méthode de plug-in géré recommandée (par exemple, à l'aide de `docker plugin` les commandes), les afficher comme suit :
+. Si vous exécutez Trident à l'aide de la méthode de plug-in géré recommandée (à l'aide de `docker plugin` commandes), affichez-les comme suit :
 +
 [listing]
 ----

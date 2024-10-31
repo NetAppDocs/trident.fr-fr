@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/prereqs-docker.html 
-keywords: deploy, astra trident, docker, trident for docker, nfs, iscsi, protcol, nfs protocol, iscsi protocol, configure host, host config, nvme/tcp, nvme 
-summary: Vous devez installer et configurer les protocoles requis sur votre hôte avant de déployer Astra Trident. 
+keywords: deploy, Trident, docker, trident for docker, nfs, iscsi, protcol, nfs protocol, iscsi protocol, configure host, host config, nvme/tcp, nvme 
+summary: Avant de pouvoir déployer Trident, vous devez installer et configurer les prérequis en matière de protocole sur votre hôte. 
 ---
 = Conditions préalables au déploiement
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Vous devez installer et configurer les protocoles requis sur votre hôt
 
 
 [role="lead"]
-Vous devez installer et configurer les protocoles requis sur votre hôte avant de déployer Astra Trident.
+Avant de pouvoir déployer Trident, vous devez installer et configurer les prérequis en matière de protocole sur votre hôte.
 
 
 

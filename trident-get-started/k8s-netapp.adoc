@@ -16,9 +16,9 @@ Le portefeuille de produits de stockage NetApp s'intègre à différents aspects
 
 
 
-== Astra
+== Trident
 
-https://docs.netapp.com/us-en/astra/["Astra"^] Les entreprises peuvent ainsi gérer, protéger et déplacer plus facilement leurs workloads conteneurisés dans des clouds publics et sur site, que ce soit sur Kubernetes. ASTRA provisionne et fournit un stockage persistant pour conteneurs à l'aide de Trident provenant de la gamme de solutions de stockage NetApp éprouvées et étendues dans le cloud public et sur site. Il offre également un ensemble complet de fonctionnalités avancées de gestion des données intégrant la cohérence applicative, telles que les copies Snapshot, la sauvegarde et la restauration, les journaux d'activité et le clonage actif pour la protection des données, la reprise d'activité, l'audit des données et la migration pour les workloads Kubernetes.
+https://docs.netapp.com/us-en/trident/["Trident"^] Permet aux entreprises de gérer, de protéger et de déplacer plus facilement leurs workloads conteneurisés riches en données qui s'exécutent sur Kubernetes dans et entre les clouds publics et sur site. Trident provisionne et fournit un stockage persistant pour les conteneurs via Trident de la gamme de solutions de stockage NetApp éprouvées et étendues dans le cloud public et sur site. Il offre également un ensemble complet de fonctionnalités avancées de gestion des données intégrant la cohérence applicative, telles que les copies Snapshot, la sauvegarde et la restauration, les journaux d'activité et le clonage actif pour la protection des données, la reprise d'activité, l'audit des données et la migration pour les workloads Kubernetes.
 
 
 

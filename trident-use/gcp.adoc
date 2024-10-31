@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/gcp.html 
 keywords: trident backend, cloud volumes service for google cloud platform, google cloud platform, gcp, storage pool labels, storage pool, cvs, cvs-performance, service type, service level, cloud volumes service, cloud volumes, drivers, access modes, rwo, rwx, rwp, rwop, file system 
-summary: 'Découvrez comment configurer Cloud Volumes Service pour Google Cloud en tant que backend pour votre installation d"Astra Trident à l"aide des exemples de configuration fournis.' 
+summary: 'Découvrez comment configurer Cloud Volumes Service pour Google Cloud en tant que back-end pour votre installation Trident à l"aide des exemples de configurations fournis.' 
 ---
 = Configurer un système Cloud Volumes Service pour Google Cloud backend
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: 'Découvrez comment configurer Cloud Volumes Service pour Google Cloud 
 
 
 [role="lead"]
-Découvrez comment configurer NetApp Cloud Volumes Service pour Google Cloud en tant que backend pour votre installation d'Astra Trident à l'aide des exemples de configuration fournis.
+Découvrez comment configurer NetApp Cloud Volumes Service pour Google Cloud en tant que back-end pour votre installation Trident à l'aide des exemples de configurations fournis.
 
 
 
 == Détails du pilote Google Cloud
 
-ASTRA Trident offre le `gcp-cvs` pour communiquer avec le bloc d'instruments. Les modes d'accès pris en charge sont : _ReadWriteOnce_ (RWO), _ReadOnlyMey_ (ROX), _ReadWriteMaly_ (RWX), _ReadWriteOncePod_ (RWOP).
+Trident fournit le `gcp-cvs` pilote pour communiquer avec le cluster. Les modes d'accès pris en charge sont : _ReadWriteOnce_ (RWO), _ReadOnlyMey_ (ROX), _ReadWriteMaly_ (RWX), _ReadWriteOncePod_ (RWOP).
 
 [cols="1, 1, 1, 2, 2"]
 |===
@@ -37,11 +37,11 @@ RWO, ROX, RWX, RWOP
 |===
 
 
-== En savoir plus sur la prise en charge d'Astra Trident pour Cloud Volumes Service pour Google Cloud
+== En savoir plus sur la prise en charge de Trident pour Cloud Volumes Service pour Google Cloud
 
-Astra Trident peut créer des volumes Cloud Volumes Service dans un des deux link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types["types de service"^]:
+Trident peut créer des volumes Cloud Volumes Service en deux link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types["types de service"^]:
 
-* *CVS-Performance* : le type de service Astra Trident par défaut. Ce type de service aux performances optimisées est parfaitement adapté aux charges de travail de production qui exigent des performances élevées. Le type de service CVS-Performance est une option matérielle prenant en charge les volumes d'une taille minimale de 100 Gio. Vous pouvez choisir l'une des options link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-levels#service_levels_for_the_cvs-performance_service_type["trois niveaux de service"^]:
+* *CVS-Performance* : type de service Trident par défaut. Ce type de service aux performances optimisées est parfaitement adapté aux charges de travail de production qui exigent des performances élevées. Le type de service CVS-Performance est une option matérielle prenant en charge les volumes d'une taille minimale de 100 Gio. Vous pouvez choisir l'une des link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-levels#service_levels_for_the_cvs-performance_service_type["trois niveaux de service"^]options suivantes :
 +
 ** `standard`
 ** `premium`
@@ -85,7 +85,7 @@ Chaque back-end provisionne les volumes dans une seule région Google Cloud. Pou
 | `backendName` | Nom personnalisé ou système back-end de stockage | Nom du pilote + "_" + partie de la clé API 
 
 
-| `storageClass` | Paramètre facultatif utilisé pour spécifier le type de service CVS. Utiliser `software` Pour sélectionner le type de service CVS. Sinon, Astra Trident suppose un type de service CVS-Performance (`hardware`). |  
+| `storageClass` | Paramètre facultatif utilisé pour spécifier le type de service CVS. Utilisez `software` pour sélectionner le type de service CVS. Sinon, Trident suppose le type de service CVS-Performance (`hardware`). |  
 
 
 | `storagePools` | Type de service CVS uniquement. Paramètre facultatif utilisé pour spécifier les pools de stockage pour la création du volume. |  
@@ -97,7 +97,7 @@ Chaque back-end provisionne les volumes dans une seule région Google Cloud. Pou
 | `hostProjectNumber` | Requis si l'utilisation d'un réseau VPC partagé. Dans ce scénario, `projectNumber` est le projet de service, et `hostProjectNumber` est le projet hôte. |  
 
 
-| `apiRegion` | Région Google Cloud dans laquelle Astra Trident crée des volumes Cloud Volumes Service. Lors de la création de clusters Kubernetes inter-région, de volumes créés dans un `apiRegion` Peut être utilisé pour des charges de travail planifiées sur des nœuds sur plusieurs régions Google Cloud. Le trafic entre les régions coûte plus cher. |  
+| `apiRegion` | Région Google Cloud dans laquelle Trident crée des volumes Cloud Volumes Service. Lors de la création de clusters Kubernetes répartis entre régions, les volumes créés dans un `apiRegion` peuvent être utilisés dans des workloads planifiés sur des nœuds répartis sur plusieurs régions Google Cloud. Le trafic entre les régions coûte plus cher. |  
 
 
 | `apiKey` | Clé API pour le compte de service Google Cloud avec le `netappcloudvolumes.admin` rôle. Il inclut le contenu au format JSON du fichier de clé privée d'un compte de service Google Cloud (copié en compte dans le fichier de configuration back-end). |  
@@ -354,7 +354,7 @@ allowVolumeExpansion: true
 ----
 ====
 * La première classe de stockage (`cvs-extreme-extra-protection`) correspond au premier pool virtuel. Il s'agit du seul pool offrant des performances extrêmes avec une réserve Snapshot de 10 %.
-* La dernière classe de stockage (`cvs-extra-protection`) appelle tout pool de stockage qui fournit une réserve d'instantanés de 10%. Astra Trident décide du pool virtuel sélectionné et s'assure que les exigences de la réserve de snapshots sont respectées.
+* La dernière classe de stockage (`cvs-extra-protection`) fait appel à n'importe quel pool de stockage qui fournit une réserve de snapshots de 10 %. Trident détermine quel pool virtuel est sélectionné et veille à ce que les exigences de réserve d'instantanés soient respectées.
 
 
 

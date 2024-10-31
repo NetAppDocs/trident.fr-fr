@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-docker/known-issues-docker.html 
 keywords: known issues, trident, trident for docker, docker 
-summary: Découvrez des informations sur les problèmes connus avec Astra Trident et Docker. 
+summary: 'Recherchez des informations sur les problèmes connus lors de l"utilisation de Trident avec Docker.' 
 ---
 = Problèmes et limites connus
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Découvrez des informations sur les problèmes connus avec Astra Triden
 
 
 [role="lead"]
-Découvrez des informations sur les problèmes et les limites connus avec Astra Trident avec Docker.
+Trouvez des informations sur les problèmes connus et les limites lors de l'utilisation de Trident avec Docker.
 
 
 
@@ -48,11 +48,11 @@ NOTE: Il s'agit d'une limitation client Docker. Le client interprète un seul no
 
 
 
-== Docker Swarm dispose de certains comportements qui empêchent Astra Trident de les prendre en charge avec chaque combinaison de stockage et de pilote.
+== Docker Swarm présente certains comportements qui empêchent Trident de le prendre en charge avec toutes les combinaisons de stockage et de pilotes.
 
 * Docker Swarm utilise actuellement le nom du volume, mais pas l'ID de volume, comme identifiant de volume unique.
 * Les requêtes de volume sont envoyées simultanément à chaque nœud d'un cluster Swarm.
-* Les plug-ins de volumes (y compris Astra Trident) doivent être exécutés de manière indépendante sur chaque nœud d'un cluster Swarm. Grâce au fonctionnement de ONTAP et à son mode de fonctionnement `ontap-nas` et `ontap-san` le conducteur fonctionne, ce sont les seuls qui peuvent être capables de fonctionner dans ces limites.
+* Les plug-ins de volume (y compris Trident) doivent s'exécuter indépendamment sur chaque nœud d'un cluster Swarm. En raison du fonctionnement de ONTAP et du `ontap-nas` fonctionnement des pilotes et `ontap-san`, ce sont eux qui sont les seuls à pouvoir fonctionner dans ces limites.
 
 
 Les autres conducteurs sont sujets à des problèmes tels que les conditions de course qui peuvent entraîner la création d'un grand nombre de volumes pour une seule demande sans un « gagnant » clair ; par exemple, l'élément possède une fonctionnalité qui permet aux volumes d'avoir le même nom mais des ID différents.

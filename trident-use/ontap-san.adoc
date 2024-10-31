@@ -18,10 +18,7 @@ Découvrez comment configurer un back-end ONTAP avec les pilotes ONTAP et Cloud 
 
 == Détails du pilote SAN ONTAP
 
-ASTRA Trident fournit les pilotes de stockage SAN suivants pour communiquer avec le cluster ONTAP. Les modes d'accès pris en charge sont : _ReadWriteOnce_ (RWO), _ReadOnlyMey_ (ROX), _ReadWriteMaly_ (RWX), _ReadWriteOncePod_ (RWOP).
-
-
-IMPORTANT: Si vous utilisez Astra Control pour la protection, la restauration et la mobilité, lisez <<Compatibilité du pilote Astra Control>>.
+Trident fournit les pilotes de stockage SAN suivants pour communiquer avec le cluster ONTAP. Les modes d'accès pris en charge sont : _ReadWriteOnce_ (RWO), _ReadOnlyMey_ (ROX), _ReadWriteMaly_ (RWX), _ReadWriteOncePod_ (RWOP).
 
 [cols="2, 1, 1, 2, 2"]
 |===
@@ -103,12 +100,6 @@ ROX et RWX ne sont pas disponibles en mode de volume du système de fichiers.
 `xfs`, `ext3`, `ext4`
 
 |===
-
-
-=== Compatibilité du pilote Astra Control
-
-Astra Control assure une protection, une reprise d'activité et une mobilité transparentes (en déplaçant des volumes entre les clusters Kubernetes) pour les volumes créés avec le système `ontap-nas`, `ontap-nas-flexgroup`, et `ontap-san` pilotes. Reportez-vous à la section link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html#replication-prerequisites["Conditions préalables à la réplication d'Astra Control"^] pour plus d'informations.
-
 [WARNING]
 ====
 * Utiliser `ontap-san-economy` uniquement si le nombre d'utilisations du volume persistant doit être supérieur à link:https://docs.netapp.com/us-en/ontap/volumes/storage-limits-reference.html["Limites de volume ONTAP prises en charge"^].
@@ -121,10 +112,10 @@ Astra Control assure une protection, une reprise d'activité et une mobilité tr
 
 == Autorisations utilisateur
 
-Astra Trident devrait être exécuté en tant qu'administrateur de ONTAP ou du SVM, généralement à l'aide du `admin` utilisateur du cluster ou un `vsadmin` Utilisateur d'un SVM ou un utilisateur avec un autre nom qui a le même rôle. Pour les déploiements Amazon FSX pour NetApp ONTAP, Astra Trident devrait être exécuté en tant qu'administrateur ONTAP ou SVM, à l'aide du cluster `fsxadmin` utilisateur ou un `vsadmin` Utilisateur d'un SVM ou un utilisateur avec un autre nom qui a le même rôle. Le `fsxadmin` l'utilisateur remplace limitée l'utilisateur administrateur du cluster.
+Trident s'attend à être exécuté en tant qu'administrateur ONTAP ou SVM, en général avec l'utilisateur du cluster ou un `vsadmin` utilisateur SVM, ou en tant qu' `admin`utilisateur avec un nom différent et le même rôle. Pour les déploiements Amazon FSX pour NetApp ONTAP, Trident prévoit d'être exécuté en tant qu'administrateur ONTAP ou SVM, en utilisant l'utilisateur du cluster `fsxadmin` ou un `vsadmin` utilisateur SVM, ou un utilisateur avec un nom différent ayant le même rôle.  `fsxadmin`L'utilisateur est un remplaçant limité pour l'utilisateur admin du cluster.
 
 
-NOTE: Si vous utilisez le `limitAggregateUsage` paramètre, des autorisations d'administration du cluster sont requises. Avec Amazon FSX pour NetApp ONTAP avec Astra Trident, le `limitAggregateUsage` le paramètre ne fonctionne pas avec le `vsadmin` et `fsxadmin` comptes d'utilisateur. L'opération de configuration échoue si vous spécifiez ce paramètre.
+NOTE: Si vous utilisez le `limitAggregateUsage` paramètre, les autorisations d'administration du cluster sont requises. Lors de l'utilisation d'Amazon FSX for NetApp ONTAP avec Trident, le `limitAggregateUsage` paramètre ne fonctionnera pas avec les `vsadmin` comptes d'utilisateur et `fsxadmin`. L'opération de configuration échoue si vous spécifiez ce paramètre.
 
 S'il est possible de créer au sein de ONTAP un rôle plus restrictif qu'un pilote Trident peut utiliser, nous ne le recommandons pas. La plupart des nouvelles versions de Trident appellent des API supplémentaires qui devront être prises en compte, ce qui complique les mises à niveau et risque d'erreurs.
 
@@ -132,17 +123,17 @@ S'il est possible de créer au sein de ONTAP un rôle plus restrictif qu'un pilo
 
 == Autres considérations relatives au NVMe/TCP
 
-ASTRA Trident prend en charge le protocole NVMe (non-volatile Memory Express) à l'aide du `ontap-san` pilote comprenant :
+Trident prend en charge le protocole NVMe (non-volatile Memory Express) avec le `ontap-san` pilote, notamment :
 
 * IPv6
 * Copies Snapshot et clones de volumes NVMe
 * Redimensionnement d'un volume NVMe
-* Importation d'un volume NVMe créé en dehors d'Astra Trident afin que son cycle de vie puisse être géré par Astra Trident
+* Importation d'un volume NVMe créé en dehors de Trident afin que son cycle de vie puisse être géré par Trident
 * Chemins d'accès multiples natifs NVMe
 * Arrêt normal ou sans gracieuse des nœuds K8s (24.06)
 
 
-ASTRA Trident ne prend pas en charge :
+Trident ne prend pas en charge :
 
 * DH-HMAC-CHAP pris en charge par NVMe de manière native
 * Chemins d'accès multiples du mappeur de périphériques (DM)

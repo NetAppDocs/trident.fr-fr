@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-reference/ports.html 
-keywords: astra trident, port, ports 
-summary: 'Découvrez les ports qu"Astra Trident communique sur.' 
+keywords: Trident, port, ports 
+summary: En savoir plus sur les ports sur lesquels Trident communique. 
 ---
-= Ports Trident d'Astra
+= Ports Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,13 +12,13 @@ summary: 'Découvrez les ports qu"Astra Trident communique sur.'
 
 
 [role="lead"]
-Découvrez les ports qu'Astra Trident utilise pour la communication.
+En savoir plus sur les ports utilisés par Trident pour la communication.
 
 
 
-== Ports Trident d'Astra
+== Ports Trident
 
-Astra Trident communique sur les ports suivants :
+Trident communique sur les ports suivants :
 
 [cols="2,4"]
 |===

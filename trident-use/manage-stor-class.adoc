@@ -32,14 +32,14 @@ kubectl get storageclass
 ----
 kubectl get storageclass <storage-class> -o json
 ----
-* Pour afficher les classes de stockage synchronisées d'Astra Trident, exécutez la commande suivante :
+* Pour afficher les classes de stockage synchronisées de Trident, exécutez la commande suivante :
 
 
 [listing]
 ----
 tridentctl get storageclass
 ----
-* Pour afficher les détails de la classe de stockage synchronisée d'Astra Trident, exécutez la commande suivante :
+* Pour afficher le détail de la classe de stockage synchronisée de Trident, exécutez la commande suivante :
 
 
 [listing]
@@ -76,7 +76,7 @@ NOTE: Votre cluster ne doit contenir qu'une seule classe de stockage par défaut
 
 == Identifier le système back-end pour une classe de stockage
 
-Voici un exemple de questions que vous pouvez répondre avec le fichier JSON `tridentctl` Sorties pour les objets back-end Astra Trident. Ceci utilise le `jq` utilitaire, que vous devrez peut-être installer en premier.
+Voici un exemple du type de questions que vous pouvez répondre avec le fichier JSON qui `tridentctl` sort pour les objets backend Trident. Cela utilise l' `jq`utilitaire, que vous devrez peut-être installer en premier.
 
 [listing]
 ----
@@ -94,7 +94,7 @@ kubectl delete storageclass <storage-class>
 ----
 `<storage-class>` doit être remplacé par votre classe de stockage.
 
-Tout volume persistant créé dans le cadre de cette classe de stockage n'est pas affecté. Astra Trident va continuer à les gérer.
+Tous les volumes persistants créés via cette classe de stockage ne sont pas concernés et Trident continuera de les gérer.
 
 
-NOTE: L'ASTRA Trident applique un blanc `fsType` pour les volumes qu'elle crée. Pour les systèmes back-end iSCSI, il est recommandé d'appliquer la configuration `parameters.fsType` Dans la classe de stockage. Vous devez supprimer des classes de stockage existantes et les recréer à l'aide de `parameters.fsType` spécifié.
+NOTE: Trident applique un espace vide `fsType` pour les volumes qu'il crée. Pour les systèmes back-end iSCSI, il est recommandé d'appliquer la `parameters.fsType` classe de stockage. Vous devez supprimer les classes de stockage existantes et les recréer avec les classes `parameters.fsType` spécifiées.

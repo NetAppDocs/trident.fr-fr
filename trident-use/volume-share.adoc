@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/volume-share.html 
 keywords: volref, volume reference, share, pvc, pv, nfs, namespace, cvna, cross-namespace, sharing 
-summary: Avec Astra Trident, vous pouvez créer un volume dans un espace de noms principal et le partager dans un ou plusieurs espaces de noms secondaires. 
+summary: Avec Trident, vous pouvez créer un volume dans un espace de noms principal et le partager dans un ou plusieurs espaces de noms secondaires. 
 ---
 = Partager un volume NFS entre les espaces de noms
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: Avec Astra Trident, vous pouvez créer un volume dans un espace de noms
 
 
 [role="lead"]
-Avec Astra Trident, vous pouvez créer un volume dans un espace de noms principal et le partager dans un ou plusieurs espaces de noms secondaires.
+Avec Trident, vous pouvez créer un volume dans un espace de noms principal et le partager dans un ou plusieurs espaces de noms secondaires.
 
 
 
 == Caractéristiques
 
-Le système Astra TridentVolumeReference CR vous permet de partager en toute sécurité des volumes NFS ReadWriteMany (RWX) sur un ou plusieurs espaces de noms Kubernetes. Cette solution Kubernetes-native présente plusieurs avantages :
+Le système TridentVolumeReference CR vous permet de partager en toute sécurité des volumes ReadWriteMaly (RWX) NFS sur un ou plusieurs espaces de noms Kubernetes. Cette solution Kubernetes-native présente plusieurs avantages :
 
 * Plusieurs niveaux de contrôle d'accès pour assurer la sécurité
 * Fonctionne avec tous les pilotes de volume NFS Trident
@@ -78,7 +78,7 @@ spec:
       storage: 100Gi
 ----
 +
-Astra Trident crée le volume persistant et son volume de stockage NFS back-end.
+Trident crée le volume de stockage PV et son volume de stockage NFS back-end.
 
 +
 [NOTE]
@@ -129,13 +129,13 @@ NOTE: La taille du PVC de destination doit être inférieure ou égale à la PVC
 
 
 .Résultats
-Découvrez Astra Trident `shareFromPVC` Annotation sur la demande de volume persistant de destination et création du volume persistant de destination en tant que volume subalterne, sans ressource de stockage correspondant au volume persistant source et partage la ressource de stockage PV source. La demande de volume persistant et la demande de volume persistant de destination apparaissent comme normales.
+Trident lit l' `shareFromPVC`annotation sur la demande de volume de destination et crée le volume persistant de destination en tant que volume subordonné sans ressource de stockage propre qui pointe vers le volume persistant source et partage la ressource de stockage du volume persistant source. La demande de volume persistant et la demande de volume persistant de destination apparaissent comme normales.
 
 
 
 == Supprimer un volume partagé
 
-Vous pouvez supprimer un volume partagé entre plusieurs namespaces. Astra Trident supprimera l'accès au volume de l'espace de noms source et maintiendra l'accès aux autres espaces de noms qui partagent le volume. Lorsque tous les namespaces qui référencent le volume sont supprimés, Astra Trident supprime le volume.
+Vous pouvez supprimer un volume partagé entre plusieurs namespaces. Trident supprime l'accès au volume sur l'espace de noms source et maintient l'accès aux autres espaces de noms qui partagent le volume. Lorsque tous les espaces de noms qui référencent le volume sont supprimés, Trident supprime le volume.
 
 
 
@@ -159,7 +159,7 @@ Alarmes :
 
 == Limites
 
-* Astra Trident ne peut pas empêcher les espaces de noms de destination d'écrire sur le volume partagé. Nous vous recommandons d'utiliser un verrouillage de fichiers ou d'autres processus pour éviter d'écraser les données du volume partagé.
+* Trident ne peut pas empêcher les espaces de noms de destination d'écrire sur le volume partagé. Nous vous recommandons d'utiliser un verrouillage de fichiers ou d'autres processus pour éviter d'écraser les données du volume partagé.
 * Vous ne pouvez pas révoquer l'accès au PVC source en retirant le `shareToNamespace` ou `shareFromNamespace` annotations ou suppression du `TridentVolumeReference` CR. Pour annuler l'accès, vous devez supprimer le PVC subalterne.
 * Les snapshots, clones et la mise en miroir ne sont pas possibles sur les volumes subordonnés.
 

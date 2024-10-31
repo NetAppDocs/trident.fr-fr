@@ -35,7 +35,7 @@ Pour configurer et utiliser un https://azure.microsoft.com/en-us/services/netapp
 * `tenantID`, `clientID`, et `clientSecret` à partir d'un link:https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal["Enregistrement d'applications"^] Dans Azure Active Directory avec les autorisations suffisantes pour le service Azure NetApp Files. L'enregistrement de l'application doit utiliser l'une des options suivantes :
 +
 ** Rôle propriétaire ou contributeur link:https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles["Prédéfinie par Azure"^].
-** A link:https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal["Rôle de contributeur personnalisé"] au niveau de l'abonnement (`assignableScopes`) Avec les autorisations suivantes qui sont limitées à ce qu'exige Astra Trident. Après avoir créé le rôle personnalisé, link:https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal["Attribuez le rôle à l'aide du portail Azure"^].
+** A link:https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal["Rôle de contributeur personnalisé"] au niveau de (`assignableScopes`l'abonnement ) avec les autorisations suivantes qui sont limitées à ce que Trident exige. Après avoir créé le rôle personnalisé, link:https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal["Attribuez le rôle à l'aide du portail Azure"^].
 +
 .Rôle de contributeur personnalisé
 [%collapsible]
@@ -96,8 +96,8 @@ Pour configurer et utiliser un https://azure.microsoft.com/en-us/services/netapp
 Pour créer un volume SMB, vous devez disposer des éléments suivants :
 
 * Active Directory configuré et connecté à Azure NetApp Files. Reportez-vous à la section link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/create-active-directory-connections["Microsoft : création et gestion des connexions Active Directory pour Azure NetApp Files"^].
-* Cluster Kubernetes avec un nœud de contrôleur Linux et au moins un nœud worker Windows exécutant Windows Server 2022. Astra Trident prend en charge les volumes SMB montés sur des pods qui s'exécutent uniquement sur des nœuds Windows.
-* Au moins un secret Astra Trident contenant vos informations d'identification Active Directory pour que Azure NetApp Files puisse s'authentifier auprès d'Active Directory. Pour générer un secret `smbcreds`:
+* Cluster Kubernetes avec un nœud de contrôleur Linux et au moins un nœud worker Windows exécutant Windows Server 2022. Trident prend en charge les volumes SMB montés sur les pods s'exécutant sur les nœuds Windows uniquement.
+* Au moins un secret Trident contenant vos informations d'identification Active Directory afin que Azure NetApp Files puisse s'authentifier auprès d'Active Directory. Pour générer un secret `smbcreds`:
 +
 [listing]
 ----

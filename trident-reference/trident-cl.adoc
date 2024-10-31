@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-reference/trident-cl.html 
 keywords: command-line, options, logging, kubernetes, docker, ports 
-summary: 'Astra Trident expose plusieurs options de ligne de commande pour l"orchestrateur Trident et communique sur certains ports.' 
+summary: 'Trident expose plusieurs options de ligne de commande pour l"orchestrateur Trident et communique sur certains ports.' 
 ---
 = Options de ligne de commande
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: 'Astra Trident expose plusieurs options de ligne de commande pour l"orc
 
 
 [role="lead"]
-Astra Trident expose plusieurs options de ligne de commande pour l'orchestrateur Trident. Vous pouvez utiliser ces options pour modifier votre déploiement.
+Trident expose plusieurs options de ligne de commande pour l'orchestrateur Trident. Vous pouvez utiliser ces options pour modifier votre déploiement.
 
 
 
@@ -27,7 +27,7 @@ Astra Trident expose plusieurs options de ligne de commande pour l'orchestrateur
 == Kubernetes
 
 `-k8s_pod`:: Utilisez cette option ou `-k8s_api_server` Pour activer la prise en charge de Kubernetes. La configuration de cette configuration entraîne l'utilisation par Trident des identifiants du compte de service Kubernetes du pod qui y est associé pour contacter le serveur d'API. Cela fonctionne uniquement lorsque Trident s'exécute en tant que pod dans un cluster Kubernetes avec les comptes de service activés.
-`-k8s_api_server <insecure-address:insecure-port>`:: Utilisez cette option ou `-k8s_pod` Pour activer la prise en charge de Kubernetes. Lorsqu'il est spécifié, Trident se connecte au serveur API Kubernetes à l'aide de l'adresse et du port non sécurisés fournis. Trident peut donc être déployé en dehors d'un pod, mais il ne prend uniquement en charge les connexions non sécurisées vers le serveur API. Pour vous connecter de manière sécurisée, déployez Trident dans un pod avec le `-k8s_pod` option.
+`-k8s_api_server <insecure-address:insecure-port>`:: Utilisez cette option ou `-k8s_pod` pour activer la prise en charge de Kubernetes. Lorsqu'il est spécifié, Trident se connecte au serveur API Kubernetes à l'aide de l'adresse et du port non sécurisés fournis. Cela permet de déployer Trident en dehors d'un pod. Cependant, il ne prend en charge que les connexions non sécurisées au serveur d'API. Pour vous connecter en toute sécurité, déployez Trident dans un pod avec l' `-k8s_pod`option.
 
 
 
