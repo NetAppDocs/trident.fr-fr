@@ -172,6 +172,9 @@ Vous pouvez contrôler le provisionnement par défaut à l'aide de ces options d
 
 
 | `nameTemplate` | Modèle pour créer des noms de volume personnalisés. | « » 
+
+
+| `denyNewVolumePools` | Empêche les `ontap-nas-economy` systèmes back-end de créer de nouveaux volumes FlexVol pour contenir leurs qtrees. Seuls les volumes FlexVol préexistants sont utilisés pour provisionner les nouveaux volumes persistants. |  
 |===
 
 NOTE: L'utilisation de groupes de règles de qualité de service avec Trident nécessite ONTAP 9.8 ou une version ultérieure. Vous devez utiliser un groupe de règles QoS non partagé et vous assurer que le groupe de règles est appliqué à chaque composant individuellement. Un groupe de règles de QoS partagées applique le débit total de toutes les charges de travail.
