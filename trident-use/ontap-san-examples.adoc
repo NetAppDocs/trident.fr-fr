@@ -97,7 +97,7 @@ NOTE: Lorsque l'agrégat est mis à jour au SVM, il est mis à jour automatiquem
 | `limitAggregateUsage` | Echec du provisionnement si l'utilisation est supérieure à ce pourcentage. Si vous utilisez un backend Amazon FSX for NetApp ONTAP, ne spécifiez pas  `limitAggregateUsage`. Les fournies `fsxadmin` et `vsadmin` ne contiennent pas les autorisations requises pour récupérer l'utilisation des agrégats et la limiter à l'aide de Trident. | « » (non appliqué par défaut) 
 
 
-| `limitVolumeSize` | Echec du provisionnement si la taille du volume demandé est supérieure à cette valeur. Restreint également la taille maximale des volumes qu'il gère pour les qtrees et les LUN. | « » (non appliqué par défaut) 
+| `limitVolumeSize` | Echec du provisionnement si la taille du volume demandé est supérieure à cette valeur. Limite également la taille maximale des volumes qu'il gère pour les LUN. | « » (non appliqué par défaut) 
 
 
 | `lunsPerFlexvol` | Nombre maximal de LUN par FlexVol, doit être compris dans la plage [50, 200] | `100` 
@@ -125,6 +125,12 @@ Utilisez `formatOptions` pour spécifier des arguments de ligne de commande pour
 *Pris en charge pour `ontap-san` les `ontap-san-economy` pilotes et uniquement.*
  a| 
 
+
+
+| `limitVolumePoolSize` | Taille maximale des FlexVol pouvant être demandées lors de l'utilisation de LUN dans le back-end ONTAP-san Economy. | « » (non appliqué par défaut) 
+
+
+| `denyNewVolumePools` | Limite les `ontap-san-economy` systèmes back-end à la création de nouveaux volumes FlexVol afin qu'ils contiennent leurs LUN. Seuls les volumes FlexVol préexistants sont utilisés pour provisionner les nouveaux volumes persistants. |  
 |===
 
 
@@ -184,12 +190,6 @@ Le cryptage LUKS n'est pas pris en charge pour NVMe/TCP. | « »
 
 
 | `nameTemplate` | Modèle pour créer des noms de volume personnalisés. | « » 
-
-
-| `limitVolumePoolSize` | Taille maximale des FlexVol pouvant être demandées lors de l'utilisation de LUN dans le back-end ONTAP-san Economy. | « » (non appliqué par défaut) 
-
-
-| `denyNewVolumePools` | Limite les `ontap-san-economy` systèmes back-end à la création de nouveaux volumes FlexVol afin qu'ils contiennent leurs LUN. Seuls les volumes FlexVol préexistants sont utilisés pour provisionner les nouveaux volumes persistants. |  
 |===
 
 

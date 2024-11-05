@@ -93,10 +93,7 @@ NOTE: Lorsque la liste des agrégats est mise à jour au SVM, elle est mise à j
 | « » 
 
 
-| `limitVolumeSize` | Echec du provisionnement si la taille du volume demandé est supérieure à cette valeur. Restreint également la taille maximale des volumes qu'il gère pour les qtrees et les LUN, et la `qtreesPerFlexvol` L'option permet de personnaliser le nombre maximal de qtree par FlexVol. | « » (non appliqué par défaut) 
-
-
-| `lunsPerFlexvol` | Nombre maximal de LUN par FlexVol, doit être compris dans la plage [50, 200] | « 100 » 
+| `limitVolumeSize` | Echec du provisionnement si la taille du volume demandé est supérieure à cette valeur. Limite également la taille maximale des volumes gérés pour les qtrees et `qtreesPerFlexvol` permet de personnaliser le nombre maximal de qtrees par FlexVol. | « » (non appliqué par défaut) 
 
 
 | `debugTraceFlags` | Indicateurs de débogage à utiliser lors du dépannage. Exemple, {"api":false, "method":true}
@@ -120,6 +117,9 @@ Ne pas utiliser `debugTraceFlags` à moins que vous ne soyez en mesure de dépan
 
 
 | `limitVolumePoolSize` | Taille de FlexVol maximale requise lors de l'utilisation de qtrees dans le back-end ONTAP-nas-Economy. | « » (non appliqué par défaut) 
+
+
+| `denyNewVolumePools` | Empêche les `ontap-nas-economy` systèmes back-end de créer de nouveaux volumes FlexVol pour contenir leurs qtrees. Seuls les volumes FlexVol préexistants sont utilisés pour provisionner les nouveaux volumes persistants. |  
 |===
 
 
@@ -132,7 +132,7 @@ Vous pouvez contrôler le provisionnement par défaut à l'aide de ces options d
 | Paramètre | Description | Valeur par défaut 
 
 
-| `spaceAllocation` | Allocation d'espace pour les LUN | « vrai » 
+| `spaceAllocation` | Allocation d'espace pour les qtrees | « vrai » 
 
 
 | `spaceReserve` | Mode de réservation d'espace ; « aucun » (fin) ou « volume » (épais) | « aucun » 
@@ -172,9 +172,6 @@ Vous pouvez contrôler le provisionnement par défaut à l'aide de ces options d
 
 
 | `nameTemplate` | Modèle pour créer des noms de volume personnalisés. | « » 
-
-
-| `denyNewVolumePools` | Empêche les `ontap-nas-economy` systèmes back-end de créer de nouveaux volumes FlexVol pour contenir leurs qtrees. Seuls les volumes FlexVol préexistants sont utilisés pour provisionner les nouveaux volumes persistants. |  
 |===
 
 NOTE: L'utilisation de groupes de règles de qualité de service avec Trident nécessite ONTAP 9.8 ou une version ultérieure. Vous devez utiliser un groupe de règles QoS non partagé et vous assurer que le groupe de règles est appliqué à chaque composant individuellement. Un groupe de règles de QoS partagées applique le débit total de toutes les charges de travail.
