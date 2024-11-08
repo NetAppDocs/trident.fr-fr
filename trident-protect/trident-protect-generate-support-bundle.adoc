@@ -1,0 +1,80 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-generate-support-bundle.html 
+keywords: trident, protect, bundle, support, netapp, custom, resource, file 
+summary: 'Trident Protect permet aux administrateurs de générer des bundles qui incluent des informations utiles pour le support NetApp, notamment des journaux, des metrics et des informations de topologie sur les clusters et les applications à gérer. Si vous êtes connecté à Internet, vous pouvez télécharger des offres groupées de support sur le site de support NetApp (NSS) à l"aide d"un fichier de ressources personnalisées (CR).' 
+---
+= Générer un bundle de support
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Trident Protect permet aux administrateurs de générer des bundles qui incluent des informations utiles pour le support NetApp, notamment des journaux, des metrics et des informations de topologie sur les clusters et les applications à gérer. Si vous êtes connecté à Internet, vous pouvez télécharger des offres groupées de support sur le site de support NetApp (NSS) à l'aide d'un fichier de ressources personnalisées (CR).
+
+[role="tabbed-block"]
+====
+.Créez un bundle de support à l'aide d'une CR
+--
+. Créez le fichier de ressource personnalisée (CR) et nommez-le (par exemple, `trident-protect-support-bundle.yaml`).
+. Configurez les attributs suivants :
++
+** *metadata.name*: (_required_) le nom de cette ressource personnalisée; choisissez un nom unique et sensible pour votre environnement.
+** *Spec.triggerType*: (_required_) détermine si le bundle de support est généré immédiatement ou planifié. La génération planifiée du bundle a lieu à 12 h UTC. Valeurs possibles :
++
+*** Planifié
+*** Manuel
+
+
+** *Spec.uploadEnabled*: (_Optional_) détermine si le bundle de support doit être téléchargé sur le site de support NetApp après sa génération. Si ce n'est pas le cas, la valeur par défaut est `false` . Valeurs possibles :
++
+*** vrai
+*** false (valeur par défaut)
+
+
+** *Spec.dataWindowStart*: (_Optional_) chaîne de date au format RFC 3339 qui spécifie la date et l'heure auxquelles la fenêtre des données incluses dans le paquet de support doit commencer. Si ce n'est pas le cas, la valeur par défaut est de 24 heures. La date de fenêtre la plus ancienne que vous pouvez spécifier est il y a 7 jours.
++
+Exemple YAML :
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AutoSupportBundle
+metadata:
+  name: trident-protect-support-bundle
+spec:
+  triggerType: Manual
+  uploadEnabled: true
+  dataWindowStart: 2024-05-05T12:30:00Z
+----
+
+
+. Une fois que vous avez rempli le `astra-support-bundle.yaml` fichier avec les valeurs correctes, appliquez la CR :
++
+[source, console]
+----
+kubectl apply -f trident-protect-support-bundle.yaml
+----
+
+
+--
+.Créez un bundle de support à l'aide de l'interface de ligne de commande
+--
+. Créez le pack de support en remplaçant les valeurs entre parenthèses par les informations de votre environnement.  `trigger-type`Détermine si le bundle est créé immédiatement ou si l'heure de création est déterminée par le planning, et peut être `Manual` ou `Scheduled`. Le paramètre par défaut est `Manual`.
++
+Par exemple :
+
++
+[source, console]
+----
+tridentctl protect create autosupportbundle <my_bundle_name> --trigger-type <trigger_type>
+----
+
+
+--
+====

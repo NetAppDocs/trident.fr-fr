@@ -1,0 +1,264 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-appvault-custom-resources.html 
+keywords: trident. appvault, custom, protect, kubernetes 
+summary: 'La ressource personnalisée de compartiment (CR) pour Trident Protect est appelée AppVault. AppVaults sont la représentation déclarative du workflow Kubernetes d"un compartiment de stockage.' 
+---
+= Utilisez les objets AppVault pour gérer les compartiments
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+La ressource personnalisée de compartiment (CR) pour Trident Protect est appelée AppVault. Les objets AppVault sont la représentation déclarative du workflow Kubernetes d'un compartiment de stockage. Une CR AppVault contient les configurations nécessaires à l'utilisation d'un compartiment dans les opérations de protection, telles que les sauvegardes, les snapshots, les opérations de restauration et la réplication SnapMirror. Seuls les administrateurs peuvent créer des AppVault.
+
+
+
+== Exemples de génération de clés et de définition d'AppVault
+
+Lors de la définition d'une CR AppVault, vous devez inclure des informations d'identification pour accéder aux ressources hébergées par le fournisseur. La façon dont vous générez les clés pour les informations d'identification varie en fonction du fournisseur. Vous trouverez ci-dessous des exemples de génération de clés de ligne de commande pour plusieurs fournisseurs, suivis des exemples de définitions AppVault pour chaque fournisseur.
+
+
+
+=== Google Cloud
+
+Exemple de génération de clés :
+
+[source, console]
+----
+kubectl create secret generic gcp-creds --from-file=credentials=<mycreds-file.json> -n trident-protect
+----
+Les exemples de définition d'AppVault suivants sont fournis sous la forme d'une CR que vous pouvez utiliser et modifier, ou sous la forme d'une commande CLI Trident Protect qui génère la CR d'AppVault pour vous :
+
+[role="tabbed-block"]
+====
+.Exemple de CR AppVault
+--
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AppVault
+metadata:
+  name: gcp-trident-protect-src-bucket-b643cc50-0429-4ad5-971f-ac4a83621922
+  namespace: trident-protect
+spec:
+  providerType: GCP
+  providerConfig:
+    gcp:
+      bucketName: trident-protect-src-bucket
+      projectID: project-id
+  providerCredentials:
+    credentials:
+      valueFromSecret:
+        key: credentials
+        name: gcp-trident-protect-src-bucket-secret
+----
+--
+.Exemple de création de CR AppVault à l'aide de l'interface de ligne de commande Trident Protect
+--
+[source, console]
+----
+tridentctl protect create vault gcp my-new-vault --bucket mybucket --project my-gcp-project --secret <gcp-creds>/<credentials>
+----
+--
+====
+
+
+=== Amazon S3
+
+Exemple de génération de clés :
+
+[source, console]
+----
+kubectl create secret generic -n trident-protect s3 --from-literal=accessKeyID=<secret-name> --from-literal=secretAccessKey=<generic-s3-trident-protect-src-bucket-secret>
+----
+Les exemples de définition d'AppVault suivants sont fournis sous la forme d'une CR que vous pouvez utiliser et modifier, ou sous la forme d'une commande CLI Trident Protect qui génère la CR d'AppVault pour vous :
+
+[role="tabbed-block"]
+====
+.Exemple de CR AppVault
+--
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AppVault
+metadata:
+  name: amazon-s3-trident-protect-src-bucket-b643cc50-0429-4ad5-971f-ac4a83621922
+  namespace: trident-protect
+spec:
+  providerType: AWS
+  providerConfig:
+    s3:
+      bucketName: trident-protect-src-bucket
+      endpoint: s3.example.com
+  providerCredentials:
+    accessKeyID:
+      valueFromSecret:
+        key: accessKeyID
+        name: s3
+    secretAccessKey:
+      valueFromSecret:
+        key: secretAccessKey
+        name: s3
+----
+--
+.Exemple de création d'AppVault avec CLI
+--
+[source, console]
+----
+tridentctl protect create vault GenericS3 s3vault --bucket <bucket-name> --secret  <secret-name>  --endpoint <s3-endpoint>
+----
+--
+====
+
+
+=== Microsoft Azure
+
+Exemple de génération de clés :
+
+[source, console]
+----
+kubectl create secret generic <secret-name> --from-literal=accountKey=<secret-name> -n trident-protect
+----
+Les exemples de définition d'AppVault suivants sont fournis sous la forme d'une CR que vous pouvez utiliser et modifier, ou sous la forme d'une commande CLI Trident Protect qui génère la CR d'AppVault pour vous :
+
+[role="tabbed-block"]
+====
+.Exemple de CR AppVault
+--
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AppVault
+metadata:
+  name: azure-trident-protect-src-bucket-b643cc50-0429-4ad5-971f-ac4a83621922
+  namespace: trident-protect
+spec:
+  providerType: Azure
+  providerConfig:
+    azure:
+      accountName: account-name
+      bucketName: trident-protect-src-bucket
+  providerCredentials:
+    accountKey:
+      valueFromSecret:
+        key: accountKey
+        name: azure-trident-protect-src-bucket-secret
+----
+--
+.Exemple de création d'AppVault avec CLI
+--
+[source, console]
+----
+tridentctl protect create vault Azure <vault-name> --account <account-name> --bucket <bucket-name> --secret <secret-name>
+----
+--
+====
+
+
+=== Valeurs prises en charge pour providerType et providerConfig
+
+Les `providerType` clés et `providerConfig` d'une CR AppVault requièrent des valeurs spécifiques. Le tableau suivant répertorie les valeurs prises en charge pour la `providerType` clé et la clé associée `providerConfig` que vous devez utiliser avec chaque `providerType` valeur.
+
+[cols="2,2"]
+|===
+| Valeur prise en charge `providerType` | Clé associée `providerConfig` 
+
+
+| AWS | s3 
+
+
+| Azure | azure 
+
+
+| GCP | gcp 
+
+
+| GenericS3 | s3 
+
+
+| OntapS3 | s3 
+
+
+| StorageGridS3 | s3 
+|===
+
+
+== Utilisez le navigateur AppVault pour afficher les informations AppVault
+
+Vous pouvez utiliser le plug-in Trident Protect CLI pour afficher des informations sur les objets AppVault qui ont été créés sur le cluster.
+
+.Étapes
+. Afficher le contenu d'un objet AppVault :
++
+[source, console]
+----
+tridentctl protect get appvaultcontent gcp-vault --show-resources all
+----
++
+*Exemple de sortie* :
+
++
+[listing]
+----
++-------------+-------+----------+-----------------------------+---------------------------+
+|   CLUSTER   |  APP  |   TYPE   |            NAME             |         TIMESTAMP         |
++-------------+-------+----------+-----------------------------+---------------------------+
+|             | mysql | snapshot | mysnap                      | 2024-08-09 21:02:11 (UTC) |
+| production1 | mysql | snapshot | hourly-e7db6-20240815180300 | 2024-08-15 18:03:06 (UTC) |
+| production1 | mysql | snapshot | hourly-e7db6-20240815190300 | 2024-08-15 19:03:06 (UTC) |
+| production1 | mysql | snapshot | hourly-e7db6-20240815200300 | 2024-08-15 20:03:06 (UTC) |
+| production1 | mysql | backup   | hourly-e7db6-20240815180300 | 2024-08-15 18:04:25 (UTC) |
+| production1 | mysql | backup   | hourly-e7db6-20240815190300 | 2024-08-15 19:03:30 (UTC) |
+| production1 | mysql | backup   | hourly-e7db6-20240815200300 | 2024-08-15 20:04:21 (UTC) |
+| production1 | mysql | backup   | mybackup5                   | 2024-08-09 22:25:13 (UTC) |
+|             | mysql | backup   | mybackup                    | 2024-08-09 21:02:52 (UTC) |
++-------------+-------+----------+-----------------------------+---------------------------+
+----
+. Si vous le souhaitez, utilisez l'indicateur pour afficher le chemin d'accès à l'application pour chaque ressource `--show-paths` .
++
+Le nom de cluster figurant dans la première colonne du tableau n'est disponible que si un nom de cluster a été spécifié dans l'installation de Trident Protect Helm. Par exemple : `--set clusterName=production1`.
+
+
+
+
+
+== Supprimer un AppVault
+
+Vous pouvez supprimer un objet AppVault à tout moment.
+
+
+NOTE: Ne supprimez pas la `finalizers` clé dans la CR AppVault avant de supprimer l'objet AppVault. Dans ce cas, des données résiduelles dans le compartiment AppVault et des ressources orphelines dans le cluster.
+
+.Avant de commencer
+Assurez-vous d'avoir supprimé tous les snapshots et les sauvegardes stockés dans le compartiment associé.
+
+[role="tabbed-block"]
+====
+.Supprimez un AppVault à l'aide de l'interface de ligne de commande Kubernetes
+--
+. Supprimez l'objet AppVault, en le remplaçant `appvault_name` par le nom de l'objet AppVault à supprimer :
++
+[source, console]
+----
+kubectl delete appvault <appvault_name> -n trident-protect
+----
+
+
+--
+.Supprimez un AppVault à l'aide de l'interface de ligne de commande Trident
+--
+. Supprimez l'objet AppVault, en le remplaçant `appvault_name` par le nom de l'objet AppVault à supprimer :
++
+[source, console]
+----
+tridentctl protect delete appvault <appvault_name> -n trident-protect
+----
+
+
+--
+====

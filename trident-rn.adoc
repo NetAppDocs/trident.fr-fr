@@ -41,6 +41,17 @@ WARNING: Le `tridentctl` Binaire pour Linux fourni dans le fichier zip du progra
 
 ==== Kubernetes
 
+* Ajout de nouvelles fonctionnalités Trident pour les workflows natifs Kubernetes :
++
+** Protection des données
+** Migration des données
+** Reprise après incident
+** Mobilité des applications
++
+link:/trident-protect/learn-about-trident-protect.html["En savoir plus sur Trident Protect"].
+
+
+
 * Ajout d'un nouvel indicateur `--k8s_api_qps` aux installateurs pour définir la valeur QPS utilisée par Trident pour communiquer avec le serveur API Kubernetes.
 * Indicateur ajouté `--node-prep` aux programmes d'installation pour la gestion automatique des dépendances des protocoles de stockage sur les nœuds de cluster Kubernetes. Compatibilité testée et vérifiée avec le protocole de stockage iSCSI Amazon Linux 2023
 * Ajout de la prise en charge du détachement forcé pour les volumes ONTAP-NAS-Economy dans les scénarios d'arrêt de nœud non normal.
@@ -87,7 +98,7 @@ WARNING: Le `tridentctl` Binaire pour Linux fourni dans le fichier zip du progra
 
 === Changement de marque du produit
 
-À partir de la version 24.10, Astra Trident a été renommée Trident (NetApp Trident). Ce changement de marque n'affecte en rien les fonctionnalités, les plateformes prises en charge et l'interopérabilité pour Trident.
+À partir de la version 24.10, Astra Trident a été renommée Trident (NetApp Trident). Ce changement de marque n'affecte en rien les fonctionnalités, les plateformes prises en charge ou l'interopérabilité pour Trident.
 
 
 

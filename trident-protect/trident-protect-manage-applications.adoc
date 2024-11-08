@@ -1,0 +1,76 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-manage-applications.html 
+keywords: appvault, data protection, custom resource, namespace, application, cluster 
+summary: 'Vous pouvez informer Trident Protect d"une application que vous souhaitez gérer en créant une application CR et une application CR AppVault associée.' 
+---
+= Définissez une application pour la gestion
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vous pouvez définir une application que vous souhaitez gérer avec Trident Protect en créant une application CR et une application CR AppVault associée.
+
+
+
+== Créez une CR AppVault
+
+Vous devez créer une CR AppVault qui sera utilisée lors des opérations de protection des données sur l'application et la CR AppVault doit résider sur le cluster sur lequel Trident Protect est installé. La CR AppVault est spécifique à votre environnement ; pour obtenir des exemples de CRS AppVault, reportez-vous à la section link:trident-protect-appvault-custom-resources.html["Ressources personnalisées AppVault."]
+
+
+
+== Créer une demande de modification d'application
+
+Vous devez créer une demande de modification pour chaque application que vous souhaitez gérer avec Trident Protect. Vous pouvez ajouter une application à des fins de gestion en créant manuellement une application CR ou en utilisant l'interface de ligne de commande Trident Protect pour créer la CR.
+
+[role="tabbed-block"]
+====
+.Ajouter une application à l'aide d'une demande de modification
+--
+. Créez le fichier CR de l'application de destination :
++
+.. Créez le fichier de ressource personnalisée (CR) et nommez-le (par exemple, `maria-app.yaml`).
+.. Configurez les attributs suivants :
++
+*** *metadata.name*: (_required_) le nom de la ressource personnalisée de l'application. Notez le nom que vous choisissez car les autres fichiers CR nécessaires aux opérations de protection font référence à cette valeur.
+*** *spec.includedNamespaces*: (_required_) utilisez des étiquettes d'espace de noms ou un nom d'espace de noms pour spécifier les espaces de noms dans lesquels les ressources d'application existent. L'espace de noms de l'application doit faire partie de cette liste.
++
+Exemple YAML :
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: Application
+metadata:
+  name: maria
+  namespace: my-app-namespace
+spec:
+  includedNamespaces:
+    labelSelector: {}
+    namespace: my-app-namespace
+----
+
+
+
+
+
+
+--
+.Ajoutez une application à l'aide de l'interface de ligne de commande
+--
+. Créez et appliquez la définition de l'application, en remplaçant les valeurs entre parenthèses par les informations de votre environnement. Vous pouvez inclure des espaces de noms et des ressources dans la définition d'application à l'aide de listes séparées par des virgules avec les arguments indiqués dans l'exemple suivant :
++
+[source, console]
+----
+tridentctl protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include>
+----
+
+
+--
+====

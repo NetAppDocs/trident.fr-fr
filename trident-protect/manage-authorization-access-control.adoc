@@ -1,0 +1,191 @@
+---
+permalink: trident-protect/manage-authorization-access-control.html 
+sidebar: sidebar 
+keywords: manage, authentication, rbac 
+summary: 'Trident Protect utilise le modèle Kubernetes de contrôle d"accès basé sur des rôles (RBAC). Vous pouvez utiliser les fonctionnalités Trident Protect RBAC pour contrôler plus précisément l"accès aux ressources.' 
+---
+= Gestion des autorisations et du contrôle d'accès
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Trident Protect utilise le modèle Kubernetes de contrôle d'accès basé sur des rôles (RBAC). Par défaut, Trident Protect fournit un espace de noms système unique et le compte de service par défaut qui lui est associé. Si vous avez une entreprise avec de nombreux utilisateurs ou des besoins de sécurité spécifiques, vous pouvez utiliser les fonctionnalités RBAC de Trident Protect pour bénéficier d'un contrôle plus granulaire sur l'accès aux ressources et aux espaces de noms.
+
+L'administrateur du cluster a toujours accès aux ressources de l'espace de noms par défaut `trident-protect` et peut également accéder aux ressources de tous les autres espaces de noms. Pour contrôler l'accès aux ressources et aux applications, vous devez créer des espaces de noms supplémentaires et ajouter des ressources et des applications à ces espaces de noms.
+
+Notez qu'aucun utilisateur ne peut créer de CRS de gestion des données d'application dans l'espace de noms par défaut `trident-protect`. Vous devez créer une CRS de gestion des données d'application dans un espace de noms d'application (pour cela, il est recommandé de créer une CRS de gestion des données d'application dans le même espace de nom que l'application associée).
+
+[NOTE]
+====
+Seuls les administrateurs doivent avoir accès aux objets de ressources personnalisés Privileged Trident Protect, notamment :
+
+* *AppVault* : nécessite les données d'informations d'identification du compartiment
+* *AutoSupportBundle* : collecte des mesures, des journaux et d'autres données sensibles de Trident Protect
+* *AutoSupportBundleSchedule* : gère les plannings de collecte de journaux
+
+
+Comme bonne pratique, utilisez RBAC pour limiter l'accès aux objets privilégiés aux administrateurs.
+
+====
+Pour plus d'informations sur la façon dont RBAC réglemente l'accès aux ressources et aux espaces de noms, reportez-vous à la section https://kubernetes.io/docs/reference/access-authn-authz/rbac/["Documentation Kubernetes RBAC"^] .
+
+Pour plus d'informations sur les comptes de service, reportez-vous au https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/["Documentation du compte de service Kubernetes"^].
+
+
+
+== Exemple : gestion de l'accès pour deux groupes d'utilisateurs
+
+Par exemple, une organisation dispose d'un administrateur de cluster, d'un groupe d'utilisateurs techniques et d'un groupe d'utilisateurs marketing. L'administrateur du cluster doit effectuer les tâches suivantes pour créer un environnement dans lequel le groupe d'ingénierie et le groupe marketing ont chacun accès uniquement aux ressources affectées à leurs espaces de noms respectifs.
+
+
+
+=== Étape 1 : créez un espace de noms pour contenir des ressources pour chaque groupe
+
+La création d'un espace de noms vous permet de séparer logiquement les ressources et de mieux contrôler qui a accès à ces ressources.
+
+.Étapes
+. Créer un espace de nom pour le groupe d'ingénierie :
++
+[source, console]
+----
+kubectl create ns engineering-ns
+----
+. Créez un espace de nom pour le groupe marketing :
++
+[source, console]
+----
+kubectl create ns marketing-ns
+----
+
+
+
+
+=== Étape 2 : créez de nouveaux comptes de service pour interagir avec les ressources de chaque espace de noms
+
+Chaque nouvel espace de noms que vous créez est fourni avec un compte de service par défaut, mais vous devez créer un compte de service pour chaque groupe d'utilisateurs afin de pouvoir diviser davantage Privileges entre les groupes si nécessaire.
+
+.Étapes
+. Créer un compte de service pour le groupe d'ingénierie :
++
+[source, yaml]
+----
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: eng-user
+  namespace: engineering-ns
+----
+. Créez un compte de service pour le groupe marketing :
++
+[source, yaml]
+----
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: mkt-user
+  namespace: marketing-ns
+----
+
+
+
+
+=== Étape 3 : créez un secret pour chaque nouveau compte de service
+
+Un secret de compte de service est utilisé pour s'authentifier auprès du compte de service et peut facilement être supprimé et recréé si compromis.
+
+.Étapes
+. Créez un secret pour le compte de service d'ingénierie :
++
+[source, yaml]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    kubernetes.io/service-account.name: eng-user
+  name: eng-user-secret
+  namespace: engineering-ns
+type: kubernetes.io/service-account-token
+----
+. Créez un secret pour le compte de service marketing :
++
+[source, yaml]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    kubernetes.io/service-account.name: mkt-user
+  name: mkt-user-secret
+  namespace: marketing-ns
+type: kubernetes.io/service-account-token
+----
+
+
+
+
+=== Étape 4 : créez un objet RoleBinding pour lier l'objet ClusterRole à chaque nouveau compte de service
+
+Un objet ClusterRole par défaut est créé lorsque vous installez Trident Protect. Vous pouvez lier ce ClusterRole au compte de service en créant et en appliquant un objet RoleBinding.
+
+.Étapes
+. Liez ClusterRole au compte de service d'ingénierie :
++
+[source, yaml]
+----
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: engineering-ns-tenant-rolebinding
+  namespace: engineering-ns
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: trident-protect-tenant-cluster-role
+subjects:
+- kind: ServiceAccount
+  name: eng-user
+  namespace: engineering-ns
+----
+. Associez ClusterRole au compte de service marketing :
++
+[source, yaml]
+----
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: marketing-ns-tenant-rolebinding
+  namespace: marketing-ns
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: trident-protect-tenant-cluster-role
+subjects:
+- kind: ServiceAccount
+  name: mkt-user
+  namespace: marketing-ns
+----
+
+
+
+
+=== Étape 5 : autorisations de test
+
+Vérifiez que les autorisations sont correctes.
+
+.Étapes
+. Vérifier que les utilisateurs d'ingénierie peuvent accéder aux ressources d'ingénierie :
++
+[source, console]
+----
+kubectl auth can-i --as=system:serviceaccount:engineering-ns:eng-user get applications.protect.trident.netapp.io -n engineering-ns
+----
+. Vérifiez que les utilisateurs d'ingénierie ne peuvent pas accéder aux ressources marketing :
++
+[source, console]
+----
+kubectl auth can-i --as=system:serviceaccount:engineering-ns:eng-user get applications.protect.trident.netapp.io -n marketing-ns
+----
+

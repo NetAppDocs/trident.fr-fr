@@ -1,0 +1,195 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-use-execution-hooks.html 
+keywords: trident, protect, execution hooks 
+summary: 'Vous pouvez créer un crochet d"exécution personnalisé pour une application à l"aide de Trident Protect. Vous devez disposer d"autorisations propriétaire, administrateur ou membre pour créer des crochets d"exécution.' 
+---
+= Gérer les crochets d'exécution
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Un crochet d'exécution est une action personnalisée que vous pouvez configurer pour s'exécuter conjointement avec une opération de protection des données d'une application gérée. Par exemple, si vous disposez d'une application de base de données, vous pouvez utiliser un crochet d'exécution pour suspendre toutes les transactions de base de données avant un instantané et reprendre les transactions une fois l'instantané terminé. Les snapshots sont ainsi cohérents au niveau des applications.
+
+
+
+== Types de crochets d'exécution
+
+Trident Protect prend en charge les types de crochets d'exécution suivants, en fonction du moment où ils peuvent être exécutés :
+
+* Pré-instantané
+* Post-snapshot
+* Avant sauvegarde
+* Post-sauvegarde
+* Post-restauration
+* Après le basculement
+
+
+
+
+=== Ordre d'exécution
+
+Lors de l'exécution d'une opération de protection des données, les événements de hook d'exécution ont lieu dans l'ordre suivant :
+
+. Tous les crochets d'exécution de pré-opération personnalisés applicables sont exécutés sur les conteneurs appropriés. Vous pouvez créer et exécuter autant de crochets de pré-opération personnalisés que vous le souhaitez, mais l'ordre d'exécution de ces crochets avant que l'opération ne soit ni garantie ni configurable.
+. L'opération de protection des données est effectuée.
+. Tous les crochets d'exécution de post-opération personnalisés applicables sont exécutés sur les conteneurs appropriés. Vous pouvez créer et exécuter autant de crochets post-opération personnalisés que vous le souhaitez, mais l'ordre d'exécution de ces crochets après l'opération n'est ni garanti ni configurable.
+
+
+Si vous créez plusieurs crochets d'exécution du même type (par exemple, pré-instantané), l'ordre d'exécution de ces crochets n'est pas garanti. Cependant, l'ordre d'exécution des crochets de différents types est garanti. Par exemple, voici l'ordre d'exécution d'une configuration qui a tous les types de crochets :
+
+. Crochets pré-instantanés exécutés
+. Crochets post-snapshot exécutés
+. Crochets de pré-secours exécutés
+. Crochets post-secours exécutés
+
+
+
+NOTE: L'exemple d'ordre précédent s'applique uniquement lorsque vous exécutez une sauvegarde qui n'utilise pas de snapshot existant.
+
+
+NOTE: Vous devez toujours tester vos scripts d'exécution avant de les activer dans un environnement de production. Vous pouvez utiliser la commande 'kubectl exec' pour tester aisément les scripts. Une fois que vous avez activé les crochets d'exécution dans un environnement de production, testez les snapshots et les sauvegardes obtenus pour vous assurer qu'ils sont cohérents. Pour ce faire, vous pouvez cloner l'application dans un espace de noms temporaire, restaurer le snapshot ou la sauvegarde, puis tester l'application.
+
+
+
+== Remarques importantes sur les crochets d'exécution personnalisés
+
+Lors de la planification de crochets d'exécution pour vos applications, tenez compte des points suivants.
+
+* Un crochet d'exécution doit utiliser un script pour effectuer des actions. De nombreux crochets d'exécution peuvent référencer le même script.
+* Trident Protect exige que les scripts utilisés par les crochets d'exécution soient écrits au format de scripts shell exécutables.
+* La taille du script est limitée à 96 Ko.
+* Trident Protect utilise les paramètres du crochet d'exécution et les critères correspondants pour déterminer les crochets applicables à une opération de snapshot, de sauvegarde ou de restauration.
+
+
+
+NOTE: Puisque les crochets d'exécution réduisent ou désactivent complètement la fonctionnalité de l'application contre laquelle ils s'exécutent, vous devez toujours essayer de réduire le temps d'exécution de vos crochets personnalisés. Si vous démarrez une opération de sauvegarde ou d'instantané avec les crochets d'exécution associés, mais que vous l'annulez, les crochets sont toujours autorisés à s'exécuter si l'opération de sauvegarde ou d'instantané a déjà commencé. Cela signifie que la logique utilisée dans un crochet d'exécution post-sauvegarde ne peut pas présumer que la sauvegarde a été effectuée.
+
+
+
+== Filtres de crochet d'exécution
+
+Lorsque vous ajoutez ou modifiez un crochet d'exécution pour une application, vous pouvez ajouter des filtres au crochet d'exécution pour gérer les conteneurs auxquels le crochet correspond. Les filtres sont utiles pour les applications qui utilisent la même image de conteneur sur tous les conteneurs, mais ils peuvent utiliser chaque image à des fins différentes (comme Elasticsearch). Les filtres vous permettent de créer des scénarios dans lesquels des crochets d'exécution s'exécutent sur certains conteneurs, mais pas nécessairement tous identiques. Si vous créez plusieurs filtres pour un seul crochet d'exécution, ils sont combinés avec un opérateur ET logique. Vous pouvez avoir jusqu'à 10 filtres actifs par crochet d'exécution.
+
+Chaque filtre que vous ajoutez à un crochet d'exécution utilise une expression régulière pour faire correspondre les conteneurs de votre cluster. Lorsqu'un crochet correspond à un conteneur, le crochet exécute son script associé sur ce conteneur. Les expressions régulières pour les filtres utilisent la syntaxe de l'expression régulière 2 (RE2), qui ne prend pas en charge la création d'un filtre qui exclut les conteneurs de la liste des correspondances. Pour plus d'informations sur la syntaxe prise en charge par Trident Protect pour les expressions régulières dans les filtres de hook d'exécution, reportez-vous àla section https://github.com/google/re2/wiki/Syntax["Prise en charge de la syntaxe de l'expression régulière 2 (RE2)"^].
+
+
+NOTE: Si vous ajoutez un filtre d'espace de noms à un crochet d'exécution qui s'exécute après une opération de restauration ou de clonage et que la source et la destination de restauration ou de clonage sont dans des espaces de noms différents, le filtre d'espace de noms est appliqué uniquement à l'espace de noms de destination.
+
+
+
+== Exemples de crochet d'exécution
+
+Visitez le https://github.com/NetApp/Verda["Projet GitHub NetApp Verda"] pour télécharger des scripts d'exécution réels pour les applications courantes telles qu'Apache Cassandra et Elasticsearch. Vous pouvez également voir des exemples et obtenir des idées pour structurer vos propres crochets d'exécution personnalisés.
+
+
+
+== Créer un crochet d'exécution
+
+Vous pouvez créer un crochet d'exécution personnalisé pour une application à l'aide de Trident Protect. Vous devez disposer d'autorisations propriétaire, administrateur ou membre pour créer des crochets d'exécution.
+
+[role="tabbed-block"]
+====
+.Utiliser une CR
+--
+. Créez le fichier de ressource personnalisée (CR) et nommez-le `trident-protect-hook.yaml`.
+. Configurez les attributs suivants en fonction de votre environnement Trident Protect et de la configuration du cluster :
++
+** *metadata.name*: (_required_) le nom de cette ressource personnalisée; choisissez un nom unique et sensible pour votre environnement.
+** *Spec.applicationRef*: (_required_) Nom Kubernetes de l'application pour laquelle exécuter le hook d'exécution.
+** *Spec.stage*: (_required_) Une chaîne indiquant quelle étape de l'action doit être exécutée par le crochet d'exécution. Valeurs possibles :
++
+*** Pré
+*** Post
+
+
+** *Spec.action*: (_required_) Une chaîne indiquant l'action que prendra le crochet d'exécution, en supposant que tous les filtres de crochet d'exécution spécifiés soient mis en correspondance. Valeurs possibles :
++
+*** Snapshot
+*** Sauvegarde
+*** Restaurer
+*** Basculement
+
+
+** *Spec.enabled*: (_Optional_) indique si ce hook d'exécution est activé ou désactivé. Si elle n'est pas spécifiée, la valeur par défaut est true.
+** *Spec.hookSource*: (_required_) chaîne contenant le script hook codé en base64.
+** *Spec.timeout*: (_Optional_) nombre définissant la durée en minutes pendant laquelle le crochet d'exécution est autorisé à s'exécuter. La valeur minimale est de 1 minute et la valeur par défaut est de 25 minutes si elle n'est pas spécifiée.
+** *Spec.arguments*: (_Optional_) liste YAML d'arguments que vous pouvez spécifier pour le crochet d'exécution.
+** *Spec.matchingCriteria*: (_Optional_) liste facultative de paires de valeurs de clé de critères, chaque paire constituant un filtre de crochet d'exécution. Vous pouvez ajouter jusqu'à 10 filtres par crochet d'exécution.
+** *Spec.matchingCriteria.type*: (_Optional_) chaîne identifiant le type de filtre du crochet d'exécution. Valeurs possibles :
++
+*** ContainerImage
+*** ContainerName
+*** PodName
+*** PodLabel
+*** NomespaceName
+
+
+** *Spec.matchingCriteria.Value*: (_Optional_) Une chaîne ou Une expression régulière identifiant la valeur du filtre crochet d'exécution.
++
+Exemple YAML :
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: ExecHook
+metadata:
+  name: example-hook-cr
+  namespace: my-app-namespace
+  annotations:
+    astra.netapp.io/astra-control-hook-source-id: /account/test/hookSource/id
+spec:
+  applicationRef: my-app-name
+  stage: Pre
+  action: Snapshot
+  enabled: true
+  hookSource: IyEvYmluL2Jhc2gKZWNobyAiZXhhbXBsZSBzY3JpcHQiCg==
+  timeout: 10
+  arguments:
+    - FirstExampleArg
+    - SecondExampleArg
+  matchingCriteria:
+    - type: containerName
+      value: mysql
+    - type: containerImage
+      value: bitnami/mysql
+    - type: podName
+      value: mysql
+    - type: namespaceName
+      value: mysql-a
+    - type: podLabel
+      value: app.kubernetes.io/component=primary
+    - type: podLabel
+      value: helm.sh/chart=mysql-10.1.0
+    - type: podLabel
+      value: deployment-type=production
+----
+
+
+. Une fois que vous avez rempli le fichier CR avec les valeurs correctes, appliquez la CR :
++
+[source, console]
+----
+kubectl apply -f trident-protect-hook.yaml
+----
+
+
+--
+.Utiliser l'interface de ligne de commande
+--
+. Créez le crochet d'exécution en remplaçant les valeurs entre parenthèses par les informations de votre environnement. Par exemple :
++
+[source, console]
+----
+tridentctl protect create exechook <my_exec_hook_name> --action <action_type> --app <app_to_use_hook> --stage <pre_or_post_stage> --source-file <script-file>
+----
+
+
+--
+====
