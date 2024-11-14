@@ -458,7 +458,7 @@ k get shutdownsnapshot -n my-app-namespace <shutdown_snapshot_name> -o jsonpath=
 
 NOTE: À l'étape 2 de la procédure de basculement, incluez le `spec.promotedSnapshot` champ dans le fichier CR AppMirrorRelationship et définissez sa valeur sur le nom de base que vous avez enregistré à l'étape 3 ci-dessus.
 
-. Effectuez les étapes de resynchronisation inverse dans <<Reverse resync a failed over replication>>.
+. Effectuez les étapes de resynchronisation inverse dans <<Inversion de la resynchronisation d'une relation de réplication ayant échoué>>.
 . Activez les plannings de protection sur le nouveau cluster source.
 
 
@@ -485,13 +485,17 @@ Grâce à Trident Protect, vous pouvez obtenir le « retour arrière » après u
 Ce processus commence à partir d'une relation qui a effectué un basculement vers une destination et implique les étapes suivantes :
 
 * Commencer par un état de basculement défaillant.
-* Inverser resynchroniser la relation.
-* Inverser la réplication.
+* Resynchronisez la relation de réplication en sens inverse.
++
+
+CAUTION: N'effectuez pas d'opération de resynchronisation normale, car cela vous permettra d'ignorer les données écrites sur le cluster de destination pendant la procédure de basculement.
+
+* Inversez le sens de réplication.
 
 
 .Étapes
-. Effectuer les <<Resync a failed over replication>> étapes
-. Effectuer les <<Reverse resync a failed over replication>> étapes
+. Effectuer les <<Inversion de la resynchronisation d'une relation de réplication ayant échoué>> étapes.
+. Effectuer les <<Inverser le sens de réplication de l'application>> étapes.
 
 
 
