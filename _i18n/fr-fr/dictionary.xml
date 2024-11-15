@@ -3220,7 +3220,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="bd97885496639b0f4498d4131198ac36" category="list-text">Ajout de la prise en charge des nœuds Windows Server 2022.</block>
   <block id="de547bcab0e20f54ec4d5e95ba44b0b1" category="list-text">Windows Server 2022</block>
   <block id="010e61d0b40eeb84b96a1321e8f0bab7" category="cell">ext4, ext3, xfs</block>
-  <block id="c9db4c3d8dc7c24ea723ab5fe1e45fdb" category="list-text">OpenShift 4.10 - 4.16</block>
   <block id="e422e290c66eca7f882976f830b781b4" category="list-text">Prise en charge de Kubernetes 1.30.</block>
   <block id="190dbae19c88b1e68bf03f7783c5d5d1" category="list-text"><block ref="190dbae19c88b1e68bf03f7783c5d5d1" category="inline-link-rx"></block></block>
   <block id="430c6bcb8516befc45fb8173b0ca4e1f" category="list-text"><block ref="430c6bcb8516befc45fb8173b0ca4e1f" category="inline-link-rx"></block></block>
@@ -4980,4 +4979,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="61379a8f62ab2974cb68f4754e439dfd" category="list-text"><block ref="61379a8f62ab2974cb68f4754e439dfd" category="inline-link-macro-rx"></block></block>
   <block id="553ac32ac6bcab84d5384eda7468d415" category="paragraph">Tous les nœuds workers du cluster Kubernetes doivent pouvoir monter les volumes provisionnés pour vos pods. Pour préparer les nœuds workers, vous devez installer les outils NFS, iSCSI, NVMe/TCP ou FC en fonction de votre sélection de pilotes.</block>
   <block id="07e8df1ea1cba20edddeb5a9da554efd" category="sidebar">SCSI over Fibre Channel (FC)</block>
+  <block id="766a0f35ad6c38b247125809df6efead" category="list-text">OpenShift 4.10 - 4.17</block>
+  <block id="64467ac9530ff26c4e6495117175346d" category="admonition">Si vous utilisez ONTAP-nas-Economy et un préfixe de stockage de 24 caractères ou plus, le préfixe de stockage n'est pas intégré dans les qtrees, même s'il figure dans le nom du volume.</block>
 </blocks>
