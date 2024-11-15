@@ -63,7 +63,7 @@ link:./trident-protect/learn-about-trident-protect.html["En savoir plus sur Trid
 
 ==== Améliorations expérimentales
 
-* Ajout d'un aperçu technique de la prise en charge de Fibre Channel sur le pilote ONTAP-SAN. Reportez-vous à la link:../trident-use/fcp.html["Prise en charge de Fibre Channel"^].
+* Ajout d'un aperçu technique de la prise en charge de Fibre Channel sur le pilote ONTAP-SAN. Reportez-vous à la link:../trident-use/fcp.html["Prise en charge de Fibre Channel"].
 
 
 
