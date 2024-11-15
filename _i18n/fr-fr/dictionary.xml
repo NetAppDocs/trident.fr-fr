@@ -4980,6 +4980,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="07e8df1ea1cba20edddeb5a9da554efd" category="sidebar">SCSI over Fibre Channel (FC)</block>
   <block id="766a0f35ad6c38b247125809df6efead" category="list-text">OpenShift 4.10 - 4.17</block>
   <block id="64467ac9530ff26c4e6495117175346d" category="admonition">Si vous utilisez ONTAP-nas-Economy et un préfixe de stockage de 24 caractères ou plus, le préfixe de stockage n'est pas intégré dans les qtrees, même s'il figure dans le nom du volume.</block>
-  <block id="f1c09cfcd8aa6e6314b92b3a724aca83" category="list-text">Ajout d'un aperçu technique de la prise en charge de Fibre Channel sur le pilote ONTAP-SAN. Reportez-vous à la <block ref="9954ad164e99690ed1af0635a7949c36" category="inline-link-macro-rx"></block>.</block>
   <block id="0d28255dc96cb23d422741096c09ce8e" category="paragraph"><block ref="256d12880dee7515c7ed6253fd0a228a" prefix="" category="inline-code"></block><block ref="bd5ed83ae12ddcfe924a6af54a0be554" prefix=" " category="inline-code"></block></block>
+  <block id="8643539c7696bee604cfc39337280ef3" category="list-text">Ajout d'un aperçu technique de la prise en charge de Fibre Channel sur le pilote ONTAP-SAN. Reportez-vous à la <block ref="5aa030ef89b8f38b2fa353dc2fa17e8d" category="inline-link-macro-rx"></block>.</block>
 </blocks>
