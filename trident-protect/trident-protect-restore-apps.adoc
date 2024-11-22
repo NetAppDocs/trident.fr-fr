@@ -25,6 +25,9 @@ NOTE: Lorsque vous restaurez une application, tous les crochets d'exécution con
 
 Lorsque vous restaurez une sauvegarde dans un espace de noms différent à l'aide d'une sauvegarde CR BackupRestore, Trident Protect restaure l'application dans un nouvel espace de noms, mais l'application restaurée n'est pas automatiquement protégée par Trident Protect. Pour protéger l'application restaurée, vous devez créer une application CR pour l'application restaurée afin qu'elle soit protégée par Trident Protect.
 
+
+NOTE: La restauration d'une sauvegarde dans un espace de noms différent avec des ressources existantes ne modifie aucune ressource qui partage des noms avec ceux de la sauvegarde. Pour restaurer toutes les ressources de la sauvegarde, supprimez et recréez l'espace de noms cible ou restaurez la sauvegarde dans un nouvel espace de noms.
+
 [role="tabbed-block"]
 ====
 .Utiliser une CR
@@ -121,9 +124,6 @@ tridentctl protect create backuprestore <my_restore_name> --backup <backup_names
 == Restaurer à partir d'une sauvegarde vers l'espace de noms d'origine
 
 Vous pouvez à tout moment restaurer une sauvegarde dans l'espace de noms d'origine.
-
-
-NOTE: La restauration d'une sauvegarde dans un espace de noms avec des ressources existantes ne modifie aucune ressource qui partage des noms avec ceux de la sauvegarde. Pour restaurer toutes les ressources d'une sauvegarde, supprimez et recréez l'espace de noms cible ou restaurez la sauvegarde dans un nouvel espace de noms.
 
 [role="tabbed-block"]
 ====
