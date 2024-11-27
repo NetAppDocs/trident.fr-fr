@@ -101,6 +101,7 @@ spec:
 ====
 .Restaurez l'instantané à l'aide d'une CR
 --
+.Étapes
 . Créez le fichier de ressource personnalisée (CR) et nommez-le `trident-protect-snapshot-restore-cr.yaml`.
 . Dans le fichier que vous avez créé, configurez les attributs suivants :
 +
@@ -167,6 +168,7 @@ kubectl apply -f trident-protect-snapshot-restore-cr.yaml
 --
 .Restaurez le snapshot à l'aide de l'interface de ligne de commande
 --
+.Étapes
 . Restaurez l'instantané dans un autre espace de noms, en remplaçant les valeurs entre parenthèses par les informations de votre environnement.
 +
 ** L' `snapshot`argument utilise un nom d'espace de noms et un nom d'instantané au format `<namespace>/<name>`.

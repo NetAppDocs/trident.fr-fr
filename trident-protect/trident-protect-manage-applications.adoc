@@ -32,6 +32,7 @@ Vous devez créer une demande de modification pour chaque application que vous s
 ====
 .Ajouter une application à l'aide d'une demande de modification
 --
+.Étapes
 . Créez le fichier CR de l'application de destination :
 +
 .. Créez le fichier de ressource personnalisée (CR) et nommez-le (par exemple, `maria-app.yaml`).
@@ -64,6 +65,7 @@ spec:
 --
 .Ajoutez une application à l'aide de l'interface de ligne de commande
 --
+.Étapes
 . Créez et appliquez la définition de l'application, en remplaçant les valeurs entre parenthèses par les informations de votre environnement. Vous pouvez inclure des espaces de noms et des ressources dans la définition d'application à l'aide de listes séparées par des virgules avec les arguments indiqués dans l'exemple suivant :
 +
 [source, console]

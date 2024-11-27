@@ -26,6 +26,7 @@ Vous pouvez créer un snapshot à la demande à tout moment.
 ====
 .Créer un instantané à l'aide d'une CR
 --
+.Étapes
 . Créez le fichier de ressource personnalisée (CR) et nommez-le `trident-protect-snapshot-cr.yaml`.
 . Dans le fichier que vous avez créé, configurez les attributs suivants :
 +
@@ -64,6 +65,7 @@ kubectl apply -f trident-protect-snapshot-cr.yaml
 --
 .Créer un snapshot à l'aide de l'interface de ligne de commandes
 --
+.Étapes
 . Créez l'instantané, en remplaçant les valeurs entre parenthèses par les informations de votre environnement. Par exemple :
 +
 [source, console]
@@ -84,6 +86,7 @@ Vous pouvez sauvegarder une application à tout moment.
 ====
 .Créez une sauvegarde à l'aide d'une CR
 --
+.Étapes
 . Créez le fichier de ressource personnalisée (CR) et nommez-le `trident-protect-backup-cr.yaml`.
 . Dans le fichier que vous avez créé, configurez les attributs suivants :
 +
@@ -129,6 +132,7 @@ kubectl apply -f trident-protect-backup-cr.yaml
 --
 .Créez une sauvegarde à l'aide de l'interface de ligne de commande
 --
+.Étapes
 . Créez la sauvegarde en remplaçant les valeurs entre parenthèses par les informations de votre environnement. Par exemple :
 +
 [source, console]
@@ -149,6 +153,7 @@ Une règle de protection protège une application en créant des snapshots, des 
 ====
 .Créer un programme à l'aide d'une demande de modification
 --
+.Étapes
 . Créez le fichier de ressource personnalisée (CR) et nommez-le `trident-protect-schedule-cr.yaml`.
 . Dans le fichier que vous avez créé, configurez les attributs suivants :
 +
@@ -208,6 +213,7 @@ kubectl apply -f trident-protect-schedule-cr.yaml
 --
 .Créez un planning à l'aide de l'interface de ligne de commandes
 --
+.Étapes
 . Créez le planning de protection en remplaçant les valeurs entre parenthèses par les informations de votre environnement. Par exemple :
 +
 

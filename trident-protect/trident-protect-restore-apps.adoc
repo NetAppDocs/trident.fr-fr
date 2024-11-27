@@ -32,6 +32,7 @@ NOTE: La restauration d'une sauvegarde dans un espace de noms différent avec de
 ====
 .Utiliser une CR
 --
+.Étapes
 . Créez le fichier de ressource personnalisée (CR) et nommez-le `trident-protect-backup-restore-cr.yaml`.
 . Dans le fichier que vous avez créé, configurez les attributs suivants :
 +
@@ -109,6 +110,7 @@ kubectl apply -f trident-protect-backup-restore-cr.yaml
 --
 .Utiliser l'interface de ligne de commande
 --
+.Étapes
 . Restaurez la sauvegarde dans un espace de noms différent, en remplaçant les valeurs entre parenthèses par les informations de votre environnement. L' `namespace-mapping`argument utilise des espaces de noms séparés par deux-points pour mapper les espaces de noms source aux espaces de noms de destination corrects dans le format `source1:dest1,source2:dest2`. Par exemple :
 +
 [source, console]
@@ -129,6 +131,7 @@ Vous pouvez à tout moment restaurer une sauvegarde dans l'espace de noms d'orig
 ====
 .Utiliser une CR
 --
+.Étapes
 . Créez le fichier de ressource personnalisée (CR) et nommez-le `trident-protect-backup-ipr-cr.yaml`.
 . Dans le fichier que vous avez créé, configurez les attributs suivants :
 +
@@ -203,6 +206,7 @@ kubectl apply -f trident-protect-backup-ipr-cr.yaml
 --
 .Utiliser l'interface de ligne de commande
 --
+.Étapes
 . Restaurez la sauvegarde dans l'espace de noms d'origine en remplaçant les valeurs entre parenthèses par les informations de votre environnement. L' `backup`argument utilise un nom d'espace de noms et un nom de sauvegarde au format `<namespace>/<name>`. Par exemple :
 +
 [source, console]
@@ -223,6 +227,7 @@ Vous pouvez restaurer les données d'un instantané à l'aide d'un fichier de re
 ====
 .Utiliser une CR
 --
+.Étapes
 . Créez le fichier de ressource personnalisée (CR) et nommez-le `trident-protect-snapshot-restore-cr.yaml`.
 . Dans le fichier que vous avez créé, configurez les attributs suivants :
 +
@@ -300,6 +305,7 @@ kubectl apply -f trident-protect-snapshot-restore-cr.yaml
 --
 .Utiliser l'interface de ligne de commande
 --
+.Étapes
 . Restaurez l'instantané dans un autre espace de noms, en remplaçant les valeurs entre parenthèses par les informations de votre environnement.
 +
 ** L' `snapshot`argument utilise un nom d'espace de noms et un nom d'instantané au format `<namespace>/<name>`.
@@ -328,6 +334,7 @@ Vous pouvez à tout moment restaurer un snapshot dans l'espace de noms d'origine
 ====
 .Utiliser une CR
 --
+.Étapes
 . Créez le fichier de ressource personnalisée (CR) et nommez-le `trident-protect-snapshot-ipr-cr.yaml`.
 . Dans le fichier que vous avez créé, configurez les attributs suivants :
 +
@@ -399,6 +406,7 @@ kubectl apply -f trident-protect-snapshot-ipr-cr.yaml
 --
 .Utiliser l'interface de ligne de commande
 --
+.Étapes
 . Restaurez l'instantané dans l'espace de noms d'origine en remplaçant les valeurs entre parenthèses par les informations de votre environnement. Par exemple :
 +
 [source, console]

@@ -97,6 +97,7 @@ Vous pouvez créer un crochet d'exécution personnalisé pour une application à
 ====
 .Utiliser une CR
 --
+.Étapes
 . Créez le fichier de ressource personnalisée (CR) et nommez-le `trident-protect-hook.yaml`.
 . Configurez les attributs suivants en fonction de votre environnement Trident Protect et de la configuration du cluster :
 +
@@ -183,6 +184,7 @@ kubectl apply -f trident-protect-hook.yaml
 --
 .Utiliser l'interface de ligne de commande
 --
+.Étapes
 . Créez le crochet d'exécution en remplaçant les valeurs entre parenthèses par les informations de votre environnement. Par exemple :
 +
 [source, console]

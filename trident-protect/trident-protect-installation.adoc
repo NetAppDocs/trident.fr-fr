@@ -23,6 +23,7 @@ NOTE: Par défaut, Trident Protect collecte des informations sur le support que 
 ====
 .Installez Trident Protect from NetApp
 --
+.Étapes
 . Ajout du référentiel Trident Helm :
 +
 [source, console]
@@ -68,6 +69,7 @@ NOTE: Vous devez configurer la virtualisation pour que la fonctionnalité de blo
 --
 Vous pouvez installer Trident Protect à partir d'un registre d'images privé si votre cluster Kubernetes ne peut pas accéder à Internet. Dans ces exemples, remplacez les valeurs entre parenthèses par les informations de votre environnement :
 
+.Étapes
 . Extrayez les images suivantes sur votre ordinateur local, mettez à jour les balises, puis envoyez-les vers votre registre privé :
 +
 [source, console]
