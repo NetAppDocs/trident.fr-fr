@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-migrate-apps.html
 keywords: trident, protect, migrate, storage, restore, backup 
 summary: 'Vous pouvez restaurer vos données de sauvegarde ou d"instantané sur un autre cluster ou classe de stockage' 
 ---
-= Migrez les applications
+= Migrez vos applications à l'aide de Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

@@ -4432,7 +4432,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="8eea62084ca7e541d918e823422bd82e" category="paragraph-title">Résultat</block>
   <block id="a2290b3f31cfd85a3e9ff7885be716a7" category="paragraph">Lors de votre prochaine connexion au shell, vous pouvez utiliser la saisie semi-automatique de la commande avec le plugin tridentctl Protect.</block>
   <block id="7b6672be7a52979b1357ccc3d2a45f8a" category="summary">Trident Protect permet aux administrateurs de générer des bundles qui incluent des informations utiles pour le support NetApp, notamment des journaux, des metrics et des informations de topologie sur les clusters et les applications à gérer. Si vous êtes connecté à Internet, vous pouvez télécharger des offres groupées de support sur le site de support NetApp (NSS) à l'aide d'un fichier de ressources personnalisées (CR).</block>
-  <block id="c06b3814928e21adcd4d633f11293a23" category="doc">Générer un bundle de support</block>
   <block id="e984343e441956b7136d09919877b5ab" category="open-title">Créez un bundle de support à l'aide d'une CR</block>
   <block id="dd942fa25b8e28c96c8d05e37b0f157e" category="list-text">Créez le fichier de ressource personnalisée (CR) et nommez-le (par exemple,<block ref="699c503b46d4ca3ec78905dff3704cac" prefix=" " category="inline-code"></block>).</block>
   <block id="18924d9e76d2dc9a88bddb772904461d" category="list-text">Configurez les attributs suivants :</block>
@@ -4683,7 +4682,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="aec02c2a1b714f40a949aa18d1f2d588" category="list-text">Supprimer Trident Protect :</block>
   <block id="20c06650be80c297c0e4dc5ae977d44f" category="list-text">Supprimez l'espace de noms Trident Protect :</block>
   <block id="a8c1fc9f09b8338dd9f8badd5c3d30c0" category="summary">Vous pouvez créer un crochet d'exécution personnalisé pour une application à l'aide de Trident Protect. Vous devez disposer d'autorisations propriétaire, administrateur ou membre pour créer des crochets d'exécution.</block>
-  <block id="cbb269e08085ebb437449cc744357ee6" category="doc">Gérer les crochets d'exécution</block>
   <block id="ccd62d676165e34c2e9c6d088c06e70f" category="paragraph">Un crochet d'exécution est une action personnalisée que vous pouvez configurer pour s'exécuter conjointement avec une opération de protection des données d'une application gérée. Par exemple, si vous disposez d'une application de base de données, vous pouvez utiliser un crochet d'exécution pour suspendre toutes les transactions de base de données avant un instantané et reprendre les transactions une fois l'instantané terminé. Les snapshots sont ainsi cohérents au niveau des applications.</block>
   <block id="83fbf1604bedff410ea11872b40ab9f0" category="section-title">Types de crochets d'exécution</block>
   <block id="d702711249a4d54c15ce81c80152b8e7" category="paragraph">Trident Protect prend en charge les types de crochets d'exécution suivants, en fonction du moment où ils peuvent être exécutés :</block>
@@ -4989,4 +4987,12 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="0ac202e458490a734271522fcedf4876" category="list-text">Assurez-vous que<block ref="8732863da72605a20ed96b4eee87a5fb" prefix=" " category="inline-code"></block> est en cours d'exécution :</block>
   <block id="69eeaf73fccab6d6abcba46bd6a3a3bf" category="list-text">Assurez-vous que<block ref="452b142235e718663e27bc4f162c14ca" prefix=" " category="inline-code"></block> est activé et en cours d'exécution :</block>
   <block id="00ea3f7016d7b9a4ad023b106cc1e6d3" category="paragraph"><block ref="7e7b7908484dc2cebc13ec93d8042bd0" category="inline-link-macro-rx"></block> Si vous utilisez<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> avec sanType<block ref="0f64d0456878c73cbec1ccea842a6f14" prefix=" " category="inline-code"></block> (SCSI sur FC).</block>
+  <block id="0cc310db20eaee9161e8ef937010b536" category="doc">Gestion des autorisations et du contrôle d'accès Trident Protect</block>
+  <block id="97f3fa7a4bb86197f0db69aa160c73e9" category="doc">Utilisez les objets Trident Protect AppVault pour gérer les compartiments</block>
+  <block id="bf4313699bccd15d73aa8653cfdfd754" category="doc">Définissez une application de gestion avec Trident Protect</block>
+  <block id="b6a8ee5a5280d899b4ea1be0f8697335" category="doc">Migrez vos applications à l'aide de Trident Protect</block>
+  <block id="8686ed080978191a10848ee52cd0c87a" category="doc">Protégez les applications à l'aide de Trident Protect</block>
+  <block id="0539043b2ec0bd1bfae64dc58173dec7" category="doc">Restaurez les applications à l'aide de Trident Protect</block>
+  <block id="873e2eae9a82cbe9c291ade077f017d2" category="doc">Gérer les crochets d'exécution de Trident Protect</block>
+  <block id="6f8f09e1a22390ac35a40283a4dc713f" category="doc">Répliquez des applications à l'aide de NetApp SnapMirror et Trident Protect</block>
 </blocks>

@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-use-execution-hooks.html
 keywords: trident, protect, execution hooks 
 summary: 'Vous pouvez créer un crochet d"exécution personnalisé pour une application à l"aide de Trident Protect. Vous devez disposer d"autorisations propriétaire, administrateur ou membre pour créer des crochets d"exécution.' 
 ---
-= Gérer les crochets d'exécution
+= Gérer les crochets d'exécution de Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
