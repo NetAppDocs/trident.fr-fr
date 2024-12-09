@@ -144,13 +144,6 @@ link:./trident-protect/learn-about-trident-protect.html["En savoir plus sur Trid
 
 
 
-=== Dérations
-
-* Suppression de la prise en charge de EOL Windows Server 2019.
-
-
-
-
 == Changements en 24.02
 
 
