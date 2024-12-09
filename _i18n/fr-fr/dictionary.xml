@@ -3231,7 +3231,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="98c3c9acd444d11890d48438db3c165e" category="paragraph">Vous pouvez configurer les pods Kubernetes pour accéder aux ressources AWS en vous authentifiant en tant que rôle IAM AWS au lieu de fournir des informations d'identification AWS explicites.</block>
   <block id="3f566b5ded6e7ac8c26dd3c07a2ea056" category="admonition">Pour vous authentifier à l'aide d'un rôle IAM AWS, un cluster Kubernetes doit être déployé à l'aide d'EKS.</block>
   <block id="3a218e8961578d046aa713039445902b" category="section-title">Créez un secret AWS Secret Manager</block>
-  <block id="6a73f77169c507b4f8a8e33a9180355b" category="paragraph"><block ref="0d1bf1201bf9db7aed15db6de2873c7a" prefix="" category="inline-code"></block></block>
   <block id="3926fdac6344d565c95f560468946335" category="section-title">Créer une politique IAM</block>
   <block id="78edc229f8df1c5e0840f6469bc28454" category="paragraph">Les exemples suivants créent une politique IAM à l'aide de l'interface de ligne de commande AWS :</block>
   <block id="96cc21e053acccb273475c8c6744b18e" category="paragraph"><block ref="21a8f9d92c42f5ae09a1d5ac91dbb3c5" prefix="" category="inline-code"></block></block>
@@ -4943,7 +4942,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="822b1839c387749c78601eebc94c8d7d" category="paragraph">Configurez les paramètres réseau et nœud requis pour FC.</block>
   <block id="f508b22c8fc4486b19fee39d5ded3841" category="section-title">Paramètres réseau</block>
   <block id="16fdd92def5a71313d6535c74ef67b81" category="inline-link-macro">interface réseau affiche</block>
-  <block id="fc2e7b75efdee011ff06c37c7b71f6a6" category="list-text">Obtenez le WWPN des interfaces cibles. Pour plus d'informations, reportez-vous à la section <block ref="cc71fd7fb2f6e7e70f421fe2150fdc04" category="inline-link-macro-rx"></block> .</block>
   <block id="cc7e69899d736126df9787634ad41870" category="list-text">Procurez-vous le WWPN pour les interfaces sur l'initiateur (hôte).</block>
   <block id="1089b965cabd19cfee7f3ef855fbd63d" category="paragraph">Reportez-vous aux utilitaires correspondants du système d'exploitation hôte.</block>
   <block id="6f58745fc3a341adae0772d30d9e508c" category="list-text">Configurer la segmentation sur le commutateur FC à l'aide des WWPN de l'hôte et de la cible.</block>
@@ -4990,4 +4988,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="873e2eae9a82cbe9c291ade077f017d2" category="doc">Gérer les crochets d'exécution de Trident Protect</block>
   <block id="6f8f09e1a22390ac35a40283a4dc713f" category="doc">Répliquez des applications à l'aide de NetApp SnapMirror et Trident Protect</block>
   <block id="2fc23e09b483dc4495beb473646c0273" category="list-text"><block ref="2fc23e09b483dc4495beb473646c0273" category="inline-link-macro-rx"></block></block>
+  <block id="e132245ad28668c6b32dee21fb8a3820" category="list-text">Obtenez le WWPN des interfaces cibles. Pour plus d'informations, reportez-vous à la section<block ref="92fd8fd0370792cd397ea6fdc3c8edb0" category="inline-link-rx"></block> .</block>
+  <block id="5597ca99169fee10411d6b2ace3c56ea" category="paragraph"><block ref="bf121260f097199f29e6e1734da8ea69" prefix="" category="inline-code"></block></block>
 </blocks>

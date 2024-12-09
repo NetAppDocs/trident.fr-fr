@@ -36,7 +36,7 @@ Configurez les paramètres réseau et nœud requis pour FC.
 
 === Paramètres réseau
 
-. Obtenez le WWPN des interfaces cibles. Pour plus d'informations, reportez-vous à la section link:..https://docs.netapp.com/us-en/ontap-cli//network-interface-show.html["interface réseau affiche"^] .
+. Obtenez le WWPN des interfaces cibles. Pour plus d'informations, reportez-vous à la section https://docs.netapp.com/us-en/ontap-cli//network-interface-show.html["interface réseau affiche"^] .
 . Procurez-vous le WWPN pour les interfaces sur l'initiateur (hôte).
 +
 Reportez-vous aux utilitaires correspondants du système d'exploitation hôte.

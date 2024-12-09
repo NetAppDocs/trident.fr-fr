@@ -23,7 +23,7 @@ NOTE: Pour vous authentifier à l'aide d'un rôle IAM AWS, un cluster Kubernetes
 
 Cet exemple crée un secret AWS Secret Manager pour stocker les informations d'identification Trident CSI :
 
-`aws secretsmanager create-secret --name trident-secret --description "Trident CSI credentials" --secret-string "{"user":"vsadmin","password":"<svmpassword>"}"`
+`aws secretsmanager create-secret --name trident-secret --description "Trident CSI credentials" --secret-string "{"username":"vsadmin","password":"<svmpassword>"}"`
 
 
 
