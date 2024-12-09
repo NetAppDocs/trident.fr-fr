@@ -24,9 +24,9 @@ Vous devez créer une CR AppVault qui sera utilisée lors des opérations de pro
 
 
 
-== Créer une demande de modification d'application
+== Définir une application
 
-Vous devez créer une demande de modification pour chaque application que vous souhaitez gérer avec Trident Protect. Vous pouvez ajouter une application à des fins de gestion en créant manuellement une application CR ou en utilisant l'interface de ligne de commande Trident Protect pour créer la CR.
+Vous devez définir chaque application à gérer avec Trident Protect. Vous pouvez définir une application à gérer en créant manuellement une application CR ou en utilisant l'interface de ligne de commande Trident Protect.
 
 [role="tabbed-block"]
 ====
@@ -53,13 +53,18 @@ metadata:
   namespace: my-app-namespace
 spec:
   includedNamespaces:
-    labelSelector: {}
-    namespace: my-app-namespace
+    - namespace: my-app-namespace
 ----
 
 
 
 
+. Une fois que vous avez créé la demande de modification de l'application pour l'adapter à votre environnement, appliquez la demande de modification. Par exemple :
++
+[source, console]
+----
+kubectl apply -f maria-app.yaml
+----
 
 
 --
