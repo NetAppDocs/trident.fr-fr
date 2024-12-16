@@ -23,7 +23,7 @@ Pour supprimer Trident Protect, effectuez les opérations suivantes.
 +
 [source, console]
 ----
-helm uninstall trident-protect-crds
+helm uninstall -n trident-protect trident-protect-crds
 ----
 . Supprimer Trident Protect :
 +

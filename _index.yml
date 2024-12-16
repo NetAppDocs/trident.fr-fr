@@ -48,6 +48,8 @@ indexpage:
       url: "/trident-protect/learn-about-trident-protect.html"
     - title: Déployez Trident Protect
       url: "/trident-protect/trident-protect-installation.html"
+    - title: Mettez à niveau Trident Protect
+      url: "/trident-protect/trident-protect-upgrade.html"
   - title: Didacticiels de démonstration
     links:
     - title: Vidéos Trident

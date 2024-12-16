@@ -1,0 +1,83 @@
+= Annotations et étiquettes de namespace pendant les opérations de restauration et de basculement
+:allow-uri-read: 
+
+
+
+
+== Annotations et étiquettes de namespace pendant les opérations de restauration et de basculement
+
+Lors des opérations de restauration et de basculement, les libellés et les annotations dans l'espace de noms de destination correspondent aux libellés et aux annotations dans l'espace de noms source. Des étiquettes ou des annotations provenant de l'espace de noms source qui n'existent pas dans l'espace de noms de destination sont ajoutées et toutes les étiquettes ou annotations qui existent déjà sont écrasées pour correspondre à la valeur de l'espace de noms source. Les libellés ou annotations qui existent uniquement dans l'espace de noms de destination restent inchangés.
+
+
+NOTE: Si vous utilisez RedHat OpenShift, il est important de noter le rôle critique des annotations d'espace de noms dans les environnements OpenShift. Les annotations de l'espace de noms garantissent que les pods restaurés respectent les autorisations et les configurations de sécurité appropriées définies par les contraintes de contexte de sécurité (CSC) OpenShift et qu'ils peuvent accéder aux volumes sans problèmes d'autorisation. Pour plus d'informations, reportez-vous au https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html/authentication_and_authorization/managing-pod-security-policies["Documentation sur les contraintes de contexte de sécurité OpenShift"^].
+
+Vous pouvez empêcher l'écrasement d'annotations spécifiques dans l'espace de noms de destination en configurant la variable d'environnement Kubernetes `RESTORE_SKIP_NAMESPACE_ANNOTATIONS` avant d'effectuer l'opération de restauration ou de basculement. Par exemple :
+
+[source, console]
+----
+kubectl set env -n trident-protect deploy/trident-protect-controller-manager RESTORE_SKIP_NAMESPACE_ANNOTATIONS=<annotation_key_to_skip_1>,<annotation_key_to_skip_2>
+----
+Si vous avez installé l'application source à l'aide de Helm avec l' `--create-namespace`indicateur, un traitement spécial est donné à la `name` clé d'étiquette. Lors du processus de restauration ou de basculement, Trident Protect copie cette étiquette dans l'espace de noms de destination, mais met à jour la valeur vers la valeur de l'espace de noms de destination si la valeur de la source correspond à l'espace de noms source. Si cette valeur ne correspond pas à l'espace de noms source, elle est copiée dans l'espace de noms de destination sans modification.
+
+
+
+=== Exemple
+
+L'exemple suivant présente un espace de noms source et de destination, chacun avec des annotations et des libellés différents. Vous pouvez voir l'état de l'espace de noms de destination avant et après l'opération, ainsi que la manière dont les annotations et les étiquettes sont combinées ou écrasées dans l'espace de noms de destination.
+
+
+
+==== Avant l'opération de restauration ou de basculement
+
+Le tableau suivant illustre l'état de l'exemple d'espaces de noms source et de destination avant l'opération de restauration ou de basculement :
+
+[cols="1,2a,2a"]
+|===
+| Espace de noms | Annotations | Étiquettes 
+
+
+| Espace de noms ns-1 (source)  a| 
+* annotation.one/key : « updatedvalue »
+* annotation.deux/touche : « vrai »
+
+ a| 
+* environnement=production
+* conformité = hipaa
+* name=ns-1
+
+
+
+
+| Espace de noms ns-2 (destination)  a| 
+* annotation.un/touche : « vrai »
+* annotation.trois/touche : « false »
+
+ a| 
+* role=base de données
+
+
+|===
+
+
+==== Après l'opération de restauration
+
+Le tableau suivant illustre l'état de l'exemple d'espace de noms de destination après une opération de restauration ou de basculement. Certaines clés ont été ajoutées, d'autres ont été écrasées et le `name` libellé a été mis à jour pour correspondre à l'espace de noms de destination :
+
+[cols="1,2a,2a"]
+|===
+| Espace de noms | Annotations | Étiquettes 
+
+
+| Espace de noms ns-2 (destination)  a| 
+* annotation.one/key : « updatedvalue »
+* annotation.deux/touche : « vrai »
+* annotation.trois/touche : « false »
+
+ a| 
+* name=ns-2
+* conformité = hipaa
+* environnement=production
+* role=base de données
+
+
+|===

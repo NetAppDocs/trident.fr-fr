@@ -37,7 +37,9 @@ Trident Protect prend en charge les types de crochets d'exécution suivants, en 
 Lors de l'exécution d'une opération de protection des données, les événements de hook d'exécution ont lieu dans l'ordre suivant :
 
 . Tous les crochets d'exécution de pré-opération personnalisés applicables sont exécutés sur les conteneurs appropriés. Vous pouvez créer et exécuter autant de crochets de pré-opération personnalisés que vous le souhaitez, mais l'ordre d'exécution de ces crochets avant que l'opération ne soit ni garantie ni configurable.
+. Le système de fichiers se bloque, le cas échéant. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["En savoir plus sur la configuration de la congélation du système de fichiers avec Trident Protect"].
 . L'opération de protection des données est effectuée.
+. Les systèmes de fichiers gelés ne sont pas gelés, le cas échéant.
 . Tous les crochets d'exécution de post-opération personnalisés applicables sont exécutés sur les conteneurs appropriés. Vous pouvez créer et exécuter autant de crochets post-opération personnalisés que vous le souhaitez, mais l'ordre d'exécution de ces crochets après l'opération n'est ni garanti ni configurable.
 
 

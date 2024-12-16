@@ -14,7 +14,10 @@ summary: 'Protégez toutes les applications en effectuant des copies Snapshot et
 
 
 [role="lead"]
-Protégez toutes les applications en effectuant des copies Snapshot et des sauvegardes à l'aide d'une stratégie de protection automatisée ou ad hoc.
+Vous pouvez protéger toutes les applications gérées par Trident Protect en effectuant des snapshots et des sauvegardes à l'aide d'une règle de protection automatisée ou ad hoc.
+
+
+NOTE: Vous pouvez configurer Trident Protect pour qu'il bloque et dégèle les systèmes de fichiers pendant les opérations de protection des données. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["En savoir plus sur la configuration de la congélation du système de fichiers avec Trident Protect"].
 
 
 
