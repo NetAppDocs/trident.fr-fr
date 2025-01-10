@@ -50,22 +50,15 @@ Pour cloner une application sur le même cluster, créez un Snapshot ou sauvegar
 
 === Cloner vers un autre cluster
 
-Pour cloner une application sur un autre cluster (effectuez un clone entre clusters), créez un snapshot ou une sauvegarde et restaurez les données sur un autre cluster. Assurez-vous que Trident Protect est installé sur le cluster de destination.
+Pour cloner une application sur un autre cluster (effectuez un clone entre clusters), créez une sauvegarde sur le cluster source, puis restaurez la sauvegarde sur un autre cluster. Assurez-vous que Trident Protect est installé sur le cluster de destination.
+
+
+NOTE: Vous pouvez répliquer une application entre différents clusters à l'aide de link:trident-protect-use-snapmirror-replication.html["Réplication SnapMirror"].
 
 .Étapes
-. Effectuez l'une des opérations suivantes :
-+
-.. link:trident-protect-protect-apps.html#create-an-on-demand-snapshot["Créer un snapshot"].
-.. link:trident-protect-protect-apps.html#create-an-on-demand-backup["Créer une sauvegarde"].
-
-
-. Assurez-vous que la CR AppVault du compartiment de stockage objet contenant la sauvegarde ou le snapshot a été configurée sur le cluster de destination.
-. Sur le cluster de destination, effectuez l'une des opérations suivantes, selon que vous avez créé un snapshot ou une sauvegarde :
-+
-.. link:trident-protect-restore-apps.html#restore-from-a-snapshot-to-a-different-namespace["Restaurez vos données à partir du snapshot"].
-.. link:trident-protect-restore-apps.html#restore-from-a-backup-to-a-different-namespace["Restaurez vos données à partir de la sauvegarde"].
-
-
+. link:trident-protect-protect-apps.html#create-an-on-demand-backup["Créer une sauvegarde"].
+. Assurez-vous que la CR AppVault du compartiment de stockage objet contenant la sauvegarde a été configurée sur le cluster de destination.
+. Sur le cluster de destination, link:trident-protect-restore-apps.html#restore-from-a-backup-to-a-different-namespace["restaurez vos données à partir de la sauvegarde"].
 
 
 
