@@ -43,6 +43,7 @@ Vous pouvez créer un snapshot à la demande à tout moment.
 +
 [source, yaml]
 ----
+---
 apiVersion: protect.trident.netapp.io/v1
 kind: Snapshot
 metadata:
@@ -112,6 +113,7 @@ Vous pouvez sauvegarder une application à tout moment.
 +
 [source, yaml]
 ----
+---
 apiVersion: protect.trident.netapp.io/v1
 kind: Backup
 metadata:
@@ -186,6 +188,7 @@ Une règle de protection protège une application en créant des snapshots, des 
 +
 [source, yaml]
 ----
+---
 apiVersion: protect.trident.netapp.io/v1
 kind: Schedule
 metadata:

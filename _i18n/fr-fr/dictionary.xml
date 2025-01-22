@@ -4424,7 +4424,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="2dcd4437dbff8aff3bc16ac15a71b74d" category="list-text">Créer l'espace de noms du système Trident Protect :</block>
   <block id="e0f6b701766eb28d805d7ba1e820f582" category="list-text">Connectez-vous au registre :</block>
   <block id="814565bb5d7e7359fff967986fd4195a" category="list-text">Créez un secret Pull à utiliser pour l'authentification de registre privé :</block>
-  <block id="9fd6c1e403ca347a1528f0f6688f6a06" category="list-text">Créez un fichier nommé<block ref="5744e710490761bdd5b4603b9b0487a7" prefix=" " category="inline-code"></block> contenant les paramètres Trident Protect suivants :</block>
   <block id="86e8b34710172d33dcae839e1f4dd07e" category="summary">Vous pouvez informer Trident Protect d'une application que vous souhaitez gérer en créant une application CR et une application CR AppVault associée.</block>
   <block id="80b940e5c68d020c06f9dc2f188d2169" category="doc">Définissez une application pour la gestion</block>
   <block id="1e10d655f5307ce7f79aeee68a9e72f3" category="paragraph">Vous pouvez définir une application que vous souhaitez gérer avec Trident Protect en créant une application CR et une application CR AppVault associée.</block>
@@ -5017,4 +5016,11 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="d05c8b60cfd355fccac41017c33ca892" category="paragraph">Vous pouvez utiliser les exemples CR suivants pour créer des objets AppVault pour chaque fournisseur de cloud.</block>
   <block id="59264d37bdf7f6cbf4f94ad00dacdce1" category="section-title">Exemples de création d'AppVault à l'aide de l'interface de ligne de commande Trident Protect</block>
   <block id="4db09810b323e73b4041a65c99bb14f8" category="paragraph">Vous pouvez utiliser les exemples de commandes CLI suivants pour créer AppVault CRS pour chaque fournisseur.</block>
+  <block id="c8dac6733f0c00d0b3b8b239841a0255" category="list-text">Créez un fichier nommé<block ref="5744e710490761bdd5b4603b9b0487a7" prefix=" " category="inline-code"></block>. Assurez-vous qu'il contient les paramètres Trident Protect suivants :</block>
+  <block id="d9802724acbde7ce7749f0884262496a" category="section-title">Spécifiez les limites des ressources du conteneur Trident Protect</block>
+  <block id="723ff7c28b60307db94ddb35dd6cc517" category="paragraph">Vous pouvez utiliser un fichier de configuration pour spécifier les limites de ressources pour les conteneurs Trident Protect après avoir installé Trident Protect. La définition de limites de ressources vous permet de contrôler la quantité de ressources du cluster consommées par les opérations Trident Protect.</block>
+  <block id="45d7099b61647936da59ccfbaa49ca5c" category="list-text">Créez un fichier nommé<block ref="e66ad8c89b28dc43a24e6e1689a79cdc" prefix=" " category="inline-code"></block>.</block>
+  <block id="9f83417f7d6c999c56b0dcc3b274be23" category="list-text">Remplissez le fichier avec les options de limite de ressources pour les conteneurs Trident Protect en fonction des besoins de votre environnement.</block>
+  <block id="816f46c4a8435f7f0f1498054f254865" category="paragraph">L'exemple de fichier de configuration suivant montre les paramètres disponibles et contient les valeurs par défaut pour chaque limite de ressource :</block>
+  <block id="956fe3fe2ad4f9cb1b569d66b4ff1db5" category="list-text">Appliquer les valeurs du<block ref="e66ad8c89b28dc43a24e6e1689a79cdc" prefix=" " category="inline-code"></block> fichier :</block>
 </blocks>
