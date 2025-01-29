@@ -102,7 +102,7 @@ Le tableau suivant illustre l'état de l'exemple d'espace de noms de destination
 
 == Restauration d'une sauvegarde vers un autre espace de noms
 
-Lorsque vous restaurez une sauvegarde dans un espace de noms différent à l'aide d'une sauvegarde CR BackupRestore, Trident Protect restaure l'application dans un nouvel espace de noms, mais l'application restaurée n'est pas automatiquement protégée par Trident Protect. Pour protéger l'application restaurée, vous devez créer une application CR pour l'application restaurée afin qu'elle soit protégée par Trident Protect.
+Lorsque vous restaurez une sauvegarde dans un espace de noms différent à l'aide d'une sauvegarde CR BackupRestore, Trident Protect restaure l'application dans un nouvel espace de noms et crée une demande de modification d'application pour l'application restaurée. Pour protéger l'application restaurée, créez des sauvegardes ou des snapshots à la demande ou établissez un calendrier de protection.
 
 
 NOTE: La restauration d'une sauvegarde dans un espace de noms différent avec des ressources existantes ne modifie aucune ressource qui partage des noms avec ceux de la sauvegarde. Pour restaurer toutes les ressources de la sauvegarde, supprimez et recréez l'espace de noms cible ou restaurez la sauvegarde dans un nouvel espace de noms.
@@ -314,7 +314,7 @@ tridentctl-protect create backupinplacerestore <my_restore_name> --backup <names
 
 == Restauration d'un snapshot vers un autre espace de noms
 
-Vous pouvez restaurer les données d'un instantané à l'aide d'un fichier de ressource personnalisée (CR) dans un espace de noms différent ou dans l'espace de noms source d'origine. Lorsque vous restaurez un snapshot sur un autre espace de noms à l'aide d'un CR SnapshotRestore, Trident Protect restaure l'application dans un nouvel espace de noms, mais l'application restaurée n'est pas automatiquement protégée par Trident Protect. Pour protéger l'application restaurée, vous devez créer une application CR pour l'application restaurée afin qu'elle soit protégée par Trident Protect.
+Vous pouvez restaurer les données d'un instantané à l'aide d'un fichier de ressource personnalisée (CR) dans un espace de noms différent ou dans l'espace de noms source d'origine. Lorsque vous restaurez un snapshot dans un espace de noms différent à l'aide d'un CR SnapshotRestore, Trident Protect restaure l'application dans un nouvel espace de noms et crée une CR d'application pour l'application restaurée. Pour protéger l'application restaurée, créez des sauvegardes ou des snapshots à la demande ou établissez un calendrier de protection.
 
 [role="tabbed-block"]
 ====
