@@ -44,8 +44,9 @@ L'identité cloud permet aux pods Kubernetes d'accéder aux ressources Google Cl
 Pour tirer parti de l'identité cloud dans Google Cloud, vous devez disposer des éléments suivants :
 
 * Cluster Kubernetes déployé à l'aide de GKE.
-* Identité de la charge de travail et émetteur oidc configurés sur le cluster GKE.
-* Trident installé, qui inclut le `cloudProvider` à spécifier `"GCP"` et `cloudIdentity` spécifier l'identité de la charge de travail.
+* Identité de la charge de travail configurée sur le cluster GKE et le serveur de métadonnées GKE configuré sur les pools de nœuds.
+* Compte de service GCP avec le rôle d'administrateur Google Cloud NetApp volumes (rôles/NetApp.admin) ou un rôle personnalisé.
+* Trident a installé, qui inclut le fournisseur cloud, afin de spécifier « GCP » et « cloudIdentity » en spécifiant le nouveau compte de service GCP. Un exemple est donné ci-dessous.
 +
 [role="tabbed-block"]
 ====
