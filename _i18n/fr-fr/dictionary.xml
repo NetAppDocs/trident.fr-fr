@@ -3589,17 +3589,14 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="0fe713481395212a8eb358f4cb188c04" category="section-title">Informations critiques sur Trident</block>
   <block id="8e7cb3d16dbeb8a9289495de8b479d1f" category="paragraph">*Vous devez lire les informations critiques suivantes sur Trident.*</block>
   <block id="04dc1d4246222d48d4348b40baef0aac" category="example-title">&lt;strong&gt; informations sur le Trident &lt;/strong&gt;</block>
-  <block id="09a48eb36bc4152ed8fe5c428d4ece05" category="list-text">Kubernetes 1.31 est désormais pris en charge dans Trident. Mise à niveau de Trident avant la mise à niveau de Kubernetes.</block>
   <block id="5e25fae885baef0275d27a764979b289" category="list-text">Trident applique strictement l'utilisation de la configuration de chemins d'accès multiples dans les environnements SAN, avec une valeur recommandée de<block ref="db729c5c8df447087e5a84b961df14f6" prefix=" " category="inline-code"></block> dans le fichier multipath.conf.</block>
   <block id="710f95d40d121f27f89b0faa6e178133" category="paragraph">Trident prend en charge plusieurs moteurs de mise en conteneurs et orchestrateurs, notamment :</block>
-  <block id="c3524924959417328a5c2d4797b71b8f" category="list-text">Kubernetes 1.25 - 1.31</block>
   <block id="76073f246cf758836f21035e15541803" category="list-text">Rancher Kubernetes Engine 2 (RKE2) v1.28.5+rke2r1</block>
   <block id="e42907190e2666646d57ade5c061e6e2" category="paragraph">Trident fonctionne également avec de nombreuses autres offres Kubernetes entièrement gérées et autogérées, notamment Google Kubernetes Engine (GKE), Amazon Elastic Kubernetes Services (EKS), Azure Kubernetes Service (AKS), Mirantis Kubernetes Engine (MKE) et le portefeuille VMware Tanzu.</block>
   <block id="4cb56edacf6f40b0077e559878cb88a1" category="paragraph">Trident et ONTAP peuvent être utilisés comme fournisseur de stockage pour <block ref="98ab68800979b414641691275d2b9c15" category="inline-link-macro-rx"></block>.</block>
   <block id="029f0e10fd529e4a0fd06a03bd5b1eaf" category="admonition">Avant de mettre à niveau un cluster Kubernetes de la version 1.24 vers la version 1.25 ou ultérieure sur <block ref="1b428bb9b9fe27db6cd8932526864634" category="inline-link-macro-rx"></block>lequelTrident est installé, reportez-vous à la section .</block>
   <block id="90e5d592b7e0b2afb122e69c00372ddf" category="paragraph">Pour utiliser Trident, vous avez besoin d'un ou plusieurs des systèmes back-end pris en charge suivants :</block>
   <block id="6116c21c42b3138e811999de6433a0a6" category="paragraph">Le tableau ci-dessous résume les fonctionnalités disponibles dans cette version d'Trident et les versions de Kubernetes qu'il prend en charge.</block>
-  <block id="cb6fdbc23b7af9715334e1bb04d2c4ac" category="paragraph">1,25 - 1,31</block>
   <block id="29fce9ae0f476afd36cf3ebf4de1d2a8" category="paragraph">Bien que Trident ne prenne pas officiellement en charge des systèmes d'exploitation spécifiques, les éléments suivants sont connus pour fonctionner :</block>
   <block id="779639a0216e7a8fd164ee8a7266d8b8" category="paragraph">Par défaut, Trident s'exécute dans un conteneur et s'exécute donc sur n'importe quel travailleur Linux. Toutefois, ces derniers doivent pouvoir monter les volumes offerts par Trident à l'aide du client NFS standard ou de l'initiateur iSCSI, en fonction des systèmes back-end que vous utilisez.</block>
   <block id="ac65d911a6a42e3244db78a534db815a" category="paragraph">Trident peut nécessiter des modifications d'un système de stockage avant qu'une configuration back-end ne puisse l'utiliser.</block>
@@ -3607,7 +3604,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="31ae62dfe6cb254d32d0f67deda8d9ad" category="paragraph">Trident requiert l'accès à des ports spécifiques pour la communication.</block>
   <block id="2e442c7238666f1b73934ff5c2034b82" category="paragraph"><block ref="2e442c7238666f1b73934ff5c2034b82" category="inline-link-macro-rx"></block></block>
   <block id="ce8468ce4398f1403e56c8d07fbfbdff" category="paragraph">Pour les installations à air comprimé, la liste suivante est une référence aux images de conteneur nécessaires à l'installation de Trident. Utiliser<block ref="4ebf280824868255c952dc529072ecb9" prefix=" " category="inline-code"></block> la commande pour vérifier la liste des images de conteneur nécessaires.</block>
-  <block id="ecfc1eb0b20cc5ae8492fc90fcbf996d" category="cell">v1.25.0, v1.26.0, v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0</block>
   <block id="84164a090d4c4deb277c3eaee7be8933" category="list-text">docker.io/netapp/trident : 24.10.0</block>
   <block id="d32e454f258700e2a7e9bd38093759e7" category="list-text">docker.io/netapp/trident-autosupport:24.10</block>
   <block id="2008e365da289d546b62489addab8fe9" category="list-text">registry.k8s.io/sig-storage/csi-provisionneur:v5.1.0</block>
@@ -5186,4 +5182,8 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="1d5144e260d8c4ece3c5d47a77d84c11" category="section-title">Mettez à jour le module complémentaire Trident EKS</block>
   <block id="ccab466451ff5a867710cce1b28c33a0" category="section-title">Désinstallez/supprimez le module complémentaire Trident EKS</block>
   <block id="e75af04fb72882c1d735055059f1a557" category="list-text">Cliquez sur l'onglet *Compléments*, puis cliquez sur *Trident by NetApp*.*</block>
+  <block id="71daa7e0f7c4240ad5aa4024c97bafae" category="list-text">Kubernetes 1.32 est désormais pris en charge dans Trident. Mise à niveau de Trident avant la mise à niveau de Kubernetes.</block>
+  <block id="58830b43d96c301076f2636c9bb946d5" category="list-text">Kubernetes 1.25 - 1.32</block>
+  <block id="2d95fd2a9f3bf1dcac56e3de82d288ad" category="paragraph">1,25 - 1,32</block>
+  <block id="2ec43b8882dfc130c999d1ebfae88d87" category="cell">v1.25.0, v1.26.0, v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0</block>
 </blocks>
