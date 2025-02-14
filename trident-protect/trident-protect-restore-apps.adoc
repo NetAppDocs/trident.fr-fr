@@ -312,6 +312,116 @@ tridentctl-protect create backupinplacerestore <my_restore_name> --backup <names
 ====
 
 
+== Restauration à partir d'une sauvegarde sur un autre cluster
+
+Vous pouvez restaurer une sauvegarde sur un autre cluster en cas de problème avec le cluster d'origine.
+
+*Avant de commencer*
+
+Assurez-vous que les conditions préalables suivantes sont remplies :
+
+* Trident Protect est installé sur le cluster de destination.
+* Le cluster de destination a accès au chemin de compartiment du même AppVault que le cluster source, où la sauvegarde est stockée.
+
+
+.Étapes
+. Vérifier la disponibilité du CR AppVault sur le cluster de destination à l'aide du plug-in CLI Trident Protect :
++
+[source, console]
+----
+tridentctl-protect get appvault --context <destination_cluster_name>
+----
++
+
+NOTE: Assurez-vous que l'espace de noms destiné à la restauration d'application existe sur le cluster de destination.
+
+. Afficher le contenu de la sauvegarde de l'AppVault disponible à partir du cluster de destination :
++
+[source, console]
+----
+tridentctl-protect get appvaultcontent <appvault_name> --show-resources backup --show-paths --context <destination_cluster_name>
+----
++
+L'exécution de cette commande affiche les sauvegardes disponibles dans le AppVault, y compris leurs clusters d'origine, les noms d'applications correspondants, les horodatages et les chemins d'archivage.
+
++
+*Exemple de sortie :*
+
++
+[listing]
+----
++-------------+-----------+--------+-----------------+--------------------------+-------------+
+|   CLUSTER   |    APP    |  TYPE  |      NAME       |        TIMESTAMP         |    PATH     |
++-------------+-----------+--------+-----------------+--------------------------+-------------+
+| production1 | wordpress | backup | wordpress-bkup-1| 2024-10-30 08:37:40 (UTC)| backuppath1 |
+| production1 | wordpress | backup | wordpress-bkup-2| 2024-10-30 08:37:40 (UTC)| backuppath2 |
++-------------+-----------+--------+-----------------+--------------------------+-------------+
+
+----
+. Restaurez l'application sur le cluster de destination à l'aide du nom AppVault et du chemin d'archivage :
+
+
+[role="tabbed-block"]
+====
+.Utiliser une CR
+--
+. Créez le fichier de ressource personnalisée (CR) et nommez-le `trident-protect-backup-restore-cr.yaml`.
+. Dans le fichier que vous avez créé, configurez les attributs suivants :
++
+** *metadata.name*: (_required_) le nom de cette ressource personnalisée; choisissez un nom unique et sensible pour votre environnement.
+** *Spec.appVaultRef*: (_required_) Nom de l'AppVault où sont stockés le contenu de la sauvegarde.
+** *Spec.appArchivePath* : chemin d'accès dans AppVault où sont stockés le contenu de la sauvegarde. Vous pouvez utiliser la commande suivante pour trouver ce chemin :
++
+[source, console]
+----
+kubectl get backups <BACKUP_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
+----
++
+
+NOTE: Si BackupRestore CR n'est pas disponible, vous pouvez utiliser la commande mentionnée à l'étape 2 pour afficher le contenu de la sauvegarde.
+
+** *spec.namespaceMapping*: mappage de l'espace de noms source de l'opération de restauration sur l'espace de noms de destination. Remplacez `my-source-namespace` et `my-destination-namespace` par des informations provenant de votre environnement.
++
+Par exemple :
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: BackupRestore
+metadata:
+  name: my-cr-name
+  namespace: my-destination-namespace
+spec:
+  appVaultRef: appvault-name
+  appArchivePath: my-backup-path
+  namespaceMapping: [{"source": "my-source-namespace", "destination": "my-destination-namespace"}]
+----
+
+
+. Une fois que vous avez rempli le `trident-protect-backup-restore-cr.yaml` fichier avec les valeurs correctes, appliquez la CR :
++
+[source, console]
+----
+kubectl apply -f trident-protect-backup-restore-cr.yaml
+----
+
+
+--
+.Utiliser l'interface de ligne de commande
+--
+. Utilisez la commande suivante pour restaurer l'application, en remplaçant les valeurs entre parenthèses par les informations de votre environnement. L'argument namespace-mapping utilise des espaces de noms séparés par deux points pour mapper les espaces de noms source aux espaces de noms de destination corrects au format source1:dest1,source2:dest2. Par exemple :
++
+[source, console]
+----
+tridentctl-protect create backuprestore <restore_name> --namespace-mapping <source_to_destination_namespace_mapping> --appvault <appvault_name> --path <backup_path> -n <application_namespace> --context <destination_cluster_name>
+----
+
+
+--
+====
+
+
 == Restauration d'un snapshot vers un autre espace de noms
 
 Vous pouvez restaurer les données d'un instantané à l'aide d'un fichier de ressource personnalisée (CR) dans un espace de noms différent ou dans l'espace de noms source d'origine. Lorsque vous restaurez un snapshot dans un espace de noms différent à l'aide d'un CR SnapshotRestore, Trident Protect restaure l'application dans un nouvel espace de noms et crée une CR d'application pour l'application restaurée. Pour protéger l'application restaurée, créez des sauvegardes ou des snapshots à la demande ou établissez un calendrier de protection.

@@ -5186,4 +5186,17 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="58830b43d96c301076f2636c9bb946d5" category="list-text">Kubernetes 1.25 - 1.32</block>
   <block id="2d95fd2a9f3bf1dcac56e3de82d288ad" category="paragraph">1,25 - 1,32</block>
   <block id="2ec43b8882dfc130c999d1ebfae88d87" category="cell">v1.25.0, v1.26.0, v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0</block>
+  <block id="d1548585dadda37a28905a23e22cf65d" category="section-title">Restauration à partir d'une sauvegarde sur un autre cluster</block>
+  <block id="7fa8874b1f645ca2af9d81b51985b8fb" category="paragraph">Vous pouvez restaurer une sauvegarde sur un autre cluster en cas de problème avec le cluster d'origine.</block>
+  <block id="17e2d63e3b45ecbfe13bcc32fec929d0" category="paragraph">*Avant de commencer*</block>
+  <block id="dd4ee610bd1d035c73bc0cbcd80e46da" category="paragraph">Assurez-vous que les conditions préalables suivantes sont remplies :</block>
+  <block id="1d6028c560c8f6dbee841737e60a3d9d" category="list-text">Trident Protect est installé sur le cluster de destination.</block>
+  <block id="b20f8883edb9068c67a2faeb3c083d38" category="list-text">Le cluster de destination a accès au chemin de compartiment du même AppVault que le cluster source, où la sauvegarde est stockée.</block>
+  <block id="0425d0358a4cba7a7cce5ddd727ab6a2" category="list-text">Vérifier la disponibilité du CR AppVault sur le cluster de destination à l'aide du plug-in CLI Trident Protect :</block>
+  <block id="1ff83a5266e9e025c2984e0c10dea90e" category="admonition">Assurez-vous que l'espace de noms destiné à la restauration d'application existe sur le cluster de destination.</block>
+  <block id="8d433ae9a21c49e9e5433ebd408605c0" category="list-text">Afficher le contenu de la sauvegarde de l'AppVault disponible à partir du cluster de destination :</block>
+  <block id="378e6f0ba7080535a4462b5311befb40" category="paragraph">L'exécution de cette commande affiche les sauvegardes disponibles dans le AppVault, y compris leurs clusters d'origine, les noms d'applications correspondants, les horodatages et les chemins d'archivage.</block>
+  <block id="053aba80de03f3fdf626d1c858342330" category="list-text">Restaurez l'application sur le cluster de destination à l'aide du nom AppVault et du chemin d'archivage :</block>
+  <block id="fceebbe32c1f7b24c54d6a4e8a0fa776" category="admonition">Si BackupRestore CR n'est pas disponible, vous pouvez utiliser la commande mentionnée à l'étape 2 pour afficher le contenu de la sauvegarde.</block>
+  <block id="4ef55c1fec2de9218af40d16cbc021a4" category="list-text">Utilisez la commande suivante pour restaurer l'application, en remplaçant les valeurs entre parenthèses par les informations de votre environnement. L'argument namespace-mapping utilise des espaces de noms séparés par deux points pour mapper les espaces de noms source aux espaces de noms de destination corrects au format source1:dest1,source2:dest2. Par exemple :</block>
 </blocks>
