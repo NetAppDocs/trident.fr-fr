@@ -1892,7 +1892,6 @@
   <block id="dd341f866eaefb939dc86608773c909d" category="section-title">Passage d'une méthode d'installation à l'autre</block>
   <block id="84dfae02381a00cf11d01c571e3e3e0f" category="paragraph">Vous pouvez décider de modifier votre méthode d'installation. Avant de procéder, prenez en compte les points suivants :</block>
   <block id="e77325ac6e155cf5d14c756f1d64333f" category="list-text">Si vous disposez d'un déploiement manuel basé sur l'opérateur et que vous souhaitez utiliser le déploiement d'opérateurs Trident basé sur Helm, vous devez d'abord désinstaller manuellement l'opérateur, puis effectuer l'installation de Helm. Helm permet à l'opérateur Trident de déployer les étiquettes et les annotations requises. Si vous ne le faites pas, le déploiement d'un opérateur Trident basé sur Helm échoue en raison de l'erreur de validation des étiquettes et de l'erreur de validation des annotations. Si vous avez un<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>Le déploiement basé sur Helm permet d'utiliser un déploiement basé sur Helm sans s'exécuter dans les problèmes.</block>
-  <block id="0ffed9ae8c0b8e64c5dc8cba81c4fe34" category="list-text">FAS/AFF/Select 9.5 ou version ultérieure</block>
   <block id="f36d25716a4b2c466ddcb8065bef3ae6" category="paragraph"><block ref="f36d25716a4b2c466ddcb8065bef3ae6" category="inline-link-macro-rx"></block></block>
   <block id="50823ee9226376c44bfb71c334ee2f3f" category="paragraph"><block ref="50823ee9226376c44bfb71c334ee2f3f" category="inline-link-macro-rx"></block></block>
   <block id="44e21d73aa8bd7200fceac6671723524" category="doc">Déploiement manuel de l'opérateur Trident (mode hors ligne)</block>
@@ -5199,4 +5198,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="053aba80de03f3fdf626d1c858342330" category="list-text">Restaurez l'application sur le cluster de destination à l'aide du nom AppVault et du chemin d'archivage :</block>
   <block id="fceebbe32c1f7b24c54d6a4e8a0fa776" category="admonition">Si BackupRestore CR n'est pas disponible, vous pouvez utiliser la commande mentionnée à l'étape 2 pour afficher le contenu de la sauvegarde.</block>
   <block id="4ef55c1fec2de9218af40d16cbc021a4" category="list-text">Utilisez la commande suivante pour restaurer l'application, en remplaçant les valeurs entre parenthèses par les informations de votre environnement. L'argument namespace-mapping utilise des espaces de noms séparés par deux points pour mapper les espaces de noms source aux espaces de noms de destination corrects au format source1:dest1,source2:dest2. Par exemple :</block>
+  <block id="e0020bd4ebab101e8b128426eb7025bd" category="list-text">FAS/AFF/Sélectionner</block>
+  <block id="fcabe507223b9ffe86d4048df99d8ee5" category="paragraph">ISCSI SCSI over FC (aperçu technique dans Trident 24.10)</block>
 </blocks>
