@@ -1,0 +1,23 @@
+---
+sidebar: sidebar 
+permalink: known-issues.html 
+keywords: 'what"s new, new features, enhancements, known issues, resolved issues, troubleshooting' 
+summary: Voici les problèmes connus de cette version. 
+---
+= Problèmes connus
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Les problèmes connus identifient les problèmes susceptibles de vous empêcher d'utiliser cette version du produit avec succès.
+
+Les problèmes connus suivants ont une incidence sur la version actuelle :
+
+
+
+== La restauration des sauvegardes Restic de fichiers volumineux peut échouer
+
+Lors de la restauration de fichiers de 30 Go ou plus à partir d'une sauvegarde Amazon S3 effectuée à l'aide de Restic, l'opération de restauration peut échouer. Pour contourner ce problème, sauvegardez les données en utilisant Kopia comme Data Mover (Kopia est le mécanisme de déplacement des données par défaut pour les sauvegardes). Reportez-vous https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-protect-apps.html["Protégez les applications à l'aide de Trident Protect"^] à pour obtenir des instructions.

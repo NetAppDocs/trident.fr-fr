@@ -21,7 +21,7 @@ WARNING: Le `tridentctl` Binaire pour Linux fourni dans le fichier zip du progra
 
 == Nouveautés de la version 25.02
 
-Depuis Trident 25.02, le résumé des nouveautés fournit des informations détaillées sur les améliorations, les correctifs et les descriptions des versions Trident et Trident Protect.
+Depuis Trident 25.02, le récapitulatif des nouveautés fournit des informations détaillées sur les améliorations, les correctifs et les descriptions des versions Trident et Trident Protect.
 
 
 

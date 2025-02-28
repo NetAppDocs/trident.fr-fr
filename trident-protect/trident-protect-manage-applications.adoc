@@ -40,21 +40,36 @@ Vous devez définir chaque application à gérer avec Trident Protect. Vous pouv
 +
 *** *metadata.name*: (_required_) le nom de la ressource personnalisée de l'application. Notez le nom que vous choisissez car les autres fichiers CR nécessaires aux opérations de protection font référence à cette valeur.
 *** *spec.includedNamespaces*: (_required_) utilisez des étiquettes d'espace de noms ou un nom d'espace de noms pour spécifier les espaces de noms dans lesquels les ressources d'application existent. L'espace de noms de l'application doit faire partie de cette liste.
+*** *metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*: (_Optional_) cette annotation s'applique uniquement aux applications définies à partir de machines virtuelles, comme dans les environnements KubeVirt, où les fichiers se figent avant les snapshots. Spécifiez si cette application peut écrire dans le système de fichiers pendant un snapshot. Si elle est définie sur true, l'application ignore le paramètre global et peut écrire dans le système de fichiers pendant un snapshot. Si elle est définie sur FALSE, l'application ignore le paramètre global et le système de fichiers est bloqué pendant un snapshot. Si elle est spécifiée mais que l'application ne comporte aucune machine virtuelle dans la définition de l'application, l'annotation est ignorée. S'il n'est pas spécifié, l'application suit le link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Paramètre de gel Global Trident Protect"].
++
+[NOTE]
+====
+Si vous devez appliquer cette annotation après la création d'une application, vous pouvez utiliser la commande suivante :
+
+[source, console]
+----
+kubectl annotate application -n <application CR namespace> <application CR name> protect.trident.netapp.io/skip-vm-freeze="true"
+----
+====
 +
 Exemple YAML :
 
 +
 [source, yaml]
 ----
----
 apiVersion: protect.trident.netapp.io/v1
 kind: Application
 metadata:
-  name: maria
+  annotations:
+    protect.trident.netapp.io/skip-vm-freeze: "false"
+  name: my-app-name
   namespace: my-app-namespace
 spec:
   includedNamespaces:
-    - namespace: my-app-namespace
+  - labelSelector: {}
+    namespace: namespace-1
+  - labelSelector: {}
+    namespace: namespace-2
 ----
 
 
@@ -72,12 +87,28 @@ kubectl apply -f maria-app.yaml
 .Ajoutez une application à l'aide de l'interface de ligne de commande
 --
 .Étapes
-. Créez et appliquez la définition de l'application, en remplaçant les valeurs entre parenthèses par les informations de votre environnement. Vous pouvez inclure des espaces de noms et des ressources dans la définition d'application à l'aide de listes séparées par des virgules avec les arguments indiqués dans l'exemple suivant :
+. Créez et appliquez la définition de l'application à l'aide de l'un des exemples suivants, en remplaçant les valeurs entre parenthèses par les informations de votre environnement. Vous pouvez inclure des espaces de noms et des ressources dans la définition de l'application à l'aide de listes séparées par des virgules avec les arguments présentés dans les exemples.
++
+Vous pouvez éventuellement utiliser une annotation lorsque vous créez une application pour spécifier si l'application peut écrire dans le système de fichiers pendant un snapshot. Cela s'applique uniquement aux applications définies à partir de machines virtuelles, par exemple dans les environnements KubeVirt, où les systèmes de fichiers se figent avant les snapshots. Si vous définissez l'annotation sur `true`, l'application ignore le paramètre global et peut écrire dans le système de fichiers pendant un snapshot. Si vous le définissez sur `false`, l'application ignore le paramètre global et le système de fichiers est bloqué pendant un instantané. Si vous utilisez l'annotation mais que l'application n'a pas de machines virtuelles dans la définition de l'application, l'annotation est ignorée. Si vous n'utilisez pas l'annotation, l'application suit le link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Paramètre de gel Global Trident Protect"].
+
++
+Pour spécifier l'annotation lorsque vous créez une application à l'aide de l'interface de ligne de commande, vous pouvez utiliser `--annotation` l'indicateur.
+
++
+** Créez l'application et utilisez le paramètre global pour le comportement de blocage du système de fichiers :
 +
 [source, console]
 ----
 tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace>
 ----
+** Créez l'application et configurez le paramètre de l'application locale pour le comportement de blocage du système de fichiers :
++
+[source, console]
+----
+tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace> --annotation protect.trident.netapp.io/skip-vm-freeze=<"true"|"false">
+----
+
+
 
 
 --

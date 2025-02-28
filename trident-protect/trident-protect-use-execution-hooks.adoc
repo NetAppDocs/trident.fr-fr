@@ -58,6 +58,9 @@ NOTE: L'exemple d'ordre précédent s'applique uniquement lorsque vous exécutez
 NOTE: Vous devez toujours tester vos scripts d'exécution avant de les activer dans un environnement de production. Vous pouvez utiliser la commande 'kubectl exec' pour tester aisément les scripts. Une fois que vous avez activé les crochets d'exécution dans un environnement de production, testez les snapshots et les sauvegardes obtenus pour vous assurer qu'ils sont cohérents. Pour ce faire, vous pouvez cloner l'application dans un espace de noms temporaire, restaurer le snapshot ou la sauvegarde, puis tester l'application.
 
 
+NOTE: Si un hook d'exécution pré-snapshot ajoute, modifie ou supprime des ressources Kubernetes, ces modifications sont incluses dans l'instantané ou la sauvegarde et dans toute opération de restauration ultérieure.
+
+
 
 == Remarques importantes sur les crochets d'exécution personnalisés
 
@@ -196,4 +199,178 @@ tridentctl-protect create exechook <my_exec_hook_name> --action <action_type> --
 
 
 --
+====
+
+
+== Exécutez manuellement un crochet d'exécution
+
+Vous pouvez exécuter manuellement un crochet d'exécution à des fins de test ou si vous devez exécuter de nouveau le crochet manuellement après un échec. Vous devez disposer des autorisations propriétaire, administrateur ou membre pour exécuter manuellement les crochets d'exécution.
+
+L'exécution manuelle d'un crochet d'exécution se compose de deux étapes de base :
+
+. Créez une sauvegarde de ressource, qui collecte les ressources et crée une sauvegarde de celles-ci, en déterminant l'emplacement d'exécution du hook
+. Exécutez le crochet d'exécution contre la sauvegarde
+
+
+.Étape 1 : création d'une sauvegarde de ressource
+[%collapsible]
+====
+[role="tabbed-block"]
+=====
+.Utiliser une CR
+--
+.Étapes
+. Créez le fichier de ressource personnalisée (CR) et nommez-le `trident-protect-resource-backup.yaml`.
+. Configurez les attributs suivants en fonction de votre environnement Trident Protect et de la configuration du cluster :
++
+** *metadata.name*: (_required_) le nom de cette ressource personnalisée; choisissez un nom unique et sensible pour votre environnement.
+** *Spec.applicationRef*: (_required_) Nom Kubernetes de l'application pour laquelle créer la sauvegarde de ressource.
+** *Spec.appVaultRef*: (_required_) Nom de l'AppVault où sont stockés le contenu de la sauvegarde.
+** *Spec.appArchivePath* : chemin d'accès dans AppVault où sont stockés le contenu de la sauvegarde. Vous pouvez utiliser la commande suivante pour trouver ce chemin :
++
+[source, console]
+----
+kubectl get backups <BACKUP_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
+----
++
+Exemple YAML :
+
++
+[source, yaml]
+----
+---
+apiVersion: protect.trident.netapp.io/v1
+kind: ResourceBackup
+metadata:
+  name: example-resource-backup
+spec:
+  applicationRef: my-app-name
+  appVaultRef: my-appvault-name
+  appArchivePath: example-resource-backup
+----
+
+
+. Une fois que vous avez rempli le fichier CR avec les valeurs correctes, appliquez la CR :
++
+[source, console]
+----
+kubectl apply -f trident-protect-resource-backup.yaml
+----
+
+
+--
+.Utiliser l'interface de ligne de commande
+--
+.Étapes
+. Créez la sauvegarde en remplaçant les valeurs entre parenthèses par les informations de votre environnement. Par exemple :
++
+[source, console]
+----
+tridentctl protect create resourcebackup <my_backup_name> --app <my_app_name> --appvault <my_appvault_name> -n <my_app_namespace> --app-archive-path <app_archive_path>
+----
+. Afficher l'état de la sauvegarde. Vous pouvez utiliser cet exemple de commande plusieurs fois jusqu'à ce que l'opération soit terminée :
++
+[source, console]
+----
+tridentctl protect get resourcebackup -n <my_app_namespace> <my_backup_name>
+----
+. Vérifiez que la sauvegarde a réussi :
++
+[source, console]
+----
+kubectl describe resourcebackup <my_backup_name>
+----
+
+
+--
+=====
+====
+.Étape 2 : exécutez le crochet d'exécution
+[%collapsible]
+====
+[role="tabbed-block"]
+=====
+.Utiliser une CR
+--
+.Étapes
+. Créez le fichier de ressource personnalisée (CR) et nommez-le `trident-protect-hook-run.yaml`.
+. Configurez les attributs suivants en fonction de votre environnement Trident Protect et de la configuration du cluster :
++
+** *metadata.name*: (_required_) le nom de cette ressource personnalisée; choisissez un nom unique et sensible pour votre environnement.
+** *Spec.applicationRef*: (_required_) Assurez-vous que cette valeur correspond au nom de l'application du CR ResourceBackup que vous avez créé à l'étape 1.
+** *Spec.appVaultRef*: (_required_) Assurez-vous que cette valeur correspond à la référence appVaultRef de la CR ResourceBackup que vous avez créée à l'étape 1.
+** *Spec.appArchivePath* : Assurez-vous que cette valeur correspond à appArchivePath à partir du CR ResourceBackup que vous avez créé à l'étape 1.
++
+[source, console]
+----
+kubectl get backups <BACKUP_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
+----
+** *Spec.action*: (_required_) Une chaîne indiquant l'action que prendra le crochet d'exécution, en supposant que tous les filtres de crochet d'exécution spécifiés soient mis en correspondance. Valeurs possibles :
++
+*** Snapshot
+*** Sauvegarde
+*** Restaurer
+*** Basculement
+
+
+** *Spec.stage*: (_required_) Une chaîne indiquant quelle étape de l'action doit être exécutée par le crochet d'exécution. Cette course de crochet ne fera pas courir de crochets dans une autre étape. Valeurs possibles :
++
+*** Pré
+*** Post
++
+Exemple YAML :
+
++
+[source, yaml]
+----
+---
+apiVersion: protect.trident.netapp.io/v1
+kind: ExecHooksRun
+metadata:
+  name: example-hook-run
+spec:
+  applicationRef: my-app-name
+  appVaultRef: my-appvault-name
+  appArchivePath: example-resource-backup
+  stage: Post
+  action: Failover
+----
+
+
+
+
+. Une fois que vous avez rempli le fichier CR avec les valeurs correctes, appliquez la CR :
++
+[source, console]
+----
+kubectl apply -f trident-protect-hook-run.yaml
+----
+
+
+--
+.Utiliser l'interface de ligne de commande
+--
+.Étapes
+. Créez la demande d'exécution manuelle du crochet :
++
+[source, console]
+----
+tridentctl protect create exechooksrun <my_exec_hook_run_name> -n <my_app_namespace> --action snapshot --stage <pre_or_post> --app <my_app_name> --appvault <my_appvault_name> --path <my_backup_name>
+----
+. Vérifiez l'état de l'exécution du hook. Vous pouvez exécuter cette commande plusieurs fois jusqu'à ce que l'opération soit terminée :
++
+[source, console]
+----
+tridentctl protect get exechooksrun -n <my_app_namespace> <my_exec_hook_run_name>
+----
+. Décrivez l'objet exechooksrun pour afficher les détails et l'état finaux :
++
+[source, console]
+----
+kubectl -n <my_app_namespace> describe exechooksrun <my_exec_hook_run_name>
+----
+
+
+--
+=====
 ====

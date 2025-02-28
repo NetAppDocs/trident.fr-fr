@@ -1,0 +1,10 @@
+= 
+:allow-uri-read: 
+
+
+.Avant de commencer
+Assurez-vous que l'expiration du jeton de session AWS suffit pour toutes les opérations de sauvegarde s3 à long terme. Si le jeton expire pendant l'opération de sauvegarde, l'opération peut échouer.
+
+* Pour plus d'informations sur la vérification de l'expiration du jeton de session en cours, reportez-vous https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentation de l'API AWS"^] au.
+* Pour plus d'informations sur les identifiants avec les ressources AWS, consultez le https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentation AWS IAM"^].
+

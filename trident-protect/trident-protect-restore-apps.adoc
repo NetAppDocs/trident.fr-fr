@@ -107,6 +107,13 @@ Lorsque vous restaurez une sauvegarde dans un espace de noms différent à l'aid
 
 NOTE: La restauration d'une sauvegarde dans un espace de noms différent avec des ressources existantes ne modifie aucune ressource qui partage des noms avec ceux de la sauvegarde. Pour restaurer toutes les ressources de la sauvegarde, supprimez et recréez l'espace de noms cible ou restaurez la sauvegarde dans un nouvel espace de noms.
 
+.Avant de commencer
+Assurez-vous que l'expiration du jeton de session AWS suffit pour toutes les opérations de restauration s3 à long terme. Si le jeton expire pendant l'opération de restauration, l'opération peut échouer.
+
+* Pour plus d'informations sur la vérification de l'expiration du jeton de session en cours, reportez-vous https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentation de l'API AWS"^] au.
+* Pour plus d'informations sur les identifiants avec les ressources AWS, consultez le https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentation AWS IAM"^].
+
+
 [role="tabbed-block"]
 ====
 .Utiliser une CR
@@ -213,6 +220,13 @@ tridentctl-protect create backuprestore <my_restore_name> --backup <backup_names
 
 Vous pouvez à tout moment restaurer une sauvegarde dans l'espace de noms d'origine.
 
+.Avant de commencer
+Assurez-vous que l'expiration du jeton de session AWS suffit pour toutes les opérations de restauration s3 à long terme. Si le jeton expire pendant l'opération de restauration, l'opération peut échouer.
+
+* Pour plus d'informations sur la vérification de l'expiration du jeton de session en cours, reportez-vous https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentation de l'API AWS"^] au.
+* Pour plus d'informations sur les identifiants avec les ressources AWS, consultez le https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentation AWS IAM"^].
+
+
 [role="tabbed-block"]
 ====
 .Utiliser une CR
@@ -316,12 +330,17 @@ tridentctl-protect create backupinplacerestore <my_restore_name> --backup <names
 
 Vous pouvez restaurer une sauvegarde sur un autre cluster en cas de problème avec le cluster d'origine.
 
-*Avant de commencer*
-
+.Avant de commencer
 Assurez-vous que les conditions préalables suivantes sont remplies :
 
 * Trident Protect est installé sur le cluster de destination.
 * Le cluster de destination a accès au chemin de compartiment du même AppVault que le cluster source, où la sauvegarde est stockée.
+* Assurez-vous que l'expiration du jeton de session AWS suffit pour toutes les opérations de restauration à long terme. Si le jeton expire pendant l'opération de restauration, l'opération peut échouer.
++
+** Pour plus d'informations sur la vérification de l'expiration du jeton de session en cours, reportez-vous https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentation de l'API AWS"^] au.
+** Pour plus d'informations sur les identifiants avec les ressources AWS, consultez le https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentation de l'AWS"^].
+
+
 
 
 .Étapes
@@ -356,7 +375,6 @@ L'exécution de cette commande affiche les sauvegardes disponibles dans le AppVa
 | production1 | wordpress | backup | wordpress-bkup-1| 2024-10-30 08:37:40 (UTC)| backuppath1 |
 | production1 | wordpress | backup | wordpress-bkup-2| 2024-10-30 08:37:40 (UTC)| backuppath2 |
 +-------------+-----------+--------+-----------------+--------------------------+-------------+
-
 ----
 . Restaurez l'application sur le cluster de destination à l'aide du nom AppVault et du chemin d'archivage :
 
@@ -425,6 +443,13 @@ tridentctl-protect create backuprestore <restore_name> --namespace-mapping <sour
 == Restauration d'un snapshot vers un autre espace de noms
 
 Vous pouvez restaurer les données d'un instantané à l'aide d'un fichier de ressource personnalisée (CR) dans un espace de noms différent ou dans l'espace de noms source d'origine. Lorsque vous restaurez un snapshot dans un espace de noms différent à l'aide d'un CR SnapshotRestore, Trident Protect restaure l'application dans un nouvel espace de noms et crée une CR d'application pour l'application restaurée. Pour protéger l'application restaurée, créez des sauvegardes ou des snapshots à la demande ou établissez un calendrier de protection.
+
+.Avant de commencer
+Assurez-vous que l'expiration du jeton de session AWS suffit pour toutes les opérations de restauration s3 à long terme. Si le jeton expire pendant l'opération de restauration, l'opération peut échouer.
+
+* Pour plus d'informations sur la vérification de l'expiration du jeton de session en cours, reportez-vous https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentation de l'API AWS"^] au.
+* Pour plus d'informations sur les identifiants avec les ressources AWS, consultez le https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentation AWS IAM"^].
+
 
 [role="tabbed-block"]
 ====
@@ -539,6 +564,13 @@ tridentctl-protect create snapshotrestore <my_restore_name> --snapshot <namespac
 == Restaurer à partir d'un snapshot vers l'espace de noms d'origine
 
 Vous pouvez à tout moment restaurer un snapshot dans l'espace de noms d'origine.
+
+.Avant de commencer
+Assurez-vous que l'expiration du jeton de session AWS suffit pour toutes les opérations de restauration s3 à long terme. Si le jeton expire pendant l'opération de restauration, l'opération peut échouer.
+
+* Pour plus d'informations sur la vérification de l'expiration du jeton de session en cours, reportez-vous https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentation de l'API AWS"^] au.
+* Pour plus d'informations sur les identifiants avec les ressources AWS, consultez le https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["Documentation AWS IAM"^].
+
 
 [role="tabbed-block"]
 ====
