@@ -54,7 +54,7 @@ Restriction facultative sur les tailles de volume. Par défaut : « » (non appl
 
 |===
 
-TIP: Ne pas utiliser `storagePrefix` (Y compris la valeur par défaut) pour les systèmes back-end Element. Par défaut, le `solidfire-san` le pilote ignore ce paramètre et n'utilise pas de préfixe. Nous vous recommandons d'utiliser un ID de tentID spécifique pour le mappage de volume Docker ou les données d'attributs renseignées par la version de Docker, les informations relatives au pilote et le nom brut de Docker dans les cas où il est possible d'utiliser une mundening de nom.
+TIP: N'utilisez pas `storagePrefix` (y compris la valeur par défaut) les systèmes back-end Element. Par défaut, le `solidfire-san` pilote ignore ce paramètre et n'utilise pas de préfixe. NetApp recommande d'utiliser soit un tenantID spécifique pour le mappage de volume Docker, soit des données d'attribut renseignées sur la version Docker, les informations sur le pilote et le nom brut de Docker au cas où un nom munging aurait pu être utilisé.
 
 Les options par défaut sont disponibles pour éviter d'avoir à les spécifier sur chaque volume que vous créez. Le `size` option disponible pour tous les types de contrôleurs. Pour un exemple de définition de la taille de volume par défaut, reportez-vous à la section ONTAP configuration.
 
@@ -90,9 +90,9 @@ Adresse IP de la LIF de management ONTAP. Vous pouvez spécifier un nom de domai
 | `dataLIF`  a| 
 Adresse IP de la LIF de protocole.
 
-*Pilotes NAS ONTAP*: Nous vous recommandons de spécifier `dataLIF`. Si non fourni, Trident récupère les LIFs de données du SVM. Vous pouvez spécifier un nom de domaine complet (FQDN) à utiliser pour les opérations de montage NFS, permettant de créer un DNS Round-Robin pour équilibrer la charge sur plusieurs LIF de données.
+*Pilotes NAS ONTAP*: NetApp recommande de spécifier `dataLIF`. Si non fourni, Trident récupère les LIFs de données du SVM. Vous pouvez spécifier un nom de domaine complet (FQDN) à utiliser pour les opérations de montage NFS, permettant de créer un DNS Round-Robin pour équilibrer la charge sur plusieurs LIF de données.
 
-*Pilotes SAN ONTAP* : ne pas spécifier pour iSCSI. Trident utilise link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["Mappage de LUN sélectif ONTAP"^] pour découvrir les LIF iSCI nécessaires à l'établissement d'une session à chemins multiples. Un avertissement est généré si `dataLIF` est explicitement défini.
+*Pilotes SAN ONTAP* : ne spécifiez pas pour iSCSI ou FC. Trident utilise link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["Mappage de LUN sélectif ONTAP"^] pour détecter les LIF iSCSI ou FC requises pour établir une session à chemins multiples. Un avertissement est généré si `dataLIF` est explicitement défini.
  a| 
 `10.0.0.2`
 
@@ -169,7 +169,7 @@ Le nombre maximal de qtrees par FlexVol doit être compris dans la plage [50, 30
 
  a| 
 `sanType`
-| *Pris en charge pour le `ontap-san` pilote uniquement.* Utilisez pour sélectionner `iscsi` pour iSCSI, `nvme` pour NVMe/TCP ou `fcp` pour SCSI over Fibre Channel (FC). *'fcp' (SCSI over FC) est une fonctionnalité de présentation technique dans la version Trident 24.10.* | `iscsi` si vide 
+| *Pris en charge pour le `ontap-san` pilote uniquement.* Utilisez pour sélectionner `iscsi` pour iSCSI, `nvme` pour NVMe/TCP ou `fcp` pour SCSI over Fibre Channel (FC). | `iscsi` si vide 
 
 
 | `limitVolumePoolSize` | *Pris en charge pour `ontap-san-economy` les `ontap-san-economy` pilotes et uniquement.* Limite la taille des FlexVol pour les modèles économiques ONTAP ONTAP-nas et ONTAP-SAN.  a| 
@@ -260,7 +260,7 @@ OPTION SAN pour sélectionner le type de système de fichiers, par défaut sur `
 
 
 | `tieringPolicy`  a| 
-Règle de Tiering à utiliser ; la règle par défaut est `none`; `snapshot-only` Pour la configuration SVM-DR antérieure à ONTAP 9.5
+Règle de hiérarchisation à utiliser, la valeur par défaut est `none`.
  a| 
 `none`
 
@@ -269,16 +269,16 @@ Règle de Tiering à utiliser ; la règle par défaut est `none`; `snapshot-only
 
 === Options d'évolutivité
 
-Le `ontap-nas` et `ontap-san` Les pilotes créent un ONTAP FlexVol pour chaque volume Docker. ONTAP prend en charge jusqu'à 1000 volumes FlexVol par nœud de cluster avec un cluster maximum de 12,000 volumes FlexVol. Si votre volume Docker répond à cette restriction, le `ontap-nas` Le pilote est la solution NAS préférée du fait des fonctionnalités supplémentaires offertes par les volumes FlexVol, telles que les snapshots et le clonage granulaires avec volume Docker.
+Les `ontap-nas` pilotes et `ontap-san` créent un ONTAP FlexVol pour chaque volume Docker. ONTAP prend en charge jusqu'à 1000 volumes FlexVol par nœud de cluster avec un maximum de 12,000 volumes FlexVol si vos exigences de volume Docker correspondent à cette limitation, le `ontap-nas` pilote est la solution NAS préférée en raison des fonctionnalités supplémentaires proposées par FlexVols, telles que les copies Snapshot granulaires de volume Docker et le clonage.
 
 Si vous avez besoin de plus de volumes Docker que ne peut pas être pris en charge par les limites FlexVol, choisissez la `ontap-nas-economy` ou le `ontap-san-economy` conducteur.
 
-Le `ontap-nas-economy` Le pilote crée des volumes Docker en tant que qtrees ONTAP dans un pool de volumes FlexVol gérés automatiquement. Les qtrees offrent une évolutivité largement supérieure, jusqu'à 100,000 par nœud de cluster et 2,400,000 par cluster, au détriment de certaines fonctionnalités. Le `ontap-nas-economy` Le pilote ne prend pas en charge le clonage ou les snapshots granulaires volume Docker.
+Le `ontap-nas-economy` pilote crée des volumes Docker en tant que qtrees ONTAP au sein d'un pool de qtrees de volumes FlexVol automatiquement gérés pour une évolutivité bien supérieure, jusqu'à 100,000 par nœud de cluster et 2,400,000 par cluster, au détriment de certaines fonctionnalités. Le `ontap-nas-economy` pilote ne prend pas en charge les snapshots granulaires au niveau des volumes Docker ni le clonage.
 
 
 NOTE: Le `ontap-nas-economy` Le pilote n'est pas pris en charge par Docker Swarm, car Swarm n'effectue pas la création de volumes entre plusieurs nœuds.
 
-Le `ontap-san-economy` Le pilote crée des volumes Docker en tant que LUN ONTAP dans un pool partagé de volumes FlexVol gérés automatiquement. De cette façon, chaque FlexVol n'est pas limité à un seul LUN et offre une meilleure évolutivité pour les charges de travail SAN. Selon les baies de stockage, ONTAP prend en charge jusqu'à 16384 LUN par cluster. Comme les volumes sont sous-LUN, ce pilote prend en charge les snapshots et le clonage granulaires par volume Docker.
+Le `ontap-san-economy` pilote crée des volumes Docker en tant que LUN ONTAP au sein d'un pool partagé de volumes FlexVol automatiquement gérés de cette façon. Chaque FlexVol n'est pas limité à une seule LUN et offre une meilleure évolutivité pour les charges de travail SAN. Selon les baies de stockage, ONTAP prend en charge jusqu'à 16384 LUN par cluster. Comme les volumes sont sous-LUN, ce pilote prend en charge les snapshots et le clonage granulaires par volume Docker.
 
 Choisissez le `ontap-nas-flexgroup` pilote pour augmenter le parallélisme vers un volume unique pouvant atteindre plusieurs pétaoctets avec des milliards de fichiers. Les utilisations idéales de FlexGroups sont l'IA, LE ML, le Big Data et l'analytique, les logiciels, le streaming, les référentiels de fichiers, etc. Lors du provisionnement d'un volume FlexGroup, Trident utilise tous les agrégats affectés à un SVM. La prise en charge d'FlexGroup dans Trident comporte également plusieurs considérations :
 
@@ -467,6 +467,24 @@ Pour plus d'informations, reportez-vous aux pages suivantes :
   "username":"vsadmin",
   "password":"password",
   "sanType": "nvme",
+  "useREST": true
+}
+----
+====
+.Exemple SCSI sur FC pour le pilote <code> ONTAP-</code>
+[%collapsible]
+====
+[listing]
+----
+{
+  "version": 1,
+  "backendName": "ontap-san-backend",
+  "storageDriverName": "ontap-san",
+  "managementLIF": "10.0.0.1",
+  "sanType": "fcp",
+  "svm": "trident_svm",
+  "username":"vsadmin",
+  "password":"password",
   "useREST": true
 }
 ----

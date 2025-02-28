@@ -190,3 +190,76 @@ sudo modprobe nvme-tcp
 ----
 --
 ====
+
+
+== Outils FC
+
+Installez les outils FC à l'aide des commandes de votre système d'exploitation.
+
+* Lors de l'utilisation de nœuds worker exécutant RHEL/RedHat CoreOS avec FC PVS, spécifiez la `discard` mountOption dans la classe de stockage pour effectuer la récupération d'espace en ligne. Reportez-vous à la https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Documentation Red Hat"^].
+
+
+[role="tabbed-block"]
+====
+.RHEL 8+
+--
+. Installez les packages système suivants :
++
+[listing]
+----
+sudo yum install -y lsscsi device-mapper-multipath
+----
+. Activer les chemins d'accès multiples :
++
+[listing]
+----
+sudo mpathconf --enable --with_multipathd y --find_multipaths n
+----
++
+
+NOTE: Bien sûr `etc/multipath.conf` contient `find_multipaths no` sous `defaults`.
+
+. Assurez-vous que `multipathd` est en cours d'exécution :
++
+[listing]
+----
+sudo systemctl enable --now multipathd
+----
+
+
+--
+.Ubuntu
+--
+. Installez les packages système suivants :
++
+[listing]
+----
+sudo apt-get install -y lsscsi sg3-utils multipath-tools scsitools
+----
+. Activer les chemins d'accès multiples :
++
+[listing]
+----
+sudo tee /etc/multipath.conf <<-EOF
+defaults {
+    user_friendly_names yes
+    find_multipaths no
+}
+EOF
+sudo systemctl enable --now multipath-tools.service
+sudo service multipath-tools restart
+----
++
+
+NOTE: Bien sûr `etc/multipath.conf` contient `find_multipaths no` sous `defaults`.
+
+. Assurez-vous que `multipath-tools` est activé et en cours d'exécution :
++
+[listing]
+----
+sudo systemctl status multipath-tools
+----
+
+
+--
+====

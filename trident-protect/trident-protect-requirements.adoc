@@ -119,11 +119,9 @@ kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=
 
 == Conditions requises pour la réplication SnapMirror
 
-NetApp SnapMirror est disponible pour les solutions ONTAP suivantes avec Trident Protect :
+La réplication NetApp SnapMirror est disponible pour Trident Protect dans les solutions ONTAP suivantes :
 
-* NetApp ASA
-* NetApp AFF
-* NetApp FAS
+* Clusters NetApp FAS, AFF et ASA sur site
 * NetApp ONTAP Select
 * NetApp Cloud Volumes ONTAP
 * Amazon FSX pour NetApp ONTAP

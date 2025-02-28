@@ -30,11 +30,9 @@ link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#ins
 link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#nvmetcp-volumes["Installez les outils NVMe"] si vous utilisez `ontap-san` Pour le protocole NVMe (Nonvolatile Memory Express) sur TCP (NVMe/TCP).
 
 
-NOTE: ONTAP 9.12 ou version ultérieure est recommandé pour NVMe/TCP.
+NOTE: NetApp recommande ONTAP 9.12 ou version ultérieure pour NVMe/TCP.
 
 .Outils SCSI sur FC
-*SCSI over Fibre Channel (FC) est une fonctionnalité de prévisualisation technique dans la version Trident 24.10.*
-
 link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#install-the-fc-tools["Installez les outils FC"] Si vous utilisez `ontap-san` avec sanType `fcp` (SCSI sur FC).
 
 Pour plus d'informations, reportez-vous à la section link:https://docs.netapp.com/us-en/ontap/san-config/configure-fc-nvme-hosts-ha-pairs-reference.html["Manières de configurer FC  ; hôtes SAN FC-NVMe"] .
@@ -264,7 +262,7 @@ L'exemple suivant définit l'intervalle d'auto-rétablissement iSCSI sur 3 minut
 
 [listing]
 ----
-helm install trident trident-operator-100.2410.0.tgz --set iscsiSelfHealingInterval=3m0s --set iscsiSelfHealingWaitTime=6m0s -n trident
+helm install trident trident-operator-100.2502.0.tgz --set iscsiSelfHealingInterval=3m0s --set iscsiSelfHealingWaitTime=6m0s -n trident
 ----
 --
 .tridentctl
@@ -328,7 +326,42 @@ WARNING: Trident modifie la `ctrl_device_tmo` valeur pour s'assurer que NVMe ne 
 
 
 
-== Installez les outils FC
+== Volumes SCSI sur FC
+
+Vous pouvez désormais utiliser le protocole Fibre Channel (FC) avec Trident pour provisionner et gérer les ressources de stockage sur un système ONTAP.
+
+
+
+=== Prérequis
+
+Configurez les paramètres réseau et nœud requis pour FC.
+
+
+
+==== Paramètres réseau
+
+. Obtenez le WWPN des interfaces cibles. Pour plus d'informations, reportez-vous à la section https://docs.netapp.com/us-en/ontap-cli//network-interface-show.html["interface réseau affiche"^] .
+. Procurez-vous le WWPN pour les interfaces sur l'initiateur (hôte).
++
+Reportez-vous aux utilitaires correspondants du système d'exploitation hôte.
+
+. Configurer la segmentation sur le commutateur FC à l'aide des WWPN de l'hôte et de la cible.
++
+Pour plus d'informations, reportez-vous à la documentation du fournisseur du commutateur Respecive.
+
++
+Pour plus d'informations, reportez-vous à la documentation ONTAP suivante :
+
++
+** https://docs.netapp.com/us-en/ontap/san-config/fibre-channel-fcoe-zoning-concept.html["Présentation de la segmentation Fibre Channel et FCoE"^]
+** https://docs.netapp.com/us-en/ontap/san-config/configure-fc-nvme-hosts-ha-pairs-reference.html["Manières de configurer FC  ; hôtes SAN FC-NVMe"^]
+
+
+
+
+
+
+=== Installez les outils FC
 
 Installez les outils FC à l'aide des commandes de votre système d'exploitation.
 

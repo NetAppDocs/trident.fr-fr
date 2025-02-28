@@ -16,7 +16,7 @@ Vous pouvez déployer l'opérateur Trident et installer Trident à l'aide de Hel
 
 
 
-== Informations critiques sur Trident 24.10
+== Informations critiques sur Trident 25.02
 
 *Vous devez lire les informations critiques suivantes sur Trident.*
 
@@ -56,7 +56,7 @@ helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 +
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2410.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 100.2502.0 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -86,11 +86,11 @@ Spécifiez un fichier YAML avec les remplacements. Ceci peut être spécifié pl
 Spécifiez les remplacements sur la ligne de commande.
 
 |===
-Par exemple, pour modifier la valeur par défaut de `debug`, exécutez la commande suivante où `100.2410.0` est la version de Trident que vous installez :
+Par exemple, pour modifier la valeur par défaut de `debug`, exécutez la commande suivante où `100.2502.0` est la version de Trident que vous installez :
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2410.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 100.2502.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 
@@ -241,6 +241,13 @@ WARNING: Ne supprimez pas l'affinité par défaut du fichier values.yaml. Lorsqu
 
 
 | `nodePrep` | Permet à Trident de préparer les nœuds du cluster Kubernetes à gérer les volumes à l'aide du protocole de stockage de données spécifié. *Actuellement, `iscsi` est la seule valeur prise en charge.* |  
+
+
+| `ontapConfigurator`  a| 
+Active ou désactive la configuration automatique du back-end Trident et des classes de stockage pour Amazon FSX. Utilisez les paramètres suivants avec `ontapConfigurator` pour activer la configuration automatique du back-end :
+`enabled`: définissez sur `true` pour activer la configuration automatique du back-end.
+`svms`: Contient la liste des ID de système de fichiers pour lesquels la configuration automatique du back-end sera créée. - `authType`: Définit le type d'authentification pour l'authentification SVM. Pour AWS, l'authentification basée sur le fil (« awsarn ») est actuellement prise en charge. - `fsxnID`: Définit l'ID système de fichiers d'AWS FSX. Exemple : « fs-0dfeaa884a68b1CAB ». - `protocols` - Spécifie la liste des protocoles pris en charge pour la configuration automatique du back-end : "nfs", "iscsi" ou les deux.
+|  
 |===
 
 

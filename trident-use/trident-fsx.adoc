@@ -16,7 +16,7 @@ https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Amazon
 
 Vous pouvez intégrer votre système de fichiers Amazon FSX pour NetApp ONTAP avec Trident pour vous assurer que les clusters Kubernetes s'exécutant dans Amazon Elastic Kubernetes Service (EKS) peuvent provisionner des volumes persistants de bloc et de fichier soutenus par ONTAP.
 
-Un système de fichiers est la ressource principale d'Amazon FSX, similaire à un cluster ONTAP sur site. Au sein de chaque SVM, vous pouvez créer un ou plusieurs volumes, qui sont des conteneurs de données qui stockent les fichiers et les dossiers dans votre système de fichiers. Avec Amazon FSX pour NetApp ONTAP, Data ONTAP sera fourni en tant que système de fichiers géré dans le cloud. Le nouveau type de système de fichiers est appelé *NetApp ONTAP*.
+Un système de fichiers est la ressource principale d'Amazon FSX, similaire à un cluster ONTAP sur site. Au sein de chaque SVM, vous pouvez créer un ou plusieurs volumes, qui sont des conteneurs de données qui stockent les fichiers et les dossiers dans votre système de fichiers. Avec Amazon FSX pour NetApp ONTAP sera fourni en tant que système de fichiers géré dans le cloud. Le nouveau type de système de fichiers est appelé *NetApp ONTAP*.
 
 Grâce à Trident avec Amazon FSX pour NetApp ONTAP, vous pouvez vous assurer que les clusters Kubernetes s'exécutant dans Amazon Elastic Kubernetes Service (EKS) peuvent provisionner des volumes persistants de bloc et de fichier soutenus par ONTAP.
 
@@ -71,6 +71,56 @@ Pour plus d'informations sur l'activation de l'authentification, reportez-vous �
 
 * link:ontap-nas-prep.html["Authentification NAS ONTAP"]
 * link:ontap-san-prep.html["Authentification SAN de ONTAP"]
+
+
+
+
+== Ami (Amazon machine Images) testé
+
+Le cluster EKS prend en charge plusieurs systèmes d'exploitation, mais AWS a optimisé certains ami (Amazon machine image) pour les conteneurs et EKS. Les amis suivants ont été testés avec Trident 24.10.
+
+|===
+
+
+| AMI | NAS | Économie NAS | SAN | SAN-Economie 
+
+
+| AL2023_x86_64_STANDARD | Oui. | Oui. | Oui. | Oui. 
+
+
+| AL2_x86_64 | Oui. | Oui. | Oui** | Oui** 
+
+
+| BOTTLEROCKET_x86_64 | Oui* | Oui. | S/O | S/O 
+
+
+| AL2023_ARM_64_STANDARD | Oui. | Oui. | Oui. | Oui. 
+
+
+| AL2_ARM_64 | Oui. | Oui. | Oui** | Oui** 
+
+
+| BOTTLEROCKET_ARM_64 | Oui* | Oui. | S/O | S/O 
+|===
+* *Doit utiliser “nolock” dans les options de montage.
+* ** Impossible de supprimer le PV sans redémarrer le nœud
+
+
+
+NOTE: Si votre ami souhaité n'est pas répertorié ici, cela ne signifie pas qu'il n'est pas pris en charge ; cela signifie simplement qu'il n'a pas été testé. Cette liste sert de guide pour les amis connus pour fonctionner.
+
+*Tests effectués avec* :
+
+* Version EKS : 1.30
+* Méthode d'installation : Helm et en tant qu'add-on AWS
+* Pour NAS, NFS v3 et NFS v4.1 ont été testés.
+* Pour le SAN, iSCSI uniquement a été testé, pas NVMe-of.
+
+
+*Tests effectués* :
+
+* Créer : classe de stockage, pvc, pod
+* Suppression : pod, pvc (normal, qtree/lun – économique, NAS avec sauvegarde AWS)
 
 
 

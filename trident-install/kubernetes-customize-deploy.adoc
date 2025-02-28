@@ -46,7 +46,7 @@ Ce tableau est plus détaillé `TridentOrchestrator` attributs.
 | `debug` | Activer le débogage pour Trident | `false` 
 
 
-| `enableForceDetach` | `ontap-san`, `ontap-san-economy` et `ontap-nas-economy` uniquement. Fonctionne avec Kubernetes non-Grass Node Shutdown (NGN) pour autoriser les administrateurs du cluster à migrer en toute sécurité les workloads avec des volumes montés vers de nouveaux nœuds en cas de problème. | `false` 
+| `enableForceDetach` | `ontap-san`, `ontap-san-economy`, , `ontap-nas` et `ontap-nas-economy` uniquement. Fonctionne avec Kubernetes non-Grass Node Shutdown (NGN) pour autoriser les administrateurs du cluster à migrer en toute sécurité les workloads avec des volumes montés vers de nouveaux nœuds en cas de problème. | `false` 
 
 
 | `windows` | Réglage sur `true` Active l'installation sur les nœuds de travail Windows. | `false` 
@@ -68,7 +68,7 @@ Ce tableau est plus détaillé `TridentOrchestrator` attributs.
 automatiquement | `false` 
 
 
-| `autosupportImage` | Image conteneur pour la télémétrie AutoSupport | `"netapp/trident-autosupport:24.10"` 
+| `autosupportImage` | Image conteneur pour la télémétrie AutoSupport | `"netapp/trident-autosupport:25.02"` 
 
 
 | `autosupportProxy` | Adresse/port d'un proxy pour l'envoi de AutoSupport
@@ -81,7 +81,7 @@ Télémétrie | `"http://proxy.example.com:8888"`
 | `logFormat` | Format de journalisation Trident à utiliser [TEXT,json] | `"text"` 
 
 
-| `tridentImage` | Image Trident à installer | `"netapp/trident:24.10"` 
+| `tridentImage` | Image Trident à installer | `"netapp/trident:25.02"` 
 
 
 | `imageRegistry` | Chemin d'accès au registre interne, du format
@@ -116,6 +116,9 @@ Télémétrie | `"http://proxy.example.com:8888"`
 
 
 | `nodePrep` | Permet à Trident de préparer les nœuds du cluster Kubernetes à gérer les volumes à l'aide du protocole de stockage de données spécifié. *Actuellement, `iscsi` est la seule valeur prise en charge.* |  
+
+
+| `enableAutoBackendConfig` | Permet une configuration back-end automatique, qui crée de manière transparente des classes back-end et de stockage en fonction des paramètres d'entrée. | Pas de valeur par défaut ; facultatif 
 |===
 
 NOTE: Pour plus d'informations sur le formatage des paramètres du pod, reportez-vous à la section link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Attribution de pods aux nœuds"^].
@@ -124,10 +127,10 @@ NOTE: Pour plus d'informations sur le formatage des paramètres du pod, reportez
 
 === Détails sur le détachement forcé
 
-Forcer le détachement est disponible pour `ontap-san`, `ontap-san-economy` et `onatp-nas-economy` uniquement. Avant d'activer le détachement forcé, l'arrêt non autorisé des nœuds (NGN) doit être activé sur le cluster Kubernetes. Pour plus d'informations, reportez-vous link:https://kubernetes.io/docs/concepts/architecture/nodes/#non-graceful-node-shutdown["Kubernetes : arrêt du nœud sans interruption"^]à .
+Forcer le détachement est disponible pour `ontap-san`, `ontap-san-economy`, `onatp-nas` et `onatp-nas-economy` uniquement. Avant d'activer le détachement forcé, l'arrêt non autorisé des nœuds (NGN) doit être activé sur le cluster Kubernetes. LES NGN sont activés par défaut pour Kubernetes 1.28 et les versions ultérieures. Pour plus d'informations, reportez-vous link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes : arrêt du nœud sans interruption"^]à .
 
 
-NOTE: Lorsque vous utilisez le `ontap-nas-economy` pilote, vous devez définir le `autoExportPolicy` paramètre de la configuration back-end sur `true` afin que Trident puisse restreindre l'accès au nœud Kubernetes avec le taint appliqué à l'aide de règles d'exportation gérées.
+NOTE: Lorsque vous utilisez le `ontap-nas` pilote ou `ontap-nas-economy`, vous devez définir le `autoExportPolicy` paramètre de la configuration back-end sur `true` afin que Trident puisse restreindre l'accès au nœud Kubernetes avec la valeur taint appliquée à l'aide des règles d'exportation gérées.
 
 
 WARNING: Comme Trident repose sur les NGN Kubernetes, ne supprimez pas les `out-of-service` nœuds défectueux avant que toutes les charges de travail non tolérables ne soient replanifiées. L'application ou la suppression imprudemment de cet outil peut compromettre la protection des données back-end.

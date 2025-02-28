@@ -28,10 +28,10 @@ Trident utilise des CRD Kubernetes pour stocker et gérer son propre état ainsi
 
 .Étapes
 . Sauvegardez le cluster Kubernetes avec  link:https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster["Kubernetes : sauvegarde d'un cluster ETCD"^].
-. Placez les artéfacts de sauvegarde sur une FlexVol.
+. Placez les artéfacts de sauvegarde sur une FlexVol volume
 +
 
-NOTE: Nous vous recommandons de protéger la SVM où réside la FlexVol avec une relation SnapMirror vers une autre SVM.
+NOTE: NetApp recommande de protéger la SVM où réside la FlexVol avec une relation SnapMirror avec une autre SVM.
 
 
 

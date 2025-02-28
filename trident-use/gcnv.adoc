@@ -12,7 +12,7 @@ summary:
 
 
 [role="lead"]
-Vous pouvez désormais configurer Google Cloud NetApp volumes en tant que back-end pour Trident. Vous pouvez relier des volumes NFS à l'aide d'un système back-end Google Cloud NetApp volumes.
+Vous pouvez désormais configurer Google Cloud NetApp volumes en tant que back-end pour Trident. Vous pouvez connecter des volumes NFS et SMB à l'aide d'un back-end Google Cloud NetApp volumes.
 
 
 
@@ -27,12 +27,13 @@ Trident fournit le `google-cloud-netapp-volumes` pilote pour communiquer avec le
 
 | `google-cloud-netapp-volumes`  a| 
 NFS
+PME
  a| 
 Système de fichiers
  a| 
 RWO, ROX, RWX, RWOP
  a| 
-`nfs`
+`nfs`, `smb`
 
 |===
 
