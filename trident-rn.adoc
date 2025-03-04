@@ -69,7 +69,6 @@ Depuis Trident 25.02, le récapitulatif des nouveautés fournit des informations
 ** Les informations d'identification de configuration du back-end ont été corrigées pour prendre en charge toutes les partitions ARN AWS disponibles (link:https://github.com/NetApp/trident/issues/913["Question no 913"]).
 ** Ajout d'une option pour désactiver la réconciliation automatique du configurateur dans l'opérateur Trident (link:https://github.com/NetApp/trident/issues/924["Question no 924"]).
 ** Ajout de securityContext pour conteneur csi-resizer (link:https://github.com/NetApp/trident/issues/976["Question no 976"]).
-** Déconnexion supprimée des portails non CHAP défectueux par intermittence pendant l'auto-rétablissement iSCSI (link:https://github.com/NetApp/trident/issues/961["Question no 961"]).
 
 
 
