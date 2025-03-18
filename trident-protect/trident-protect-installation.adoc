@@ -37,11 +37,11 @@ helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-he
 ----
 helm install trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2502.0 --create-namespace --namespace trident-protect
 ----
-. Utilisez Helm pour installer Trident Protect. Remplacer `<name_of_cluster>` par un nom de cluster, qui sera attribué au cluster et utilisé pour identifier les sauvegardes et snapshots du cluster :
+. Utilisez Helm pour installer Trident Protect. Remplacer `<name-of-cluster>` par un nom de cluster, qui sera attribué au cluster et utilisé pour identifier les sauvegardes et snapshots du cluster :
 +
 [source, console]
 ----
-helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name_of_cluster> --version 100.2502.0 --create-namespace --namespace trident-protect
+helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --version 100.2502.0 --create-namespace --namespace trident-protect
 ----
 
 
