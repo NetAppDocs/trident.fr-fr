@@ -52,10 +52,14 @@ Ce tableau est plus détaillé `TridentOrchestrator` attributs.
 | `windows` | Réglage sur `true` Active l'installation sur les nœuds de travail Windows. | `false` 
 
 
-| `cloudProvider` | Réglez sur `"Azure"` Lors de l'utilisation d'identités gérées ou d'une identité de cloud sur un cluster AKS. Défini sur AWS lors de l'utilisation d'une identité de cloud sur un cluster EKS. | `""` 
+| `cloudProvider`  a| 
+Défini sur `"Azure"` lors de l'utilisation d'identités gérées ou d'une identité cloud sur un cluster AKS. Défini sur `"AWS"` lors de l'utilisation d'une identité de cloud sur un cluster EKS. Défini sur `"GCP"` lors de l'utilisation d'une identité de nuage sur un cluster GKE.
+| `""` 
 
 
-| `cloudIdentity` | Défini sur l'identité de la charge de travail (« Azure.Workload.Identity/client-ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxxxx ») lors de l'utilisation de l'identité cloud sur un cluster AKS. Défini sur le rôle IAM AWS (« eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/Trident-role ») lors de l'utilisation de l'identité cloud sur un cluster EKS. | `""` 
+| `cloudIdentity`  a| 
+Défini sur l'identité de la charge de travail (« Azure.Workload.Identity/client-ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxxxx ») lors de l'utilisation de l'identité cloud sur un cluster AKS. Défini sur le rôle IAM AWS (« eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/Trident-role ») lors de l'utilisation de l'identité cloud sur un cluster EKS. Défini sur l'identité cloud (« iam.gke.io/gcp-service-account: xxxx@mygcpproject.iam.gserviceaccount.com ») lors de l'utilisation de l'identité cloud sur un cluster GKE.
+| `""` 
 
 
 | `IPv6` | Installez Trident sur IPv6 | faux 

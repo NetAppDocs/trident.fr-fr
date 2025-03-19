@@ -195,7 +195,7 @@ L'exécution de ces commandes vous permet de limiter l'accès aux données aux n
 
 === Désactiver `showmount` Pour le SVM applicatif
 
-Le `showmount` Cette fonctionnalité permet à un client NFS d'interroger le SVM pour obtenir la liste des exportations NFS disponibles. Un pod déployé sur le cluster Kubernetes peut lancer le `showmount -e` Commande au niveau de la LIF de données et reçoit la liste des montages disponibles, y compris ceux auxquels elle n'a pas accès. Bien qu'il ne s'agisse pas d'un compromis sur la sécurité, cette solution fournit des informations inutiles susceptibles d'aider un utilisateur non autorisé à se connecter à une exportation NFS.
+La `showmount` fonctionnalité permet à un client NFS d'interroger le SVM sur la liste des exports NFS disponibles. Un pod déployé dans le cluster Kubernetes peut exécuter la `showmount -e` commande sur et recevoir la liste des montages disponibles, y compris ceux auxquels il n'a pas accès. Bien qu'il ne s'agisse pas d'un compromis sur la sécurité, cette solution fournit des informations inutiles susceptibles d'aider un utilisateur non autorisé à se connecter à une exportation NFS.
 
 Vous devez désactiver `showmount` En utilisant la commande CLI ONTAP au niveau du SVM :
 

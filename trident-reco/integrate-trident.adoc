@@ -331,7 +331,7 @@ Les variables du tableau ci-dessous entraînent la création d'un volume persist
 | `openshift_logging_storage_kind` | Réglez sur `nfs` Pour que le programme d'installation crée un volume persistant NFS pour le service de journalisation. 
 
 
-| `openshift_logging_storage_host` | Le nom d'hôte ou l'adresse IP de l'hôte NFS. Il doit être défini sur la LIF de données pour votre machine virtuelle. 
+| `openshift_logging_storage_host` | Le nom d'hôte ou l'adresse IP de l'hôte NFS. Il doit être défini sur la dataLIF de votre machine virtuelle. 
 
 
 | `openshift_logging_storage_nfs_directory` | Chemin de montage pour l'exportation NFS. Par exemple, si le volume est relié par jonction `/openshift_logging`, vous utiliserez ce chemin pour cette variable. 
@@ -399,7 +399,7 @@ NOTE: Les tableaux ci-dessous contiennent uniquement les variables pertinentes p
 | `openshift_metrics_storage_kind` | Réglez sur `nfs` Pour que le programme d'installation crée un volume persistant NFS pour le service de journalisation. 
 
 
-| `openshift_metrics_storage_host` | Le nom d'hôte ou l'adresse IP de l'hôte NFS. Il doit être défini sur la LIF de données pour votre SVM. 
+| `openshift_metrics_storage_host` | Le nom d'hôte ou l'adresse IP de l'hôte NFS. Il doit être défini sur la dataLIF de votre SVM. 
 
 
 | `openshift_metrics_storage_nfs_directory` | Chemin de montage pour l'exportation NFS. Par exemple, si le volume est relié par jonction `/openshift_metrics`, vous utiliserez ce chemin pour cette variable. 

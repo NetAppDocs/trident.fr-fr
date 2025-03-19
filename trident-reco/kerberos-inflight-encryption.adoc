@@ -34,7 +34,7 @@ NOTE: Le chiffrement Kerberos pour le trafic NFS avec les systèmes back-end de 
 * Vérifiez que vous avez accès à l' `tridentctl` utilitaire.
 * Assurez-vous de disposer d'un accès administrateur au système back-end de stockage ONTAP.
 * Assurez-vous de connaître le nom du ou des volumes que vous allez partager à partir du back-end de stockage ONTAP.
-* Assurez-vous d'avoir préparé la machine virtuelle de stockage ONTAP à prendre en charge le chiffrement Kerberos pour les volumes NFS. Reportez-vous https://docs.netapp.com/us-en/ontap/nfs-config/create-kerberos-config-task.html["Activez Kerberos sur une LIF donnée"^] à pour obtenir des instructions.
+* Assurez-vous d'avoir préparé la machine virtuelle de stockage ONTAP à prendre en charge le chiffrement Kerberos pour les volumes NFS. Reportez-vous https://docs.netapp.com/us-en/ontap/nfs-config/create-kerberos-config-task.html["Activez Kerberos sur une dataLIF"^] à pour obtenir des instructions.
 * Vérifiez que tous les volumes NFSv4 utilisés avec le chiffrement Kerberos sont correctement configurés. Reportez-vous à la section Configuration du domaine NetApp NFSv4 (page 13) du https://www.netapp.com/media/16398-tr-3580.pdf["Guide des améliorations et des bonnes pratiques de NetApp NFSv4"^].
 
 

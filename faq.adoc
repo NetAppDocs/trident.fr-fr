@@ -202,12 +202,12 @@ Si vous avez besoin d'un correctif pour les bogues observés après une mise à 
 
 
 
-=== Dois-je définir à la fois des LIF de données et de gestion dans un fichier de définition du back-end ONTAP ?
+=== Dois-je définir à la fois la gestion et les DataLIF dans un fichier de définition ONTAP backend ?
 
-Le LIF de gestion est obligatoire. Data LIF varie :
+Le LIF de gestion est obligatoire. DataLIF varie :
 
 * San ONTAP : ne spécifiez pas pour iSCSI. Trident utilise link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["Mappage de LUN sélectif ONTAP"^] pour découvrir les LIF iSCI nécessaires à l'établissement d'une session à chemins multiples. Un avertissement est généré si `dataLIF` est explicitement défini. Voir link:trident-use/ontap-san-examples.html["Options et exemples de configuration des SAN ONTAP"] pour plus de détails.
-* NAS ONTAP : NetApp recommande de spécifier `dataLIF`. Si non fourni, Trident récupère les LIFs de données du SVM. Vous pouvez spécifier un nom de domaine complet (FQDN) à utiliser pour les opérations de montage NFS, permettant de créer un DNS Round-Robin pour équilibrer la charge sur plusieurs LIF de données. Voir link:trident-use/ontap-nas-examples.html["Options et exemples de configuration du NAS ONTAP"]pour plus de détails
+* NAS ONTAP : NetApp recommande de spécifier `dataLIF`. Si non fourni, Trident récupère les LIFs de données du SVM. Vous pouvez spécifier un nom de domaine complet (FQDN) à utiliser pour les opérations de montage NFS, ce qui vous permet de créer un DNS circulaire pour équilibrer la charge sur plusieurs dataLIFs. Voir link:trident-use/ontap-nas-examples.html["Options et exemples de configuration du NAS ONTAP"]pour plus de détails
 
 
 
@@ -224,7 +224,7 @@ Trident peut créer et gérer de manière dynamique des règles d'exportation à
 
 
 
-=== Les adresses IPv6 peuvent-elles être utilisées pour les LIF de données et de gestion ?
+=== Les adresses IPv6 peuvent-elles être utilisées pour les LIF de gestion et de données ?
 
 Trident prend en charge la définition des adresses IPv6 pour :
 
@@ -242,9 +242,9 @@ Oui, il est possible de mettre à jour la LIF de management back-end à l'aide d
 
 
 
-=== Est-il possible de mettre à jour la LIF de données sur le backend ?
+=== Est-il possible de mettre à jour le DataLIF sur le back-end ?
 
-Vous pouvez mettre à jour la LIF de données sur `ontap-nas` et `ontap-nas-economy` uniquement.
+Vous pouvez mettre à jour DataLIF sur `ontap-nas` et `ontap-nas-economy` uniquement.
 
 
 

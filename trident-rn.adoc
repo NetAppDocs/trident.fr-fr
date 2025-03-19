@@ -492,7 +492,7 @@ IMPORTANT: Kubernetes 1.27 est désormais pris en charge dans Trident. Veuillez 
 === Dérations
 
 * Kubernetes : mise à jour de Kubernetes minimale prise en charge vers la version 1.21.
-* Les LIFs de données ne doivent plus être spécifiées lors de la configuration `ontap-san` ou `ontap-san-economy` pilotes.
+* Les DataLIFs ne doivent plus être spécifiées lors de la configuration des `ontap-san` pilotes ou `ontap-san-economy`.
 
 
 
@@ -518,7 +518,7 @@ Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisat
 
 * Problème spécifique au système ONTAP back-end créé à l'aide de `credentials` le champ ne s'est pas connecté pendant la mise à niveau 22.07.0 (link:https://github.com/NetApp/trident/issues/759["Numéro 759"^]).
 * **Docker:** correction d'un problème entraînant l'échec du démarrage du plug-in de volume Docker dans certains environnements (link:https://github.com/NetApp/trident/issues/548["Numéro 548"^] et link:https://github.com/NetApp/trident/issues/760["Numéro 760"^]).
-* Résolution du problème SLM spécifique aux systèmes back-end ONTAP pour garantir que seul un sous-ensemble de LIF de données appartenant aux nœuds de reporting est publié.
+* Correction du problème SLM spécifique aux systèmes back-end SAN ONTAP pour garantir que seul un sous-ensemble de LIFs de données appartenant aux nœuds de reporting est publié.
 * Problème de performances résolu lors de la connexion d'un volume à des analyses inutiles des LUN iSCSI.
 * Suppression des tentatives granulaires dans le flux de travail Trident iSCSI pour échouer rapidement et réduire les intervalles de tentatives externes.
 * Résolution du problème lorsqu'une erreur a été renvoyée lors du vidage d'un périphérique iSCSI lorsque le périphérique multivoie correspondant a déjà été rincé.
@@ -665,7 +665,7 @@ Le pilote E-Series (désactivé depuis 20.07) a été supprimé.
 
 * *Kubernetes:* augmentez le temps de rétentative de rétro-enregistrement des nœuds pour les grands clusters.
 * Problème résolu dans lequel le pilote Azure-netapp-Files pourrait être confondu avec plusieurs ressources avec le même nom.
-* Les LIF de données sur IPv6 SAN de ONTAP fonctionnent désormais si elles sont spécifiées avec des parenthèses.
+* Les DataLIFs IPv6 SAN ONTAP fonctionnent désormais si elles sont spécifiées avec des crochets.
 * Problème résolu lors de la tentative d'importation d'un volume déjà importé renvoie EOF laissant le PVC à l'état en attente. (link:https://github.com/NetApp/trident/issues/489["Problème GitHub n° 489"])
 * Problème résolu lorsque le ralentissement des performances Trident ralentit lors de la création de plus de 32 snapshots sur un volume SolidFire.
 * SHA-1 remplacé par SHA-256 lors de la création du certificat SSL.
