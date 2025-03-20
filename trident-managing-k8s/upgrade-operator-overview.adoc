@@ -30,7 +30,7 @@ L'une des nombreuses link:../trident-get-started/kubernetes-deploy.html["Avantag
 
 
 
-TIP: Pour plus d'informations sur l'architecture Trident sur le cluster Kubernetes, reportez-vous à link:trident-concepts/intro.html#trident-architecture["Architecture Trident"]la .
+TIP: Pour plus d'informations sur l'architecture Trident sur le cluster Kubernetes, reportez-vous à link:../trident-get-started/architecture.html["Architecture Trident"^]la .
 
 
 

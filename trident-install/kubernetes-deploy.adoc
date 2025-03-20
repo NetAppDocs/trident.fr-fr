@@ -49,7 +49,7 @@ Quel que soit votre chemin d'installation, vous devez avoir :
 
 
 
-TIP: Si vous ne vous êtes pas familiarisé avec le link:../trident-concepts/intro.html["concepts de base"^], c'est le moment idéal pour le faire.
+TIP: Si vous ne vous êtes pas familiarisé avec le link:../trident-get-started/intro.html["concepts de base"^], c'est le moment idéal pour le faire.
 
 
 
