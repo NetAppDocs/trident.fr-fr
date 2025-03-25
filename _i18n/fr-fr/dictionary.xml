@@ -5007,7 +5007,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="90de0fd1d09f4fc27d99667555a8a12f" category="paragraph">Les systèmes ONTAP disposent de configurations 100 % Flash, hybrides ou 100 % HDD et proposent de nombreux modèles de déploiement : FAS sur site, baies 100 % Flash et clusters ASA, ONTAP Select et Cloud Volumes ONTAP. Trident prend en charge ces modèles de déploiement ONTAP.</block>
   <block id="30712450d512dae0e7becb73c6a439fb" category="list-text">Kubernetes 1.26 - 1.32</block>
   <block id="bde4e01f8df98626e0dc1c36a8e06a5a" category="admonition">Avant de mettre à niveau un cluster Kubernetes de la version 1.25 vers la version 1.26 ou ultérieure sur <block ref="1b428bb9b9fe27db6cd8932526864634" category="inline-link-macro-rx"></block>lequelTrident est installé, reportez-vous à la section .</block>
-  <block id="2322d8185ec207b8d8522a92de761c94" category="list-text">Clusters FAS, AFF ou ASA sur site exécutant ONTAP 9.6 ou version supérieure</block>
   <block id="4cd3b50237790ab53e31a7a9fbd28583" category="section-title">Prise en charge de Trident pour la virtualisation KubeVirt et OpenShift</block>
   <block id="8f323a9e5c0c5162cc6e0d48e0cb1850" category="paragraph-title">Pilotes de stockage pris en charge :</block>
   <block id="0c30a28f9129b866c1d3cdcfa8c2fe15" category="paragraph">Trident prend en charge les pilotes ONTAP suivants pour la virtualisation KubeVirt et OpenShift :</block>
@@ -5469,4 +5468,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="d858eab1cb0b74aa1e6d052d7c06bd76" category="list-text">OpenShift 4.10 - 4.18</block>
   <block id="42113cf11e30b764619d3a98db65262d" category="list-text">Rancher Kubernetes Engine 2 (RKE2) v1.26.7+rke2r1, v1.28.5+rke2r1</block>
   <block id="e516fe45e3db545de8d5d292a67f4990" category="list-text">Ajout de la prise en charge des sauvegardes et des restaurations pour les machines virtuelles de virtualisation KubeVirt/OpenShift pour le stockage volumeMode : fichier et volumeMode : bloc (périphérique brut). Cette prise en charge est compatible avec tous les pilotes Trident et améliore les fonctionnalités de protection existantes lors de la réplication du stockage à l'aide de NetApp SnapMirror avec Trident Protect.</block>
+  <block id="fc1d748db1b5b488ce7af7d17ea15d55" category="inline-link-macro">Prise en charge des versions logicielles</block>
+  <block id="ee19283e867cf4e5840d2811a74b89e5" category="list-text">Versions de clusters FAS, AFF ou ASA r2 sur site prises en charge limitée par NetApp. Voir <block ref="50931d770a2149cdd08c9f8b08c33f00" category="inline-link-macro-rx"></block>.</block>
 </blocks>
