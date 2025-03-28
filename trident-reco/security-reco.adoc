@@ -46,6 +46,10 @@ NOTE: Les volumes créés par Trident ne sont associés à aucun groupe d'accès
 NetApp ONTAP assure le chiffrement des données au repos pour protéger les données sensibles en cas de vol, de retour ou de reconversion d'un disque. Pour plus de détails, reportez-vous à link:https://docs.netapp.com/us-en/ontap/encryption-at-rest/configure-netapp-volume-encryption-concept.html["Configurer la présentation de NetApp Volume Encryption"^].
 
 * Si NAE est activé sur le back-end, tout volume provisionné dans Trident est activé.
++
+** Vous pouvez définir le chiffrement NVE pour `""` créer des volumes NAE.
+
+
 * Si NAE n'est pas activé sur le back-end, tout volume provisionné dans Trident est activé sur NVE, à moins que vous ne définiez l'indicateur de chiffrement NVE sur `false` dans la configuration back-end.
 
 
