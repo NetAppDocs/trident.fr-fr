@@ -12,7 +12,7 @@ summary: 'Avec Trident avec Amazon FSX pour NetApp ONTAP, vous avez l"assurance 
 
 
 [role="lead"]
-Configurez un objet StorageClass Kubernetes et créez la classe de stockage pour indiquer à Trident comment provisionner les volumes. Créez un volume persistant et une demande de volume persistant qui utilisent la classe de stockage Kubernetes configurée pour demander l'accès au volume persistant. Vous pouvez ensuite monter le volume persistant sur un pod.
+Configurez un objet StorageClass Kubernetes et créez la classe de stockage pour indiquer à Trident comment provisionner les volumes. Créez une demande de volume persistant qui utilise la classe de stockage Kubernetes configurée pour demander l'accès au volume persistant. Vous pouvez ensuite monter le volume persistant sur un pod.
 
 
 
@@ -80,13 +80,13 @@ basic-csi    csi.trident.netapp.io   15h
 
 
 
-== Créer le volume persistant et la demande de volume persistant
+== Créer la PVC
 
-A link:https://kubernetes.io/docs/concepts/storage/persistent-volumes/["_Volume persistant_"^] (PV) est une ressource de stockage physique provisionnée par l'administrateur du cluster sur un cluster Kubernetes. Le https://kubernetes.io/docs/concepts/storage/persistent-volumes["_PersistentVolumeClaim_"^] (PVC) est une demande d'accès au volume persistant sur le cluster.
+Une https://kubernetes.io/docs/concepts/storage/persistent-volumes["_PersistentVolumeClaim_"^] demande de volume persistant est une demande d'accès au volume persistant sur le cluster.
 
 Le PVC peut être configuré pour demander un stockage d'une certaine taille ou d'un certain mode d'accès. À l'aide de la classe de stockage associée, l'administrateur du cluster peut contrôler plus que la taille du volume persistant et le mode d'accès, tels que les performances ou le niveau de service.
 
-Après avoir créé le volume persistant et la demande de volume persistant, vous pouvez monter le volume dans un pod.
+Une fois la demande de volume créée, vous pouvez la monter dans un pod.
 
 
 
@@ -161,20 +161,6 @@ storageClassName: protection-gold
 === Créer le volume persistant et la demande de volume persistant
 
 .Étapes
-. Créer la PV.
-+
-[listing]
-----
-kubectl create -f pv.yaml
-----
-. Vérifiez l'état du PV.
-+
-[listing]
-----
-kubectl get pv
-NAME        CAPACITY  ACCESS MODES  RECLAIM POLICY  STATUS    CLAIM  STORAGECLASS  REASON  AGE
-pv-storage  4Gi       RWO           Retain          Available                              7s
-----
 . Créer la PVC.
 +
 [listing]
@@ -186,11 +172,14 @@ kubectl create -f pvc.yaml
 [listing]
 ----
 kubectl get pvc
-NAME        STATUS VOLUME     CAPACITY ACCESS MODES STORAGECLASS AGE
-pvc-storage Bound  pv-name 2Gi      RWO                       5m
 ----
 
 
+[listing]
+----
+NAME        STATUS VOLUME     CAPACITY ACCESS MODES STORAGECLASS AGE
+pvc-storage Bound  pv-name 2Gi      RWO                       5m
+----
 Reportez-vous link:../trident-reference/objects.html["Kubernetes et objets Trident"]à pour plus de détails sur l'interaction des classes de stockage avec les `PersistentVolumeClaim` paramètres et pour le contrôle de la manière dont Trident provisionne les volumes.
 
 
