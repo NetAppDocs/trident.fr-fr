@@ -5495,4 +5495,8 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="8d8a8010684a930aa7760c829cad4141" category="list-text">*LabelSelector*: (_Optional_) filtre les ressources du cluster-scoped en fonction de leurs étiquettes.</block>
   <block id="47edbb9e6d6e6e874eb40c274a0e2e0f" category="sidebar">Articles de blog</block>
   <block id="4a5fadb6b0890cea5e8d53c37411aaf0" category="cell"><block ref="bc35d038baf172a19349f289d31fbf9d" prefix="" category="inline-code"></block></block>
+  <block id="022571ee546e1a953d857961a8cd0442" category="paragraph">Créez une demande de volume persistant qui utilise la classe de stockage Kubernetes configurée pour demander l'accès au volume persistant. Vous pouvez ensuite monter le volume persistant sur un pod.</block>
+  <block id="f79367bddbaecd3962f7c740a1b2178f" category="paragraph">Une<block ref="b1b93f46fc69df9fe663c091f4d6c2b4" category="inline-link-rx"></block> demande de volume persistant est une demande d'accès au volume persistant sur le cluster.</block>
+  <block id="79a251ee7369fdcdb0847d35254afcf8" category="paragraph">Une fois la demande de volume créée, vous pouvez la monter dans un pod.</block>
+  <block id="a305c8fb2137d8a4a767905590079e89" category="section-title">Créer la PVC</block>
 </blocks>
