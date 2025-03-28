@@ -89,7 +89,7 @@ Télémétrie | `"http://proxy.example.com:8888"`
 
 
 | `imageRegistry` | Chemin d'accès au registre interne, du format
-`<registry FQDN>[:port][/subpath]` | `"k8s.gcr.io"` (Kubernetes 1.19+) ou `"quay.io/k8scsi"` 
+`<registry FQDN>[:port][/subpath]` | `"registry.k8s.io"` 
 
 
 | `kubeletDir` | Chemin d'accès au répertoire kubelet de l'hôte | `"/var/lib/kubelet"` 
