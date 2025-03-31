@@ -228,7 +228,7 @@ Pour les installations à air comprimé, la liste suivante est une référence a
 * docker.io/netapp/trident-autosupport:25.02
 * registry.k8s.io/sig-storage/csi-provisionneur:v5.2.0
 * registry.k8s.io/sig-storage/csi-attacher:v4.8.0
-* registry.k8s.io/sig-storage/csi-resizer:v1.13.0
+* registry.k8s.io/sig-storage/csi-resizer:v1.13.2
 * registry.k8s.io/sig-storage/csi-snapshotter:v8.2.0
 * registry.k8s.io/sig-storage/csi-node-driver-registratr:v2.13.0
 * docker.io/netapp/trident-operator:25.02.0 (en option)
