@@ -37,7 +37,6 @@ Depuis Trident 25.02, le récapitulatif des nouveautés fournit des informations
 ** Ajout de la prise en charge du détachement forcé pour les volumes ONTAP-NAS pendant les scénarios d'arrêt de nœud non normal. Les nouveaux volumes ONTAP-NAS utiliseront désormais des règles d'exportation par volume gérées par Trident. Chemin de mise à niveau fourni pour les volumes existants afin qu'ils puissent passer au nouveau modèle de règle d'export lors de l'annulation de la publication sans affecter les workloads actifs.
 ** Ajout d'une annotation cloneFromSnapshot.
 ** Prise en charge supplémentaire du clonage de volumes inter-espaces de noms.
-** Ajout de la configuration automatique du back-end pour l'ajout d'EKS et l'installation basée sur Helm pour Amazon FSX pour NetApp ONTAP.
 ** L'analyse d'auto-rétablissement iSCSI améliorée corrige les problèmes pour lancer des renumérisations par hôte, canal, cible et ID de LUN exacts.
 ** Prise en charge de Kubernetes 1.32.
 

@@ -52,38 +52,16 @@ image::../media/aws-eks-03.png[eks aws 03]
 +
 image::../media/aws-eks-04.png[eks aws 04]
 
-. Configurez tous les paramètres de configuration facultatifs selon les besoins et sélectionnez *Suivant*.
+. Suivez le schéma de configuration *Add-on* et définissez le paramètre valeurs de configuration de la section *valeurs de configuration* sur le fil de rôle que vous avez créé à l'étape précédente (étape 1).
 +
-Suivez le schéma de configuration *Add-on* et définissez le paramètre valeurs de configuration de la section *valeurs de configuration* sur le fil de rôle que vous avez créé à l'étape précédente (étape 1) (la valeur doit être au format suivant : `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`). REMARQUE : si vous sélectionnez remplacer pour la méthode de résolution des conflits, un ou plusieurs des paramètres du module complémentaire existant peuvent être remplacés par les paramètres du module complémentaire Amazon EKS. Si vous n'activez pas cette option et qu'il y a un conflit avec vos paramètres existants, l'opération échoue. Vous pouvez utiliser le message d'erreur qui en résulte pour résoudre le conflit. Avant de sélectionner cette option, assurez-vous que le module complémentaire Amazon EKS ne gère pas les paramètres que vous devez gérer vous-même.
+La valeur doit être au format suivant : `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`.
+
++
+
+NOTE: Si vous sélectionnez remplacer pour la méthode de résolution des conflits, un ou plusieurs des paramètres du module complémentaire existant peuvent être remplacés par les paramètres du module complémentaire Amazon EKS. Si vous n'activez pas cette option et qu'il y a un conflit avec vos paramètres existants, l'opération échoue. Vous pouvez utiliser le message d'erreur qui en résulte pour résoudre le conflit. Avant de sélectionner cette option, assurez-vous que le module complémentaire Amazon EKS ne gère pas les paramètres que vous devez gérer vous-même.
 
 +
 image::../media/aws-eks-06.png[eks aws 06]
-
-+
-** À partir de la version 25.02, Trident prend en charge la configuration back-end automatique. Trident crée les classes back-end et de stockage de manière transparente après l'installation de Trident. Pour activer la configuration automatique du back-end, ajoutez le `ontapConfigurator` paramètre et spécifiez `authType`, , `fsxnID` et `protocols` dans le schéma de configuration du module complémentaire, ainsi que `cloudIdentity` pendant l'installation.
-+
-[listing]
-----
-"ontapConfigurator": {
-        "enabled": true,
-        "svms": [
-          {
-            "authType": "awsarn",
-            "fsxnID": "fs-0dfeaa884a68b1cab",
-            "protocols": [
-              "nfs",
-              "iscsi"
-            ]
-          }
-        ]
-      }}"
-
-----
-+
-
-NOTE: Pour désactiver la configuration automatique du back-end, mettez à niveau la version de Trident et définissez *ontapConfigurator* sur *false*.
-
-
 
 . Sélectionnez *Créer*.
 . Vérifiez que l'état du complément est _Active_.

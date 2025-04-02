@@ -110,10 +110,7 @@ Voir le tableau suivant pour les options de configuration du back-end :
 `""` 
 
 
-| `credentials` | Spécifiez les informations d'identification du SVM FSX à stocker dans AWS Secret Manager.
-- `name`: Amazon Resource Name (ARN) du secret, qui contient les informations d'identification de SVM.
-- `type`: Défini sur `awsarn`.
-Reportez-vous à la section link:https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_secret.html["Créez un secret AWS secrets Manager"^] pour en savoir plus. |  
+| `credentials` | Spécifiez les informations d'identification de SVM FSX à stocker dans AWS secrets Manager. - `name`: Amazon Resource Name (ARN) du secret, qui contient les références de SVM. - `type`: Réglé sur `awsarn`. Pour plus d'informations, reportez-vous à la section link:https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_secret.html["Créez un secret AWS secrets Manager"^] . |  
 |===
 
 
@@ -121,7 +118,7 @@ Reportez-vous à la section link:https://docs.aws.amazon.com/secretsmanager/late
 
 Vous pouvez modifier la dataLIF après la configuration initiale en exécutant la commande suivante pour fournir le nouveau fichier JSON back-end avec une dataLIF mise à jour.
 
-[listing]
+[source, console]
 ----
 tridentctl update backend <backend-name> -f <path-to-backend-json-file-with-updated-dataLIF>
 ----
@@ -183,7 +180,7 @@ Vous pouvez contrôler le provisionnement par défaut à l'aide de ces options d
 ====
 À l'aide de `nasType`, `node-stage-secret-name`, et `node-stage-secret-namespace`, Vous pouvez spécifier un volume SMB et fournir les informations d'identification Active Directory requises. Les volumes SMB sont pris en charge à l'aide de `ontap-nas` conducteur uniquement.
 
-[listing]
+[source, console]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -197,10 +194,10 @@ parameters:
   csi.storage.k8s.io/node-stage-secret-namespace: "default"
 ----
 ====
-.Configuration pour AWS FSX pour ONTAP avec le gestionnaire de code secret
+.Configuration pour AWS FSX pour ONTAP avec secrets Manager
 [%collapsible]
 ====
-[listing]
+[source, console]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig
