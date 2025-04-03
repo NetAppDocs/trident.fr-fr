@@ -5483,4 +5483,5 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="fa1c8065dc4d2b862bfba881472c0aac" category="admonition">Remplacer<block ref="2befb7722283d545949c6220c6548fe4" prefix=" " category="inline-code"></block> par l'ARN du rôle créé à l'étape précédente.</block>
   <block id="44308ffe82692c268b99d3caefca907e" category="list-text">Vérifiez la version actuelle de votre module complémentaire FSxN Trident CSI. Remplacez<block ref="e2eb89f0ffaf521a0d2eeaffca04d117" prefix=" " category="inline-code"></block> par le nom de votre cluster.</block>
   <block id="a1dc4a2136ed260b34021d64aaa6980a" category="list-text">Mettez à jour le complément à la version renvoyée sous MISE À JOUR DISPONIBLE dans la sortie de l'étape précédente.</block>
+  <block id="0ca34892a0e67f37b07d196ec272007d" category="list-text">NetApp ne recommande pas l'utilisation de l'autogrow FlexVol dans tous les pilotes ONTAP, sauf ONTAP-san. Pour contourner ce problème, Trident prend en charge l'utilisation de la réserve Snapshot et adapte les volumes FlexVol en conséquence.</block>
 </blocks>
