@@ -16,11 +16,13 @@ summary: 'La ressource personnalisée de compartiment (CR) pour Trident Protect 
 [role="lead"]
 La ressource personnalisée de compartiment (CR) pour Trident Protect est appelée AppVault. Les objets AppVault sont la représentation déclarative du workflow Kubernetes d'un compartiment de stockage. Une CR AppVault contient les configurations nécessaires à l'utilisation d'un compartiment dans les opérations de protection, telles que les sauvegardes, les snapshots, les opérations de restauration et la réplication SnapMirror. Seuls les administrateurs peuvent créer des AppVault.
 
+Vous devez créer une CR AppVault manuellement ou à l'aide de la ligne de commande lorsque vous effectuez des opérations de protection des données sur une application et la CR AppVault doit résider sur le cluster sur lequel Trident Protect est installé. La CR AppVault est spécifique à votre environnement ; vous pouvez utiliser les exemples de cette page comme guide lors de la création de CRS AppVault.
+
 
 
 == Configurer l'authentification et les mots de passe AppVault
 
-Avant de créer un objet AppVault, vous devez vous assurer que AppVault et le Data Mover que vous choisissez peuvent s'authentifier auprès du fournisseur et des ressources associées.
+Avant de créer une CR AppVault, vous devez vous assurer que l'AppVault et le Data Mover que vous choisissez peuvent s'authentifier auprès du fournisseur et des ressources associées.
 
 
 
