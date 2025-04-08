@@ -50,7 +50,7 @@ NetApp ONTAP assure le chiffrement des données au repos pour protéger les donn
 ** Vous pouvez définir l'indicateur de chiffrement NVE `""` pour créer des volumes NAE.
 
 
-* Si NAE n'est pas activé sur le back-end, tout volume provisionné dans Trident est activé sur NVE, à moins que vous ne définiez l'indicateur de chiffrement NVE sur `false` dans la configuration back-end.
+* Si NAE n'est pas activé sur le back-end, tout volume provisionné dans Trident est activé sur NVE, à moins que l'indicateur de chiffrement NVE ne soit défini sur `false` (valeur par défaut) dans la configuration back-end.
 
 
 [NOTE]
