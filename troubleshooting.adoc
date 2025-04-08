@@ -15,6 +15,9 @@ summary: 'Utilisez les pointeurs fournis ici pour résoudre les problèmes que v
 Utilisez les pointeurs fournis ici pour résoudre les problèmes que vous pouvez rencontrer lors de l'installation et de l'utilisation de Trident.
 
 
+NOTE: Pour obtenir de l'aide sur Trident, créez un bundle de support à l'aide de `tridentctl logs -a -n trident` et envoyez-le au support NetApp.
+
+
 
 == Dépannage général
 
