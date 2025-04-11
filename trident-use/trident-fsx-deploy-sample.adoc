@@ -12,7 +12,7 @@ summary: Découvrez les options de configuration back-end pour Amazon FSX pour O
 
 
 [role="lead"]
-Déploiement de l'application exemple.
+Une fois la classe de stockage et la demande de volume persistant créées, vous pouvez monter le volume persistant sur un pod. Cette section répertorie l'exemple de commande et de configuration permettant d'attacher le volume persistant à un pod.
 
 .Étapes
 . Montez le volume dans un pod.
