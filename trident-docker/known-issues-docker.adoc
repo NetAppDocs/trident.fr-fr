@@ -21,19 +21,19 @@ Trouvez des informations sur les problèmes connus et les limites lors de l'util
 .Solution de contournement
 . Désactivez le plug-in.
 +
-[listing]
+[source, console]
 ----
 docker plugin disable -f netapp:latest
 ----
 . Retirez le plug-in.
 +
-[listing]
+[source, console]
 ----
 docker plugin rm -f netapp:latest
 ----
 . Réinstallez le plug-in en fournissant le complément `config` paramètre.
 +
-[listing]
+[source, console]
 ----
 docker plugin install netapp/trident-plugin:20.10 --alias netapp --grant-all-permissions config=config.json
 ----
@@ -55,7 +55,7 @@ NOTE: Il s'agit d'une limitation client Docker. Le client interprète un seul no
 * Les plug-ins de volume (y compris Trident) doivent s'exécuter indépendamment sur chaque nœud d'un cluster Swarm. En raison du fonctionnement de ONTAP et du `ontap-nas` fonctionnement des pilotes et `ontap-san`, ce sont eux qui sont les seuls à pouvoir fonctionner dans ces limites.
 
 
-Les autres conducteurs sont sujets à des problèmes tels que les conditions de course qui peuvent entraîner la création d'un grand nombre de volumes pour une seule demande sans un « gagnant » clair ; par exemple, l'élément possède une fonctionnalité qui permet aux volumes d'avoir le même nom mais des ID différents.
+Les autres pilotes sont soumis à des problèmes tels que les conditions de course qui peuvent entraîner la création d'un grand nombre de volumes pour une seule demande sans « gagnant » clair ; par exemple, Element dispose d'une fonctionnalité qui permet aux volumes d'avoir le même nom mais des ID différents.
 
 NetApp a fourni des commentaires à l'équipe Docker, mais ne fournit aucune indication de recours futur.
 

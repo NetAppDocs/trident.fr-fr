@@ -40,7 +40,7 @@ Si vous devez personnaliser l'installation au-delà de ce que les arguments du p
 
 Après avoir généré ces fichiers, vous pouvez les modifier en fonction de vos besoins, puis les utiliser `--use-custom-yaml` pour installer votre déploiement personnalisé.
 
-[listing]
+[source, console]
 ----
 ./tridentctl install -n trident --use-custom-yaml
 ----

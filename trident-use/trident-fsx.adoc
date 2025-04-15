@@ -102,7 +102,7 @@ Le cluster EKS prend en charge plusieurs systèmes d'exploitation, mais AWS a op
 
 | BOTTLEROCKET_ARM_64 | Oui* | Oui. | S/O | S/O 
 |===
-* *Doit utiliser “nolock” dans les options de montage.
+* *Doit utiliser "nolock" dans les options de montage.
 * ** Impossible de supprimer le PV sans redémarrer le nœud
 
 

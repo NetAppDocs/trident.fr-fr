@@ -21,9 +21,13 @@ Vous pouvez recueillir des journaux pour obtenir de l'aide en matière de dépan
 .Étapes
 . Si vous exécutez Trident à l'aide de la méthode de plug-in géré recommandée (à l'aide de `docker plugin` commandes), affichez-les comme suit :
 +
-[listing]
+[source, console]
 ----
 docker plugin ls
+----
++
+[listing]
+----
 ID                  NAME                DESCRIPTION                          ENABLED
 4fb97d2b956b        netapp:latest       nDVP - NetApp Docker Volume Plugin   false
 journalctl -u docker | grep 4fb97d2b956b
@@ -33,7 +37,7 @@ Le niveau d'enregistrement standard devrait vous permettre de diagnostiquer la p
 
 . Pour activer la journalisation de débogage, installez le plug-in avec la journalisation de débogage activée :
 +
-[listing]
+[source, console]
 ----
 docker plugin install netapp/trident-plugin:<version> --alias <alias> debug=true
 ----
@@ -41,10 +45,18 @@ docker plugin install netapp/trident-plugin:<version> --alias <alias> debug=true
 Ou activez la journalisation de débogage lorsque le plug-in est déjà installé :
 
 +
-[listing]
+[source, console]
 ----
 docker plugin disable <plugin>
+----
++
+[source, console]
+----
 docker plugin set <plugin> debug=true
+----
++
+[source, console]
+----
 docker plugin enable <plugin>
 ----
 . Si vous exécutez le fichier binaire lui-même sur l'hôte, les journaux sont disponibles dans le système hôte `/var/log/netappdvp` répertoire. Pour activer la journalisation de débogage, spécifiez `-debug` lorsque vous exécutez le plug-in.

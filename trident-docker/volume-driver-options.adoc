@@ -38,7 +38,7 @@ Provisionnement fin ou non fin du volume, conversion par défaut en fin. Les val
 
 
 | `snapshotPolicy`  a| 
-La règle de snapshot sera alors définie sur la valeur souhaitée. La valeur par défaut est `none`, cela signifie qu'aucun instantané ne sera automatiquement créé pour le volume. Sauf modification de la part de votre administrateur de stockage, une règle nommée « par défaut » existe sur tous les systèmes ONTAP qui créent et conserve six snapshots toutes les heures, deux par jour et deux fois par semaine. Vous pouvez restaurer les données conservées dans un snapshot en accédant au `.snapshot` dans n'importe quel répertoire du volume.
+La règle de snapshot sera alors définie sur la valeur souhaitée. La valeur par défaut est `none`, ce qui signifie qu'aucun instantané ne sera automatiquement créé pour le volume. Sauf modification par votre administrateur du stockage, il existe une règle nommée « par défaut » sur tous les systèmes ONTAP qui crée et conserve six copies Snapshot par heure, deux par jour et deux par semaine. Les données conservées dans un snapshot peuvent être restaurées en naviguant vers le `.snapshot` répertoire de n'importe quel répertoire du volume.
 
 
 
@@ -189,36 +189,35 @@ Utilisez 512 ou 4096, par défaut 512 ou l’entrée de configuration DefaultBlo
 
 Voir l'exemple de fichier de configuration suivant avec les définitions QoS :
 
-[listing]
+[source, json]
 ----
 {
-    "...": "..."
-    "Types": [
-        {
-            "Type": "Bronze",
-            "Qos": {
-                "minIOPS": 1000,
-                "maxIOPS": 2000,
-                "burstIOPS": 4000
-            }
-        },
-        {
-            "Type": "Silver",
-            "Qos": {
-                "minIOPS": 4000,
-                "maxIOPS": 6000,
-                "burstIOPS": 8000
-            }
-        },
-        {
-            "Type": "Gold",
-            "Qos": {
-                "minIOPS": 6000,
-                "maxIOPS": 8000,
-                "burstIOPS": 10000
-            }
-        }
-    ]
+  "Types": [
+    {
+      "Type": "Bronze",
+      "Qos": {
+        "minIOPS": 1000,
+        "maxIOPS": 2000,
+        "burstIOPS": 4000
+      }
+    },
+    {
+      "Type": "Silver",
+      "Qos": {
+        "minIOPS": 4000,
+        "maxIOPS": 6000,
+        "burstIOPS": 8000
+      }
+    },
+    {
+      "Type": "Gold",
+      "Qos": {
+        "minIOPS": 6000,
+        "maxIOPS": 8000,
+        "burstIOPS": 10000
+      }
+    }
+  ]
 }
 ----
 Dans la configuration ci-dessus, nous avons trois définitions de règles : bronze, Silver et Gold. Ces noms sont arbitraires.

@@ -62,7 +62,7 @@ Vous pouvez utiliser `tridentctl import` pour importer un volume.
 Voici un exemple de spécification minimale :
 
 +
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1

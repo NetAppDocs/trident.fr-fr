@@ -84,7 +84,7 @@ Ces exemples présentent les options de configuration de base de la PVC.
 .PVC avec accès RWO
 Cet exemple montre une demande de volume persistant de base avec accès RWO associée à une classe de stockage nommée `basic-csi`.
 
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -101,7 +101,7 @@ spec:
 .PVC avec NVMe/TCP
 Cet exemple présente une demande de volume persistant de base pour NVMe/TCP avec accès RWO associée à une classe de stockage nommée `protection-gold`.
 
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -122,7 +122,7 @@ storageClassName: protection-gold
 Ces exemples présentent les configurations de base pour fixer la demande de volume persistant à un pod.
 
 .Configuration de base
-[listing]
+[source, yaml]
 ----
 kind: Pod
 apiVersion: v1
@@ -144,7 +144,7 @@ spec:
           name: storage
 ----
 .Configuration NVMe/TCP de base
-[listing]
+[source, yaml]
 ----
 apiVersion: v1
 kind: Pod

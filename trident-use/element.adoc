@@ -73,10 +73,10 @@ Voir le tableau suivant pour les options de configuration du back-end :
 | `version` |  | Toujours 1 
 
 
-| `storageDriverName` | Nom du pilote de stockage | Toujours « solidfire-san ». 
+| `storageDriverName` | Nom du pilote de stockage | Toujours « SolidFire-san » 
 
 
-| `backendName` | Nom personnalisé ou système back-end de stockage | “SolidFire_” + adresse IP de stockage (iSCSI) 
+| `backendName` | Nom personnalisé ou système back-end de stockage | Adresse IP « SolidFire_ » + stockage (iSCSI) 
 
 
 | `Endpoint` | MVIP pour le cluster SolidFire avec les identifiants de locataire |  
@@ -97,7 +97,7 @@ Voir le tableau suivant pour les options de configuration du back-end :
 | `UseCHAP` | Utilisez CHAP pour authentifier iSCSI. Trident utilise CHAP. | vrai 
 
 
-| `AccessGroups` | Liste des ID de groupes d'accès à utiliser | Recherche l'ID d'un groupe d'accès nommé « trident » 
+| `AccessGroups` | Liste des ID de groupes d'accès à utiliser | Recherche l'ID d'un groupe d'accès nommé « Trident » 
 
 
 | `Types` | Spécifications de QoS |  
@@ -106,7 +106,7 @@ Voir le tableau suivant pour les options de configuration du back-end :
 | `limitVolumeSize` | Echec du provisionnement si la taille du volume demandé est supérieure à cette valeur | « » (non appliqué par défaut) 
 
 
-| `debugTraceFlags` | Indicateurs de débogage à utiliser lors du dépannage. Exemple, {“api”:false, “méthode”:true} | nul 
+| `debugTraceFlags` | Indicateurs de débogage à utiliser lors du dépannage. Exemple, {"api":false, "method":true} | nul 
 |===
 
 WARNING: Ne pas utiliser `debugTraceFlags` à moins que vous ne soyez en mesure de dépanner et que vous ayez besoin d'un vidage détaillé des journaux.
@@ -117,35 +117,34 @@ WARNING: Ne pas utiliser `debugTraceFlags` à moins que vous ne soyez en mesure 
 
 Cet exemple montre un fichier back-end utilisant l'authentification CHAP et la modélisation de trois types de volumes avec des garanties de QoS spécifiques. Il est fort probable que vous définiriez ensuite des classes de stockage pour consommer chacune de ces catégories à l'aide de l' `IOPS` paramètre de classe de stockage.
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
 storageDriverName: solidfire-san
 Endpoint: https://<user>:<password>@<mvip>/json-rpc/8.0
-SVIP: "<svip>:3260"
-TenantName: "<tenant>"
+SVIP: <svip>:3260
+TenantName: <tenant>
 labels:
   k8scluster: dev1
   backend: dev1-element-cluster
 UseCHAP: true
 Types:
-- Type: Bronze
-  Qos:
-    minIOPS: 1000
-    maxIOPS: 2000
-    burstIOPS: 4000
-- Type: Silver
-  Qos:
-    minIOPS: 4000
-    maxIOPS: 6000
-    burstIOPS: 8000
-- Type: Gold
-  Qos:
-    minIOPS: 6000
-    maxIOPS: 8000
-    burstIOPS: 10000
-
+  - Type: Bronze
+    Qos:
+      minIOPS: 1000
+      maxIOPS: 2000
+      burstIOPS: 4000
+  - Type: Silver
+    Qos:
+      minIOPS: 4000
+      maxIOPS: 6000
+      burstIOPS: 8000
+  - Type: Gold
+    Qos:
+      minIOPS: 6000
+      maxIOPS: 8000
+      burstIOPS: 10000
 ----
 
 
@@ -157,63 +156,64 @@ Trident copie les étiquettes présentes sur un pool de stockage vers la LUN de 
 
 Dans l'exemple de fichier de définition de back-end illustré ci-dessous, des valeurs par défaut spécifiques sont définies pour tous les pools de stockage, qui définissent le `type` Du niveau Silver. Les pools virtuels sont définis dans le `storage` section. Dans cet exemple, certains pools de stockage définissent leur propre type et certains d'entre eux remplacent les valeurs par défaut définies ci-dessus.
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
 storageDriverName: solidfire-san
 Endpoint: https://<user>:<password>@<mvip>/json-rpc/8.0
-SVIP: "<svip>:3260"
-TenantName: "<tenant>"
+SVIP: <svip>:3260
+TenantName: <tenant>
 UseCHAP: true
 Types:
-- Type: Bronze
-  Qos:
-    minIOPS: 1000
-    maxIOPS: 2000
-    burstIOPS: 4000
-- Type: Silver
-  Qos:
-    minIOPS: 4000
-    maxIOPS: 6000
-    burstIOPS: 8000
-- Type: Gold
-  Qos:
-    minIOPS: 6000
-    maxIOPS: 8000
-    burstIOPS: 10000
+  - Type: Bronze
+    Qos:
+      minIOPS: 1000
+      maxIOPS: 2000
+      burstIOPS: 4000
+  - Type: Silver
+    Qos:
+      minIOPS: 4000
+      maxIOPS: 6000
+      burstIOPS: 8000
+  - Type: Gold
+    Qos:
+      minIOPS: 6000
+      maxIOPS: 8000
+      burstIOPS: 10000
 type: Silver
 labels:
   store: solidfire
   k8scluster: dev-1-cluster
 region: us-east-1
 storage:
-- labels:
-    performance: gold
-    cost: '4'
-  zone: us-east-1a
-  type: Gold
-- labels:
-    performance: silver
-    cost: '3'
-  zone: us-east-1b
-  type: Silver
-- labels:
-    performance: bronze
-    cost: '2'
-  zone: us-east-1c
-  type: Bronze
-- labels:
-    performance: silver
-    cost: '1'
-  zone: us-east-1d
+  - labels:
+      performance: gold
+      cost: "4"
+    zone: us-east-1a
+    type: Gold
+  - labels:
+      performance: silver
+      cost: "3"
+    zone: us-east-1b
+    type: Silver
+  - labels:
+      performance: bronze
+      cost: "2"
+    zone: us-east-1c
+    type: Bronze
+  - labels:
+      performance: silver
+      cost: "1"
+    zone: us-east-1d
+
 
 ----
 Les définitions de classe de stockage suivantes font référence aux pools virtuels ci-dessus. À l'aide du `parameters.selector` Chaque classe de stockage indique quel(s) pool(s) virtuel(s) peut(s) être utilisé(s) pour héberger un volume. Les aspects définis dans le pool virtuel sélectionné seront définis pour le volume.
 
 La première classe de stockage (`solidfire-gold-four`) est mappée sur le premier pool virtuel. Il s'agit de la seule piscine offrant des performances or avec un `Volume Type QoS` de Gold. La dernière classe de stockage (`solidfire-silver`) fait référence à n'importe quel pool de stockage offrant des performances Silver. Trident décide du pool virtuel sélectionné et s'assure que les besoins en stockage sont satisfaits.
 
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -221,8 +221,9 @@ metadata:
   name: solidfire-gold-four
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=gold; cost=4"
-  fsType: "ext4"
+  selector: performance=gold; cost=4
+  fsType: ext4
+
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -230,8 +231,9 @@ metadata:
   name: solidfire-silver-three
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=silver; cost=3"
-  fsType: "ext4"
+  selector: performance=silver; cost=3
+  fsType: ext4
+
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -239,8 +241,9 @@ metadata:
   name: solidfire-bronze-two
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=bronze; cost=2"
-  fsType: "ext4"
+  selector: performance=bronze; cost=2
+  fsType: ext4
+
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -248,8 +251,9 @@ metadata:
   name: solidfire-silver-one
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=silver; cost=1"
-  fsType: "ext4"
+  selector: performance=silver; cost=1
+  fsType: ext4
+
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -257,8 +261,8 @@ metadata:
   name: solidfire-silver
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=silver"
-  fsType: "ext4"
+  selector: performance=silver
+  fsType: ext4
 ----
 
 

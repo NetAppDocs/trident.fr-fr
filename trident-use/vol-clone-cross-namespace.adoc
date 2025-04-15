@@ -51,7 +51,7 @@ Pour garantir la sécurité, le clonage de volumes entre espaces de noms nécess
 .Étapes
 . *Propriétaire de l'espace de noms source :* Créez le PVC (`namespace1`) (`pvc1`dans l'espace de noms source qui accorde l'autorisation de partager avec l'espace de noms de destination (`namespace2`) à l'aide de l' `cloneToNamespace`annotation.
 +
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -83,7 +83,7 @@ Trident crée le volume de stockage PV et son volume de stockage NFS back-end.
 . *Cluster admin:* Créez le rôle personnalisé et kubeconfig pour accorder l'autorisation au propriétaire de l'espace de noms de destination pour créer le CR TridentVolumeReference dans l'espace de noms de destination(`namespace2` ).
 . *Propriétaire de l'espace de noms de destination :* Créez un CR TridentVolumeReference dans l'espace de noms de destination qui fait référence à l'espace de noms source `pvc1`.
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentVolumeReference
@@ -96,7 +96,7 @@ spec:
 ----
 . *Propriétaire de l'espace de noms de destination :* Créez un PVC (`namespace2`)(`pvc2` dans l'espace de noms de destination en utilisant le `cloneFromPVC` ou `cloneFromSnapshot`, et les `cloneFromNamespace` annotations pour désigner le PVC source.
 +
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -114,11 +114,11 @@ spec:
     requests:
       storage: 100Gi
 ----
-+
-== limitations
-
-+
-** Pour les demandes de provisionnement virtuels provisionnées à l'aide de pilotes ONTAP-nas-Economy, les clones en lecture seule ne sont pas pris en charge.
 
 
+
+
+== Limites
+
+* Pour les demandes de provisionnement virtuels provisionnées à l'aide de pilotes ONTAP-nas-Economy, les clones en lecture seule ne sont pas pris en charge.
 
