@@ -110,7 +110,7 @@ La configuration d'une relation de réplication implique les éléments suivants
 
 
 .Étapes
-. Créez un AppVault pour l'application source sur le cluster source. Selon votre fournisseur de stockage, modifiez un exemple en fonction de link:trident-protect-appvault-custom-resources.html["Ressources personnalisées AppVault"]votre environnement :
+. Sur le cluster source, créez un AppVault pour l'application source. Selon votre fournisseur de stockage, modifiez un exemple en fonction de link:trident-protect-appvault-custom-resources.html["Ressources personnalisées AppVault"]votre environnement :
 +
 [role="tabbed-block"]
 ====
@@ -165,7 +165,7 @@ tridentctl-protect create vault Azure <vault-name> --account <account-name> --bu
 
 --
 ====
-. Créez l'application source CR :
+. Sur le cluster source, créez l'application source CR :
 +
 [role="tabbed-block"]
 ====
@@ -216,11 +216,13 @@ tridentctl-protect create app <my-app-name> --namespaces <namespaces-to-be-inclu
 
 --
 ====
-. Vous pouvez également créer un snapshot de l'application source. Ce snapshot est utilisé comme base pour l'application sur le cluster de destination. Si vous ignorez cette étape, vous devez attendre l'exécution du prochain snapshot planifié pour avoir un instantané récent.
+
+
+. Si vous le souhaitez, sur le cluster source, créez un snapshot d'arrêt de l'application source. Ce snapshot est utilisé comme base pour l'application sur le cluster de destination. Si vous ignorez cette étape, vous devez attendre l'exécution du prochain snapshot planifié pour avoir un instantané récent.
 +
 [role="tabbed-block"]
 ====
-.Prendre un instantané à l'aide d'une CR
+.Prendre un instantané d'arrêt à l'aide d'une CR
 --
 .. Créez un planning de réplication pour l'application source :
 +
@@ -271,7 +273,7 @@ kubectl apply -f trident-protect-schedule.yaml -n my-app-namespace
 
 
 --
-.Créer un snapshot à l'aide de l'interface de ligne de commande
+.Créer un snapshot d'arrêt à l'aide de l'interface de ligne de commande
 --
 .. Créez l'instantané, en remplaçant les valeurs entre parenthèses par les informations de votre environnement. Par exemple :
 +
@@ -283,14 +285,14 @@ tridentctl-protect create snapshot <my_snapshot_name> --appvault <my_appvault_na
 
 --
 ====
-. Créez une application source AppVault CR sur le cluster de destination qui est identique à la CR AppVault que vous avez appliquée sur le cluster source et nommez-la (par exemple, `trident-protect-appvault-primary-destination.yaml`).
+. Sur le cluster de destination, créez une application source AppVault CR identique à la CR AppVault que vous avez appliquée sur le cluster source et nommez-la (par exemple, `trident-protect-appvault-primary-destination.yaml`).
 . Appliquer la CR :
 +
 [source, console]
 ----
 kubectl apply -f trident-protect-appvault-primary-destination.yaml -n my-app-namespace
 ----
-. Créez un AppVault pour l'application de destination sur le cluster de destination. Selon votre fournisseur de stockage, modifiez un exemple en fonction de link:trident-protect-appvault-custom-resources.html["Ressources personnalisées AppVault"]votre environnement :
+. Créez une CR AppVault de destination pour l'application de destination sur le cluster de destination. Selon votre fournisseur de stockage, modifiez un exemple en fonction de link:trident-protect-appvault-custom-resources.html["Ressources personnalisées AppVault"]votre environnement :
 +
 .. Créez le fichier de ressource personnalisée (CR) et nommez-le (par exemple, `trident-protect-appvault-secondary-destination.yaml`).
 .. Configurez les attributs suivants :
@@ -328,7 +330,7 @@ kubectl apply -f trident-protect-appvault-secondary-destination.yaml -n my-app-n
 ----
 
 
-. Créez un fichier CR AppMirrorRelationship :
+. Sur le cluster de destination, créez un fichier CR AppMirrorRelationship :
 +
 [role="tabbed-block"]
 ====
@@ -393,7 +395,7 @@ tridentctl-protect create appmirrorrelationship <name_of_appmirorrelationship> -
 
 --
 ====
-. (_Optional_) Vérifiez l'état et l'état de la relation de réplication :
+. (_Optional_) sur le cluster de destination, vérifiez l'état et l'état de la relation de réplication :
 +
 [source, console]
 ----
@@ -408,7 +410,7 @@ kubectl get amr -n my-app-namespace <relationship name> -o=jsonpath='{.status}' 
 À l'aide de Trident Protect, vous pouvez basculer les applications répliquées vers un cluster de destination. Cette procédure arrête la relation de réplication et met l'application en ligne sur le cluster de destination. Trident Protect n'arrête pas l'application sur le cluster source si celle-ci était opérationnelle.
 
 .Étapes
-. Ouvrez le fichier CR AppMirrorRelationship (par exemple, `trident-protect-relationship.yaml`) et définissez la valeur de *spec.desiredState* sur `Promoted`.
+. Sur le cluster de destination, modifiez le fichier CR AppMirrorRelationship (par exemple, `trident-protect-relationship.yaml`) et définissez la valeur de *spec.desiredState* sur `Promoted`.
 . Enregistrez le fichier CR.
 . Appliquer la CR :
 +
@@ -437,8 +439,8 @@ Le processus arrête l'application sur le cluster de destination avant de rétab
 IMPORTANT: Toutes les données écrites sur l'application de destination pendant le basculement sont perdues.
 
 .Étapes
-. Créez un instantané de l'application source.
-. Ouvrez le fichier CR AppMirrorRelationship (par exemple, `trident-protect-relationship.yaml`) et définissez la valeur spec.desiredState sur `Established`.
+. Facultatif : sur le cluster source, créez un snapshot de l'application source. Cela permet de s'assurer que les dernières modifications du cluster source sont capturées.
+. Sur le cluster de destination, modifiez le fichier CR AppMirrorRelationship (par exemple, `trident-protect-relationship.yaml`) et définissez la valeur spec.desiredState sur `Established`.
 . Enregistrez le fichier CR.
 . Appliquer la CR :
 +
@@ -456,9 +458,9 @@ kubectl apply -f trident-protect-relationship.yaml -n my-app-namespace
 Lorsque vous inversez la resynchronisation d'une relation de réplication ayant fait l'objet d'un basculement, l'application de destination devient l'application source et la source devient la destination. Les modifications apportées à l'application de destination pendant le basculement sont conservées.
 
 .Étapes
-. Supprimez la CR AppMirrorRelationship sur le cluster de destination d'origine. La destination devient alors la source. S'il reste des plannings de protection sur le nouveau cluster de destination, supprimez-les.
+. Sur le cluster de destination d'origine, supprimez la CR AppMirrorRelationship. La destination devient alors la source. S'il reste des plannings de protection sur le nouveau cluster de destination, supprimez-les.
 . Configurez une relation de réplication en appliquant les fichiers CR que vous avez utilisés à l'origine pour configurer la relation aux clusters opposés.
-. Assurez-vous que les CRS AppVault sont prêts sur chaque cluster.
+. Assurez-vous que la nouvelle destination (cluster source d'origine) est configurée avec les deux CRS AppVault.
 . Configurez une relation de réplication sur le cluster opposé, en configurant les valeurs pour la direction inverse.
 
 
@@ -471,7 +473,7 @@ Lorsque vous inversez le sens de la réplication, Trident Protect déplace l'app
 Dans ce cas, vous permutez la source et la destination.
 
 .Étapes
-. Créer un instantané d'arrêt :
+. Sur le cluster source, créer un snapshot d'arrêt :
 +
 [role="tabbed-block"]
 ====
@@ -527,19 +529,19 @@ tridentctl-protect create shutdownsnapshot <my_shutdown_snapshot> --appvault <my
 
 --
 ====
-. Une fois le snapshot terminé, obtenez l'état du snapshot :
+. Sur le cluster source, une fois l'instantané d'arrêt terminé, obtenir l'état de l'instantané d'arrêt :
 +
 [source, console]
 ----
 kubectl get shutdownsnapshot -n my-app-namespace <shutdown_snapshot_name> -o yaml
 ----
-. Recherchez la valeur de *shutdownsnapshot.status.appArchivePath* à l'aide de la commande suivante et enregistrez la dernière partie du chemin d'accès au fichier (également appelée nom de base ; ce sera tout après la dernière barre oblique) :
+. Sur le cluster source, recherchez la valeur de *shutdownsnapshot.status.appArchivePath* à l'aide de la commande suivante et enregistrez la dernière partie du chemin d'accès au fichier (également appelée nom de base ; ce sera tout après la dernière barre oblique) :
 +
 [source, console]
 ----
 k get shutdownsnapshot -n my-app-namespace <shutdown_snapshot_name> -o jsonpath='{.status.appArchivePath}'
 ----
-. Effectuez un basculement du cluster de destination vers le cluster source, avec la modification suivante :
+. Effectuez un basculement du nouveau cluster de destination vers le nouveau cluster source, avec la modification suivante :
 +
 
 NOTE: À l'étape 2 de la procédure de basculement, incluez le `spec.promotedSnapshot` champ dans le fichier CR AppMirrorRelationship et définissez sa valeur sur le nom de base que vous avez enregistré à l'étape 3 ci-dessus.
@@ -591,7 +593,7 @@ CAUTION: N'effectuez pas d'opération de resynchronisation normale, car cela vou
 Vous pouvez supprimer une relation de réplication à tout moment. Lorsque vous supprimez la relation de réplication d'application, deux applications distinctes n'ont aucune relation entre elles.
 
 .Étapes
-. Supprimez la CR d'AppMirrorRelationship :
+. Sur le cluster de désaturation actuel, supprimez la CR AppMirrorRelationship :
 +
 [source, console]
 ----
