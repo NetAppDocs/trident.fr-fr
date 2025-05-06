@@ -5485,7 +5485,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="c282cc9924716a0ecdcc1864c8821950" category="doc">Passez d'un opérateur de la communauté Trident à un opérateur certifié OpenShift</block>
   <block id="92da9bfce4b6635fcf5d3f3725accbbc" category="paragraph">Pour passer de l'opérateur Trident de communauté NetApp à l'opérateur Trident certifié Red Hat OpenShift, vous devez désinstaller l'opérateur de communauté, puis installer l'opérateur certifié à l'aide de l'OperatorHub.</block>
   <block id="cec1c482e499b4748371d5e19359dacd" category="inline-link-macro">Préparez votre environnement pour l'installation de Trident</block>
-  <block id="32bc521a76f74eeb913f8006ab760ef5" category="paragraph">Avant de commencer l'installation, <block ref="77baaa0182ec347ebf1b91f8f0f5fa8c" category="inline-link-macro-rx"></block>.</block>
   <block id="82c3da1e712e572f424c3b7bf7dafcaf" category="section-title">Désinstallez l'opérateur de communauté NetApp Trident</block>
   <block id="ae76609b28371ddbc9f46be837040994" category="list-text">Utilisez la console OpenShift pour accéder à OperatorHub.</block>
   <block id="349838fb1d851d3e2014b9fe39203275" category="image-alt">Installez</block>
@@ -5515,4 +5514,5 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="c9e3d6c8fc80db4773cf69e205f2b571" category="sidebar">Passez d'un opérateur de la communauté Trident à un opérateur certifié OpenShift</block>
   <block id="88f2acec92adfdf94ffec73a8fda60a6" category="paragraph">Vous pouvez configurer le clonage de volumes en quelques étapes seulement.</block>
   <block id="e44a637a848aa60ef27cfc477d692412" category="paragraph">Trident crée le volume PV et son volume de stockage back-end.</block>
+  <block id="9f965f02f635b760a84c43d43aba854f" category="paragraph">Avant de commencer l'installation, <block ref="a24ee29cd883cbf52de58a68b0fed1a7" category="inline-link-macro-rx"></block>.</block>
 </blocks>
