@@ -19,7 +19,27 @@ WARNING: Le `tridentctl` Binaire pour Linux fourni dans le fichier zip du progra
 
 
 
-== Nouveautés de la version 25.02
+== Nouveautés de la version 25.02.1
+
+
+
+=== Trident
+
+
+
+==== Correctifs
+
+* *Kubernetes* :
++
+** Correction d'un problème dans l'opérateur Trident où les noms et les versions des images sidecar étaient mal renseignés lors de l'utilisation d'un registre d'images non par défaut (link:https://github.com/NetApp/trident/issues/983["Question no 983"]).
+** Résolution du problème d'échec de restauration des sessions multivoies lors d'un retour de basculement ONTAP (link:https://github.com/NetApp/trident/issues/961["Question no 961"]).
+
+
+
+
+
+
+== Changements en 25.02
 
 Depuis Trident 25.02, le récapitulatif des nouveautés fournit des informations détaillées sur les améliorations, les correctifs et les descriptions des versions Trident et Trident Protect.
 
@@ -103,6 +123,28 @@ NetApp Trident Protect propose des fonctionnalités avancées de gestion des don
 * Les annotations SCC sont désormais restaurées aux valeurs d'origine.
 * Amélioration de l'efficacité des restaurations grâce à la prise en charge des opérations parallèles.
 * Prise en charge améliorée des délais d'expiration du crochet d'exécution pour les applications de plus grande taille.
+
+
+
+
+== Changements en 24.10.1
+
+
+
+=== Améliorations
+
+* *Kubernetes* : prise en charge supplémentaire de Kubernetes 1.32.
+* Ajout de la détection et de la journalisation de l'état de la connexion iSCSI lorsque les sessions iSCSI doivent être connectées mais ne sont pas (link:https://github.com/NetApp/trident/issues/961["Question no 961"]).
+
+
+
+
+=== Correctifs
+
+* Correction des adresses IP de nœud manquantes des règles d'exportation automatique (link:https://github.com/NetApp/trident/issues/965["Question no 965"]).
+* Correction des règles d'exportation automatique pour passer prématurément à une règle de volume pour ONTAP-NAS-Economy.
+* Mise à jour des dépendances Trident et Trident-ASUP pour corriger CVE-2024-45337 et CVE-2024-45310.
+* Déconnexion supprimée des portails non CHAP défectueux par intermittence pendant l'auto-rétablissement iSCSI (link:https://github.com/NetApp/trident/issues/961["Question no 961"]).
 
 
 
