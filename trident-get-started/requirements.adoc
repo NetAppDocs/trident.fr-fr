@@ -78,10 +78,10 @@ Pour utiliser Trident, vous avez besoin d'un ou plusieurs des systèmes back-end
 
 
 
-== Prise en charge de Trident pour la virtualisation KubeVirt et OpenShift
+== Prise en charge de Trident pour KubeVirt et OpenShift Virtualization
 
 .Pilotes de stockage pris en charge :
-Trident prend en charge les pilotes ONTAP suivants pour la virtualisation KubeVirt et OpenShift :
+Trident prend en charge les pilotes ONTAP suivants pour KubeVirt et OpenShift Virtualization :
 
 * ontap-nas
 * ONTAP-nas-économie
@@ -90,7 +90,7 @@ Trident prend en charge les pilotes ONTAP suivants pour la virtualisation KubeVi
 
 
 .Points à prendre en compte :
-* Mettez à jour la classe de stockage pour avoir le `fsType` paramètre (par exemple : `fsType: "ext4"`) dans l'environnement de virtualisation OpenShift. Si nécessaire, définissez le mode de volume pour bloquer explicitement à l'aide du `volumeMode=Block` paramètre dans `dataVolumeTemplates` pour avertir CDI de créer des volumes de données de bloc.
+* Mettez à jour la classe de stockage pour avoir le `fsType` paramètre (par exemple : `fsType: "ext4"`) dans l'environnement OpenShift Virtualization. Si nécessaire, définissez le mode de volume pour bloquer explicitement à l'aide du `volumeMode=Block` paramètre dans `dataVolumeTemplates` pour avertir CDI de créer des volumes de données de bloc.
 * Mode d'accès _RWX pour les pilotes de stockage en mode bloc_ : les pilotes ONTAP-san (iSCSI, NVMe/TCP, FC) et ONTAP-san-Economy (iSCSI) sont pris en charge uniquement avec les pilotes « volumeMode : bloc » (périphérique brut). Pour ces pilotes, le `fstype` paramètre ne peut pas être utilisé car les volumes sont fournis en mode périphérique brut.
 * Pour les flux de travail de migration dynamique où le mode d'accès RWX est requis, ces combinaisons sont prises en charge :
 +
@@ -174,7 +174,7 @@ Non
 
 Bien que Trident ne prenne pas officiellement en charge des systèmes d'exploitation spécifiques, les éléments suivants sont connus pour fonctionner :
 
-* Versions de Red Hat CoreOS (RHCOS) prises en charge par OpenShift Container Platform (AMD64 et ARM64)
+* Versions de Red Hat Enterprise Linux CoreOS (RHCOS) prises en charge par OpenShift Container Platform (AMD64 et ARM64)
 * RHEL 8+ (AMD64 ET ARM64)
 +
 

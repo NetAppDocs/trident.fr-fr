@@ -319,7 +319,7 @@ Le service de journalisation peut, éventuellement, être déployé pour les deu
 Il est important de configurer les variables Ansible selon la méthode de déploiement afin de s'assurer que le stockage approprié est utilisé par les services sous-jacents. Examinons les options de chacune des méthodes de déploiement.
 
 
-NOTE: Les tableaux ci-dessous contiennent uniquement les variables pertinentes pour la configuration du stockage en ce qui concerne le service de journalisation. Vous trouverez d'autres options dans link:https://docs.openshift.com/container-platform/3.11/install_config/aggregate_logging.html["Documentation de journalisation Red Hat OpenShift"^] quels domaines doivent être examinés, configurés et utilisés en fonction de votre déploiement ?
+NOTE: Les tableaux ci-dessous contiennent uniquement les variables pertinentes pour la configuration du stockage en ce qui concerne le service de journalisation. Vous trouverez d'autres options link:https://docs.openshift.com/container-platform/3.11/install_config/aggregate_logging.html["Documentation de connexion Red Hat OpenShift"^]qui doivent être vérifiées, configurées et utilisées en fonction de votre déploiement.
 
 Les variables du tableau ci-dessous entraînent la création d'un volume persistant et de demande de volume persistant pour le service de journalisation à l'aide des informations fournies. Cette méthode est beaucoup moins flexible qu'avec le manuel d'installation des composants après l'installation d'OpenShift. Toutefois, si des volumes sont déjà disponibles, il s'agit d'une option.
 
@@ -378,7 +378,7 @@ Si votre cluster OpenShift est déjà en cours d'exécution et que Trident a don
 
 Si vous déployez la connexion dans le cadre du processus d'installation initiale d'OpenShift, il vous suffit de suivre le processus de déploiement standard. Ansible configure et déploie les services et les objets OpenShift nécessaires, de sorte que le service soit disponible dès qu'Ansible se termine.
 
-Cependant, si vous déployez après l'installation initiale, vous devez utiliser le PlayBook des composants Ansible. Ce processus peut légèrement évoluer avec différentes versions d'OpenShift, c'est pourquoi nous vous invitons à le lire et à le suivre link:https://docs.openshift.com/container-platform/3.11/welcome/index.html["Documentation Red Hat OpenShift Container Platform 3.11"^] pour votre version.
+Cependant, si vous déployez après l'installation initiale, vous devez utiliser le PlayBook des composants Ansible. Ce processus peut varier légèrement avec les différentes versions d'OpenShift. Assurez-vous de lire et de suivre link:https://docs.openshift.com/container-platform/3.11/welcome/index.html["Documentation de Red Hat OpenShift Container Platform 3.11"^]votre version.
 
 
 
@@ -434,4 +434,4 @@ Si votre cluster OpenShift est déjà en cours d'exécution et que Trident a don
 
 Déployez le service à l'aide des variables Ansible appropriées définies dans votre fichier hôtes/d'inventaire. Si vous déployez au moment de l'installation d'OpenShift, le volume persistant est créé et utilisé automatiquement. Si vous déployez à l'aide des playbooks des composants après l'installation d'OpenShift, Ansible crée les demandes PVCS requises et, une fois que Trident a provisionné le stockage pour eux, déployez le service.
 
-Les variables ci-dessus et le processus de déploiement peuvent changer avec chaque version d'OpenShift. Vérifiez et suivez link:https://docs.openshift.com/container-platform/3.11/install_config/cluster_metrics.html["Guide de déploiement OpenShift de Red Hat"^] pour votre version afin qu'elle soit configurée pour votre environnement.
+Les variables ci-dessus et le processus de déploiement peuvent changer avec chaque version d'OpenShift. Assurez-vous de vérifier et de suivre link:https://docs.openshift.com/container-platform/3.11/install_config/cluster_metrics.html["Guide de déploiement de Red Hat OpenShift"^]votre version afin qu'elle soit configurée pour votre environnement.

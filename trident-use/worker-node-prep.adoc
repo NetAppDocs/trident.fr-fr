@@ -18,7 +18,7 @@ Tous les nœuds workers du cluster Kubernetes doivent pouvoir monter les volumes
 
 == Choisir les bons outils
 
-Si vous utilisez une combinaison de pilotes, vous devez installer tous les outils requis pour vos pilotes. Les versions récentes de RedHat CoreOS ont les outils installés par défaut.
+Si vous utilisez une combinaison de pilotes, vous devez installer tous les outils requis pour vos pilotes. Les outils installés par défaut sont installés dans les versions récentes de Red Hat Enterprise Linux CoreOS (RHCOS).
 
 .Outils NFS
 link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#nfs-volumes["Installez les outils NFS"] si vous utilisez : `ontap-nas`, `ontap-nas-economy`, `ontap-nas-flexgroup`, `azure-netapp-files`, `gcp-cvs`.
@@ -140,7 +140,7 @@ Installez les outils iSCSI à l'aide des commandes de votre système d'exploitat
 ----
 sudo sed -i 's/^\(node.session.auth.chap_algs\).*/\1 = MD5/' /etc/iscsi/iscsid.conf
 ----
-* Lorsque vous utilisez des nœuds workers exécutant RHEL/RedHat CoreOS avec iSCSI PVS, spécifiez le `discard` MounOption dans la classe de stockage pour effectuer la réclamation d'espace en ligne. Reportez-vous à la section https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Documentation Red Hat"^].
+* Lors de l'utilisation de nœuds worker exécutant RHEL/Red Hat Enterprise Linux CoreOS (RHCOS) avec des PV iSCSI, spécifiez la `discard` mountOption dans la classe de stockage pour effectuer la récupération d'espace en ligne. Reportez-vous à la https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Documentation Red Hat"^].
 
 
 [role="tabbed-block"]
@@ -367,7 +367,7 @@ Pour plus d'informations, reportez-vous à la documentation ONTAP suivante :
 
 Installez les outils FC à l'aide des commandes de votre système d'exploitation.
 
-* Lors de l'utilisation de nœuds worker exécutant RHEL/RedHat CoreOS avec FC PVS, spécifiez la `discard` mountOption dans la classe de stockage pour effectuer la récupération d'espace en ligne. Reportez-vous à la https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Documentation Red Hat"^].
+* Lors de l'utilisation de nœuds worker exécutant RHEL/Red Hat Enterprise Linux CoreOS (RHCOS) avec FC PVS, spécifiez la `discard` mountOption dans la classe de stockage pour effectuer la récupération d'espace en ligne. Reportez-vous à la https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Documentation Red Hat"^].
 
 
 [role="tabbed-block"]
