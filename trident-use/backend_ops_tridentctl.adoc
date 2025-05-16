@@ -53,7 +53,7 @@ tridentctl delete backend <backend-name> -n trident
 
 
 
-NOTE: Si Trident a provisionné des volumes et des snapshots à partir de ce back-end, la suppression du back-end empêche le provisionnement de nouveaux volumes. Le back-end continuera à exister en état de « suppression » et Trident continuera à gérer ces volumes et snapshots jusqu'à ce qu'ils soient supprimés.
+NOTE: Si Trident a provisionné des volumes et des snapshots à partir de ce back-end, la suppression du back-end empêche le provisionnement de nouveaux volumes. Le back-end continuera à exister dans un état « Suppression ».
 
 
 
