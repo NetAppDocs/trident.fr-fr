@@ -418,7 +418,7 @@ Pour plus de détails sur les classes de stockage, reportez-vous link:../trident
 
 === Exemples de définitions pour les volumes SMB
 
-À l'aide de `nasType`, `node-stage-secret-name`, et  `node-stage-secret-namespace`, Vous pouvez spécifier un volume SMB et fournir les informations d'identification Active Directory requises.
+A l'aide de `nasType`, `node-stage-secret-name`, et  `node-stage-secret-namespace`, vous pouvez spécifier un volume SMB et fournir les informations d'identification Active Directory requises. N'importe quel utilisateur/mot de passe Active Directory avec des autorisations n'importe quel/aucune peut être utilisé pour le secret d'étape du nœud.
 
 .Configuration de base sur l'espace de noms par défaut
 [%collapsible]
