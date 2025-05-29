@@ -18,7 +18,7 @@ Les copies Snapshot de volume Kubernetes de volumes persistants (PVS) permettent
 
 == Présentation
 
-Le snapshot de volume est pris en charge par `ontap-nas`, `ontap-nas-flexgroup`, `ontap-san`, `ontap-san-economy`, `solidfire-san`, `gcp-cvs`, et `azure-netapp-files` pilotes.
+L'instantané de volume est pris en charge par  `ontap-nas` ,  `ontap-nas-flexgroup` ,  `ontap-san` ,  `ontap-san-economy` ,  `solidfire-san` ,  `gcp-cvs` ,  `azure-netapp-files` , et  `google-cloud-netapp-volumes` conducteurs.
 
 .Avant de commencer
 Vous devez disposer d'un contrôleur de snapshot externe et de définitions de ressources personnalisées (CRD) pour pouvoir utiliser les snapshots. Cela relève de la responsabilité de l'orchestrateur Kubernetes (par exemple : Kubeadm, GKE, OpenShift).
