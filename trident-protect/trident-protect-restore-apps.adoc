@@ -506,6 +506,10 @@ kubectl get snapshots <SNAPHOT_NAME> -n my-app-namespace -o jsonpath='{.status.a
 ** *spec.namespaceMapping*: mappage de l'espace de noms source de l'opération de restauration sur l'espace de noms de destination. Remplacez `my-source-namespace` et `my-destination-namespace` par des informations provenant de votre environnement.
 ** *Spec.storageClassMapping* : mappage de la classe de stockage source de l'opération de restauration à la classe de stockage de destination. Remplacez `destinationStorageClass` et `sourceStorageClass` par des informations provenant de votre environnement.
 +
+
+NOTE: Le  `storageClassMapping` l'attribut ne fonctionne que lorsque l'original et le nouveau  `StorageClass` utiliser le même backend de stockage. Si vous tentez de restaurer vers un  `StorageClass` qui utilise un backend de stockage différent, l'opération de restauration échouera.
+
++
 [source, yaml]
 ----
 ---
