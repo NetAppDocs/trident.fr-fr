@@ -30,8 +30,8 @@ Avant de créer une CR AppVault, vous devez vous assurer que l'AppVault et le Da
 
 Lorsque vous créez des objets AppVault à l'aide de CRS ou du plug-in de l'interface de ligne de commande Trident Protect, vous pouvez éventuellement demander à Trident Protect d'utiliser un code secret Kubernetes contenant des mots de passe personnalisés pour le chiffrement du référentiel Restic et Kopia. Si vous ne spécifiez pas de secret, Trident Protect utilise un mot de passe par défaut.
 
-* Lorsque vous créez manuellement AppVault CRS, vous pouvez utiliser le champ *spec.dataMoverPasswordSecretRef* pour spécifier le secret.
-* Lorsque vous créez des objets AppVault à l'aide de l'interface de ligne de commande Trident Protect, vous pouvez utiliser `--data-mover-password-secret-ref` l'argument pour spécifier le secret.
+* Lors de la création manuelle de CR AppVault, utilisez le champ *spec.dataMoverPasswordSecretRef* pour spécifier le secret.
+* Lors de la création d'objets AppVault à l'aide de l'interface de ligne de commande Trident Protect, utilisez le  `--data-mover-password-secret-ref` argument pour spécifier le secret.
 
 
 
@@ -72,6 +72,32 @@ kubectl create secret generic my-optional-data-mover-secret \
 ----
 --
 ====
+
+
+=== Autorisations IAM de stockage compatibles S3
+
+Lorsque vous accédez à un stockage compatible S3 tel qu'Amazon S3, Generic S3,  https://docs.netapp.com/us-en/storagegrid/s3/index.html["StorageGRID S3"^] , ou  https://docs.netapp.com/us-en/ontap/s3-config/["ONTAP S3"^] Avec Trident Protect, vous devez vous assurer que les identifiants utilisateur fournis disposent des autorisations nécessaires pour accéder au bucket. Voici un exemple de politique accordant les autorisations minimales requises pour l'accès avec Trident Protect. Vous pouvez appliquer cette politique à l'utilisateur qui gère les politiques de bucket compatibles S3.
+
+[source, json]
+----
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:DeleteObject"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+----
+Pour plus d'informations sur les politiques Amazon S3, reportez-vous aux exemples du  https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-policies-s3.html["Documentation Amazon S3"^] .
+
 
 
 === Exemples de génération de clés AppVault pour les fournisseurs cloud
