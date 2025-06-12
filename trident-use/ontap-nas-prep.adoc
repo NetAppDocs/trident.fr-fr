@@ -18,7 +18,7 @@ Découvrez les exigences, les options d'authentification et les règles d'export
 
 == De formation
 
-* Pour tous les systèmes ONTAP back-end, Trident requiert au moins un agrégat attribué à la SVM.
+* Pour tous les backends ONTAP, Trident exige qu'au moins un agrégat soit attribué au SVM.
 * Vous pouvez exécuter plusieurs pilotes et créer des classes de stockage qui pointent vers l'un ou l'autre. Par exemple, vous pouvez configurer une classe Gold qui utilise le `ontap-nas` Pilote et une classe Bronze qui utilise le `ontap-nas-economy` une seule.
 * Tous vos nœuds workers Kubernetes doivent avoir installé les outils NFS appropriés. Reportez-vous à la section link:worker-node-prep.html["ici"] pour en savoir plus.
 * Trident prend en charge les volumes SMB montés sur les pods s'exécutant sur les nœuds Windows uniquement. Voir <<Préparez-vous au provisionnement des volumes SMB>> pour plus de détails.

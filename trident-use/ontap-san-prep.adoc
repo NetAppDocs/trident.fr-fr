@@ -14,16 +14,13 @@ summary: Découvrez comment vous préparer à configurer un système ONTAP backe
 [role="lead"]
 Découvrez les exigences et les options d'authentification pour la configuration d'un back-end ONTAP avec des pilotes SAN ONTAP.
 
-À partir de la version 25.02, Trident détecte automatiquement le profil ASA r2 de ONTAP 9.16.1 ou version ultérieure et permet le provisionnement et l'utilisation du stockage sur ASA r2 via le protocole iSCSI.
-
 
 
 == De formation
 
-Pour tous les systèmes ONTAP back-end, Trident requiert au moins un agrégat attribué à la SVM.
+Pour tous les backends ONTAP, Trident exige qu'au moins un agrégat soit attribué au SVM.
 
-
-NOTE: Trident exige qu'un ou plusieurs agrégats soient affectés au SVM. Lors de l'utilisation de ASA r2, cette action n'est disponible qu'en mode via l'interface de ligne de commande de ONTAP `diag`.
+Reportez-vous à cet article de la base de connaissances pour savoir comment attribuer des agrégats à SVM dans les systèmes ASA r2 : link:https://kb.netapp.com/on-prem/ASAr2/ASAr2_KBs/su_create_by_SVM_admin_using_CLI_fails_with_error_No_candidate_aggregates_are_available_for_storage_services["La création d'une unité de stockage par l'administrateur SVM à l'aide de l'interface de ligne de commande échoue avec l'erreur « Aucun agrégat candidat n'est disponible pour les services de stockage »"^] .
 
 N'oubliez pas que vous pouvez également exécuter plusieurs pilotes et créer des classes de stockage qui pointent vers l'un ou l'autre. Par exemple, vous pouvez configurer un `san-dev` classe qui utilise le `ontap-san` conducteur et a `san-default` classe qui utilise le `ontap-san-economy` une seule.
 
