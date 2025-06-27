@@ -25,7 +25,7 @@ Avant d'installer Trident, vous devez vérifier la configuration système requis
 ====
 []
 =====
-* Kubernetes 1.32 est désormais pris en charge dans Trident. Mise à niveau de Trident avant la mise à niveau de Kubernetes.
+* Kubernetes 1.33 est désormais pris en charge dans Trident. Mise à niveau de Trident avant la mise à niveau de Kubernetes.
 * Trident applique strictement l'utilisation de la configuration de chemins d'accès multiples dans les environnements SAN, avec une valeur recommandée de `find_multipaths: no` dans le fichier multipath.conf.
 +
 Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisation de `find_multipaths: yes` ou `find_multipaths: smart` la valeur du fichier multipath.conf entraînera des échecs de montage. Trident a recommandé l'utilisation de `find_multipaths: no` depuis la version 21.07.
@@ -41,7 +41,7 @@ Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisat
 Trident prend en charge plusieurs moteurs de mise en conteneurs et orchestrateurs, notamment :
 
 * Anthos sur site (VMware) et Anthos sur bare Metal 1.16
-* Kubernetes 1.26 - 1.32
+* Kubernetes 1.27 - 1.33
 * OpenShift 4.10 - 4.18
 * Rancher Kubernetes Engine 2 (RKE2) v1.26.7+rke2r1, v1.28.5+rke2r1
 
@@ -49,7 +49,7 @@ Trident prend en charge plusieurs moteurs de mise en conteneurs et orchestrateur
 L'opérateur de Trident est pris en charge par ces versions :
 
 * Anthos sur site (VMware) et Anthos sur bare Metal 1.16
-* Kubernetes 1.26 - 1.32
+* Kubernetes 1.27 - 1.33
 * OpenShift 4.10 - 4.18
 * Rancher Kubernetes Engine 2 (RKE2) v1.26.7+rke2r1, v1.28.5+rke2r1
 
@@ -72,7 +72,7 @@ Pour utiliser Trident, vous avez besoin d'un ou plusieurs des systèmes back-end
 * Cloud Volumes ONTAP
 * Google Cloud NetApp volumes
 * Baie SAN 100 % Flash (ASA) de NetApp
-* Versions de clusters FAS, AFF ou ASA r2 sur site prises en charge limitée par NetApp. Voir link:https://mysupport.netapp.com/site/info/version-support["Prise en charge des versions logicielles"].
+* Versions de cluster FAS, AFF ou ASA r2 (iSCSI et NVMe/TCP) sur site sous le support limité de NetApp. Voir link:https://mysupport.netapp.com/site/info/version-support["Prise en charge des versions logicielles"].
 * Logiciel NetApp HCI/Element 11 ou version ultérieure
 
 
@@ -108,62 +108,64 @@ Trident prend en charge les pilotes ONTAP suivants pour KubeVirt et OpenShift Vi
 
 Le tableau ci-dessous résume les fonctionnalités disponibles dans cette version d'Trident et les versions de Kubernetes qu'il prend en charge.
 
+<<check for 25.06>>
+
 [cols="3"]
 |===
 | Fonction | Version Kubernetes | Portes-fonctions requises ? 
 
 
 | Trident  a| 
-1,26 - 1,32
+1,27 - 1,33
  a| 
 Non
 
 
 
 | Snapshots de volume  a| 
-1,26 - 1,32
+1,27 - 1,33
  a| 
 Non
 
 
 
 | Volume persistant à partir des copies Snapshot des volumes  a| 
-1,26 - 1,32
+1,27 - 1,33
  a| 
 Non
 
 
 
 | Redimensionnement PV iSCSI  a| 
-1,26 - 1,32
+1,27 - 1,33
  a| 
 Non
 
 
 
 | Chap bidirectionnel ONTAP  a| 
-1,26 - 1,32
+1,27 - 1,33
  a| 
 Non
 
 
 
 | Règles d'exportation dynamiques  a| 
-1,26 - 1,32
+1,27 - 1,33
  a| 
 Non
 
 
 
 | Opérateur Trident  a| 
-1,26 - 1,32
+1,27 - 1,33
  a| 
 Non
 
 
 
 | Topologie CSI  a| 
-1,26 - 1,32
+1,27 - 1,33
  a| 
 Non
 
@@ -218,20 +220,22 @@ link:../trident-reference/ports.html["Ports Trident"]
 
 Pour les installations à air comprimé, la liste suivante est une référence aux images de conteneur nécessaires à l'installation de Trident. Utiliser `tridentctl images` la commande pour vérifier la liste des images de conteneur nécessaires.
 
+<<check for 25.06>>
+
 [cols="2"]
 |===
 | Versions de Kubernetes | Image de conteneur 
 
 
-| v1.26.0, v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0  a| 
-* docker.io/netapp/trident : 25.02.0
-* docker.io/netapp/trident-autosupport:25.02
+| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0  a| 
+* docker.io/netapp/trident : 25.06.0
+* docker.io/netapp/trident-autosupport:25.06
 * registry.k8s.io/sig-storage/csi-provisionneur:v5.2.0
-* registry.k8s.io/sig-storage/csi-attacher:v4.8.0
-* registry.k8s.io/sig-storage/csi-resizer:v1.13.1
-* registry.k8s.io/sig-storage/csi-snapshotter:v8.2.0
+* registry.k8s.io/sig-storage/csi-attacher:v4.8.1
+* registry.k8s.io/sig-storage/csi-resizer:v1.13.2
+* registry.k8s.io/sig-storage/csi-snapshotter:v8.2.1
 * registry.k8s.io/sig-storage/csi-node-driver-registratr:v2.13.0
-* docker.io/netapp/trident-operator:25.02.0 (en option)
+* docker.io/netapp/trident-operator:25.06.0 (en option)
 
 
 |===

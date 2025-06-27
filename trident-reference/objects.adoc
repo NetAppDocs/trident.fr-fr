@@ -265,7 +265,7 @@ Lorsqu'une requête de snapshot de volume est fournie, Trident gère automatique
 `VolumeSnapshotContent` objet. Vous pouvez créer des instantanés à partir de ESV existantes et les utiliser comme source de données lors de la création de nouveaux ESV.
 
 
-NOTE: Le silecyle d'un VolumeSnapshot est indépendant de la demande de volume persistant source : un snapshot persiste même après la suppression de la demande de volume persistant source. Lors de la suppression d'un volume persistant qui possède des snapshots associés, Trident marque le volume de sauvegarde de ce volume persistant dans un état *Suppression*, mais ne le supprime pas complètement. Le volume est supprimé lorsque tous les snapshots associés sont supprimés.
+NOTE: Le cycle de vie d'un VolumeSnapshot est indépendant du PVC source : un snapshot persiste même après la suppression du PVC source. Lors de la suppression d'un volume persistant qui possède des snapshots associés, Trident marque le volume de sauvegarde de ce volume persistant dans un état *Suppression*, mais ne le supprime pas complètement. Le volume est supprimé lorsque tous les snapshots associés sont supprimés.
 
 
 
@@ -279,6 +279,48 @@ Lorsqu'une requête de snapshot est fournie, Trident crée le snapshot sur le ba
 
 
 NOTE: En général, il n'est pas nécessaire de gérer `VolumeSnapshotContent` l'objet. Une exception à cette règle s'applique lorsque vous souhaitez link:../trident-use/vol-snapshots.html#import-a-volume-snapshot["importer un instantané de volume"]créer des éléments en dehors de Trident.
+
+
+
+== Objets Kubernetes `VolumeGroupSnapshotClass`
+
+Les objets Kubernetes `VolumeGroupSnapshotClass` sont analogues à `VolumeSnapshotClass`. Ils permettent de définir plusieurs classes de stockage et sont référencés par les snapshots de groupe de volumes pour associer le snapshot à la classe de snapshot requise. Chaque snapshot de groupe de volumes est associé à une seule classe de snapshot de groupe de volumes.
+
+UN  `VolumeGroupSnapshotClass` La création d'un groupe d'instantanés doit être définie par un administrateur. Une classe d'instantanés de groupe de volumes est créée avec la définition suivante :
+
+[source, yaml]
+----
+apiVersion: groupsnapshot.storage.k8s.io/v1beta1
+kind: VolumeGroupSnapshotClass
+metadata:
+  name: csi-group-snap-class
+  annotations:
+    kubernetes.io/description: "Trident group snapshot class"
+driver: csi.trident.netapp.io
+deletionPolicy: Delete
+----
+Le  `driver` spécifie à Kubernetes que les demandes d'instantanés de groupes de volumes du  `csi-group-snap-class` classe sont gérées par Trident. Le  `deletionPolicy` spécifie l'action à entreprendre lorsqu'un instantané de groupe doit être supprimé. Quand  `deletionPolicy` est réglé sur  `Delete` , les objets de snapshot du groupe de volumes ainsi que le snapshot sous-jacent sur le cluster de stockage sont supprimés lorsqu'un snapshot est supprimé. Vous pouvez également la configurer sur `Retain` signifie que `VolumeGroupSnapshotContent` et le snapshot physique sont conservés.
+
+
+
+== Objets Kubernetes `VolumeGroupSnapshot`
+
+Un Kubernetes  `VolumeGroupSnapshot` L'objet est une requête de création d'un instantané de plusieurs volumes. Tout comme un PVC représente une requête utilisateur pour un volume, un instantané de groupe de volumes est une requête utilisateur pour créer un instantané d'un PVC existant.
+
+Lorsqu'une demande d'instantané de groupe de volumes arrive, Trident gère automatiquement la création de l'instantané de groupe pour les volumes sur le backend et expose l'instantané en créant un instantané unique.  `VolumeGroupSnapshotContent` objet. Vous pouvez créer des instantanés à partir de ESV existantes et les utiliser comme source de données lors de la création de nouveaux ESV.
+
+
+NOTE: Le cycle de vie d'un VolumeGroupSnapshot est indépendant du PVC source : un snapshot persiste même après la suppression du PVC source. Lors de la suppression d'un volume persistant qui possède des snapshots associés, Trident marque le volume de sauvegarde de ce volume persistant dans un état *Suppression*, mais ne le supprime pas complètement. Le snapshot du groupe de volumes est supprimé lorsque tous les snapshots associés sont supprimés.
+
+
+
+== Objets Kubernetes `VolumeGroupSnapshotContent`
+
+Un Kubernetes  `VolumeGroupSnapshotContent` l'objet représente un instantané de groupe pris à partir d'un volume déjà provisionné. Elle est similaire à un `PersistentVolume` et signifie un snapshot provisionné sur le cluster de stockage. Comme `PersistentVolumeClaim` pour les objets et `PersistentVolume`, lors de la création d'un Snapshot, l' `VolumeSnapshotContent`objet conserve un mappage un-à-un sur l' `VolumeSnapshot`objet qui avait demandé la création du Snapshot.
+
+Le  `VolumeGroupSnapshotContent` l'objet contient des détails qui identifient le groupe d'instantanés, tels que  `volumeGroupSnapshotHandle` et et les volumeSnapshotHandles individuels existant sur le système de stockage.
+
+Lorsqu'une demande d'instantané arrive, Trident crée l'instantané du groupe de volumes sur le serveur principal. Une fois l'instantané du groupe de volumes créé, Trident configure un  `VolumeGroupSnapshotContent` objet et expose ainsi l'instantané à l'API Kubernetes.
 
 
 

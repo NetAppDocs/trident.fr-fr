@@ -16,6 +16,9 @@ Vous pouvez activer Linux Unified Key Setup (LUKS) pour chiffrer les volumes ONT
 
 Dans Trident, les volumes chiffrés LUKS utilisent le cypher et le mode aes-xts-mclair 64, comme recommandé par link:https://csrc.nist.gov/publications/detail/sp/800-38e/final["NIST"^].
 
+
+NOTE: Le chiffrement LUKS n'est pas pris en charge par les systèmes ASA r2. Pour plus d'informations sur les systèmes ASA r2, consultez la section link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["En savoir plus sur les systèmes de stockage ASA r2"^] .
+
 .Avant de commencer
 * Les nœuds worker doivent avoir cryptsetup 2.1 ou supérieur (mais inférieur à 3.0) installé. Pour plus d'informations, rendez-vous sur link:https://gitlab.com/cryptsetup/cryptsetup["Gitlab : cryptsetup"^].
 * Pour des raisons de performances, NetApp recommande aux nœuds workers de prendre en charge les nouvelles instructions AES-ni (Advanced Encryption Standard New instructions). Pour vérifier la prise en charge AES-ni, exécutez la commande suivante :

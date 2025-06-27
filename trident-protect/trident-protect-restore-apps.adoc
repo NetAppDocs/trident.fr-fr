@@ -16,9 +16,13 @@ summary: 'Vous pouvez utiliser Trident Protect pour restaurer votre application 
 [role="lead"]
 Vous pouvez utiliser Trident Protect pour restaurer votre application à partir d'une copie Snapshot ou d'une sauvegarde. La restauration d'un snapshot existant est plus rapide lors de la restauration d'une application sur le même cluster.
 
+[NOTE]
+====
+* Lorsque vous restaurez une application, tous les crochets d'exécution configurés pour l'application sont restaurés avec l'application. Si un hook d'exécution post-restauration est présent, il s'exécute automatiquement dans le cadre de l'opération de restauration.
+* La restauration à partir d'une sauvegarde vers un espace de noms différent ou vers l'espace de noms d'origine est prise en charge pour les volumes qtree. En revanche, la restauration à partir d'un snapshot vers un espace de noms différent ou vers l'espace de noms d'origine n'est pas prise en charge pour les volumes qtree.
 
-NOTE: Lorsque vous restaurez une application, tous les crochets d'exécution configurés pour l'application sont restaurés avec l'application. Si un hook d'exécution post-restauration est présent, il s'exécute automatiquement dans le cadre de l'opération de restauration.
 
+====
 
 
 == Annotations et étiquettes de namespace pendant les opérations de restauration et de basculement
@@ -97,6 +101,22 @@ Le tableau suivant illustre l'état de l'exemple d'espace de noms de destination
 * role=base de données
 
 
+|===
+
+
+== Annotations prises en charge
+
+Cette section répertorie les annotations prises en charge pour configurer différents comportements du système. Si une annotation n'est pas explicitement définie par l'utilisateur, le système utilisera la valeur par défaut.
+
+[cols="1,1,3,1"]
+|===
+| Annotation | Type | Description | Valeur par défaut 
+
+
+| protect.trident.netapp.io/data-mover-timeout-sec | chaîne | Le temps maximal (en secondes) autorisé pour que le fonctionnement du moteur de transfert de données soit bloqué. | 300 
+
+
+| protect.trident.netapp.io/kopia-content-cache-size-limit-mb | entier | La limite de taille maximale (en mégaoctets) pour le cache de contenu Kopia. | 1000 
 |===
 
 

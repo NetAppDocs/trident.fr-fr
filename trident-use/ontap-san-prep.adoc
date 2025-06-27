@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/ontap-san-prep.html 
-keywords: trident backend, ontap san, ontap-san, ontap-san-economy, asa r2 
+keywords: trident backend, ontap san, ontap-san, ontap-san-economy, fcp, asa r2, iscsi, nvme/tcp 
 summary: Découvrez comment vous préparer à configurer un système ONTAP backend avec les pilotes SAN ONTAP. 
 ---
 = Préparez la configuration du système back-end avec les pilotes SAN ONTAP
@@ -20,15 +20,16 @@ Découvrez les exigences et les options d'authentification pour la configuration
 
 Pour tous les backends ONTAP, Trident exige qu'au moins un agrégat soit attribué au SVM.
 
-Reportez-vous à cet article de la base de connaissances pour savoir comment attribuer des agrégats à SVM dans les systèmes ASA r2 : link:https://kb.netapp.com/on-prem/ASAr2/ASAr2_KBs/su_create_by_SVM_admin_using_CLI_fails_with_error_No_candidate_aggregates_are_available_for_storage_services["La création d'une unité de stockage par l'administrateur SVM à l'aide de l'interface de ligne de commande échoue avec l'erreur « Aucun agrégat candidat n'est disponible pour les services de stockage »"^] .
 
+NOTE: link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Systèmes ASA r2"^] diffèrent des autres systèmes ONTAP (ASA, AFF et FAS) dans la mise en œuvre de leur couche de stockage. Dans les systèmes ASA r2, des zones de disponibilité de stockage sont utilisées à la place des agrégats. Consultez link:https://kb.netapp.com/on-prem/ASAr2/ASAr2_KBs/su_create_by_SVM_admin_using_CLI_fails_with_error_No_candidate_aggregates_are_available_for_storage_services["c'est ça"^] Article de la base de connaissances sur la façon d'attribuer des agrégats aux SVM dans les systèmes ASA r2.
+
+[]
+====
 N'oubliez pas que vous pouvez également exécuter plusieurs pilotes et créer des classes de stockage qui pointent vers l'un ou l'autre. Par exemple, vous pouvez configurer un `san-dev` classe qui utilise le `ontap-san` conducteur et a `san-default` classe qui utilise le `ontap-san-economy` une seule.
 
 Tous vos nœuds workers Kubernetes doivent avoir installé les outils iSCSI appropriés. Reportez-vous à la section link:worker-node-prep.html["Préparez le nœud de travail"] pour plus d'informations.
 
-
-
-== Authentifiez le back-end ONTAP
+== Authentifier le backend ONTAP
 
 Trident propose deux modes d'authentification d'un back-end ONTAP.
 
@@ -41,8 +42,6 @@ Vous pouvez mettre à jour les systèmes back-end existants pour passer d'une m�
 
 WARNING: Si vous tentez de fournir *les deux identifiants et les certificats*, la création du back-end échoue avec une erreur indiquant que plus d'une méthode d'authentification a été fournie dans le fichier de configuration.
 
-
-
 === Activer l'authentification basée sur les informations d'identification
 
 Trident exige que les identifiants d'un administrateur SVM-scoped/cluster-scoped communiquent avec le back-end ONTAP. Il est recommandé d'utiliser des rôles standard prédéfinis tels que `admin` ou `vsadmin`. La compatibilité avec les futures versions d'ONTAP qui exposent les API de fonctionnalités à utiliser dans les futures versions d'Trident est ainsi garantie. Un rôle de connexion de sécurité personnalisé peut être créé et utilisé avec Trident, mais il n'est pas recommandé.
@@ -50,7 +49,7 @@ Trident exige que les identifiants d'un administrateur SVM-scoped/cluster-scoped
 Voici un exemple de définition du back-end :
 
 [role="tabbed-block"]
-====
+=====
 .YAML
 --
 [source, yaml]
@@ -81,12 +80,10 @@ password: password
 
 ----
 --
-====
+=====
 Gardez à l'esprit que la définition du back-end est le seul endroit où les informations d'identification sont stockées en texte brut. Une fois le système backend créé, les noms d'utilisateur/mots de passe sont codés avec Base64 et stockés sous forme de secrets Kubernetes. La création ou la mise à jour d'un back-end est la seule étape qui nécessite la connaissance des informations d'identification. Il s'agit donc d'une opération uniquement administrative, qui doit être effectuée par l'administrateur Kubernetes/du stockage.
 
-
-
-=== Activer l'authentification basée sur certificat
+=== Activer l'authentification basée sur les certificats
 
 Les systèmes back-end, nouveaux et existants, peuvent utiliser un certificat et communiquer avec le système back-end ONTAP. Trois paramètres sont requis dans la définition du back-end.
 
@@ -165,8 +162,6 @@ tridentctl create backend -f cert-backend.json -n trident
 ----
 
 
-
-
 === Mettre à jour les méthodes d'authentification ou faire pivoter les informations d'identification
 
 Vous pouvez mettre à jour un back-end existant pour utiliser une méthode d'authentification différente ou pour faire pivoter leurs informations d'identification. Cela fonctionne de deux manières : les systèmes back-end qui utilisent le nom d'utilisateur/mot de passe peuvent être mis à jour pour utiliser des certificats ; les systèmes back-end qui utilisent des certificats peuvent être mis à jour en fonction du nom d'utilisateur/mot de passe. Pour ce faire, vous devez supprimer la méthode d'authentification existante et ajouter la nouvelle méthode d'authentification. Utilisez ensuite le fichier backend.json mis à jour contenant les paramètres requis à exécuter `tridentctl backend update`.
@@ -198,16 +193,14 @@ NOTE: Lors de la rotation des mots de passe, l'administrateur du stockage doit d
 
 La mise à jour d'un back-end n'interrompt pas l'accès aux volumes qui ont déjà été créés, et n'a aucun impact sur les connexions de volume effectuées après. Une mise à jour back-end réussie indique que Trident peut communiquer avec le back-end ONTAP et gérer les futures opérations de volume.
 
-
-
-=== Créez un rôle ONTAP personnalisé pour Trident
+=== Créer un rôle ONTAP personnalisé pour Trident
 
 Vous pouvez créer un rôle de cluster ONTAP avec une Privileges minimale afin de ne pas avoir à utiliser le rôle ONTAP admin pour effectuer des opérations dans Trident. Lorsque vous incluez le nom d'utilisateur dans une configuration Trident backend, Trident utilise le rôle de cluster ONTAP que vous avez créé pour effectuer les opérations.
 
 Pour plus d'informations sur la création de rôles personnalisés Trident, reportez-vous à la sectionlink:https://github.com/NetApp/trident/tree/master/contrib/ontap/trident_role["Générateur de rôle personnalisé Trident"].
 
 [role="tabbed-block"]
-====
+=====
 .Utilisation de l'interface de ligne de commandes ONTAP
 --
 . Créez un rôle à l'aide de la commande suivante :
@@ -250,16 +243,14 @@ Dans ONTAP System Manager, effectuez les opérations suivantes :
 
 
 --
-====
+=====
 Pour plus d'informations, reportez-vous aux pages suivantes :
 
 * link:https://kb.netapp.com/on-prem/ontap/Ontap_OS/OS-KBs/FAQ__Custom_roles_for_administration_of_ONTAP["Rôles personnalisés pour l'administration de ONTAP"^] ou link:https://docs.netapp.com/us-en/ontap/authentication/define-custom-roles-task.html["Définissez des rôles personnalisés"^]
 * link:https://docs.netapp.com/us-en/ontap-automation/rest/rbac_roles_users.html#rest-api["Travaillez avec les rôles et les utilisateurs"^]
 
 
-
-
-== Authentifier les connexions avec le protocole CHAP bidirectionnel
+== Authentifier les connexions avec CHAP bidirectionnel
 
 Trident peut authentifier les sessions iSCSI avec le protocole CHAP bidirectionnel pour les `ontap-san` pilotes et `ontap-san-economy`. Pour ce faire, vous devez activer `useCHAP` l'option dans votre définition de back-end. Lorsque ce paramètre est défini sur `true`, Trident configure la sécurité initiateur par défaut du SVM sur CHAP bidirectionnel et définit le nom d'utilisateur et les secrets à partir du fichier back-end. NetApp recommande d'utiliser le protocole CHAP bidirectionnel pour l'authentification des connexions. Voir l'exemple de configuration suivant :
 
@@ -284,9 +275,7 @@ WARNING: Le `useCHAP` Paramètre est une option booléenne qui ne peut être con
 
 En plus de `useCHAP=true`, le `chapInitiatorSecret`, `chapTargetInitiatorSecret`, `chapTargetUsername`, et `chapUsername` les champs doivent être inclus dans la définition back-end. Les secrets peuvent être modifiés après la création d'un back-end en cours d'exécution `tridentctl update`.
 
-
-
-=== Comment cela fonctionne
+=== Comment ça marche
 
 En définissant la `useCHAP` valeur sur true, l'administrateur du stockage demande à Trident de configurer CHAP sur le back-end de stockage. Ceci inclut les éléments suivants :
 
@@ -301,9 +290,7 @@ En définissant la `useCHAP` valeur sur true, l'administrateur du stockage deman
 
 Une fois le back-end créé, Trident crée un code CRD correspondant `tridentbackend` et stocke les secrets CHAP et les noms d'utilisateur comme secrets Kubernetes. Tous les volumes persistants créés par Trident sur ce back-end seront montés et rattachés via CHAP.
 
-
-
-=== Rotation des identifiants et mise à jour des systèmes back-end
+=== Rotation des informations d'identification et mise à jour des backends
 
 Vous pouvez mettre à jour les informations d'identification CHAP en mettant à jour les paramètres CHAP dans le `backend.json` fichier. Cela nécessitera la mise à jour des secrets CHAP et l'utilisation de `tridentctl update` pour refléter ces modifications.
 
@@ -336,3 +323,5 @@ cat backend-san.json
 +----------------+----------------+--------------------------------------+--------+---------+
 ----
 Les connexions existantes ne seront pas affectées ; elles continueront à rester actives si les informations d'identification sont mises à jour par Trident sur le SVM. Les nouvelles connexions utilisent les informations d'identification mises à jour et les connexions existantes restent actives. La déconnexion et la reconnexion des anciens volumes persistants se traduront par l'utilisation des identifiants mis à jour.
+
+====

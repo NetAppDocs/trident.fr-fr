@@ -100,6 +100,18 @@ NOTE: Vous pouvez configurer Trident Protect pour qu'il bloque et dégèle les s
 
 
 
+== Crochets d'exécution lors des opérations de basculement et d'inversion
+
+Lorsque vous utilisez la relation AppMirror pour protéger votre application, il existe des comportements spécifiques liés aux hooks d'exécution dont vous devez être conscient lors des opérations de basculement et d'inversion.
+
+* Lors du basculement, les hooks d'exécution sont automatiquement copiés du cluster source vers le cluster de destination. Il n'est pas nécessaire de les recréer manuellement. Après le basculement, les hooks d'exécution sont présents dans l'application et s'exécuteront lors de toute action pertinente.
+* Lors d'une resynchronisation inverse ou d'une inversion, tous les hooks d'exécution existants sur l'application sont supprimés. Lorsque l'application source devient l'application de destination, ces hooks d'exécution ne sont plus valides et sont supprimés pour empêcher leur exécution.
+
+
+Pour en savoir plus sur les hooks d'exécution, reportez-vous à link:../trident-protect/trident-protect-use-execution-hooks.html["Gérer les crochets d'exécution de Trident Protect"] .
+
+
+
 == Configuration d'une relation de réplication
 
 La configuration d'une relation de réplication implique les éléments suivants :
@@ -216,11 +228,21 @@ tridentctl-protect create app <my-app-name> --namespaces <namespaces-to-be-inclu
 
 --
 ====
-. Si vous le souhaitez, sur le cluster source, créez un snapshot d'arrêt de l'application source. Ce snapshot est utilisé comme base pour l'application sur le cluster de destination. Si vous ignorez cette étape, vous devez attendre l'exécution du prochain snapshot planifié pour avoir un instantané récent.
+. En option, sur le cluster source, prenez un instantané de l’application source. Ce snapshot est utilisé comme base pour l'application sur le cluster de destination. Si vous ignorez cette étape, vous devez attendre l'exécution du prochain snapshot planifié pour avoir un instantané récent.
++
+[NOTE]
+====
+Outre le planning ci-dessous, il est recommandé de créer un planning de snapshots quotidien distinct avec une période de conservation de 7 jours afin de conserver un snapshot commun entre les clusters ONTAP appairés. Cela garantit la disponibilité des snapshots pendant 7 jours maximum, mais la période de conservation peut être personnalisée selon les besoins de l'utilisateur.
+
+En cas de basculement, le système peut utiliser ces snapshots pendant sept jours maximum pour les opérations d'inversion. Cette approche rend le processus d'inversion plus rapide et plus efficace, car seules les modifications apportées depuis le dernier snapshot sont transférées, et non l'intégralité des données.
+
+Si un calendrier existant pour l'application répond déjà aux exigences de conservation souhaitées, aucun calendrier supplémentaire n'est requis.
+
+====
 +
 [role="tabbed-block"]
 ====
-.Prendre un instantané d'arrêt à l'aide d'une CR
+.Prendre un instantané à l'aide d'une CR
 --
 .. Créez un planning de réplication pour l'application source :
 +
@@ -271,7 +293,7 @@ kubectl apply -f trident-protect-schedule.yaml -n my-app-namespace
 
 
 --
-.Créer un snapshot d'arrêt à l'aide de l'interface de ligne de commande
+.Créer un snapshot à l'aide de l'interface de ligne de commande
 --
 .. Créez l'instantané, en remplaçant les valeurs entre parenthèses par les informations de votre environnement. Par exemple :
 +

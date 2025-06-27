@@ -72,7 +72,7 @@ Défini sur l'identité de la charge de travail (« Azure.Workload.Identity/clie
 automatiquement | `false` 
 
 
-| `autosupportImage` | Image conteneur pour la télémétrie AutoSupport | `"netapp/trident-autosupport:25.02"` 
+| `autosupportImage` | Image conteneur pour la télémétrie AutoSupport | `"netapp/trident-autosupport:25.06"` 
 
 
 | `autosupportProxy` | Adresse/port d'un proxy pour l'envoi de AutoSupport
@@ -85,7 +85,7 @@ Télémétrie | `"http://proxy.example.com:8888"`
 | `logFormat` | Format de journalisation Trident à utiliser [TEXT,json] | `"text"` 
 
 
-| `tridentImage` | Image Trident à installer | `"netapp/trident:25.02"` 
+| `tridentImage` | Image Trident à installer | `"netapp/trident:25.06"` 
 
 
 | `imageRegistry` | Chemin d'accès au registre interne, du format

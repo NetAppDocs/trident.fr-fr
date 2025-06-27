@@ -9,7 +9,7 @@ summary: 'Trident prend en charge la création de relations de miroir entre les 
 
 
 [role="lead"]
-Trident prend en charge les relations de mise en miroir entre un volume source sur un cluster et le volume de destination sur le cluster peering pour la réplication des données à des fins de reprise après incident. Vous pouvez utiliser une définition de ressource personnalisée (CRD) avec un espace de nom pour effectuer les opérations suivantes :
+Trident prend en charge les relations de mise en miroir entre un volume source sur un cluster et le volume de destination sur le cluster peering pour la réplication des données à des fins de reprise après incident.  Vous pouvez utiliser une définition de ressource personnalisée (CRD) avec espace de noms, appelée relation miroir Trident (TMR), pour effectuer les opérations suivantes :
 
 * Création de relations de symétrie entre les volumes (ESV)
 * Supprimez les relations de symétrie entre les volumes
@@ -27,6 +27,13 @@ Assurez-vous que les conditions préalables suivantes sont remplies avant de com
 .Clusters ONTAP
 * *Trident* : Trident version 22.10 ou ultérieure doit exister sur les clusters Kubernetes source et destination qui utilisent ONTAP en tant que back-end.
 * *Licences* : les licences asynchrones de SnapMirror ONTAP utilisant le bundle protection des données doivent être activées sur les clusters ONTAP source et cible. Pour plus d'informations, reportez-vous à la section https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-licensing-concept.html["Présentation des licences SnapMirror dans ONTAP"^] .
++
+À partir de ONTAP 9.10.1, toutes les licences sont livrées sous forme de fichier de licence NetApp (NLF), qui est un fichier unique qui active plusieurs fonctionnalités. Pour plus d'informations, reportez-vous à la section link:https://docs.netapp.com/us-en/ontap/system-admin/manage-licenses-concept.html#licenses-included-with-ontap-one["Licences incluses avec ONTAP One"^] .
+
++
+
+NOTE: Seule la protection asynchrone SnapMirror est prise en charge.
+
 
 
 .Peering
@@ -39,8 +46,10 @@ IMPORTANT: S'assurer que les noms de SVM utilisés dans la relation de réplicat
 
 
 .Pilotes pris en charge
-* La réplication de volume est prise en charge pour les pilotes ontap-nas et ontap-san.
+NetApp Trident prend en charge la réplication de volumes avec la technologie NetApp SnapMirror à l'aide de classes de stockage prises en charge par les pilotes suivants : **  `ontap-nas` : NFS **  `ontap-san` : iSCSI **  `ontap-san` : FC **  `ontap-san` : NVMe/TCP (nécessite au minimum la version ONTAP 9.15.1)
 
+
+NOTE: La réplication de volume via SnapMirror n'est pas prise en charge sur les systèmes ASA r2. Pour plus d'informations sur les systèmes ASA r2, consultez la section link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["En savoir plus sur les systèmes de stockage ASA r2"^] .
 
 
 

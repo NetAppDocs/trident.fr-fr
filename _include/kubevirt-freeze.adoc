@@ -4,6 +4,9 @@
 
 Trident Protect 24.10, 24.10.1 et versions ultérieures ont des comportements différents lorsque vous protégez les applications s'exécutant sur des machines virtuelles KubeVirt. Pour les deux versions, vous pouvez activer ou désactiver le blocage et le déblocage du système de fichiers pendant les opérations de protection des données.
 
+
+NOTE: Pendant les opérations de restauration, tout  `VirtualMachineSnapshots` créés pour une machine virtuelle (VM) ne sont pas restaurés.
+
 .Trident Protect 24.10
 Trident Protect 24.10 ne garantit pas automatiquement un état cohérent pour les systèmes de fichiers des machines virtuelles KubeVirt lors des opérations de protection des données. Pour protéger les données de vos machines virtuelles KubeVirt à l'aide de Trident Protect 24.10, vous devez activer manuellement la fonctionnalité de gel/dégel pour les systèmes de fichiers avant l'opération de protection des données. Cela permet de s'assurer que les systèmes de fichiers sont dans un état cohérent.
 

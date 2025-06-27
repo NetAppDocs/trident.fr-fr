@@ -16,7 +16,7 @@ Vous pouvez déployer manuellement l'opérateur Trident pour installer Trident. 
 
 
 
-== Informations critiques sur Trident 25.02
+== Informations critiques sur Trident 25.06
 
 *Vous devez lire les informations critiques suivantes sur Trident.*
 
@@ -25,7 +25,7 @@ Vous pouvez déployer manuellement l'opérateur Trident pour installer Trident. 
 ====
 []
 =====
-* Kubernetes 1.32 est désormais pris en charge dans Trident. Mise à niveau de Trident avant la mise à niveau de Kubernetes.
+* Kubernetes 1.33 est désormais pris en charge dans Trident. Mise à niveau de Trident avant la mise à niveau de Kubernetes.
 * Trident applique strictement l'utilisation de la configuration de chemins d'accès multiples dans les environnements SAN, avec une valeur recommandée de `find_multipaths: no` dans le fichier multipath.conf.
 +
 Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisation de `find_multipaths: yes` ou `find_multipaths: smart` la valeur du fichier multipath.conf entraînera des échecs de montage. Trident a recommandé l'utilisation de `find_multipaths: no` depuis la version 21.07.
@@ -78,8 +78,8 @@ Le programme d'installation de Trident contient tout ce dont vous avez besoin po
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v25.02.0/trident-installer-25.02.0.tar.gz
-tar -xf trident-installer-25.02.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v25.06.0/trident-installer-25.06.0.tar.gz
+tar -xf trident-installer-25.06.0.tar.gz
 cd trident-installer
 ----
 
@@ -174,7 +174,7 @@ Status:
   Current Installation Params:
     IPv6:                      false
     Autosupport Hostname:
-    Autosupport Image:         netapp/trident-autosupport:25.02
+    Autosupport Image:         netapp/trident-autosupport:25.06
     Autosupport Proxy:
     Autosupport Serial Number:
     Debug:                     true
@@ -184,10 +184,10 @@ Status:
     Kubelet Dir:          /var/lib/kubelet
     Log Format:           text
     Silence Autosupport:  false
-    Trident Image:        netapp/trident:25.02.0
+    Trident Image:        netapp/trident:25.06.0
   Message:                  Trident installed  Namespace:                trident
   Status:                   Installed
-  Version:                  v25.02.0
+  Version:                  v25.06.0
 Events:
     Type Reason Age From Message ---- ------ ---- ---- -------Normal
     Installing 74s trident-operator.netapp.io Installing Trident Normal
@@ -261,6 +261,6 @@ Vous pouvez utiliser `tridentctl` pour vérifier la version de Trident installé
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 25.02.0        | 25.02.0        |
+| 25.06.0        | 25.06.0        |
 +----------------+----------------+
 ----

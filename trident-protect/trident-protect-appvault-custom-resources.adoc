@@ -96,7 +96,7 @@ Lorsque vous accédez à un stockage compatible S3 tel qu'Amazon S3, Generic S3,
   ]
 }
 ----
-Pour plus d'informations sur les politiques Amazon S3, reportez-vous aux exemples du  https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-policies-s3.html["Documentation Amazon S3"^] .
+Pour plus d'informations sur les politiques Amazon S3, reportez-vous aux exemples dans le  https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-policies-s3.html["Documentation Amazon S3"^] .
 
 
 
