@@ -69,6 +69,13 @@ NOTE: Si vous sélectionnez remplacer pour la méthode de résolution des confli
 +
 image::../media/aws-eks-06.png[eks aws 06]
 
+
+
+
+NOTE: Ignorez cette étape si vous utilisez l’association d’identité de pod.
+
++
+
 . Sélectionnez *Créer*.
 . Vérifiez que l'état du complément est _Active_.
 +
