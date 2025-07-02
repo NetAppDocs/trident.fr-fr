@@ -33,9 +33,9 @@ Le résumé des nouveautés fournit des détails sur les améliorations, les cor
 
 * *Kubernetes* :
 +
-** Ajout de la prise en charge des instantanés de groupe de volumes CSI avec  `v1beta1` API Kubernetes d'instantané de groupe de volumes pour le pilote iSCSI ONTAP-SAN. Voir link:../trident-use/vol-group-snapshots.html["Travailler avec des instantanés de groupes de volumes"^].
-** Prise en charge ajoutée pour ONTAP ASA r2 pour NVMe/TCP en plus d'iSCSI. Voir link:../trident-use/ontap-san-examples.html["Options et exemples de configuration des SAN ONTAP"^].
-** Prise en charge SMB sécurisée ajoutée pour les volumes ONTAP-NAS et ONTAP-NAS-Economy. Les utilisateurs et groupes Active Directory peuvent désormais être utilisés avec les volumes SMB pour une sécurité renforcée. Voir link:../trident-use/ontap-nas-prep.html#enable-secure-smb["Activer le SMB sécurisé"^].
+** Ajout de la prise en charge des instantanés de groupe de volumes CSI avec  `v1beta1` API Kubernetes d'instantané de groupe de volumes pour le pilote iSCSI ONTAP-SAN. Voir link:https://docs.netapp.com/us-en/trident/trident-use/vol-group-snapshots.html["Travailler avec des instantanés de groupes de volumes"^].
+** Prise en charge ajoutée pour ONTAP ASA r2 pour NVMe/TCP en plus d'iSCSI. Voir link:link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html["Options et exemples de configuration des SAN ONTAP"^].
+** Prise en charge SMB sécurisée ajoutée pour les volumes ONTAP-NAS et ONTAP-NAS-Economy. Les utilisateurs et groupes Active Directory peuvent désormais être utilisés avec les volumes SMB pour une sécurité renforcée. Voir link:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas-prep.html#enable-secure-smb["Activer le SMB sécurisé"^].
 ** Concurrence de nœud Trident améliorée pour une plus grande évolutivité des opérations de nœud pour les volumes iSCSI.
 ** Ajouté  `--allow-discards` lors de l'ouverture des volumes LUKS pour autoriser les commandes discard/TRIM pour la récupération d'espace.
 ** Performances améliorées lors du formatage des volumes chiffrés LUKS.
