@@ -8,7 +8,7 @@ summary: Voici les problèmes connus de cette version.
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]

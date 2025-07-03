@@ -8,7 +8,7 @@ summary: 'Vous trouverez d"excellents blogs NetApp Trident et Trident Protect.'
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]

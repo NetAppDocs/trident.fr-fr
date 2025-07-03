@@ -8,7 +8,7 @@ summary: 'NetApp prend en charge Trident de plusieurs façons. De nombreuses opt
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]
