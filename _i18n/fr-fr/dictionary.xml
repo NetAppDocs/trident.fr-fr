@@ -5733,4 +5733,5 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="674d1c5daba14e57bb12199e316a830d" category="list-text">Prise en charge SMB sécurisée ajoutée pour les volumes ONTAP-NAS et ONTAP-NAS-Economy. Les utilisateurs et groupes Active Directory peuvent désormais être utilisés avec les volumes SMB pour une sécurité renforcée. Voir <block ref="4f989a35378d98430cb4c4899de0cc08" category="inline-link-macro-rx"></block>.</block>
   <block id="68e904dfe8bbc558c556cc39aaca54b6" category="list-text">Ajout de la prise en charge de la réplication de volume avec SnapMirror pour les backends NVMe. Voir <block ref="0837d9a30d067376d83aa60bb79334f8" category="inline-link-macro-rx"></block>.</block>
   <block id="afce633f05d99c109d2b0429ee891495" category="admonition">Cette étape est requise si vous effectuez une mise à niveau à partir d'une version antérieure à 25.06, car les CRD sont désormais inclus dans le tableau de protection du casque Trident.</block>
+  <block id="78ba3dee1dfae1136825fa94b594e8b0" category="paragraph"><block ref="b370fec489f67cf82a40d70295a9ea9a" category="inline-xref-macro-rx"></block></block>
 </blocks>
