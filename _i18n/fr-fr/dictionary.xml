@@ -2768,9 +2768,6 @@ Facultatif lorsque les identités gérées sont activées sur un cluster AKS.</b
   <block id="15f15289009d52be4af3e9951853eee5" category="paragraph">Ces exemples présentent les configurations de base pour fixer la demande de volume persistant à un pod.</block>
   <block id="416206518e27ed2ec8b8e0876078af35" category="listing-title">Configuration de base</block>
   <block id="b9fa7c201e2dc76fe12c8bb436c212ee" category="listing-title">Configuration NVMe/TCP de base</block>
-  <block id="e29a6d196232b6cdf3ae52f871ba291b" category="cell">Activez le cryptage LUKS. Reportez-vous à la section <block ref="569f9f91cdcc19909b8acbf6f423daf7" category="inline-link-macro-rx"></block>.
-
-Le cryptage LUKS n'est pas pris en charge pour NVMe/TCP.</block>
   <block id="a242dbcec09373d25c5fb582f9f2cfc6" category="example-title">Exemple NVMe/TCP</block>
   <block id="3a3347de03ef37c1eb5eb525619ff905" category="paragraph">Un SVM doit être configuré avec NVMe sur votre back-end ONTAP. Il s'agit d'une configuration back-end de base pour NVMe/TCP.</block>
   <block id="1b931baab9ca74be94af72763666c941" category="list-text">Le<block ref="33aacad9b122abfdfadc06e3e7fa5f59" prefix=" " category="inline-code"></block> La classe de stockage est mappée sur<block ref="11e89beb13d19bf6e3ab7ed65673b27d" prefix=" " category="inline-code"></block> pool virtuel dans<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> pilote avec<block ref="6fa083b88d05083e680071073d06c3af" prefix=" " category="inline-code"></block>. Il s'agit de la seule offre de piscine<block ref="5ca85ebb1d881fde490deaa5817c4ca5" prefix=" " category="inline-code"></block>.</block>
@@ -5734,4 +5731,5 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="68e904dfe8bbc558c556cc39aaca54b6" category="list-text">Ajout de la prise en charge de la réplication de volume avec SnapMirror pour les backends NVMe. Voir <block ref="0837d9a30d067376d83aa60bb79334f8" category="inline-link-macro-rx"></block>.</block>
   <block id="afce633f05d99c109d2b0429ee891495" category="admonition">Cette étape est requise si vous effectuez une mise à niveau à partir d'une version antérieure à 25.06, car les CRD sont désormais inclus dans le tableau de protection du casque Trident.</block>
   <block id="78ba3dee1dfae1136825fa94b594e8b0" category="paragraph"><block ref="b370fec489f67cf82a40d70295a9ea9a" category="inline-xref-macro-rx"></block></block>
+  <block id="b71ccf1062cee8c376a7eb37e3c42603" category="cell">Activez le cryptage LUKS. Reportez-vous à la <block ref="569f9f91cdcc19909b8acbf6f423daf7" category="inline-link-macro-rx"></block>.</block>
 </blocks>
