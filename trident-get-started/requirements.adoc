@@ -108,8 +108,6 @@ Trident prend en charge les pilotes ONTAP suivants pour KubeVirt et OpenShift Vi
 
 Le tableau ci-dessous résume les fonctionnalités disponibles dans cette version d'Trident et les versions de Kubernetes qu'il prend en charge.
 
-<<check for 25.06>>
-
 [cols="3"]
 |===
 | Fonction | Version Kubernetes | Portes-fonctions requises ? 
@@ -219,8 +217,6 @@ link:../trident-reference/ports.html["Ports Trident"]
 == Images de conteneur et versions Kubernetes correspondantes
 
 Pour les installations à air comprimé, la liste suivante est une référence aux images de conteneur nécessaires à l'installation de Trident. Utiliser `tridentctl images` la commande pour vérifier la liste des images de conteneur nécessaires.
-
-<<check for 25.06>>
 
 [cols="2"]
 |===
