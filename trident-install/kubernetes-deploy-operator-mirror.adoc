@@ -16,7 +16,7 @@ Vous pouvez déployer manuellement l'opérateur Trident pour installer Trident. 
 
 
 
-== Informations critiques sur Trident 25.05
+== Informations critiques sur Trident 25.06
 
 *Vous devez lire les informations critiques suivantes sur Trident.*
 
