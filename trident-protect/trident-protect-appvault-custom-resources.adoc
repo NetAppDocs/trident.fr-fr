@@ -16,19 +16,22 @@ summary: 'La ressource personnalisée de compartiment (CR) pour Trident Protect 
 [role="lead"]
 La ressource personnalisée de compartiment (CR) pour Trident Protect est appelée AppVault. Les objets AppVault sont la représentation déclarative du workflow Kubernetes d'un compartiment de stockage. Une CR AppVault contient les configurations nécessaires à l'utilisation d'un compartiment dans les opérations de protection, telles que les sauvegardes, les snapshots, les opérations de restauration et la réplication SnapMirror. Seuls les administrateurs peuvent créer des AppVault.
 
-Vous devez créer une CR AppVault manuellement ou à l'aide de la ligne de commande lorsque vous effectuez des opérations de protection des données sur une application et la CR AppVault doit résider sur le cluster sur lequel Trident Protect est installé. La CR AppVault est spécifique à votre environnement ; vous pouvez utiliser les exemples de cette page comme guide lors de la création de CRS AppVault.
+Vous devez créer une CR AppVault manuellement ou depuis la ligne de commande lorsque vous effectuez des opérations de protection des données sur une application. La CR AppVault est spécifique à votre environnement et vous pouvez vous inspirer des exemples de cette page pour créer des CR AppVault.
+
+
+NOTE: Assurez-vous que le CR AppVault se trouve sur le cluster où Trident Protect est installé. Si le CR AppVault n'existe pas ou si vous ne pouvez pas y accéder, la ligne de commande affiche une erreur.
 
 
 
 == Configurer l'authentification et les mots de passe AppVault
 
-Avant de créer une CR AppVault, vous devez vous assurer que l'AppVault et le Data Mover que vous choisissez peuvent s'authentifier auprès du fournisseur et des ressources associées.
+Avant de créer un AppVault CR, assurez-vous que l'AppVault et le dispositif de transfert de données que vous choisissez peuvent s'authentifier auprès du fournisseur et de toutes les ressources associées.
 
 
 
 === Mots de passe du référentiel de Data Mover
 
-Lorsque vous créez des objets AppVault à l'aide de CRS ou du plug-in de l'interface de ligne de commande Trident Protect, vous pouvez éventuellement demander à Trident Protect d'utiliser un code secret Kubernetes contenant des mots de passe personnalisés pour le chiffrement du référentiel Restic et Kopia. Si vous ne spécifiez pas de secret, Trident Protect utilise un mot de passe par défaut.
+Lorsque vous créez des objets AppVault à l'aide de CR ou du plug-in CLI Trident Protect, vous pouvez spécifier un secret Kubernetes avec des mots de passe personnalisés pour le chiffrement Restic et Kopia. Si vous ne spécifiez pas de secret, Trident Protect utilise un mot de passe par défaut.
 
 * Lors de la création manuelle de CR AppVault, utilisez le champ *spec.dataMoverPasswordSecretRef* pour spécifier le secret.
 * Lors de la création d'objets AppVault à l'aide de l'interface de ligne de commande Trident Protect, utilisez le  `--data-mover-password-secret-ref` argument pour spécifier le secret.
@@ -40,9 +43,13 @@ Lorsque vous créez des objets AppVault à l'aide de CRS ou du plug-in de l'inte
 
 Utilisez les exemples suivants pour créer le mot de passe secret. Lorsque vous créez des objets AppVault, vous pouvez demander à Trident Protect d'utiliser ce secret pour s'authentifier auprès du référentiel Data Mover.
 
+[NOTE]
+====
+* Selon le mécanisme de déplacement des données que vous utilisez, il vous suffit d'inclure le mot de passe correspondant à ce mécanisme de transfert de données. Par exemple, si vous utilisez Restic et que vous ne prévoyez pas d'utiliser Kopia à l'avenir, vous ne pouvez inclure que le mot de passe Restic lorsque vous créez le secret.
+* Conservez le mot de passe en lieu sûr. Vous en aurez besoin pour restaurer les données sur le même cluster ou sur un autre. Si le cluster ou le  `trident-protect` l'espace de noms est supprimé, vous ne pourrez pas restaurer vos sauvegardes ou instantanés sans le mot de passe.
 
-NOTE: Selon le mécanisme de déplacement des données que vous utilisez, il vous suffit d'inclure le mot de passe correspondant à ce mécanisme de transfert de données. Par exemple, si vous utilisez Restic et que vous ne prévoyez pas d'utiliser Kopia à l'avenir, vous ne pouvez inclure que le mot de passe Restic lorsque vous créez le secret.
 
+====
 [role="tabbed-block"]
 ====
 .Utiliser une CR
