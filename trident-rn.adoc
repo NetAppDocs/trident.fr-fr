@@ -268,7 +268,7 @@ NetApp Trident Protect propose des fonctionnalités avancées de gestion des don
 * Taille minimale du volume Azure NetApp Files réduite à 50 Gio. La nouvelle taille minimale d'Azure devrait être globalement disponible en novembre.
 * Ajout d'un `denyNewVolumePools` paramètre de configuration pour limiter les pilotes ONTAP-NAS-Economy et ONTAP-SAN-Economy aux pools FlexVol préexistants.
 * Détection supplémentaire pour l'ajout, la suppression ou le renommage d'agrégats du SVM sur tous les pilotes ONTAP
-* Ajout de la surcharge de 18 Mio aux LUN LUKS pour garantir que la taille de PVC signalée est utilisable.
+* Ajout de 18 Mio de surcharge aux LUN LUKS pour garantir que la taille du PVC signalée est utilisable.
 * Amélioration de la gestion des étapes et des déconnexions des nœuds ONTAP-SAN et ONTAP-SAN-Economy pour permettre le retrait des périphériques après une phase d'échec.
 * Ajout d'un générateur de rôles personnalisé permettant aux clients de créer un rôle minimaliste pour Trident dans ONTAP.
 * Ajout d'une journalisation supplémentaire pour le dépannage `lsscsi` (link:https://github.com/NetApp/trident/issues/792["Question no 792"]).
@@ -374,7 +374,7 @@ link:./trident-protect/learn-about-trident-protect.html["En savoir plus sur Trid
 * Correction des défaillances d'installation de Trident suite à des transactions obsolètes.
 * Correction de tridentctl pour ignorer les messages d'avertissement de Kubernetes (link:https://github.com/NetApp/trident/issues/892["Question no 892"]).
 * La priorité du contrôleur Trident a été modifiée `SecurityContextConstraint` en `0` (link:https://github.com/NetApp/trident/issues/887["Question no 887"]).
-* Les pilotes ONTAP acceptent désormais des volumes inférieurs à 20 Mio (link:https://github.com/NetApp/trident/issues/885["Problème[#885"]).
+* Les pilotes ONTAP acceptent désormais les tailles de volume inférieures à 20 Mio ( link:https://github.com/NetApp/trident/issues/885["Problème[#885"] ).
 * Correction de la Trident pour empêcher la réduction des volumes FlexVol pendant le redimensionnement du pilote ONTAP-SAN.
 * Correction de la défaillance d'importation du volume ANF avec NFS v4.1.
 

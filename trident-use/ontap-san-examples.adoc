@@ -246,7 +246,7 @@ Pour les systèmes back-end définis par `snapshotReserve`, Trident calcule la t
 ----
 Total volume size = [(PVC requested size) / (1 - (snapshotReserve percentage) / 100)] * 1.1
 ----
-Le modèle 1.1 représente les 10 % supplémentaires de Trident ajoutés au FlexVol pour prendre en charge les métadonnées de LUN. Pour `snapshotReserve` = 5 % et demande de volume persistant = 5 Gio, la taille totale du volume est de 5,79 Gio et la taille disponible est de 5,5 Gio.  `volume show`La commande doit afficher des résultats similaires à cet exemple :
+Le 1.1 correspond aux 10 % supplémentaires ajoutés par Trident au FlexVol pour prendre en charge les métadonnées LUN .  `snapshotReserve` = 5 %, et la demande PVC = 5 Gio, la taille totale du volume est de 5,79 Gio et la taille disponible est de 5,5 Gio .  `volume show` la commande devrait afficher des résultats similaires à cet exemple :
 
 image::../media/vol-show-san.png[Affiche la sortie de la commande volume show.]
 

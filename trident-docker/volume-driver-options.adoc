@@ -109,13 +109,13 @@ Les options supplémentaires suivantes sont disponibles pour iSCSI *uniquement* 
 
 Voir les exemples ci-dessous :
 
-* Création d'un volume de 10 Gio :
+* Créer un volume de 10 Gio :
 +
 [listing]
 ----
 docker volume create -d netapp --name demo -o size=10G -o encryption=true
 ----
-* Créez un volume de 100 Gio avec les snapshots :
+* Créer un volume de 100 Gio avec des instantanés :
 +
 [listing]
 ----
@@ -129,7 +129,7 @@ docker volume create -d netapp --name demo -o unixPermissions=4755
 ----
 
 
-La taille minimale du volume est de 20MiB.
+La taille minimale du volume est de 20 Mio.
 
 Si la réserve d'instantanés n'est pas spécifiée et que la règle d'instantanés est `none`, Trident utilise une réserve d'instantanés de 0 %.
 
@@ -175,7 +175,7 @@ Les autres options de création de volumes du logiciel Element sont les suivante
 
 
 | `size`  a| 
-La taille du volume, par défaut 1Gio ou entrée de configuration ... "Par défaut": {"size": "5G"}.
+La taille du volume, par défaut 1 Gio ou entrée de configuration... "defaults": {"size": "5G"}.
 
 
 
@@ -222,13 +222,13 @@ Voir l'exemple de fichier de configuration suivant avec les définitions QoS :
 ----
 Dans la configuration ci-dessus, nous avons trois définitions de règles : bronze, Silver et Gold. Ces noms sont arbitraires.
 
-* Création d'un volume Gold de 10 Gio :
+* Créer un volume Gold de 10 Gio :
 +
 [listing]
 ----
 docker volume create -d solidfire --name sfGold -o type=Gold -o size=10G
 ----
-* Créez un volume Bronze de 100 Gio :
+* Créer un volume Bronze de 100 Gio :
 +
 [listing]
 ----

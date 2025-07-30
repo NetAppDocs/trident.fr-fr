@@ -34,7 +34,7 @@ docker volume create -d ntap_bronze --name bronzeVolume
 
 NOTE: Si vous n'en spécifiez aucun link:volume-driver-options.html["options"^], les valeurs par défaut du pilote sont utilisées.
 
-* Remplacer la taille du volume par défaut. Voir l'exemple suivant pour créer un volume de 20 Gio avec un pilote :
+* Remplacez la taille de volume par défaut. Consultez l'exemple suivant pour créer un volume de 20 Gio avec un pilote :
 +
 [source, console]
 ----

@@ -389,7 +389,7 @@ spec:
       storage: 20Mi
   storageClassName: ontapnas
 ----
-Trident devrait créer un volume persistant NFS de 20 Mio pour cette demande de volume persistant :
+Trident doit créer un PV NFS de 20 Mio pour ce PVC :
 
 [listing]
 ----
@@ -405,7 +405,7 @@ pvc-08f3d561-b199-11e9-8d9f-5254004dfdb7   20Mi       RWO            Delete     
 
 === Étape 3 : développez le volume persistant
 
-Pour redimensionner le volume persistant 20MiB nouvellement créé à 1 Gio, modifiez la demande de volume persistant et définissez-la `spec.resources.requests.storage` À 1 Gio :
+Pour redimensionner le PV de 20 Mio nouvellement créé à 1 Gio, modifiez le PVC et définissez  `spec.resources.requests.storage` à 1 Gio :
 
 [listing]
 ----
