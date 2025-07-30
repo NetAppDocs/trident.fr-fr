@@ -241,13 +241,6 @@ WARNING: Ne supprimez pas l'affinité par défaut du fichier values.yaml. Lorsqu
 
 
 | `nodePrep` | Permet à Trident de préparer les nœuds du cluster Kubernetes à gérer les volumes à l'aide du protocole de stockage de données spécifié. *Actuellement, `iscsi` est la seule valeur prise en charge.* |  
-
-
-| `ontapConfigurator`  a| 
-Active ou désactive la configuration automatique du back-end Trident et des classes de stockage pour Amazon FSX. Utilisez les paramètres suivants avec `ontapConfigurator` pour activer la configuration automatique du back-end :
-`enabled`: définissez sur `true` pour activer la configuration automatique du back-end.
-`svms`: Contient la liste des ID de système de fichiers pour lesquels la configuration automatique du back-end sera créée. - `authType`: Définit le type d'authentification pour l'authentification SVM. Pour AWS, l'authentification basée sur le fil (« awsarn ») est actuellement prise en charge. - `fsxnID`: Définit l'ID système de fichiers d'AWS FSX. Exemple : « fs-0dfeaa884a68b1CAB ». - `protocols` - Spécifie la liste des protocoles pris en charge pour la configuration automatique du back-end : "nfs", "iscsi" ou les deux.
-|  
 |===
 
 
