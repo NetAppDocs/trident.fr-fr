@@ -82,29 +82,28 @@ Le cluster EKS prend en charge plusieurs systèmes d'exploitation, mais AWS a op
 |===
 
 
-| AMI | NAS | Économie NAS | SAN | SAN-Economie 
+| AMI | NAS | Économie NAS | ISCSI | économie iSCSI 
 
 
-| AL2023_x86_64_STANDARD | Oui. | Oui. | Oui* | Oui* 
+| AL2023_x86_64_STANDARD | Oui. | Oui. | Oui. | Oui. 
 
 
-| AL2_x86_64 | Oui. | Oui. | Oui** | Oui** 
+| AL2_x86_64 | Oui. | Oui. | Oui* | Oui* 
 
 
-| BOTTLEROCKET_x86_64 | Oui*** | Oui. | S/O | S/O 
+| BOTTLEROCKET_x86_64 | Oui** | Oui. | S/O | S/O 
 
 
-| AL2023_ARM_64_STANDARD | Oui. | Oui. | Oui* | Oui* 
+| AL2023_ARM_64_STANDARD | Oui. | Oui. | Oui. | Oui. 
 
 
-| AL2_ARM_64 | Oui. | Oui. | Oui** | Oui** 
+| AL2_ARM_64 | Oui. | Oui. | Oui* | Oui* 
 
 
-| BOTTLEROCKET_ARM_64 | Oui*** | Oui. | S/O | S/O 
+| BOTTLEROCKET_ARM_64 | Oui** | Oui. | S/O | S/O 
 |===
-* * Prend en charge nodePrep avec iSCSI uniquement.
-* ** Impossible de supprimer le PV sans redémarrer le nœud
-* *** Ne fonctionne pas avec NFSv3 avec la version 25.02 de Trident, mais fonctionne avec la version 24.10. Fonctionne avec NFSv4.1 avec les deux versions.
+* * Impossible de supprimer le PV sans redémarrer le nœud
+* ** Ne fonctionne pas avec NFSv3 avec Trident version 25.02.
 
 
 
@@ -112,8 +111,8 @@ NOTE: Si votre ami souhaité n'est pas répertorié ici, cela ne signifie pas qu
 
 *Tests effectués avec* :
 
-* Version EKS : 1.31
-* Méthode d'installation : Helm et en tant qu'add-on AWS
+* Version EKS : 1.32
+* Méthode d'installation : Helm 25.06 et en tant que module complémentaire AWS 25.06
 * Pour NAS, NFS v3 et NFS v4.1 ont été testés.
 * Pour le SAN, iSCSI uniquement a été testé, pas NVMe-of.
 
