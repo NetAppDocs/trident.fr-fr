@@ -55,24 +55,6 @@ NOTE: Si vous spécifiez un rôle IAM dans Trident, vous pouvez omettre de spéc
 
 
 
-=== Utilisation parallèle du pilote Trident SAN/iSCSI et EBS-CSI
-
-Si vous avez l'intention d'utiliser `ontap-san` pilotes (par exemple iSCSI), la configuration multi-accès requise sur les nœuds peut entrer en conflit avec le pilote CSI Amazon Elastic Block Store (EBS).  Pour garantir que le multivoie fonctionne sans impacter les disques EBS sur le même nœud, vous devez exclure EBS dans votre configuration de multivoie.  Voici un exemple de `multipath.conf` fichier qui inclut les paramètres Trident requis et exclut les disques EBS du multi-acheminement :
-
-[listing]
-----
-defaults {
-    find_multipaths no
-}
-blacklist {
-    device {
-        vendor "NVME"
-        product "Amazon Elastic Block Store"
-    }
-}
-----
-
-
 == Authentification
 
 Trident propose deux modes d'authentification.
