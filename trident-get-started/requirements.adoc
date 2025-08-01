@@ -46,14 +46,6 @@ Trident prend en charge plusieurs moteurs de mise en conteneurs et orchestrateur
 * Rancher Kubernetes Engine 2 (RKE2) v1.27.x - 1.33.x
 
 
-L'opérateur de Trident est pris en charge par ces versions :
-
-* Anthos sur site (VMware) et Anthos sur bare Metal 1.16
-* Kubernetes 1.27 - 1.33
-* OpenShift 4.14 - 4.18
-* Rancher Kubernetes Engine 2 (RKE2) v1.27.x - 1.33.x
-
-
 
 NOTE: _Alors que Trident est pris en charge sur les versions 1.27.x à 1.33.x de Rancher Kubernetes Engine 2 (RKE2), Trident est actuellement qualifié uniquement sur RKE2 v1.28.5+rke2r1._
 
