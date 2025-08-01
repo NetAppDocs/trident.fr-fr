@@ -5351,8 +5351,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="f19e5d93360a2cdbfe64b6c513e8d263" category="list-text">Cliquez sur *installer*.</block>
   <block id="86499c179913093d38f20a089bb4967f" category="list-text">Sélectionnez les options requises et cliquez sur *installer*.</block>
   <block id="301a8f7d2ea6785da5f183d668f629b2" category="list-text">Une fois l'installation terminée, l'opérateur est visible dans la liste des opérateurs installés.</block>
-  <block id="daf49607bdd50d5294748814ce67ed21" category="list-text">Créez un TORC comme l'installation de l'ensemble opérateur.</block>
-  <block id="7f95b6a9d45bd5ee11107a5abb5dd69c" category="section-title">Désinstallez l'opérateur Trident</block>
   <block id="9838ab5306db947832d94d1cd49a486a" category="list-text">Sélectionnez l'opérateur Trident dans la liste des opérateurs installés.</block>
   <block id="b5a7424a278ddd01fa4e381b58d1e00d" category="list-text">Sélectionnez cette option pour supprimer toutes les instances d'opérande de l'opérateur.</block>
   <block id="28ed84868f638999e59e306d6b87b07c" category="admonition">Si vous ne cochez pas la case *Supprimer toutes les instances d'opérande de cet opérateur*, Trident ne sera pas désinstallé.</block>
@@ -5774,4 +5772,5 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="99be75de31964ff7afed59629c2827c9" category="list-text">Nombres<block ref="415d01607bfb64fa0b7efaf0fe064e86" prefix=" " category="inline-code"></block></block>
   <block id="f0fbfac7ddb67830c39dcddb2e0101aa" category="list-text">souligne<block ref="b14a7b8059d9c055954c92674ce60032" prefix=" " category="inline-code"></block></block>
   <block id="c76231732eebaec2e2411ed7cfd30e2c" category="list-text">traits d'union<block ref="336d5ebc5436534e61d16e63ddfca327" prefix=" " category="inline-code"></block></block>
+  <block id="3304691bb80d9d42f8bae0707e46c701" category="paragraph">== Désinstaller l'opérateur Trident</block>
 </blocks>
