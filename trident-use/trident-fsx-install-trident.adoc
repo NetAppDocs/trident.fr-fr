@@ -30,7 +30,7 @@ Si vous souhaitez utiliser la fonctionnalité snapshot, installez le module comp
 ====
 .Identité du pod
 --
-. Ajoutez le référentiel NetApp Trident à la configuration de la barre :
+. Ajout du référentiel Trident Helm :
 +
 [source, console]
 ----
@@ -62,7 +62,7 @@ trident-operator    trident     1           2024-10-14 14:31:22.463122 +0300 IDT
 --
 .Association de comptes de service (IRSA)
 --
-. Ajoutez le référentiel NetApp Trident à la configuration de la barre :
+. Ajout du référentiel Trident Helm :
 +
 [source, console]
 ----
