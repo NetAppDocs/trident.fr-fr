@@ -14,7 +14,7 @@ summary: 'Vous pouvez restaurer vos données de sauvegarde ou d"instantané sur 
 
 
 [role="lead"]
-Vous pouvez migrer vos applications entre des clusters ou des classes de stockage en restaurant vos données de sauvegarde ou d'instantané sur un autre cluster ou une autre classe de stockage.
+Vous pouvez migrer vos applications entre clusters ou vers différentes classes de stockage en restaurant les données de sauvegarde.
 
 
 NOTE: Lorsque vous migrez une application, tous les crochets d'exécution configurés pour l'application sont migrés avec l'application. Si un hook d'exécution post-restauration est présent, il s'exécute automatiquement dans le cadre de l'opération de restauration.
@@ -65,7 +65,7 @@ NOTE: Vous pouvez répliquer une application entre différents clusters à l'aid
 
 == Migration des applications d'une classe de stockage vers une autre
 
-Vous pouvez migrer des applications d'une classe de stockage vers une autre classe de stockage en restaurant un snapshot sur la classe de stockage de destination différente.
+Vous pouvez migrer des applications d’une classe de stockage vers une autre classe de stockage en restaurant une sauvegarde vers la classe de stockage de destination.
 
 Par exemple (à l'exclusion des secrets de la CR de restauration) :
 
@@ -79,11 +79,11 @@ spec:
   appArchivePath: "${snapshotArchivePath}"
   appVaultRef: "${appVaultCRName}"
   namespaceMapping:
-    destination: "${destinationNamespace}"
-    source: "${sourceNamespace}"
+    - destination: "${destinationNamespace}"
+      source: "${sourceNamespace}"
   storageClassMapping:
-    destination: "${destinationStorageClass}"
-    source: "${sourceStorageClass}"
+    - destination: "${destinationStorageClass}"
+      source: "${sourceStorageClass}"
   resourceFilter:
     resourceMatchers:
       kind: Secret
