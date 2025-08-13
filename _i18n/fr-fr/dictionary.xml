@@ -5514,7 +5514,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="85cb66a45776909e333f8847ee91255d" category="paragraph">Le <block ref="4a238bd658ede8bc190a54f7df8c3483" prefix=" " category="inline-code"></block> l'objet contient des détails qui identifient le groupe d'instantanés, tels que <block ref="e8dbdd2405d28658285ebd383044be1a" prefix=" " category="inline-code"></block> et et les volumeSnapshotHandles individuels existant sur le système de stockage.</block>
   <block id="a4314d759b2ba28d3d385366f2595052" category="paragraph">Lorsqu'une demande d'instantané arrive, Trident crée l'instantané du groupe de volumes sur le serveur principal. Une fois l'instantané du groupe de volumes créé, Trident configure un <block ref="4a238bd658ede8bc190a54f7df8c3483" prefix=" " category="inline-code"></block> objet et expose ainsi l'instantané à l'API Kubernetes.</block>
   <block id="fc679dfce4052095eac6de2f7f86cd16" category="paragraph">Les notes de publication fournissent des informations sur les nouvelles fonctionnalités, les améliorations et les correctifs de bogues de la dernière version de NetApp Trident.</block>
-  <block id="d8789e2b2a964b430285afd098847d7e" category="section-title">Nouveautés de la version 25.06</block>
   <block id="08f1535b065719df5968364b00b95026" category="paragraph">Le résumé des nouveautés fournit des détails sur les améliorations, les correctifs et les dépréciations des versions Trident et Trident Protect.</block>
   <block id="b73e3aa94514d51e32ca4c9fa306ce1e" category="inline-link-macro">Travailler avec des instantanés de groupes de volumes</block>
   <block id="d5bb517310bc551b239857e32401ac1f" category="inline-link-macro">Activer le SMB sécurisé</block>
@@ -5781,4 +5780,12 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="11162de38772a3876602bb4d9d213f43" category="section-title">Mappage des classes de stockage</block>
   <block id="b48c8c7ca3eb5e63afdfe6bbd74a35c9" category="paragraph">Le<block ref="b57d666629acffb30cc697faadc136b5" prefix=" " category="inline-code"></block> L'attribut définit un mappage d'une classe de stockage présente dans l'application source vers une nouvelle classe de stockage sur le cluster cible.  Vous pouvez l'utiliser lors de la migration d'applications entre des clusters avec différentes classes de stockage ou lors du changement du backend de stockage pour les opérations BackupRestore.</block>
   <block id="27f5153068cecd37b6fa4a136586658d" category="sidebar">Utiliser les paramètres avancés</block>
+  <block id="78b16a5d2427fb1cb647b8ff8e8936dd" category="section-title">Quoi de neuf dans la version 25.06.1</block>
+  <block id="56f0b7f1d902abcea5e9a924acc8cf68" category="list-text">Correction d'un problème où les NQN n'étaient pas vérifiés avant d'être démappés des sous-systèmes.</block>
+  <block id="74ede3b036d836536636c89ae6208dc1" category="list-text">Correction d'un problème où plusieurs tentatives de fermeture d'un périphérique LUKS entraînaient des échecs lors du détachement des volumes.</block>
+  <block id="e593abd973cbfe8b821587be547d75a8" category="list-text">Correction du volume iSCSI non mis en scène lorsque le chemin du périphérique a changé depuis sa création.</block>
+  <block id="ba928ee331d175497be64b1981e81596" category="list-text">Clonage de blocs de volumes sur plusieurs classes de stockage.</block>
+  <block id="4f8bdbf86c4afec9c1de4e403735e1df" category="list-text">*OpenShift* : un problème a été résolu où la préparation du nœud iSCSI échouait avec OCP 4.19.</block>
+  <block id="4437218698cd37b58221a09f0b779bab" category="list-text">Augmentation du délai d'expiration lors du clonage d'un volume à l'aide des backends SolidFire (<block ref="ff387119bc332768d9a3831513d005d5" category="inline-link-macro-rx"></block> ).</block>
+  <block id="3dca4d7450a120a0a20749c485d209b2" category="section-title">Modifications dans la version 25.06</block>
 </blocks>
