@@ -28,6 +28,9 @@ Le résumé des nouveautés fournit des détails sur les améliorations, les cor
 === Trident
 
 
+IMPORTANT: Pour les clients utilisant SolidFire, veuillez ne pas effectuer la mise à niveau vers la version 25.06.1 en raison d'un problème connu lors de la dépublication des volumes.  La version 25.06.2 sera bientôt publiée pour résoudre ce problème.
+
+
 
 ==== Correctifs
 

@@ -5796,4 +5796,5 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="5df2f935f2bc3df2c6378f665b3d6659" category="list-text">Vous pouvez ajouter le<block ref="e9a7558decb5e432d8b7c4d536cc9876" prefix=" " category="inline-code"></block> paramètre permettant de configurer et d'activer les services iSCSI et Multipath sur tous les nœuds de travail OpenShift.</block>
   <block id="f61306bfa8c6de676059739358d4479f" category="list-text">Cliquez sur *Créer* ; Trident Orchestrator sera entièrement installé.</block>
   <block id="7f95b6a9d45bd5ee11107a5abb5dd69c" category="section-title">Désinstaller l'opérateur Trident</block>
+  <block id="b94d4c5305d8d32a875a24a5b1501274" category="admonition">Pour les clients utilisant SolidFire, veuillez ne pas effectuer la mise à niveau vers la version 25.06.1 en raison d'un problème connu lors de la dépublication des volumes.  La version 25.06.2 sera bientôt publiée pour résoudre ce problème.</block>
 </blocks>
