@@ -251,9 +251,9 @@ Vous pouvez également mettre à jour l'état du back-end à l'aide du `userStat
 Procédez comme suit pour mettre à jour `userState` à l'aide du `backend.json` fichier :
 
 . Modifiez le `backend.json` fichier pour inclure le `userState` champ avec sa valeur définie sur « terminé ».
-. Mettez à jour le backend à l'aide de la `tridentctl backend update` commande et du chemin d'accès au fichier mis à jour `backend.json` .
+. Mettre à jour le backend en utilisant le `tridentctl update backend` commande et le chemin vers la mise à jour `backend.json` déposer.
 +
-*Exemple* : `tridentctl backend update -f /<path to backend JSON file>/backend.json`
+*Exemple*: `tridentctl update backend  -f /<path to backend JSON file>/backend.json -n trident`
 
 
 
