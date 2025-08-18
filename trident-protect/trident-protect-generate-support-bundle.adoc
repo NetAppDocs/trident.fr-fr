@@ -14,7 +14,7 @@ summary: 'Trident Protect permet aux administrateurs de générer des bundles qu
 
 
 [role="lead"]
-Trident Protect permet aux administrateurs de générer des bundles qui incluent des informations utiles pour le support NetApp, notamment des journaux, des metrics et des informations de topologie sur les clusters et les applications à gérer. Si vous êtes connecté à Internet, vous pouvez télécharger des offres groupées de support sur le site de support NetApp (NSS) à l'aide d'un fichier de ressources personnalisées (CR).
+Trident Protect permet aux administrateurs de générer des bundles contenant des informations utiles au support NetApp , notamment des journaux, des mesures et des informations de topologie sur les clusters et les applications sous gestion.  Si vous êtes connecté à Internet, vous pouvez télécharger des bundles de support sur le site de support NetApp (NSS) à l'aide d'un fichier de ressources personnalisé (CR).
 
 [role="tabbed-block"]
 ====
@@ -56,11 +56,11 @@ spec:
 ----
 
 
-. Une fois que vous avez rempli le `astra-support-bundle.yaml` fichier avec les valeurs correctes, appliquez la CR :
+. Après avoir rempli le `trident-protect-support-bundle.yaml` fichier avec les valeurs correctes, appliquez le CR :
 +
 [source, console]
 ----
-kubectl apply -f trident-protect-support-bundle.yaml
+kubectl apply -f trident-protect-support-bundle.yaml -n trident-protect
 ----
 
 
@@ -75,9 +75,32 @@ Par exemple :
 +
 [source, console]
 ----
-tridentctl-protect create autosupportbundle <my-bundle-name> --trigger-type <trigger-type>
+tridentctl-protect create autosupportbundle <my-bundle-name> --trigger-type <trigger-type> -n trident-protect
 ----
 
 
 --
 ====
+
+
+== Surveiller et récupérer le pack de support
+
+Après avoir créé un bundle de support à l'aide de l'une ou l'autre méthode, vous pouvez surveiller sa progression de génération et le récupérer sur votre système local.
+
+.Étapes
+. Attendez le `status.generationState` atteindre `Completed` État.  Vous pouvez surveiller la progression de la génération avec la commande suivante :
++
+[source, console]
+----
+kubectl get autosupportbundle trident-protect-support-bundle -n trident-protect
+----
+. Récupérez le pack de support sur votre système local.  Obtenez la commande de copie à partir du bundle AutoSupport terminé :
++
+[source, console]
+----
+kubectl describe autosupportbundle trident-protect-support-bundle -n trident-protect
+----
++
+Trouver le `kubectl cp` commande à partir de la sortie et exécutez-la, en remplaçant l'argument de destination par votre répertoire local préféré.
+
+

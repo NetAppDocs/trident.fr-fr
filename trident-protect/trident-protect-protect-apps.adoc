@@ -125,16 +125,6 @@ Assurez-vous que l'expiration du jeton de session AWS suffit pour toutes les op�
 ** *spec.snapshotRef*: (_Optional_): Nom du snapshot à utiliser comme source de la sauvegarde. Si ce n'est pas le cas, un instantané temporaire sera créé et sauvegardé.
 ** *metadata.annotations.protect.trident.netapp.io/full-backup* : (_Facultatif_) Cette annotation est utilisée pour spécifier si une sauvegarde doit être non incrémentielle. Par défaut, toutes les sauvegardes sont incrémentielles. Toutefois, si cette annotation est définie sur `true`, la sauvegarde devient non incrémentielle. Si elle n'est pas spécifiée, la sauvegarde suit le paramètre de sauvegarde incrémentielle par défaut. Il est recommandé d'effectuer régulièrement une sauvegarde complète, puis d'effectuer des sauvegardes incrémentielles entre deux sauvegardes complètes afin de réduire le risque associé aux restaurations.
 +
-[NOTE]
-====
-Si vous devez appliquer cette annotation après la création d'une application, vous pouvez utiliser la commande suivante :
-
-[source, console]
-----
-kubectl annotate backup -n <backup CR namespace> <backup CR name> protect.trident.netapp.io/full-backup="true"
-----
-====
-+
 Exemple YAML :
 
 +
