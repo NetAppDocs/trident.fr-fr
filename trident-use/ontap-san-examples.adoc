@@ -128,11 +128,18 @@ NOTE: Lorsque l'agrégat est mis à jour au SVM, il est mis à jour automatiquem
 Ne pas utiliser sauf si vous effectuez un dépannage et que vous avez besoin d'un vidage de journal détaillé. | `null` 
 
 
-| `useREST` | Paramètre booléen pour utiliser les API REST de ONTAP. 
-`useREST` Lorsqu'il est défini sur `true`, Trident utilise les API REST ONTAP pour communiquer avec le back-end ; lorsqu'il est défini sur `false`, Trident utilise les appels ONTAPI (ZAPI) pour communiquer avec le back-end. Cette fonctionnalité requiert ONTAP 9.11.1 et versions ultérieures. En outre, le rôle de connexion ONTAP utilisé doit avoir accès à l' `ontapi` application. Ceci est satisfait par les rôles et prédéfinis `vsadmin` `cluster-admin` . À partir de la version Trident 24.06 et de ONTAP 9.15.1 ou version ultérieure,
-`useREST` est défini sur `true` par défaut ; passez
-`useREST` à `false` pour utiliser les appels ONTAPI (ZAPI). 
-`useREST` Est pleinement qualifié pour NVMe/TCP. *Si spécifié, toujours défini sur  `true` pour les systèmes ASA r2*. | `true` Pour ONTAP 9.15.1 ou version ultérieure, sinon `false`. 
+| `useREST`  a| 
+Paramètre booléen pour utiliser les API REST ONTAP .
+
+ `useREST`Lorsqu'il est réglé sur `true` Trident utilise les API REST ONTAP pour communiquer avec le backend ; lorsqu'il est défini sur `false` Trident utilise les appels ONTAPI (ZAPI) pour communiquer avec le backend.  Cette fonctionnalité nécessite ONTAP 9.11.1 et versions ultérieures.  De plus, le rôle de connexion ONTAP utilisé doit avoir accès au `ontapi` application.  Ceci est satisfait par le prédéfini `vsadmin` et `cluster-admin` rôles.  À partir de la version Trident 24.06 et ONTAP 9.15.1 ou version ultérieure, `useREST` est réglé sur `true` par défaut; changer `useREST` à `false` pour utiliser les appels ONTAPI (ZAPI).
+
+`useREST`est entièrement qualifié pour NVMe/TCP.
+
+
+NOTE: NVMe est pris en charge uniquement avec les API REST ONTAP et n'est pas pris en charge avec ONTAPI (ZAPI).
+
+*Si spécifié, toujours défini sur `true` pour les systèmes ASA r2*.
+| `true` Pour ONTAP 9.15.1 ou version ultérieure, sinon `false`. 
 
 
  a| 

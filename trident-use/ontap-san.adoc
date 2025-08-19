@@ -136,7 +136,7 @@ Trident prend en charge le protocole NVMe (non-volatile Memory Express) avec le 
 
 Trident ne prend pas en charge :
 
-* DH-HMAC-CHAP pris en charge par NVMe de manière native
+* DH-HMAC-CHAP pris en charge nativement par NVMe
 * Chemins d'accès multiples du mappeur de périphériques (DM)
 * Cryptage LUKS
 
