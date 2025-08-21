@@ -138,9 +138,6 @@ Paramètre booléen pour utiliser les API REST ONTAP .
 
 NOTE: NVMe est pris en charge uniquement avec les API REST ONTAP et n'est pas pris en charge avec ONTAPI (ZAPI).
 
-
-NOTE: NVMe est pris en charge uniquement avec les API REST ONTAP et n'est pas pris en charge avec ONTAPI (ZAPI).
-
 *Si spécifié, toujours défini sur `true` pour les systèmes ASA r2*.
 | `true` Pour ONTAP 9.15.1 ou version ultérieure, sinon `false`. 
 

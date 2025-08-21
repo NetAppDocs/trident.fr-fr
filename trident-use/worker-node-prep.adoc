@@ -160,6 +160,12 @@ sudo yum install -y lsscsi iscsi-initiator-utils device-mapper-multipath
 ----
 rpm -q iscsi-initiator-utils
 ----
+. Définir la numérisation sur manuelle :
++
+[listing]
+----
+sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
+----
 . Activer les chemins d'accès multiples :
 +
 [listing]
