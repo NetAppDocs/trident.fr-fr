@@ -279,6 +279,7 @@ Assurez-vous que les conditions préalables suivantes sont remplies :
 
 * Trident Protect est installé sur le cluster de destination.
 * Le cluster de destination a accès au chemin de compartiment du même AppVault que le cluster source, où la sauvegarde est stockée.
+* Assurez-vous que votre environnement local peut se connecter au compartiment de stockage d'objets défini dans l'AppVault CR lors de l'exécution de l' `tridentctl-protect get appvaultcontent` commande.  Si les restrictions réseau empêchent l’accès, exécutez plutôt l’interface de ligne de commande Trident Protect à partir d’un pod sur le cluster de destination.
 * Assurez-vous que l'expiration du jeton de session AWS suffit pour toutes les opérations de restauration à long terme. Si le jeton expire pendant l'opération de restauration, l'opération peut échouer.
 +
 ** Pour plus d'informations sur la vérification de l'expiration du jeton de session en cours, reportez-vous https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["Documentation de l'API AWS"^] au.
