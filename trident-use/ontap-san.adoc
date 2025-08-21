@@ -140,3 +140,6 @@ Trident ne prend pas en charge :
 * Chemins d'accès multiples du mappeur de périphériques (DM)
 * Cryptage LUKS
 
+
+
+NOTE: NVMe est pris en charge uniquement avec les API REST ONTAP et n'est pas pris en charge avec ONTAPI (ZAPI).
