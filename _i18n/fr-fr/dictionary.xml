@@ -5592,14 +5592,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="d716a23a6e731bf750989a45cf32a804" category="cell">Politique de hiérarchisation à utiliser « aucun » *Ne pas spécifier pour les systèmes ASA r2*.</block>
   <block id="9e925e9341b490bfd3b4c4ca3b0c1ef2" category="inline-link-macro">c'est ça</block>
   <block id="5a401de4946c2175a17ad6fda3a04781" category="admonition"><block ref="9f40590ca1185cea7261c2a60fc922ea" category="inline-link-macro-rx"></block> diffèrent des autres systèmes ONTAP (ASA, AFF et FAS) dans la mise en œuvre de leur couche de stockage. Dans les systèmes ASA r2, des zones de disponibilité de stockage sont utilisées à la place des agrégats. Consultez <block ref="261295ed43e7c9d663fb0a84ba5b2157" category="inline-link-macro-rx"></block> Article de la base de connaissances sur la façon d'attribuer des agrégats aux SVM dans les systèmes ASA r2.</block>
-  <block id="d3a94db6693be8414be239f55df31b37" category="paragraph">== Authentifier le backend ONTAP</block>
-  <block id="f16fbd9bb3dcbec83ca559e0320bc245" category="paragraph">=== Activer l'authentification basée sur les informations d'identification</block>
-  <block id="222449e5312c55d5a234569ae308041a" category="paragraph">=== Activer l'authentification basée sur les certificats</block>
-  <block id="9a86918a1cd754d4c3e7a1745efe18dc" category="paragraph">=== Mettre à jour les méthodes d'authentification ou faire pivoter les informations d'identification</block>
-  <block id="f33ff792ccf735be92ad60ca85333619" category="paragraph">=== Créer un rôle ONTAP personnalisé pour Trident</block>
-  <block id="1e86eeb01cf8def6f697ea2c64e7df45" category="paragraph">== Authentifier les connexions avec CHAP bidirectionnel</block>
-  <block id="1c47399fc1153044c4efc19db3115ddf" category="paragraph">=== Comment ça marche</block>
-  <block id="0cc88844e21c5adec6036d2a3e35f523" category="paragraph">=== Rotation des informations d'identification et mise à jour des backends</block>
   <block id="6fddcf0bbb95fe4fb7de4f5f2e53ee74" category="paragraph">Instantanés de groupes de volumes Kubernetes de volumes persistants (PV) : NetApp Trident permet de créer des instantanés de plusieurs volumes (un groupe d'instantanés de volumes). Ces instantanés de groupes de volumes représentent des copies de plusieurs volumes prises simultanément.</block>
   <block id="9c3e7c7a7d7349669946d43b4988c3ed" category="admonition">VolumeGroupSnapshot est une fonctionnalité bêta de Kubernetes avec des API bêta. Kubernetes 1.32 est la version minimale requise pour VolumeGroupSnapshot.</block>
   <block id="54100cbc57b96027d8dd74891c09bf53" category="section-title">Créer des instantanés de groupes de volumes</block>
@@ -5807,4 +5799,8 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="6f95f26584cb2bbbc9c25ed197bf9234" category="admonition">NVMe est pris en charge uniquement avec les API REST ONTAP et n'est pas pris en charge avec ONTAPI (ZAPI).</block>
   <block id="32653402e1251f3e6f9db04a67492d01" category="paragraph">*Si spécifié, toujours défini sur<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> pour les systèmes ASA r2*.</block>
   <block id="e1b6f2a617a63649b238c99a6557a915" category="list-text">DH-HMAC-CHAP pris en charge nativement par NVMe</block>
+  <block id="7fbe6e40125b7d1b2f5c5c05044e7526" category="section-title">Activer l'authentification basée sur les certificats</block>
+  <block id="42f93278b0d15c8d0f6613813bf586d5" category="section-title">Authentifier les connexions avec CHAP bidirectionnel</block>
+  <block id="9ffdb95250e26c7a6b468126ac7c75b0" category="section-title">Comment ça marche</block>
+  <block id="81f2df0265026a1a04bda5484798a10d" category="section-title">Faire pivoter les informations d'identification et mettre à jour les backends</block>
 </blocks>
