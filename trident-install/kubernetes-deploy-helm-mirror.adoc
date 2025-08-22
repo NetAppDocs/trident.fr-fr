@@ -202,7 +202,7 @@ WARNING: Ne supprimez pas l'affinité par défaut du fichier values.yaml. Lorsqu
 | `tridentIPv6` | Permet d'activer Trident pour fonctionner dans des clusters IPv6. | `false` 
 
 
-| `tridentK8sTimeout` | Remplace le délai d'expiration par défaut de 30 secondes pour la plupart des opérations de l'API Kubernetes (s'il n'est pas égal à zéro, en secondes). | `0` 
+| `tridentK8sTimeout` | Remplace le délai d'expiration par défaut de 180 secondes pour la plupart des opérations d'API Kubernetes (si différent de zéro, en secondes). | `180` 
 
 
 | `tridentHttpRequestTimeout` | Remplace le délai par défaut de 90 secondes pour les requêtes HTTP, par `0s` étant une durée infinie pour le délai d'expiration. Les valeurs négatives ne sont pas autorisées. | `"90s"` 
