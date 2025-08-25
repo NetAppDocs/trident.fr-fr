@@ -2671,7 +2671,6 @@ Ne pas utiliser<block ref="effa2d809c72dcb6cce15a1e0b040e63" prefix=" " category
   <block id="f3f30d479f6e3b393d917a3b2f88c770" category="cell"><block ref="89801e9e98979062e84647433a8ed3e9" prefix="" category="inline-code"></block></block>
   <block id="fbbd7b4b14060c4fdb02f92c4c08e702" category="cell">Réglage sur<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> Active l'installation sur les nœuds de travail Windows.</block>
   <block id="077e99fe42ced522b462656cffffe09c" category="cell"><block ref="d5276bb17ae062102e883a18454c2f1b" prefix="" category="inline-code"></block></block>
-  <block id="4448b73eac083e33b7142f0e5790fac5" category="cell">Délai d'expiration pour les opérations Kubernetes</block>
   <block id="42cf123e93ecc5c0297652edbc547fc0" category="cell"><block ref="2fac1659431903a30e063d49b3effb9d" prefix="" category="inline-code"></block></block>
   <block id="4a213b7c3b997ffb0794b25909381d16" category="cell">N'envoyez pas de packs AutoSupport à NetApp
 automatiquement</block>
@@ -5810,4 +5809,7 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="bd3dd99c8eae44e2ae2bfc8f00dc3db0" category="cell"><block ref="045117b0e0a11a242b9765e79cbf113f" prefix="" category="inline-code"></block></block>
   <block id="44a97f581d6467983edc4e5900722f32" category="list-text">Si vous disposez d'un déploiement manuel basé sur un opérateur et que vous souhaitez utiliser le déploiement de l'opérateur Trident basé sur Helm, vous devez d'abord désinstaller manuellement l'opérateur, puis effectuer l'installation de Helm.  Cela permet à Helm de déployer l'opérateur Trident avec les étiquettes et annotations requises.  Si vous ne le faites pas, votre déploiement d’opérateur Trident basé sur Helm échouera avec une erreur de validation d’étiquette et une erreur de validation d’annotation.</block>
   <block id="96fa331785e435bbddfc7f404fa5ce84" category="list-text">Si vous avez un<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> Déploiement basé sur Helm, vous pouvez effectuer un déploiement basé sur Helm ou sur Operator sans désinstaller Trident.</block>
+  <block id="ebc465247274e830568c785a604321aa" category="paragraph">Délai d'expiration pour les opérations Kubernetes.</block>
+  <block id="487b75b94dd20a59c7005f9de6a6c4a0" category="admonition">Le<block ref="d5276bb17ae062102e883a18454c2f1b" prefix=" " category="inline-code"></block> le paramètre s'applique uniquement à l'installation de Trident .</block>
+  <block id="0784343c721b59e3c2426a1b76297982" category="admonition">Le<block ref="b958a6de9ca123713491252f2ab02f59" prefix=" " category="inline-code"></block> le paramètre s'applique uniquement à l'installation de Trident .</block>
 </blocks>

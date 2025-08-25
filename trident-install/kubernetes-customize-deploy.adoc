@@ -65,7 +65,12 @@ Défini sur l'identité de la charge de travail (« Azure.Workload.Identity/clie
 | `IPv6` | Installez Trident sur IPv6 | faux 
 
 
-| `k8sTimeout` | Délai d'expiration pour les opérations Kubernetes | `180sec` 
+| `k8sTimeout`  a| 
+Délai d'expiration pour les opérations Kubernetes.
+
+
+NOTE: Le `k8sTimeout` le paramètre s'applique uniquement à l'installation de Trident .
+| `180sec` 
 
 
 | `silenceAutosupport` | N'envoyez pas de packs AutoSupport à NetApp
