@@ -134,32 +134,69 @@ Les valeurs par défaut seront remplacées par celles spécifiées dans le `sccc
 
 
 
-== Configurez les connexions NetApp AutoSupport pour Trident Protect
+== Configurer des paramètres supplémentaires du graphique de protection Trident
 
-Vous pouvez modifier la façon dont Trident Protect se connecte au support NetApp pour télécharger des packs de support en configurant un proxy pour la connexion. Vous pouvez configurer le proxy pour qu'il utilise une connexion sécurisée ou non sécurisée en fonction de vos besoins.
+Vous pouvez personnaliser les paramètres AutoSupport et le filtrage des espaces de noms pour répondre à vos besoins spécifiques.  Le tableau suivant décrit les paramètres de configuration disponibles :
+
+|===
+| Paramètre | Type | Description 
+
+
+| autoSupport.proxy | chaîne | Configure une URL proxy pour les connexions NetApp AutoSupport .  Utilisez ceci pour acheminer les téléchargements de bundles de support via un serveur proxy.  Exemple: `http://my.proxy.url` . 
+
+
+| autoSupport.insecure | booléen | Ignore la vérification TLS pour les connexions proxy AutoSupport lorsqu'elle est définie sur `true` .  À utiliser uniquement pour les connexions proxy non sécurisées.  (défaut: `false` ) 
+
+
+| autoSupport.activé | booléen | Active ou désactive les téléchargements quotidiens du bundle AutoSupport de protection Trident .  Lorsqu'il est réglé sur `false` , les téléchargements quotidiens programmés sont désactivés, mais vous pouvez toujours générer manuellement des lots d'assistance.  (défaut: `true` ) 
+
+
+| restaurerSkipNamespaceAnnotations | chaîne | Liste séparée par des virgules d'annotations d'espace de noms à exclure des opérations de sauvegarde et de restauration.  Vous permet de filtrer les espaces de noms en fonction des annotations. 
+
+
+| restaurerSkipNamespaceLabels | chaîne | Liste séparée par des virgules d'étiquettes d'espace de noms à exclure des opérations de sauvegarde et de restauration.  Vous permet de filtrer les espaces de noms en fonction des étiquettes. 
+|===
+Vous pouvez configurer ces options à l’aide d’un fichier de configuration YAML ou d’indicateurs de ligne de commande :
 
 [role="tabbed-block"]
 ====
-.Configurer une connexion proxy sécurisée
+.Utiliser le fichier YAML
 --
 .Étapes
-. Configurez une connexion proxy sécurisée pour les téléchargements de packs de prise en charge Trident Protect :
+. Créez un fichier de configuration et nommez-le `values.yaml` .
+. Dans le fichier que vous avez créé, ajoutez les options de configuration que vous souhaitez personnaliser.
 +
 [source, console]
 ----
-helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-protect --set autoSupport.proxy=http://my.proxy.url --reuse-values
+autoSupport:
+  enabled: false
+  proxy: http://my.proxy.url
+  insecure: true
+restoreSkipNamespaceAnnotations: "annotation1,annotation2"
+restoreSkipNamespaceLabels: "label1,label2"
+----
+. Après avoir rempli le `values.yaml` fichier avec les valeurs correctes, appliquez le fichier de configuration :
++
+[source, console]
+----
+helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-protect -f values.yaml --reuse-values
 ----
 
 
 --
-.Configurez une connexion proxy non sécurisée
+.Utiliser l'indicateur CLI
 --
 .Étapes
-. Configurez une connexion proxy non sécurisée pour la prise en charge des téléchargements de packs Trident Protect qui ignore la vérification TLS :
+. Utilisez la commande suivante avec le `--set` indicateur pour spécifier des paramètres individuels :
 +
 [source, console]
 ----
-helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-protect --set autoSupport.proxy=http://my.proxy.url --set autoSupport.insecure=true --reuse-values
+helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-protect \
+  --set autoSupport.enabled=false \
+  --set autoSupport.proxy=http://my.proxy.url \
+  --set restoreSkipNamespaceAnnotations="annotation1,annotation2" \
+  --set restoreSkipNamespaceLabels="label1,label2" \
+  --reuse-values
 ----
 
 
@@ -191,36 +228,4 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
 +
 Ceci remplace les restrictions par défaut par celles que vous avez spécifiées dans le `nodeSelectorConfig.yaml` fichier.
 
-
-
-
-
-== Désactivez les téléchargements quotidiens de bundles Trident Protect AutoSupport
-
-Vous pouvez également désactiver les téléchargements quotidiens de packs de prise en charge Trident Protect AutoSupport.
-
-
-NOTE: Par défaut, Trident Protect collecte des informations sur le support que vous pouvez ouvrir dans tous les dossiers de support NetApp, y compris les journaux, les metrics et les informations de topologie des clusters et des applications gérées. Trident Protect envoie ces offres de support à NetApp selon un calendrier quotidien. Vous pouvez le faire manuellement link:trident-protect-generate-support-bundle.html["générer un bundle de support"]à tout moment.
-
-.Étapes
-. Créez un fichier nommé `autosupportconfig.yaml`.
-. Ajoutez l'option AutoSupport au fichier et modifiez les paramètres en fonction des besoins de votre environnement.
-+
-L'exemple suivant montre les valeurs par défaut des paramètres de l'option AutoSupport :
-
-+
-[source, yaml]
-----
-autoSupport:
-  enabled: true
-----
-+
-Lorsque `autoSupport.enabled` est défini sur `false`, les téléchargements quotidiens des packs de support AutoSupport sont désactivés.
-
-. Appliquer les valeurs du `autosupportconfig.yaml` fichier :
-+
-[source, console]
-----
-helm upgrade trident-protect netapp-trident-protect/trident-protect -f autosupportconfig.yaml --reuse-values
-----
 

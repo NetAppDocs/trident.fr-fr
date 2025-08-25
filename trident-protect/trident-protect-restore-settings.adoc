@@ -31,6 +31,9 @@ Vous pouvez empêcher l'écrasement d'annotations spécifiques dans l'espace de 
 ----
 kubectl set env -n trident-protect deploy/trident-protect-controller-manager RESTORE_SKIP_NAMESPACE_ANNOTATIONS=<annotation_key_to_skip_1>,<annotation_key_to_skip_2>
 ----
+
+NOTE: Lors de l'exécution d'une opération de restauration ou de basculement, toutes les annotations et étiquettes d'espace de noms spécifiées dans `restoreSkipNamespaceAnnotations` et `restoreSkipNamespaceLabels` sont exclus de l'opération de restauration ou de basculement.  Assurez-vous que ces paramètres sont configurés lors de l’installation initiale de Helm. Pour en savoir plus, consultezlink:../trident-protect/trident-protect-customize-installation.html#configure-autoSupport-and-namespace-filtering-options["Configurer les options de filtrage AutoSupport et d'espace de noms"] .
+
 Si vous avez installé l'application source à l'aide de Helm avec l' `--create-namespace`indicateur, un traitement spécial est donné à la `name` clé d'étiquette. Lors du processus de restauration ou de basculement, Trident Protect copie cette étiquette dans l'espace de noms de destination, mais met à jour la valeur vers la valeur de l'espace de noms de destination si la valeur de la source correspond à l'espace de noms source. Si cette valeur ne correspond pas à l'espace de noms source, elle est copiée dans l'espace de noms de destination sans modification.
 
 
