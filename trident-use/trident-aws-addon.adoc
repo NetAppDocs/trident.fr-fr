@@ -48,35 +48,11 @@ image::../media/aws-eks-02.png[eks aws 02]
 +
 image::../media/aws-eks-03.png[eks aws 03]
 
-. Sélectionnez l'option rôle IAM à hériter du nœud.
+. Configurez les paramètres du module complémentaire requis.
 +
 image::../media/aws-eks-04.png[eks aws 04]
 
-. Suivez le schéma de configuration *Add-on* et définissez le paramètre valeurs de configuration de la section *valeurs de configuration* sur le fil de rôle que vous avez créé à l'étape précédente (étape 1). La valeur doit être au format suivant :
-+
-[source, JSON]
-----
-{
-
-  "cloudIdentity": "'eks.amazonaws.com/role-arn: <role ARN>'",
-  "cloudProvider": "AWS"
-
-}
-----
-+
-
-NOTE: Si vous sélectionnez remplacer pour la méthode de résolution des conflits, un ou plusieurs des paramètres du module complémentaire existant peuvent être remplacés par les paramètres du module complémentaire Amazon EKS. Si vous n'activez pas cette option et qu'il y a un conflit avec vos paramètres existants, l'opération échoue. Vous pouvez utiliser le message d'erreur qui en résulte pour résoudre le conflit. Avant de sélectionner cette option, assurez-vous que le module complémentaire Amazon EKS ne gère pas les paramètres que vous devez gérer vous-même.
-
-+
-image::../media/aws-eks-06.png[eks aws 06]
-
-
-
-
-NOTE: Ignorez cette étape si vous utilisez l’association d’identité de pod.
-
-+
-
+. Si vous utilisez IRSA (rôles IAM pour le compte de service), reportez-vous aux étapes de configuration supplémentaireslink:https://docs.netapp.com/us-en/trident/trident-use/trident-fsx-install-trident.html#enable-the-trident-add-on-for-aws["ici"] .
 . Sélectionnez *Créer*.
 . Vérifiez que l'état du complément est _Active_.
 +

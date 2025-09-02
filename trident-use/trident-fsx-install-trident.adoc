@@ -149,6 +149,10 @@ Vérifiez les points suivants avant de configurer le module complémentaire Trid
 
 . Sur la page *configurer les compléments sélectionnés*, procédez comme suit :
 +
+
+NOTE: *Ignorez ces étapes si vous utilisez l’association d’identité de pod.*
+
++
 .. Sélectionnez la *version* que vous souhaitez utiliser.
 .. Si vous utilisez l'authentification IRSA, assurez-vous de définir les valeurs de configuration disponibles dans les paramètres de configuration facultatifs :
 +

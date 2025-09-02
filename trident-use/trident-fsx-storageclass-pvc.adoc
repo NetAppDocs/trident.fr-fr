@@ -22,7 +22,7 @@ Configurez un objet StorageClass Kubernetes et créez la classe de stockage pour
 
 === Configuration d'un objet StorageClass Kubernetes
 
-Le système https://kubernetes.io/docs/concepts/storage/storage-classes/["Objet classe de stockage Kubernetes"^] identifie Trident en tant que mécanisme de provisionnement utilisé pour cette classe et indique à Trident comment provisionner un volume. Par exemple :
+Le https://kubernetes.io/docs/concepts/storage/storage-classes/["Objet classe de stockage Kubernetes"^] L'objet identifie Trident comme le fournisseur utilisé pour cette classe et indique à Trident comment provisionner un volume.  Utilisez cet exemple pour configurer Storageclass pour les volumes utilisant NFS (reportez-vous à la section Attribut Trident ci-dessous pour la liste complète des attributs) :
 
 [source, YAML]
 ----
@@ -33,6 +33,20 @@ metadata:
 provisioner: csi.trident.netapp.io
 parameters:
   backendType: "ontap-nas"
+  provisioningType: "thin"
+  snapshots: "true"
+----
+Utilisez cet exemple pour configurer Storageclass pour les volumes utilisant iSCSI :
+
+[source, YAML]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-gold
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-san"
   provisioningType: "thin"
   snapshots: "true"
 ----
@@ -95,29 +109,6 @@ Une fois la demande de volume créée, vous pouvez la monter dans un pod.
 
 === Exemples de manifestes
 
-.Exemple de manifeste de volume persistant
-[%collapsible]
-====
-Cet exemple de manifeste montre un volume persistant de base de 10Gi associé à StorageClass `basic-csi`.
-
-[source, YAML]
-----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: pv-storage
-  labels:
-    type: local
-spec:
-  storageClassName: ontap-gold
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteMany
-  hostPath:
-    path: "/my/host/path"
-----
-====
 .Exemples de manifestes de demande de volume persistant
 [%collapsible]
 ====
@@ -140,27 +131,27 @@ spec:
       storage: 1Gi
   storageClassName: ontap-gold
 ----
-.PVC avec NVMe/TCP
-Cet exemple montre une demande de volume persistant de base pour NVMe/TCP avec accès RWX associée à une classe de stockage nommée `protection-gold`.
+.Exemple de PVC utilisant iSCSI
+Cet exemple montre un PVC de base pour iSCSI avec accès RWO associé à une StorageClass nommée `protection-gold` .
 
 [source, YAML]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-name: pvc-san-nvme
+name: pvc-san
 spec:
 accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
 resources:
   requests:
-    storage: 300Mi
+    storage: 1Gi
 storageClassName: protection-gold
 ----
 ====
 
 
-=== Créer le volume persistant et la demande de volume persistant
+=== Créer PVC
 
 .Étapes
 . Créer la PVC.
