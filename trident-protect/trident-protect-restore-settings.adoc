@@ -29,7 +29,7 @@ Vous pouvez empêcher l'écrasement d'annotations spécifiques dans l'espace de 
 
 [source, console]
 ----
-helm install trident-protect --set tridentProtectControllerManager.env.RESTORE_SKIP_NAMESPACE_ANNOTATIONS=<annotation_key_to_skip_1>,<annotation_key_to_skip_2>
+helm upgrade trident-protect --set restoreSkipNamespaceAnnotations=<annotation_key_to_skip_1>,<annotation_key_to_skip_2> --reuse-values
 ----
 
 NOTE: Lors de l'exécution d'une opération de restauration ou de basculement, toutes les annotations et étiquettes d'espace de noms spécifiées dans `restoreSkipNamespaceAnnotations` et `restoreSkipNamespaceLabels` sont exclus de l'opération de restauration ou de basculement.  Assurez-vous que ces paramètres sont configurés lors de l’installation initiale de Helm. Pour en savoir plus, consultezlink:../trident-protect/trident-protect-customize-installation.html#configure-autoSupport-and-namespace-filtering-options["Configurer les options de filtrage AutoSupport et d'espace de noms"] .
@@ -131,8 +131,8 @@ Cette section répertorie les annotations prises en charge pour configurer diff�
 | Annotation | Type | Description | Valeur par défaut 
 
 
-| protect.trident.netapp.io/data-mover-timeout-sec | chaîne | Le temps maximal (en secondes) autorisé pour que le fonctionnement du moteur de transfert de données soit bloqué. | 300 
+| protect.trident.netapp.io/data-mover-timeout-sec | chaîne | Le temps maximal (en secondes) autorisé pour que le fonctionnement du moteur de transfert de données soit bloqué. | "300" 
 
 
-| protect.trident.netapp.io/kopia-content-cache-size-limit-mb | entier | La limite de taille maximale (en mégaoctets) pour le cache de contenu Kopia. | 1000 
+| protect.trident.netapp.io/kopia-content-cache-size-limit-mb | chaîne | La limite de taille maximale (en mégaoctets) pour le cache de contenu Kopia. | "1000" 
 |===
