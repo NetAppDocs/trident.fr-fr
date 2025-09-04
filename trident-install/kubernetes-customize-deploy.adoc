@@ -130,9 +130,6 @@ Permet à Trident de préparer les nœuds du cluster Kubernetes à gérer les vo
 
 NOTE: À partir d'OpenShift 4.19, la version minimale de Trident prise en charge pour cette fonctionnalité est 25.06.1.
 |  
-
-
-| `enableAutoBackendConfig` | Permet une configuration back-end automatique, qui crée de manière transparente des classes back-end et de stockage en fonction des paramètres d'entrée. | Pas de valeur par défaut ; facultatif 
 |===
 
 NOTE: Pour plus d'informations sur le formatage des paramètres du pod, reportez-vous à la section link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Attribution de pods aux nœuds"^].
