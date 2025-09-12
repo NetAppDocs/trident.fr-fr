@@ -240,12 +240,15 @@ WARNING: Ne supprimez pas l'affinité par défaut du fichier values.yaml. Lorsqu
 | `iscsiSelfHealingWaitTime` | Durée après laquelle l'auto-rétablissement iSCSI lance une tentative de résolution d'une session obsolète en effectuant une déconnexion et une connexion ultérieure. | `7m0s` 
 
 
-| `nodePrep`  a| 
-Permet à Trident de préparer les nœuds du cluster Kubernetes à gérer les volumes à l'aide du protocole de stockage de données spécifié. *Actuellement, `iscsi` est la seule valeur prise en charge.*
+| `nodePrep` | Permet à Trident de préparer les nœuds du cluster Kubernetes pour gérer les volumes à l’aide du protocole de stockage de données spécifié.  *Actuellement, `iscsi` est la seule valeur prise en charge.*  REMARQUE : à partir d’OpenShift 4.19, la version minimale de Trident prise en charge pour cette fonctionnalité est 25.06.1. |  
 
 
-NOTE: À partir d'OpenShift 4.19, la version minimale de Trident prise en charge pour cette fonctionnalité est 25.06.1.
-|  
+| `enableConcurrency`  a| 
+Permet des opérations simultanées du contrôleur Trident pour un débit amélioré.
+
+
+NOTE: *Aperçu technique* : Cette fonctionnalité est expérimentale dans NetApp Trident 25.06 et prend actuellement en charge des flux de travail parallèles limités avec le pilote ONTAP-SAN (protocoles iSCSI et FCP).
+| faux 
 
 
 | `k8sAPIQPS`  a| 
