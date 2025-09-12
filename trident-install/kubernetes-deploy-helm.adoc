@@ -254,6 +254,11 @@ NOTE: *Aperçu technique* : Cette fonctionnalité est expérimentale dans NetApp
 | `k8sAPIQPS`  a| 
 La limite de requêtes par seconde (QPS) utilisée par le contrôleur lors de la communication avec le serveur API Kubernetes.  La valeur Burst est définie automatiquement en fonction de la valeur QPS.
 | `100`; facultatif 
+
+
+| `k8sAPIQPS`  a| 
+La limite de requêtes par seconde (QPS) utilisée par le contrôleur lors de la communication avec le serveur API Kubernetes.  La valeur Burst est définie automatiquement en fonction de la valeur QPS.
+| `100`; facultatif 
 |===
 
 
