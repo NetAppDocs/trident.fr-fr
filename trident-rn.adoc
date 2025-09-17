@@ -19,9 +19,24 @@ WARNING: Le `tridentctl` Binaire pour Linux fourni dans le fichier zip du progra
 
 
 
-== Quoi de neuf dans la version 25.06.1
+== Quoi de neuf dans la version 25.06.2
 
 Le résumé des nouveautés fournit des détails sur les améliorations, les correctifs et les dépréciations des versions Trident et Trident Protect.
+
+
+
+=== Trident
+
+
+
+==== Correctifs
+
+* *Kubernetes* : problème critique résolu où des périphériques iSCSI incorrects étaient découverts lors du détachement de volumes des nœuds Kubernetes.
+
+
+
+
+== Modifications dans la version 25.06.1
 
 
 
@@ -49,8 +64,6 @@ IMPORTANT: Pour les clients utilisant SolidFire, veuillez ne pas effectuer la mi
 
 
 == Modifications dans la version 25.06
-
-Le résumé des nouveautés fournit des détails sur les améliorations, les correctifs et les dépréciations des versions Trident et Trident Protect.
 
 
 
