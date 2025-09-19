@@ -21,6 +21,9 @@ Avec Trident, vous pouvez créer de nouveaux volumes à l'aide de volumes ou de 
 Avant de cloner des volumes, assurez-vous que les systèmes back-end source et de destination sont du même type et ont la même classe de stockage.
 
 
+NOTE: Le clonage entre les espaces de noms est pris en charge uniquement pour le `ontap-san` et `ontap-nas` pilotes de stockage.  Les clones en lecture seule ne sont pas pris en charge.
+
+
 
 == Démarrage rapide
 
