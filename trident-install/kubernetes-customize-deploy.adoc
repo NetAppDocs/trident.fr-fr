@@ -151,7 +151,7 @@ NOTE: Pour plus d'informations sur le formatage des paramètres du pod, reportez
 
 === Détails sur le détachement forcé
 
-Forcer le détachement est disponible pour `ontap-san`, `ontap-san-economy`, `onatp-nas` et `onatp-nas-economy` uniquement. Avant d'activer le détachement forcé, l'arrêt non autorisé des nœuds (NGN) doit être activé sur le cluster Kubernetes. LES NGN sont activés par défaut pour Kubernetes 1.28 et les versions ultérieures. Pour plus d'informations, reportez-vous link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes : arrêt du nœud sans interruption"^]à .
+Le détachement forcé est disponible pour `ontap-san` , `ontap-san-economy` , `ontap-nas` , et `ontap-nas-economy` seulement. Avant d’activer le détachement forcé, l’arrêt non gracieux du nœud (NGNS) doit être activé sur le cluster Kubernetes. NGNS est activé par défaut pour Kubernetes 1.28 et supérieur. Pour plus d'informations, reportez-vous à link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes : arrêt du nœud sans interruption"^] .
 
 
 NOTE: Lorsque vous utilisez le `ontap-nas` pilote ou `ontap-nas-economy`, vous devez définir le `autoExportPolicy` paramètre de la configuration back-end sur `true` afin que Trident puisse restreindre l'accès au nœud Kubernetes avec la valeur taint appliquée à l'aide des règles d'exportation gérées.
