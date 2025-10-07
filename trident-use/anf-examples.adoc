@@ -103,7 +103,7 @@ Facultatif lorsque les identités gérées sont activées sur un cluster AKS. |
 | `qosType` | Indique le type de QoS : Auto ou Manuel. *Aperçu technique de Trident 25.06* | Automatique 
 
 
-| `maxThroughput` | Définit le débit maximal autorisé. Prise en charge uniquement pour les pools de capacité QoS manuels. *Aperçu technique de Trident 25.06* | `4 MiB/sec` 
+| `maxThroughput` | Définit le débit maximal autorisé en Mio/s. Prise en charge uniquement pour les pools de capacité QoS manuels. *Aperçu technique de Trident 25.06* | `4 MiB/sec` 
 |===
 
 NOTE: Pour plus d'informations sur les fonctionnalités réseau, reportez-vous à la section link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/configure-network-features["Configurer les fonctions réseau d'un volume Azure NetApp Files"^].
