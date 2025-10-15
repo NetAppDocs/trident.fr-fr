@@ -100,7 +100,7 @@ Trident prend en charge l'importation de volumes à l'aide des `ontap-nas` pilot
 
 [NOTE]
 ====
-* Le `ontap-nas-economy` le pilote ne peut pas importer et gérer les qtrees.
+* Trident ne prend pas en charge l'importation de volume à l'aide de `ontap-nas-economy` conducteur.
 * Le `ontap-nas` et `ontap-nas-flexgroup` les pilotes n'autorisent pas les noms de volumes dupliqués.
 
 
