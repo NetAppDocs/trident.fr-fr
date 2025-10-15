@@ -12,7 +12,7 @@ summary: 'Trident permet aux utilisateurs de Kubernetes d"étendre leurs volumes
 
 
 [role="lead"]
-Trident permet aux utilisateurs de Kubernetes d'étendre leurs volumes après leur création. Recherchez des informations sur les configurations requises pour étendre les volumes iSCSI, NFS et FC.
+Trident offre aux utilisateurs de Kubernetes la possibilité d'étendre leurs volumes après leur création. Recherchez des informations sur les configurations requises pour étendre les volumes iSCSI, NFS, SMB, NVMe/TCP et FC.
 
 
 
