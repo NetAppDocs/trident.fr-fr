@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/ontap-san-examples.html 
-keywords: map backends, storage classes, trident backend, ontap san, ontap san economy, options, storageclasses, fsx, metrocluster 
+keywords: map backends, storage classes, trident backend, ontap san, ontap san economy, options, storageclasses, fsx, metrocluster, ad, active directory 
 summary: Découvrez comment créer et utiliser les pilotes SAN ONTAP avec votre installation Trident. Cette section présente des exemples de configuration du back-end et des détails sur le mappage des systèmes back-end aux classes de stockage. 
 ---
 = Options et exemples de configuration des SAN ONTAP
@@ -90,10 +90,10 @@ NOTE: Si vous utilisez des identifiants « vsadmin », doit être celui du SVM ;
 | `trustedCACertificate` | Valeur encodée en Base64 du certificat CA de confiance. Facultatif. Utilisé pour l'authentification basée sur des certificats. | « » 
 
 
-| `username` | Le nom d'utilisateur devait communiquer avec le cluster ONTAP. Utilisé pour l'authentification basée sur les identifiants. | « » 
+| `username` | Nom d'utilisateur nécessaire pour communiquer avec le cluster ONTAP . Utilisé pour l'authentification basée sur les informations d'identification. Pour l'authentification Active Directory, voir link:../trident-use/ontap-san-examples.html#authenticate-trident-to-a-backend-svm-using-active-directory-credentials["Authentifier Trident auprès d'une SVM principale à l'aide des informations d'identification Active Directory"]. | « » 
 
 
-| `password` | Mot de passe requis pour communiquer avec le cluster ONTAP. Utilisé pour l'authentification basée sur les identifiants. | « » 
+| `password` | Mot de passe nécessaire pour communiquer avec le cluster ONTAP . Utilisé pour l'authentification basée sur les informations d'identification. Pour l'authentification Active Directory, voir link:../trident-use/ontap-san-examples.html#authenticate-trident-to-a-backend-svm-using-active-directory-credentials["Authentifier Trident auprès d'une SVM principale à l'aide des informations d'identification Active Directory"]. | « » 
 
 
 | `svm` | Serveur virtuel de stockage à utiliser | Dérivé d'un SVM `managementLIF` est spécifié 
@@ -169,6 +169,28 @@ Trident recommande l'option suivante pour accélérer le processus de formatage 
 *-E nojeter:*
 
 * Conservez, n'essayez pas de supprimer des blocs au moment mkfs (la suppression initiale des blocs est utile sur les périphériques SSD et le stockage fragmenté/à provisionnement fin). Ceci remplace l'option obsolète "-K" et il est applicable à tous les systèmes de fichiers (xfs, ext3 et ext4).
+
+
+
+
+=== Authentifier Trident auprès d'une SVM principale à l'aide des informations d'identification Active Directory
+
+Vous pouvez configurer Trident pour s'authentifier auprès d'une SVM principale à l'aide des informations d'identification Active Directory (AD). Avant qu’un compte AD puisse accéder au SVM, vous devez configurer l’accès du contrôleur de domaine AD au cluster ou au SVM. Pour l’administration du cluster avec un compte AD, vous devez créer un tunnel de domaine. Se référer à link:https://docs.netapp.com/us-en/ontap/authentication/enable-ad-users-groups-access-cluster-svm-task.html["Configurer l'accès au contrôleur de domaine Active Directory dans ONTAP"^] pour plus de détails.
+
+.mesures
+. Configurer les paramètres du système de noms de domaine (DNS) pour un SVM backend :
++
+`vserver services dns create -vserver <svm_name> -dns-servers <dns_server_ip1>,<dns_server_ip2>`
+
+. Exécutez la commande suivante pour créer un compte d’ordinateur pour le SVM dans Active Directory :
++
+`vserver active-directory create -vserver DataSVM -account-name ADSERVER1 -domain demo.netapp.com`
+
+. Utilisez cette commande pour créer un utilisateur ou un groupe AD pour gérer le cluster ou le SVM
++
+`security login create -vserver <svm_name> -user-or-group-name <ad_user_or_group> -application <application> -authentication-method domain -role vsadmin`
+
+. Dans le fichier de configuration du backend Trident , définissez le `username` et `password` paramètres au nom d'utilisateur ou de groupe AD et au mot de passe, respectivement.
 
 
 
