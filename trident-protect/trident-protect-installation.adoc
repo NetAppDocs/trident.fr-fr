@@ -49,16 +49,17 @@ Vous pouvez installer Trident Protect à partir d'un registre d'images privé si
 +
 [source, console]
 ----
-netapp/controller:25.06.0
-netapp/restic:25.06.0
-netapp/kopia:25.06.0
-netapp/trident-autosupport:25.06.0
-netapp/exechook:25.06.0
-netapp/resourcebackup:25.06.0
-netapp/resourcerestore:25.06.0
-netapp/resourcedelete:25.06.0
-bitnami/kubectl:1.30.2
-kubebuilder/kube-rbac-proxy:v0.16.0
+docker.io/netapp/controller:25.06.0
+docker.io/netapp/restic:25.06.0
+docker.io/netapp/kopia:25.06.0
+docker.io/netapp/kopiablockrestore:25.06.0
+docker.io/netapp/trident-autosupport:25.06.0
+docker.io/netapp/exechook:25.06.0
+docker.io/netapp/resourcebackup:25.06.0
+docker.io/netapp/resourcerestore:25.06.0
+docker.io/netapp/resourcedelete:25.06.0
+docker.io/bitnami/kubectl:1.30.2
+gcr.io/kubebuilder/kube-rbac-proxy:v0.16.0
 ----
 +
 Par exemple :
@@ -66,18 +67,22 @@ Par exemple :
 +
 [source, console]
 ----
-docker pull netapp/controller:25.06.0
+docker pull docker.io/netapp/controller:25.06.0
 ----
 +
 [source, console]
 ----
-docker tag netapp/controller:25.06.0 <private-registry-url>/controller:25.06.0
+docker tag docker.io/netapp/controller:25.06.0 <private-registry-url>/controller:25.06.0
 ----
 +
 [source, console]
 ----
 docker push <private-registry-url>/controller:25.06.0
 ----
++
+
+NOTE: Pour obtenir la carte de barre, commencez par la télécharger sur un ordinateur connecté à Internet. `helm pull trident-protect --version 100.2506.0 --repo https://netapp.github.io/trident-protect-helm-chart`, puis copiez le résultat `trident-protect-100.2506.0.tgz` Téléchargez le fichier dans votre environnement hors ligne et installez-le en utilisant `helm install trident-protect ./trident-protect-100.2506.0.tgz` au lieu de la référence au dépôt dans l'étape finale.
+
 . Créer l'espace de noms du système Trident Protect :
 +
 [source, console]
@@ -107,10 +112,6 @@ helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-he
 [source, yaml]
 ----
 ---
-image:
-  registry: <private-registry-url>
-imagePullSecrets:
-  - name: regcred
 controller:
   image:
     registry: <private-registry-url>
@@ -124,6 +125,10 @@ webhooksCleanup:
   imagePullSecrets:
     - name: regcred
 ----
++
+
+NOTE: Le `controller.image.registry` Ce paramètre s'applique à toutes les images des composants, y compris `resourcebackup` et `resourcerestore`. Si vous envoyez des images vers un chemin de dépôt spécifique au sein de votre registre (par exemple, `example.com:443/my-repo`), veuillez inclure le chemin complet dans le champ d'enregistrement. Cela permettra de garantir que toutes les images sont extraites de `<private-registry-url>/<image-name>:<tag>`.
+
 . Utilisez Helm pour installer Trident Protect. Remplacer `<name_of_cluster>` par un nom de cluster, qui sera attribué au cluster et utilisé pour identifier les sauvegardes et snapshots du cluster :
 +
 [source, console]
@@ -134,3 +139,5 @@ helm install trident-protect netapp-trident-protect/trident-protect --set cluste
 
 --
 ====
+
+NOTE: Pour plus d'options de configuration des graphiques Helm, notamment les paramètres AutoSupport et le filtrage des espaces de noms, veuillez consulter la documentation. link:trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["Personnaliser l'installation de Trident Protect"].
