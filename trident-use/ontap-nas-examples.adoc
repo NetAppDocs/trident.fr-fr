@@ -98,7 +98,7 @@ NOTE: Lorsque la liste des agrégats est mise à jour au SVM, elle est mise à j
 | « » 
 
 
-| `limitVolumeSize` | Echec du provisionnement si la taille du volume demandé est supérieure à cette valeur. Limite également la taille maximale des volumes gérés pour les qtrees et `qtreesPerFlexvol` permet de personnaliser le nombre maximal de qtrees par FlexVol volume | « » (non appliqué par défaut) 
+| `limitVolumeSize` | L'approvisionnement échouera si la taille du volume demandée est supérieure à cette valeur. | « » (non appliqué par défaut) 
 
 
 | `debugTraceFlags` | Indicateurs de débogage à utiliser lors du dépannage. Exemple, {"api":false, "method":true}
