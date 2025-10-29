@@ -5870,4 +5870,10 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="82a5f11771bfe77a499bcb96a45ce13f" category="paragraph"><block ref="22ec37652eb447176b3d5645ac4a7dbb" prefix="" category="inline-code"></block></block>
   <block id="743fda998716813dc210d0fd0c3f2b65" category="list-text">Dans le fichier de configuration du backend Trident , définissez le<block ref="14c4b06b824ec593239362517f538b29" prefix=" " category="inline-code"></block> et<block ref="5f4dcc3b5aa765d61d8327deb882cf99" prefix=" " category="inline-code"></block> paramètres au nom d'utilisateur ou de groupe AD et au mot de passe, respectivement.</block>
   <block id="66896c99fb06e0b6c86498b249f8217a" category="cell">L'approvisionnement échouera si la taille du volume demandée est supérieure à cette valeur.</block>
+  <block id="0a963df5db280495b1f394e5035b3ddd" category="cell"><block ref="fd94acda3d48b098f39b5364b959552d" prefix="" category="inline-code"></block></block>
+  <block id="0989a9fc8f98336f0d088b735c709a10" category="paragraph">Lors de la suppression d'un volume, ignorez la file d'attente de récupération dans le stockage et supprimez le volume immédiatement.</block>
+  <block id="fc9d6fd2d8db223be4a7484a8619f26b" category="paragraph">``</block>
+  <block id="7cf94358f605f1f7e8dbc9526c3af907" category="cell">trident.netapp.io/skipRecoveryQueue</block>
+  <block id="fd94acda3d48b098f39b5364b959552d" category="cell">ignorer la file d'attente de récupération</block>
+  <block id="7ea9fc727097fba59345a8e9de8695fa" category="cell">ontap-nas, ontap-nas-économie, ontap-nas-flexgroup, ontap-san, ontap-san-économie</block>
 </blocks>

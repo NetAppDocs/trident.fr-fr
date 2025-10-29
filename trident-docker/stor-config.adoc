@@ -264,6 +264,13 @@ Règle de hiérarchisation à utiliser, la valeur par défaut est `none`.
  a| 
 `none`
 
+
+
+| `skipRecoveryQueue`  a| 
+Lors de la suppression d'un volume, ignorez la file d'attente de récupération dans le stockage et supprimez le volume immédiatement.
+ a| 
+``
+
 |===
 
 

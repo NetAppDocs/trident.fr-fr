@@ -75,6 +75,9 @@ Outre la spécification standard, Trident permet aux utilisateurs de spécifier 
 
 
 | trident.netapp.io/blockSize | Taille de bloc | solidfire-san 
+
+
+| trident.netapp.io/skipRecoveryQueue | ignorer la file d'attente de récupération | ontap-nas, ontap-nas-économie, ontap-nas-flexgroup, ontap-san, ontap-san-économie 
 |===
 Si le volume persistant créé est de `Delete` Lors de la récupération de la règle, Trident supprime le volume persistant et le volume de sauvegarde lorsque le volume persistant est libéré (c'est-à-dire lors de la suppression de la demande de volume persistant). En cas d'échec de l'action de suppression, Trident marque le volume persistant comme tel et tente régulièrement l'opération jusqu'à ce qu'il réussisse ou que le volume persistant soit supprimé manuellement. Si le PV utilise le `+Retain+` La règle, Trident l'ignore et suppose que l'administrateur l'nettoie depuis Kubernetes et le back-end, permettant ainsi de sauvegarder ou d'inspecter le volume avant sa suppression. Notez que la suppression du volume persistant n'entraîne pas la suppression du volume de sauvegarde par Trident. Vous devez le supprimer à l'aide de l'API REST (`tridentctl`).
 
@@ -435,6 +438,9 @@ Une configuration de volume définit les propriétés qu'un volume provisionné 
 
 
 | Système de fichiers | chaîne | non | Type de système de fichiers 
+
+
+| ignorer la file d'attente de récupération | chaîne | non | Lors de la suppression d'un volume, ignorez la file d'attente de récupération dans le stockage et supprimez le volume immédiatement. 
 |===
 Génération de Trident `internalName` lors de la création du volume. Il s'agit de deux étapes. Tout d'abord, il prétermine le préfixe de stockage (soit le préfixe par défaut `trident` ou le préfixe de la configuration back-end) au nom du volume, ce qui produit un nom du formulaire `<prefix>-<volume-name>`. Il procède ensuite à la désinfection du nom en remplaçant les caractères non autorisés dans le back-end. Pour les systèmes ONTAP back-end, il remplace les tirets par des traits de soulignement (ainsi, le nom interne devient `<prefix>_<volume-name>`). Pour les systèmes back-end Element, il remplace les tirets de traits de soulignement.
 
