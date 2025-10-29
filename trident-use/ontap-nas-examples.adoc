@@ -223,7 +223,7 @@ Le calcul est le suivant :
 
 [listing]
 ----
-Total volume size = (PVC requested size) / (1 - (snapshotReserve percentage) / 100)
+Total volume size = <PVC requested size> / (1 - (<snapshotReserve percentage> / 100))
 ----
 Pour snapshotReserve = 50 % et une demande PVC = 5 Gio, la taille totale du volume est de 5/0,5 = 10 Gio et la taille disponible est de 5 Gio, ce qui correspond à ce que l'utilisateur a demandé dans la demande PVC .  `volume show` la commande devrait afficher des résultats similaires à cet exemple :
 
