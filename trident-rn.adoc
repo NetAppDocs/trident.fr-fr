@@ -34,13 +34,13 @@ Découvrez les nouveautés de Trident et Trident Protect, notamment les amélior
 * *Kubernetes* :
 +
 ** Ajout de la prise en charge des instantanés de groupes de volumes CSI avec les API Kubernetes d'instantanés de groupes de volumes v1beta1 pour les pilotes ONTAP-NAS NFS et ONTAP-SAN-Economy, en plus de ONTAP-SAN (iSCSI et FC). Voirlink:https://docs.netapp.com/us-en/trident/trident-use/vol-group-snapshots.html["Travailler avec des instantanés de groupes de volumes"^] .
-** Ajout de la prise en charge du basculement automatique de la charge de travail avec détachement forcé du volume pour les pilotes ONTAP-NAS et ONTAP-NAS-Economy (à l'exclusion de SMB dans les deux pilotes NAS), ainsi que pour les pilotes ONTAP-SAN et ONTAP-SAN-Economy. Voirlink:../trident-reco/force-detach.html["Détails sur le détachement forcé"^] .
+** Ajout de la prise en charge du basculement automatique de la charge de travail avec détachement forcé du volume pour les pilotes ONTAP-NAS et ONTAP-NAS-Economy (à l'exclusion de SMB dans les deux pilotes NAS), ainsi que pour les pilotes ONTAP-SAN et ONTAP-SAN-Economy. Voirlink:https://docs.netapp.com/us-en/trident/trident-reco/force-detach.html["Automatisation du basculement des applications avec état grâce à Trident"^] .
 ** Amélioration de la concurrence des nœuds Trident pour une meilleure évolutivité des opérations sur les nœuds pour les volumes FCP.
 ** Ajout de la prise en charge ONTAP AFX pour le pilote ONTAP NAS. Voirlink:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas-examples.html["Options et exemples de configuration du NAS ONTAP"^] .
 ** Ajout de la prise en charge de la configuration des demandes et des limites de ressources CPU et mémoire pour les conteneurs Trident via les valeurs CR et Helm du graphique TridentOrchestrator. (link:https://github.com/NetApp/trident/issues/1000["Numéro 1000"] ,link:https://github.com/NetApp/trident/issues/927["Numéro 927"] ,link:https://github.com/NetApp/trident/issues/853["Numéro 853"] ,link:https://github.com/NetApp/trident/issues/592["Numéro 592"] ,link:https://github.com/NetApp/trident/issues/110["Numéro 110"] ).
 ** Ajout de la prise en charge FC pour la personnalité ASAr2. Voirlink:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html["Options et exemples de configuration des SAN ONTAP"^] .
-** Ajout d'une option permettant de diffuser les métriques Prometheus via HTTPS au lieu de HTTP. Voirlink:../trident-use/monitor-trident.html["Surveillez Trident"^] .
-** Ajout d'une option `--no-rename` lors de l'importation d'un volume pour conserver le nom d'origine mais laisser Trident gérer le cycle de vie du volume. Voirlink:../trident-use/vol-import.html["Importer des volumes"^] .
+** Ajout d'une option permettant de diffuser les métriques Prometheus via HTTPS au lieu de HTTP. Voirlink:https://docs.netapp.com/us-en/trident/trident-use/monitor-trident.html["Surveillez Trident"^] .
+** Ajout d'une option `--no-rename` lors de l'importation d'un volume pour conserver le nom d'origine mais laisser Trident gérer le cycle de vie du volume. Voirlink:https://docs.netapp.com/us-en/trident/trident-use/vol-import.html["Importer des volumes"^] .
 ** Le déploiement de Trident s'exécute désormais au niveau de priorité « system-cluster-critical ».
 
 
