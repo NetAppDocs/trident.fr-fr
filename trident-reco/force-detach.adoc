@@ -1,0 +1,273 @@
+---
+sidebar: sidebar 
+permalink: trident-reco/force-detach.html 
+keywords: force detach, automated failover, node health check, tridentnoderemediation, tridentnoderemediationtemplate, TNR, TNR template, NHC, node health check operator 
+summary: 'Utilisez les informations listées ici pour automatiser le basculement des applications avec état à l"aide de Trident.' 
+---
+= Automatisation du basculement des applications avec état grâce à Trident
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La fonction de détachement forcé de Trident vous permet de détacher automatiquement les volumes des nœuds défaillants d'un cluster Kubernetes, évitant ainsi la corruption des données et garantissant la disponibilité des applications.  Cette fonctionnalité est particulièrement utile dans les scénarios où les nœuds ne répondent plus ou sont mis hors ligne pour maintenance.
+
+
+
+== Détails sur le détachement forcé
+
+Le détachement forcé est disponible pour `ontap-san` , `ontap-san-economy` , `ontap-nas` , et `ontap-nas-economy` seulement. Avant d’activer le détachement forcé, l’arrêt non gracieux du nœud (NGNS) doit être activé sur le cluster Kubernetes. NGNS est activé par défaut pour Kubernetes 1.28 et supérieur. Pour plus d'informations, reportez-vous à link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes : arrêt du nœud sans interruption"^] .
+
+
+NOTE: Lorsque vous utilisez le `ontap-nas` pilote ou `ontap-nas-economy`, vous devez définir le `autoExportPolicy` paramètre de la configuration back-end sur `true` afin que Trident puisse restreindre l'accès au nœud Kubernetes avec la valeur taint appliquée à l'aide des règles d'exportation gérées.
+
+
+WARNING: Comme Trident repose sur les NGN Kubernetes, ne supprimez pas les `out-of-service` nœuds défectueux avant que toutes les charges de travail non tolérables ne soient replanifiées. L'application ou la suppression imprudemment de cet outil peut compromettre la protection des données back-end.
+
+Lorsque l'administrateur du cluster Kubernetes a appliqué le `node.kubernetes.io/out-of-service=nodeshutdown:NoExecute` taint au nœud et `enableForceDetach` est défini sur `true`, Trident détermine l'état du nœud et :
+
+. Interrompre l'accès E/S du backend pour les volumes montés sur ce nœud.
+. Marquer l'objet de nœud Trident comme `dirty` (non sécurisé pour les nouvelles publications).
++
+
+NOTE: Le contrôleur Trident rejette les nouvelles demandes de volume publiées jusqu'à ce que le nœud soit de nouveau qualifié (après avoir été marqué comme `dirty`) par le pod de nœud Trident. Toutes les charges de travail planifiées avec une demande de volume persistant montée (même lorsque le nœud du cluster est sain et prêt) ne seront pas acceptées tant que Trident ne pourra pas vérifier le nœud `clean` (compatibilité pour les nouvelles publications).
+
+
+
+Lorsque l'intégrité du nœud est restaurée et que la taint est supprimée, Trident :
+
+. Identifiez et nettoyez les chemins publiés obsolètes sur le nœud.
+. Si le nœud est dans un `cleanable` état (le taint hors service a été supprimé et le nœud est à `Ready` l'état) et que tous les chemins obsolètes et publiés sont propres, Trident reprépare le nœud en tant que et autorise la publication de `clean` nouveaux volumes sur le nœud.
+
+
+
+
+== Détails sur le basculement automatique
+
+Vous pouvez automatiser le processus de détachement forcé grâce à l'intégration aveclink:https://github.com/medik8s/node-healthcheck-operator["opérateur de vérification de l'état des nœuds (NHC)"^] .  Lorsqu'une panne de nœud survient, NHC déclenche la remédiation du nœud Trident (TNR) et force le détachement automatiquement en créant une CR TridentNodeRemediation dans l'espace de noms Trident définissant le nœud défaillant.  Un TNR est créé uniquement en cas de défaillance d'un nœud, et supprimé par le NHC une fois que le nœud est remis en ligne ou qu'il est supprimé.
+
+
+
+=== Échec du processus de suppression du pod du nœud
+
+Le basculement automatique sélectionne les charges de travail à retirer du nœud défaillant.  Lorsqu'un TNR est créé, le contrôleur TNR marque le nœud comme étant sale, empêchant toute nouvelle publication de volume et commence à supprimer les pods pris en charge par détachement forcé et leurs attachements de volume.
+
+Tous les volumes/PVC pris en charge par le détachement forcé sont pris en charge par le basculement automatique :
+
+* Volumes NAS et NAS-economy utilisant des politiques d'exportation automatique (SMB n'est pas encore pris en charge).
+* Volumes SAN et SAN-économie.
+
+
+Se référer à<<Détails sur le détachement forcé>> .
+
+*Comportement par défaut* :
+
+* Les pods utilisant des volumes pris en charge par le détachement forcé sont supprimés du nœud défaillant.  Kubernetes va les reprogrammer sur un nœud sain.
+* Les pods utilisant un volume non pris en charge par le détachement forcé, y compris les volumes non-Trident, ne sont pas supprimés du nœud défaillant.
+* Les pods sans état (et non les PVC) ne sont pas supprimés du nœud défaillant, sauf si l'annotation du pod est présente. `trident.netapp.io/podRemediationPolicy: delete` est réglé.
+
+
+*Remplacement du comportement de suppression des pods* :
+
+Le comportement de suppression des pods peut être personnalisé à l'aide d'une annotation de pod : `trident.netapp.io/podRemediationPolicy[retain, delete]` .  Ces annotations sont examinées et utilisées en cas de basculement.  Appliquez des annotations à la spécification du pod de déploiement/replicaset Kubernetes pour empêcher leur disparition après un basculement :
+
+* `retain`- Le pod ne sera PAS supprimé du nœud défaillant lors d'un basculement automatique.
+* `delete`- Le pod sera supprimé du nœud défaillant lors d'un basculement automatique.
+
+
+Ces annotations peuvent être appliquées à n'importe quel pod.
+
+[WARNING]
+====
+* Les opérations d'E/S seront bloquées uniquement sur les nœuds défaillants pour les volumes prenant en charge le détachement forcé.
+* Pour les volumes qui ne prennent pas en charge le détachement forcé, il existe un risque de corruption des données et de problèmes de connexion multiple.
+
+
+====
+
+
+=== Remédiation des nœuds Trident CR
+
+Le CR TridentNodeRemediation (TNR) définit un nœud défaillant.  Le nom du TNR correspond au nom du nœud défaillant.
+
+*Exemple de fichier TNR* :
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentNodeRemediation
+metadata:
+  name: <K8s-node-name>
+spec: {}
+----
+*États TNR* : Utilisez les commandes suivantes pour consulter l’état des animaux TNR :
+`kubectl get tnr <name> -n <trident-namespace>`
+
+Les animaux TNR peuvent se trouver dans l'un des états suivants :
+
+* _Remédiation_ :
++
+** Cessez l'accès aux E/S du backend pour les volumes pris en charge par détachement forcé montés sur ce nœud.
+** L'objet nœud Trident est marqué comme non conforme (non sûr pour les nouvelles publications).
+** Supprimez les pods et les volumes attachés du nœud
+
+
+* _Récupération du nœud en attente_:
++
+** Le contrôleur attend que le nœud soit de nouveau en ligne.
+** Une fois le nœud en ligne, le contrôle de publication garantira que le nœud est propre et prêt pour les nouvelles publications de volumes.
+
+
+* Si le nœud est supprimé de K8s, le contrôleur TNR supprimera le TNR et cessera la réconciliation.
+* _Réussi_:
++
+** Toutes les étapes de correction et de récupération des nœuds ont été réalisées avec succès.  Le nœud est propre et prêt pour la publication de nouveaux volumes.
+
+
+* _Échoué_:
++
+** Erreur irrécupérable.  Les raisons des erreurs sont définies dans le champ status.message de la CR.
+
+
+
+
+
+
+=== Activation du basculement automatique
+
+*Prérequis* :
+
+* Assurez-vous que le détachement forcé est activé avant d'activer le basculement automatique. Pour plus d'informations, veuillez consulter<<Détails sur le détachement forcé>> .
+* Installez le contrôle d'intégrité des nœuds (NHC) dans le cluster Kubernetes.
++
+** link:https://sdk.operatorframework.io/docs/installation/["Installer le SDK de l'opérateur"].
+** Installez Operator Lifecycle Manager (OLM) dans le cluster s'il n'est pas déjà installé : `operator-sdk olm install` .
+** Installer l'opérateur de vérification de l'état du nœud : `kubectl create -f https://operatorhub.io/install/node-healthcheck-operator.yaml` .
+
+
+
+
+
+NOTE: Vous pouvez également utiliser d'autres méthodes pour détecter les défaillances de nœuds, comme indiqué dans le<<Integrating Custom Node Health Check Solutions>> section ci-dessous.
+
+Voirlink:https://www.redhat.com/en/blog/node-health-check-operator["Opérateur de vérification de l'état des nœuds"^] pour plus d'informations.
+
+.Étapes
+. Créez une CR NodeHealthCheck (NHC) dans l'espace de noms Trident pour surveiller les nœuds de travail du cluster. Exemple:
++
+[source, yaml]
+----
+apiVersion: remediation.medik8s.io/v1alpha1
+kind: NodeHealthCheck
+metadata:
+  name: <CR name>
+spec:
+  selector:
+    matchExpressions:
+      - key: node-role.kubernetes.io/control-plane
+        operator: DoesNotExist
+      - key: node-role.kubernetes.io/master
+        operator: DoesNotExist
+  remediationTemplate:
+    apiVersion: trident.netapp.io/v1
+    kind: TridentNodeRemediationTemplate
+    namespace: <Trident installation namespace>
+    name: trident-node-remediation-template
+  minHealthy: 0 # Trigger force-detach upon one or more node failures
+  unhealthyConditions:
+    - type: Ready
+      status: "False"
+      duration: 0s
+    - type: Ready
+      status: Unknown
+      duration: 0s
+----
+. Appliquez la demande de changement (CR) de vérification de l'état du nœud dans le `trident` espace de noms.
++
+`kubectl apply -f <nhc-cr-file>.yaml -n <trident-namespace>`
+
+
+
+La ressource personnalisée ci-dessus est configurée pour surveiller les nœuds de travail K8s afin de détecter les conditions de nœud Ready : false et Unknown.  Le basculement automatique sera déclenché lorsqu'un nœud passera à l'état Prêt : faux ou Prêt : inconnu.
+
+Le `unhealthyConditions` Le CR utilise un délai de grâce de 0 seconde.  Cela provoque le déclenchement immédiat du basculement automatique dès que K8s définit la condition du nœud sur Ready: false, ce qui se produit lorsque K8s perd le signal de présence d'un nœud.  K8s a un délai par défaut de 40 secondes après le dernier battement de cœur avant de définir Ready sur false.  Cette période de grâce peut être personnalisée dans les options de déploiement de K8s.
+
+Pour plus d'options de configuration, consultezlink:https://github.com/medik8s/node-healthcheck-operator/blob/main/docs/configuration.md["Documentation de l'opérateur Node-Healthcheck"^] .
+
+
+
+=== Informations de configuration supplémentaires
+
+Lorsque Trident est installé avec le détachement forcé activé, deux ressources supplémentaires sont automatiquement créées dans l'espace de noms Trident pour faciliter l'intégration avec NHC : TridentNodeRemediationTemplate (TNRT) et ClusterRole.
+
+*Modèle de remédiation des nœuds Trident (TNRT)* :
+
+Le TNRT sert de modèle au contrôleur du NHC, qui utilise le TNRT pour générer des ressources TNR selon les besoins.
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentNodeRemediationTemplate
+metadata:
+  name: trident-node-remediation-template
+  namespace: trident
+spec:
+  template:
+    spec: {}
+----
+*Rôle du cluster* :
+
+Un rôle de cluster est également ajouté lors de l'installation lorsque le détachement forcé est activé.  Cela confère au NHC les autorisations nécessaires pour les TNR dans l'espace de noms Trident .
+
+[source, yaml]
+----
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    rbac.ext-remediation/aggregate-to-ext-remediation: "true"
+  name: tridentnoderemediation-access
+rules:
+- apiGroups:
+  - trident.netapp.io
+  resources:
+  - tridentnoderemediationtemplates
+  - tridentnoderemediations
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+----
+
+
+=== Mises à niveau et maintenance des clusters K8s
+
+Pour éviter tout basculement, suspendez le basculement automatique pendant les opérations de maintenance ou de mise à niveau de K8s, lorsque les nœuds sont susceptibles de tomber en panne ou de redémarrer.  Vous pouvez mettre en pause le CR du NHC (décrit ci-dessus) en modifiant son CR :
+
+`kubectl patch NodeHealthCheck <cr-name> --patch '{"spec":{"pauseRequests":["<description-for-reason-of-pause>"]}}' --type=merge`
+
+Cela interrompt le basculement automatique.  Pour réactiver le basculement automatique, supprimez les requêtes de pause de la spécification une fois la maintenance terminée.
+
+
+
+=== Limites
+
+* Les opérations d'E/S sont empêchées uniquement sur les nœuds défaillants pour les volumes pris en charge par le détachement forcé.  Seuls les pods utilisant des volumes/PVC pris en charge par le détachement forcé sont automatiquement supprimés.
+* Le basculement automatique et le détachement forcé s'exécutent à l'intérieur du module de contrôle Trident.  Si le nœud hébergeant le contrôleur Trident tombe en panne, le basculement automatique sera retardé jusqu'à ce que Kubernetes déplace le pod vers un nœud sain.
+
+
+
+
+=== Intégration de solutions personnalisées de vérification de l'état des nœuds
+
+Vous pouvez remplacer l'opérateur de vérification de l'état du nœud par d'autres outils de détection des pannes de nœuds pour déclencher un basculement automatique.  Pour garantir la compatibilité avec le mécanisme de basculement automatique, votre solution personnalisée doit :
+
+* Créez un TNR lorsqu'une défaillance de nœud est détectée, en utilisant le nom du nœud défaillant comme nom de la ressource de changement (CR) du TNR.
+* Supprimez le TNR lorsque le nœud a récupéré et que le TNR est à l'état « Réussi ».
+

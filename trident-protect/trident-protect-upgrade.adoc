@@ -18,9 +18,12 @@ Vous pouvez mettre à niveau Trident Protect vers la dernière version pour bén
 
 [NOTE]
 ====
-Lors d'une mise à niveau depuis la version 24.10, les snapshots exécutés pendant la mise à niveau peuvent échouer. Cet échec n'empêche pas la création de futurs snapshots, qu'ils soient manuels ou planifiés. Si un snapshot échoue pendant la mise à niveau, vous pouvez en créer un manuellement pour garantir la protection de votre application.
-
+* Lors d'une mise à niveau depuis la version 24.10, les snapshots exécutés pendant la mise à niveau peuvent échouer. Cet échec n'empêche pas la création de futurs snapshots, qu'ils soient manuels ou planifiés. Si un snapshot échoue pendant la mise à niveau, vous pouvez en créer un manuellement pour garantir la protection de votre application.
++
 Pour éviter d'éventuels échecs, vous pouvez désactiver toutes les planifications d'instantanés avant la mise à niveau et les réactiver ensuite. Cependant, cela entraînera l'absence d'instantanés planifiés pendant la période de mise à niveau.
+
+* Pour les installations de registre privé, assurez-vous que le graphique Helm et les images requis pour la version cible sont disponibles dans votre registre privé et vérifiez que vos valeurs Helm personnalisées sont compatibles avec la nouvelle version du graphique. Pour plus d'informations, veuillez consulterlink:trident-protect-installation.html["Installez Trident Protect à partir d'un registre privé"] .
+
 
 ====
 Pour mettre à niveau Trident Protect, procédez comme suit.
@@ -60,6 +63,10 @@ kubectl delete secret -n trident-protect -l name=trident-protect-crds,owner=helm
 +
 [source, console]
 ----
-helm upgrade trident-protect netapp-trident-protect/trident-protect --version 100.2506.0 --namespace trident-protect
+helm upgrade trident-protect netapp-trident-protect/trident-protect --version 100.2510.0 --namespace trident-protect
 ----
++
+
+NOTE: Vous pouvez configurer le niveau de journalisation lors de la mise à niveau en ajoutant `--set logLevel=debug` à la commande de mise à niveau.  Le niveau de journalisation par défaut est `warn` .  L'activation de la journalisation de débogage est recommandée pour le dépannage, car elle aide le support NetApp à diagnostiquer les problèmes sans nécessiter de modifications du niveau de journalisation ni de reproduction du problème.
+
 

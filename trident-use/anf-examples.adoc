@@ -20,9 +20,6 @@ Découvrez les options de configuration NFS et SMB backend pour Azure NetApp Fil
 
 Trident utilise votre configuration back-end (sous-réseau, réseau virtuel, niveau de service et emplacement) pour créer des volumes Azure NetApp Files sur des pools de capacité disponibles à l'emplacement souhaité et qui correspondent au niveau de service et au sous-réseau requis.
 
-
-NOTE: * À partir de la version NetApp Trident 25.06, les pools de capacité QoS manuels sont pris en charge en tant qu'aperçu technique.*
-
 Les systèmes Azure NetApp Files back-end proposent ces options de configuration.
 
 [cols="3"]
@@ -100,10 +97,10 @@ Facultatif lorsque les identités gérées sont activées sur un cluster AKS. |
 | `supportedTopologies` | Représente une liste de régions et de zones prises en charge par ce back-end. Pour plus d'informations, reportez-vous link:../trident-use/csi-topology.html["Utiliser la topologie CSI"]à . |  
 
 
-| `qosType` | Indique le type de QoS : Auto ou Manuel. *Aperçu technique de Trident 25.06* | Automatique 
+| `qosType` | Indique le type de QoS : Auto ou Manuel. | Automatique 
 
 
-| `maxThroughput` | Définit le débit maximal autorisé en Mio/s. Prise en charge uniquement pour les pools de capacité QoS manuels. *Aperçu technique de Trident 25.06* | `4 MiB/sec` 
+| `maxThroughput` | Définit le débit maximal autorisé en Mio/s. Prise en charge uniquement pour les pools de capacité QoS manuels. | `4 MiB/sec` 
 |===
 
 NOTE: Pour plus d'informations sur les fonctionnalités réseau, reportez-vous à la section link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/configure-network-features["Configurer les fonctions réseau d'un volume Azure NetApp Files"^].
@@ -267,7 +264,7 @@ capacityPools:
 .Exemple de backend avec pools de capacité QoS manuels
 [%collapsible]
 ====
-Cette configuration backend place les volumes dans Azure  `eastus` Emplacement avec pools de capacité QoS manuels. *Aperçu technique dans NetApp Trident 25.06*.
+Cette configuration backend place les volumes dans Azure. `eastus` emplacement avec pools de capacité QoS manuels.
 
 [source, yaml]
 ----
