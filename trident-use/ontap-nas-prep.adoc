@@ -14,13 +14,6 @@ summary: 'Découvrez les exigences, les options d"authentification et les règle
 [role="lead"]
 Découvrez les exigences, les options d'authentification et les règles d'exportation pour la configuration d'un back-end ONTAP avec des pilotes NAS ONTAP.
 
-À compter de la version 25.10, NetApp Trident prend en chargelink:https://docs.netapp.com/us-en/ontap-afx/index.html["Système de stockage NetApp AFX"^] .  Les systèmes de stockage NetApp AFX diffèrent des autres systèmes ONTAP (ASA, AFF et FAS) dans la mise en œuvre de leur couche de stockage.
-
-
-NOTE: Seuls les `ontap-nas` Le pilote (avec protocole NFS) est pris en charge pour les systèmes AFX ; le protocole SMB n’est pas pris en charge.
-
-Dans la configuration du backend Trident , il n'est pas nécessaire de préciser que votre système est AFX.  Lorsque vous sélectionnez `ontap-nas` comme le `storageDriverName` Trident détecte automatiquement les systèmes AFX.
-
 
 
 == De formation

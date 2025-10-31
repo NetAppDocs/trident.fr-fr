@@ -135,7 +135,4 @@ Cette section répertorie les annotations prises en charge pour configurer diff�
 
 
 | protect.trident.netapp.io/kopia-content-cache-size-limit-mb | chaîne | La limite de taille maximale (en mégaoctets) pour le cache de contenu Kopia. | "1000" 
-
-
-| protect.trident.netapp.io/pvc-bind-timeout-sec | chaîne | Délai maximal (en secondes) d'attente pour que les PersistentVolumeClaims (PVC) nouvellement créées atteignent le `Bound` phase précédant l'échec des opérations.  S'applique à tous les types de restauration CR (BackupRestore, BackupInplaceRestore, SnapshotRestore, SnapshotInplaceRestore).  Utilisez une valeur plus élevée si votre système de stockage ou votre cluster nécessite souvent plus de temps. | "1200" (20 minutes) 
 |===

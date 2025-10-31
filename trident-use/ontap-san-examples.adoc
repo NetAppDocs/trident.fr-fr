@@ -14,12 +14,12 @@ summary: Découvrez comment créer et utiliser les pilotes SAN ONTAP avec votre 
 [role="lead"]
 Découvrez comment créer et utiliser les pilotes SAN ONTAP avec votre installation Trident. Cette section fournit des exemples de configuration back-end et des détails sur le mappage des systèmes back-end aux classes de stockage.
 
-link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Systèmes ASA r2"^]diffèrent des autres systèmes ONTAP (ASA, AFF et FAS) dans la mise en œuvre de leur couche de stockage. Ces variations ont une incidence sur l'utilisation de certains paramètres, comme indiqué. link:https://docs.netapp.com/us-en/asa-r2/learn-more/hardware-comparison.html["En savoir plus sur les différences entre les systèmes ASA r2 et les autres systèmes ONTAP"^].
+link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Systèmes ASA r2"^]diffère des autres systèmes ONTAP (ASA, AFF et FAS) dans la mise en œuvre de sa couche de stockage. Ces variations ont une incidence sur l'utilisation de certains paramètres, comme indiqué. link:https://docs.netapp.com/us-en/asa-r2/learn-more/hardware-comparison.html["En savoir plus sur les différences entre les systèmes ASA r2 et les autres systèmes ONTAP"^].
 
 
-NOTE: Seuls les `ontap-san` Le pilote (avec les protocoles iSCSI, NVMe/TCP et FC) est pris en charge pour les systèmes ASA r2.
+NOTE: Seuls les `ontap-san` Le pilote (avec les protocoles iSCSI et NVMe/TCP) est pris en charge pour les systèmes ASA r2.
 
-Dans la configuration du backend Trident , il n'est pas nécessaire de préciser que votre système est un ASA r2. Lorsque vous sélectionnez `ontap-san` comme le `storageDriverName` Trident détecte automatiquement les systèmes ASA r2 ou autres systèmes ONTAP . Certains paramètres de configuration du backend ne sont pas applicables aux systèmes ASA r2, comme indiqué dans le tableau ci-dessous.
+Dans la configuration du backend Trident , il n'est pas nécessaire de préciser que votre système est un ASA r2. Lorsque vous sélectionnez `ontap-san` comme le `storageDriverName` Trident détecte automatiquement le ASA r2 ou le système ONTAP traditionnel. Certains paramètres de configuration du backend ne sont pas applicables aux systèmes ASA r2, comme indiqué dans le tableau ci-dessous.
 
 
 
