@@ -114,12 +114,6 @@ Oui, Trident est pris en charge sur AWS, Google Cloud et Azure.
 
 
 
-=== Trident est-il compatible avec Cloud Volumes Services ?
-
-Oui, Trident prend en charge le service Azure NetApp Files dans Azure ainsi que le Cloud Volumes Service dans GCP.
-
-
-
 == Dépannage et support
 
 
@@ -367,7 +361,7 @@ Oui. La création de snapshots de volumes à la demande et de volumes persistant
 
 === Quels sont les pilotes qui prennent en charge les copies Snapshot de volume Trident ?
 
-À compter d'aujourd'hui, la prise en charge des instantanés à la demande est disponible pour notre `ontap-nas` , `ontap-nas-flexgroup` , `ontap-san` , `ontap-san-economy` , `solidfire-san` , `gcp-cvs` , et `azure-netapp-files` Pilotes backend.
+À compter d'aujourd'hui, la prise en charge des instantanés à la demande est disponible pour notre `ontap-nas` , `ontap-nas-flexgroup` , `ontap-san` , `ontap-san-economy` , `solidfire-san` , et `azure-netapp-files` Pilotes backend.
 
 
 

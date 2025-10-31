@@ -193,14 +193,14 @@ Ces paramètres déterminent quels pools de stockage gérés par Trident doivent
 
 
 | Type de dos | chaîne  a| 
-ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san, solidfire-san, gcp-cvs, azure-netapp-files, ontap-san-economy
+ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san, solidfire-san, azure-netapp-files, ontap-san-economy
 | Le pool appartient à ce type de système back-end | Backend spécifié | Tous les conducteurs 
 
 
-| snapshots | bool | vrai, faux | Le pool prend en charge les volumes dotés de snapshots | Volume sur lequel les snapshots sont activés | ontap-nas, ontap-san, solidfire-san, gcp-cvs 
+| snapshots | bool | vrai, faux | Le pool prend en charge les volumes dotés de snapshots | Volume sur lequel les snapshots sont activés | ontap-nas, ontap-san, solidfire-san 
 
 
-| clones | bool | vrai, faux | Le pool prend en charge les volumes de clonage | Volume sur lequel les clones sont activés | ontap-nas, ontap-san, solidfire-san, gcp-cvs 
+| clones | bool | vrai, faux | Le pool prend en charge les volumes de clonage | Volume sur lequel les clones sont activés | ontap-nas, ontap-san, solidfire-san 
 
 
 | le cryptage | bool | vrai, faux | Le pool prend en charge les volumes chiffrés | Volume avec chiffrement activé | ontap-nas, économie ontap-nas, ontap-nas-flexgroups, ontap-san 

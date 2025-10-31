@@ -22,7 +22,6 @@ Lorsque vous effectuez une mise à niveau vers la dernière version de Trident, 
 
 * Il ne doit y avoir qu'une seule instance Trident installée sur tous les namespaces d'un cluster Kubernetes donné.
 * Trident 23.07 et versions ultérieures requièrent des instantanés de volume v1 et ne prend plus en charge les instantanés alpha ou bêta.
-* Si vous avez créé un Cloud Volumes Service pour Google Cloud dans lelink:../trident-use/gcp.html#learn-about-trident-support-for-cloud-volumes-service-for-google-cloud["type de service CVS"] , vous devez mettre à jour la configuration du backend pour utiliser le `standardsw` ou `zoneredundantstandardsw` niveau de service lors de la mise à niveau depuis Trident 23.01. Défaut de mise à jour `serviceLevel` Des problèmes au niveau du système dorsal pourraient entraîner des défaillances de volumes. Se référer à link:../trident-use/gcp.html#cvs-service-type-examples["Exemples de type de service CVS"] pour plus de détails.
 * Lors de la mise à niveau, il est important que vous fournissez `parameter.fsType` dans `StorageClasses` utilisé par Trident. Vous pouvez supprimer et recréer des données `StorageClasses` sans interrompre les volumes préexistants.
 +
 ** Il s'agit d'une exigence **** pour l'application https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["contextes de sécurité"^] Pour les volumes SAN.

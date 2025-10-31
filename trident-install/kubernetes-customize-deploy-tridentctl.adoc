@@ -35,7 +35,7 @@ Si vous devez personnaliser l'installation au-delà de ce que les arguments du p
 * `trident-service.yaml`
 * `trident-namespace.yaml`
 * `trident-serviceaccount.yaml`
-* `trident-resourcequota.yaml`
+* `trident-resourcequota.yaml`*
 
 
 Après avoir généré ces fichiers, vous pouvez les modifier en fonction de vos besoins, puis les utiliser `--use-custom-yaml` pour installer votre déploiement personnalisé.

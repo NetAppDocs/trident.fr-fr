@@ -342,7 +342,7 @@ tridentctl get volumes -n trident
 
 == Développez un volume NFS
 
-Trident prend en charge l'extension de volume pour les PV NFS provisionnés sur `ontap-nas` , `ontap-nas-economy` , `ontap-nas-flexgroup` , `gcp-cvs` , et `azure-netapp-files` backends.
+Trident prend en charge l'extension de volume pour les PV NFS provisionnés sur `ontap-nas` , `ontap-nas-economy` , `ontap-nas-flexgroup` , et `azure-netapp-files` backends.
 
 
 

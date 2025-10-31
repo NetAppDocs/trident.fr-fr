@@ -16,7 +16,7 @@ Pour garantir que Trident peut être installé dans un large éventail d'environ
 
 
 
-== Informations essentielles concernant le Trident 25.06
+== Informations essentielles concernant le Trident 25.10
 
 *Vous devez lire les informations critiques suivantes sur Trident.*
 

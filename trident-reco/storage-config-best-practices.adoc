@@ -74,7 +74,7 @@ Par exemple, un cluster ONTAP à deux nœuds peut héberger un maximum de 2000 v
 
 === Clonez un volume
 
-NetApp Trident prend en charge le clonage de volumes lors de l'utilisation de `ontap-nas` , `ontap-san` , `solidfire-san` , et `gcp-cvs` pilotes de stockage. Lors de l'utilisation du `ontap-nas-flexgroup` ou `ontap-nas-economy` Le clonage des pilotes n'est pas pris en charge. La création d'un nouveau volume à partir d'un volume existant entraînera la création d'un nouvel instantané.
+NetApp Trident prend en charge le clonage de volumes lors de l'utilisation de `ontap-nas` , `ontap-san` , et `solidfire-san` pilotes de stockage. Lors de l'utilisation du `ontap-nas-flexgroup` ou `ontap-nas-economy` Le clonage des pilotes n'est pas pris en charge. La création d'un nouveau volume à partir d'un volume existant entraînera la création d'un nouvel instantané.
 
 
 WARNING: Évitez de cloner un PVC associé à une autre StorageClass. Effectuez des opérations de clonage au sein de la même StorageClass pour garantir la compatibilité et éviter tout comportement inattendu.

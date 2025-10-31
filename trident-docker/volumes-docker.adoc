@@ -68,7 +68,7 @@ Effectuez les étapes ci-dessous pour mettre à niveau Trident pour Docker.
 
 == Clonez un volume
 
-Lors de l'utilisation du `ontap-nas` , `ontap-san` , `solidfire-san` , et `gcp-cvs storage drivers` Trident peut cloner des volumes. Lors de l'utilisation du `ontap-nas-flexgroup` ou `ontap-nas-economy` Le clonage des pilotes n'est pas pris en charge. La création d'un nouveau volume à partir d'un volume existant entraînera la création d'un nouvel instantané.
+Lors de l'utilisation du `ontap-nas` , `ontap-san` , et `solidfire-san` Les pilotes de stockage Trident peuvent cloner des volumes. Lors de l'utilisation du `ontap-nas-flexgroup` ou `ontap-nas-economy` Le clonage des pilotes n'est pas pris en charge. La création d'un nouveau volume à partir d'un volume existant entraînera la création d'un nouvel instantané.
 
 * Inspectez le volume pour énumérer les instantanés :
 +

@@ -21,7 +21,7 @@ Tous les nœuds workers du cluster Kubernetes doivent pouvoir monter les volumes
 Si vous utilisez une combinaison de pilotes, vous devez installer tous les outils requis pour vos pilotes. Les outils installés par défaut sont installés dans les versions récentes de Red Hat Enterprise Linux CoreOS (RHCOS).
 
 .Outils NFS
-link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#nfs-volumes["Installez les outils NFS"]si vous utilisez : `ontap-nas` , `ontap-nas-economy` , `ontap-nas-flexgroup` , `azure-netapp-files` , `gcp-cvs` .
+link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#nfs-volumes["Installez les outils NFS"]si vous utilisez : `ontap-nas` , `ontap-nas-economy` , `ontap-nas-flexgroup` , ou `azure-netapp-files` .
 
 .Outils iSCSI
 link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#install-the-iscsi-tools["Installez les outils iSCSI"] si vous utilisez : `ontap-san`, `ontap-san-economy`, `solidfire-san`.
