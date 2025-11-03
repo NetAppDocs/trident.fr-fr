@@ -143,9 +143,12 @@ Permet des opérations simultanées du contrôleur Trident pour un débit améli
 
 NOTE: *Aperçu technique* : Cette fonctionnalité est expérimentale et prend actuellement en charge des flux de travail parallèles limités avec les pilotes ONTAP-NAS (NFS uniquement) et ONTAP-SAN (NVMe pour ONTAP 9 unifié), en plus de l’aperçu technique existant pour le pilote ONTAP-SAN (protocoles iSCSI et FCP dans ONTAP 9 unifié).
 | faux 
-|===
 
-NOTE: Pour plus d'informations sur le formatage des paramètres du pod, reportez-vous à la section link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Attribution de pods aux nœuds"^].
+
+| `resources`  a| 
+Définit les limites et les requêtes de ressources Kubernetes pour le contrôleur Trident et les pods de nœuds. Vous pouvez configurer le processeur et la mémoire de chaque conteneur et sidecar pour gérer l'allocation des ressources dans Kubernetes.
+
+Pour plus d'informations sur la configuration des demandes et des limites de ressources, veuillez consulter la documentation.link:https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/["Gestion des ressources pour les pods et les conteneurs"^] .
 
 [WARNING]
 ====
@@ -162,9 +165,7 @@ NOTE: Pour plus d'informations sur le formatage des paramètres du pod, reportez
 * Vérifiez les TORC `status.CurrentInstallationParams` champ permettant d'afficher les valeurs actuellement appliquées.
 
 
-====
-un|
-
+==== a| 
 [source, yaml]
 ----
 resources:
@@ -250,10 +251,343 @@ resources:
           cpu:
           memory:
 ----
-|`httpsMetrics`|Activer HTTPS pour le point de terminaison des métriques Prometheus. |faux|`hostNetwork` a|Active la mise en réseau de l'hôte pour le contrôleur Trident . Ceci est utile lorsque vous souhaitez séparer le trafic frontal et le trafic dorsal dans un réseau multi-foyers. |faux
 
+
+| `httpsMetrics` | Activer HTTPS pour le point de terminaison des métriques Prometheus. | faux 
+
+
+| `hostNetwork`  a| 
+Permet la mise en réseau de l'hôte pour le contrôleur Trident . Ceci est utile lorsque vous souhaitez séparer le trafic frontal et le trafic dorsal dans un réseau multi-foyers.
+| faux 
 |===
 
+NOTE: Pour plus d'informations sur le formatage des paramètres du pod, reportez-vous à la section link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Attribution de pods aux nœuds"^].
 
-| [REMARQUE] Pour plus d'informations sur la mise en forme des paramètres de pod, consultezlink:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Attribution de pods aux nœuds"^] . == Exemples de configurations Vous pouvez utiliser les attributs dans<<Options de configuration>> lors de la définition `TridentOrchestrator` pour personnaliser votre installation. Configuration personnalisée de base [%collapsible%closed] ==== Cet exemple, créé après l'exécution de `cat deploy/crds/tridentorchestrator_cr_imagepullsecrets.yaml` commande, représente une installation personnalisée de base : [source,yaml] ---- apiVersion : trident.netapp.io/v1 kind : TridentOrchestrator metadata : name : trident spec : debug : true namespace : trident imagePullSecrets : - thisisasecret ---- ==== .Sélecteurs de nœuds [%collapsible%closed] ==== Cet exemple installe Trident avec des sélecteurs de nœuds. [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: trident controllerPluginNodeSelector: nodetype: master nodePluginNodeSelector: storage: netapp ---- ==== .Nœuds de travail Windows [%collapsible%closed] ==== Cet exemple, créé après l'exécution de `cat deploy/crds/tridentorchestrator_cr.yaml` commande, installe Trident sur un nœud de travail Windows. [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: trident windows: true ---- ==== .Identités gérées sur un cluster AKS [%collapsible%closed] ==== Cet exemple installe Trident pour activer les identités gérées sur un cluster AKS. [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: trident cloudProvider: "Azure" ---- ==== .Identité cloud sur un cluster AKS [%collapsible%closed] ==== Cet exemple installe Trident pour une utilisation avec une identité cloud sur un cluster AKS. [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: trident cloudProvider: "Azure" cloudIdentity: 'azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx' ---- ==== .Identité cloud sur un cluster EKS [%collapsible%closed] ==== Cet exemple installe Trident pour une utilisation avec une identité cloud sur un cluster AKS. [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: trident cloudProvider: "AWS" cloudIdentity: "'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/trident-role'" ---- ==== .Identité cloud pour GKE [%collapsible%closed] ==== Cet exemple installe Trident pour une utilisation avec une identité cloud sur un cluster GKE. [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentBackendConfig metadata: name: backend-tbc-gcp-gcnv spec: version: 1 storageDriverName: google-cloud-netapp-volumes projectNumber: '012345678901' network: gcnv-network location: us-west2 serviceLevel: Premium storagePool: pool-premium1 ---- ==== .Configuration des requêtes et limites de ressources Kubernetes pour le contrôleur Trident et les pods de nœuds Trident Linux [%collapsible%closed] ==== Cet exemple configure les requêtes et limites de ressources Kubernetes pour le contrôleur Trident et les pods de nœuds Trident Linux. AVERTISSEMENT : *Avertissement* : Les valeurs de requête et de limite fournies dans cet exemple sont uniquement à des fins de démonstration. Ajustez ces valeurs en fonction de votre environnement et de vos exigences en matière de charge de travail. [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: trident imagePullSecrets: - thisisasecret resources: controller: trident-main: requests: cpu: 10m memory: 80Mi limits: cpu: 200m memory: 256Mi # sidecars csi-provisioner: requests: cpu: 2m memory: 20Mi limits: cpu: 100m memory: 64Mi csi-attacher: requests: cpu: 2m memory: 20Mi limits: cpu: 100m memory: 64Mi csi-resizer: requests: cpu: 3m memory: 20Mi limits: cpu: 100m memory: 64Mi csi-snapshotter: requests: cpu: 2m memory: 20Mi limits: cpu: 100m mémoire : 64Mio trident-autosupport : requêtes : processeur : 1 m mémoire : 30Mio limites : processeur : 50 m mémoire : 128Mio nœud : linux : trident-main : requêtes : processeur : 10 m mémoire : 60Mio limites : processeur : 200 m mémoire : 256Mio # sidecars node-driver-registrar : requêtes : processeur : 1 m mémoire : 10Mio limites : processeur : 50 m mémoire : 32Mio ---- ==== .Configuration des requêtes et des limites de ressources Kubernetes pour le contrôleur Trident et les pods de nœuds Trident Windows et Linux [%collapsible%closed] ==== Cet exemple configure les requêtes et les limites de ressources Kubernetes pour le contrôleur Trident et les pods de nœuds Trident Windows et Linux. AVERTISSEMENT : *Avertissement* : Les valeurs de requête et de limite fournies dans cet exemple sont uniquement à des fins de démonstration. Ajustez ces valeurs en fonction de votre environnement et de vos exigences en matière de charge de travail. [source,yaml] ---- apiVersion: trident.netapp.io/v1 kind: TridentOrchestrator metadata: name: trident spec: debug: true namespace: trident imagePullSecrets: - thisisasecret windows: true resources: controller: trident-main: requests: cpu: 10m memory: 80Mi limits: cpu: 200m mémoire : 256 Mio # sidecars csi-provisioner : requêtes : processeur : 2 Mo mémoire : 20 Mio limites : processeur : 100 Mo mémoire : 64 Mio csi-attacher : requêtes : processeur : 2 Mo mémoire : 20 Mio limites : processeur : 100 Mo mémoire : 64 Mio csi-resizer : requêtes : processeur : 3 Mo mémoire : 20 Mio limites : processeur : 100 Mo mémoire : 64 Mio csi-snapshotter : requêtes : processeur : 2 Mo mémoire : 20 Mio limites : processeur : 100 Mo mémoire : 64 Mio trident-autosupport : requêtes : processeur : 1 Mo mémoire : 30 Mio limites : processeur : 50 Mo mémoire : 128 Mio node : linux : trident-main : requêtes : processeur : 10 Mo mémoire : 60 Mio limites : processeur : 200 Mo mémoire : 256 Mio # sidecars node-driver-registrar : requêtes : processeur : 1 Mo, mémoire : 10 Mio, limites : processeur : 50 Mo, mémoire : 32 Mio, windows : trident-main : requêtes : processeur : 6 Mo, mémoire : 40 Mio, limites : processeur : 200 Mo, mémoire : 128 Mio # sidecars node-driver-registrar : requêtes : processeur : 6 Mo, mémoire : 40 Mio, limites : processeur : 100 Mo, mémoire : 128 Mio, liveness-probe : requêtes : processeur : 2 Mo, mémoire : 40 Mio, limites : processeur : 50 Mo, mémoire : 64 Mio ---- ==== 
-|===
+
+
+== Exemples de configurations
+
+Vous pouvez utiliser les attributs dans<<Options de configuration>> lors de la définition `TridentOrchestrator` pour personnaliser votre installation.
+
+.configuration personnalisée de base
+[%collapsible]
+====
+Cet exemple, créé après l'exécution de `cat deploy/crds/tridentorchestrator_cr_imagepullsecrets.yaml` commande, représente une installation personnalisée de base :
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  imagePullSecrets:
+  - thisisasecret
+----
+====
+.Sélecteurs de nœuds
+[%collapsible]
+====
+Cet exemple installe Trident avec des sélecteurs de nœuds.
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  controllerPluginNodeSelector:
+    nodetype: master
+  nodePluginNodeSelector:
+    storage: netapp
+----
+====
+.nœuds de travail Windows
+[%collapsible]
+====
+Cet exemple, créé après l'exécution de `cat deploy/crds/tridentorchestrator_cr.yaml` commande, installe Trident sur un nœud de travail Windows.
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  windows: true
+----
+====
+.Gestion des identités sur un cluster AKS
+[%collapsible]
+====
+Cet exemple installe Trident pour activer les identités gérées sur un cluster AKS.
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  cloudProvider: "Azure"
+----
+====
+.Identité cloud sur un cluster AKS
+[%collapsible]
+====
+Cet exemple installe Trident pour une utilisation avec une identité cloud sur un cluster AKS.
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  cloudProvider: "Azure"
+  cloudIdentity: 'azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx'
+
+----
+====
+.Identité cloud sur un cluster EKS
+[%collapsible]
+====
+Cet exemple installe Trident pour une utilisation avec une identité cloud sur un cluster AKS.
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  cloudProvider: "AWS"
+  cloudIdentity: "'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/trident-role'"
+----
+====
+.Identité cloud pour GKE
+[%collapsible]
+====
+Cet exemple installe Trident pour une utilisation avec une identité cloud sur un cluster GKE.
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-gcp-gcnv
+spec:
+  version: 1
+  storageDriverName: google-cloud-netapp-volumes
+  projectNumber: '012345678901'
+  network: gcnv-network
+  location: us-west2
+  serviceLevel: Premium
+  storagePool: pool-premium1
+----
+====
+.Configuration des requêtes et limites de ressources Kubernetes pour le contrôleur Trident et les pods de nœuds Trident Linux
+[%collapsible]
+====
+Cet exemple configure les demandes et les limites de ressources Kubernetes pour le contrôleur Trident et les pods de nœuds Trident Linux.
+
+
+WARNING: *Avertissement* : Les valeurs de requête et de limite fournies dans cet exemple sont uniquement à des fins de démonstration. Ajustez ces valeurs en fonction de votre environnement et de vos exigences en matière de charge de travail.
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  imagePullSecrets:
+  - thisisasecret
+  resources:
+    controller:
+      trident-main:
+        requests:
+          cpu: 10m
+          memory: 80Mi
+        limits:
+          cpu: 200m
+          memory: 256Mi
+      # sidecars
+      csi-provisioner:
+        requests:
+          cpu: 2m
+          memory: 20Mi
+        limits:
+          cpu: 100m
+          memory: 64Mi
+      csi-attacher:
+        requests:
+          cpu: 2m
+          memory: 20Mi
+        limits:
+          cpu: 100m
+          memory: 64Mi
+      csi-resizer:
+        requests:
+          cpu: 3m
+          memory: 20Mi
+        limits:
+          cpu: 100m
+          memory: 64Mi
+      csi-snapshotter:
+        requests:
+          cpu: 2m
+          memory: 20Mi
+        limits:
+          cpu: 100m
+          memory: 64Mi
+      trident-autosupport:
+        requests:
+          cpu: 1m
+          memory: 30Mi
+        limits:
+          cpu: 50m
+          memory: 128Mi
+    node:
+      linux:
+        trident-main:
+          requests:
+            cpu: 10m
+            memory: 60Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi
+        # sidecars
+        node-driver-registrar:
+          requests:
+            cpu: 1m
+            memory: 10Mi
+          limits:
+            cpu: 50m
+            memory: 32Mi
+
+----
+====
+.Configuration des requêtes et des limites de ressources Kubernetes pour le contrôleur Trident et les pods de nœuds Trident Windows et Linux
+[%collapsible]
+====
+Cet exemple configure les demandes et les limites de ressources Kubernetes pour le contrôleur Trident et les pods de nœuds Trident Windows et Linux.
+
+
+WARNING: *Avertissement* : Les valeurs de requête et de limite fournies dans cet exemple sont uniquement à des fins de démonstration. Ajustez ces valeurs en fonction de votre environnement et de vos exigences en matière de charge de travail.
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  imagePullSecrets:
+  - thisisasecret
+  windows: true
+  resources:
+    controller:
+      trident-main:
+        requests:
+          cpu: 10m
+          memory: 80Mi
+        limits:
+          cpu: 200m
+          memory: 256Mi
+        # sidecars
+      csi-provisioner:
+        requests:
+          cpu: 2m
+          memory: 20Mi
+        limits:
+          cpu: 100m
+          memory: 64Mi
+      csi-attacher:
+        requests:
+          cpu: 2m
+          memory: 20Mi
+        limits:
+          cpu: 100m
+          memory: 64Mi
+      csi-resizer:
+        requests:
+          cpu: 3m
+          memory: 20Mi
+        limits:
+          cpu: 100m
+          memory: 64Mi
+      csi-snapshotter:
+        requests:
+          cpu: 2m
+          memory: 20Mi
+        limits:
+          cpu: 100m
+          memory: 64Mi
+      trident-autosupport:
+        requests:
+          cpu: 1m
+          memory: 30Mi
+        limits:
+          cpu: 50m
+          memory: 128Mi
+    node:
+      linux:
+        trident-main:
+          requests:
+            cpu: 10m
+            memory: 60Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi
+        # sidecars
+        node-driver-registrar:
+          requests:
+            cpu: 1m
+            memory: 10Mi
+          limits:
+            cpu: 50m
+            memory: 32Mi
+      windows:
+        trident-main:
+          requests:
+            cpu: 6m
+            memory: 40Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
+        # sidecars
+        node-driver-registrar:
+          requests:
+            cpu: 6m
+            memory: 40Mi
+          limits:
+            cpu: 100m
+            memory: 128Mi
+        liveness-probe:
+          requests:
+            cpu: 2m
+            memory: 40Mi
+          limits:
+            cpu: 50m
+            memory: 64Mi
+
+----
+====
