@@ -27,7 +27,7 @@ Grâce aux mesures fournies par Trident, vous pouvez :
 
 
 
-NOTE: Par défaut, les métriques de Trident sont exposées sur le port cible `8001` à `/metrics` point final. Ces indicateurs sont *activés par défaut* lorsque Trident est installé. Vous pouvez configurer la consommation des métriques Trident via HTTPS sur le port `8444` aussi. Voirlink:..https://docs.netapp.com/us-en/trident/trident-use/monitor-trident.html#step-2-create-a-prometheus-servicemonitor["Étape 2 : créer un ServiceMonitor Prometheus"^] pour plus d'informations.
+NOTE: Par défaut, les métriques de Trident sont exposées sur le port cible `8001` à `/metrics` point final. Ces indicateurs sont *activés par défaut* lorsque Trident est installé. Vous pouvez configurer la consommation des métriques Trident via HTTPS sur le port `8444` aussi.
 
 .Ce dont vous avez besoin
 * Cluster Kubernetes avec Trident installé.
@@ -38,7 +38,7 @@ NOTE: Par défaut, les métriques de Trident sont exposées sur le port cible `8
 
 == Étape 1 : définir une cible Prometheus
 
-Vous devez définir une cible Prometheus pour collecter les metrics et obtenir des informations sur les systèmes back-end gérés par Trident, les volumes qu'elle crée, etc.  https://netapp.io/2020/02/20/prometheus-and-trident/["Blog"^]Vous apprendrez ainsi à utiliser Prometheus et Grafana avec Trident pour récupérer des metrics. Découvrez sur ce blog comment exécuter Prometheus en tant qu'opérateur dans votre cluster Kubernetes et comment créer un ServiceMonitor pour obtenir des metrics Trident.
+Vous devez définir une cible Prometheus pour collecter les métriques et obtenir des informations sur les backends gérés par Trident , les volumes qu'il crée, etc. Voirlink:https://prometheus-operator.dev/docs/developer/getting-started/["Documentation de l'opérateur Prometheus"^] .
 
 
 
