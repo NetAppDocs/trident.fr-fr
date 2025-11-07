@@ -164,11 +164,10 @@ Utilisez `formatOptions` pour spécifier des arguments de ligne de commande pour
 
 === Recommandations pour l'utilisation des options de format
 
-Trident recommande l'option suivante pour accélérer le processus de formatage :
+Trident recommande les options suivantes pour accélérer le processus de mise en forme :
 
-*-E nojeter:*
-
-* Conservez, n'essayez pas de supprimer des blocs au moment mkfs (la suppression initiale des blocs est utile sur les périphériques SSD et le stockage fragmenté/à provisionnement fin). Ceci remplace l'option obsolète "-K" et il est applicable à tous les systèmes de fichiers (xfs, ext3 et ext4).
+* *-E nodiscard (ext3, ext4):* Ne pas tenter de supprimer des blocs au moment de mkfs (la suppression initiale des blocs est utile sur les périphériques à semi-conducteurs et le stockage clairsemé / à provisionnement fin). Cette option remplace l'option obsolète « -K » et s'applique aux systèmes de fichiers ext3 et ext4.
+* *-K (xfs):* Ne tentez pas de supprimer des blocs au moment de mkfs. Cette option est applicable au système de fichiers xfs.
 
 
 

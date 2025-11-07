@@ -47,7 +47,7 @@ Trident prend en charge plusieurs moteurs de mise en conteneurs et orchestrateur
 
 NOTE: Trident continue de prendre en charge les anciennes versions d'OpenShift conformément à lalink:https://access.redhat.com/support/policy/updates/openshift["Cycle de vie des versions de Red Hat Extended Update Support (EUS)"] , même s'ils s'appuient sur des versions de Kubernetes qui ne sont plus officiellement prises en charge en amont.  Lors de l'installation de Trident dans de tels cas, vous pouvez ignorer en toute sécurité tous les messages d'avertissement concernant la version de Kubernetes.
 
-* Rancher Kubernetes Engine 2 (RKE2) v1.27.x - 1.34.x
+* Rancher Kubernetes Engine 2 (RKE2) v1.28.x - 1.34.x
 +
 
 NOTE: _Alors que Trident est pris en charge sur les versions 1.27.x à 1.34.x de Rancher Kubernetes Engine 2 (RKE2), Trident est actuellement qualifié uniquement sur RKE2 v1.28.5+rke2r1._
