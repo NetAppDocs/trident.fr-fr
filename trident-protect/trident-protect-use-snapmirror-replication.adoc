@@ -174,7 +174,7 @@ kubectl apply -f trident-protect-appvault-primary-source.yaml -n trident-protect
 +
 [source, console]
 ----
-tridentctl-protect create vault Azure <vault-name> --account <account-name> --bucket <bucket-name> --secret <secret-name>
+tridentctl-protect create vault Azure <vault-name> --account <account-name> --bucket <bucket-name> --secret <secret-name> -n trident-protect
 ----
 
 
@@ -231,7 +231,8 @@ tridentctl-protect create app <my-app-name> --namespaces <namespaces-to-be-inclu
 
 --
 ====
-. En option, sur le cluster source, prenez un instantané de l’application source. Ce snapshot est utilisé comme base pour l'application sur le cluster de destination. Si vous ignorez cette étape, vous devez attendre l'exécution du prochain snapshot planifié pour avoir un instantané récent.
+. Vous pouvez également, si vous le souhaitez, prendre un instantané de l'application source sur le cluster source. Cet instantané sert de base à l'application sur le cluster de destination. Si vous ignorez cette étape, vous devrez attendre la prochaine capture d'écran planifiée pour obtenir une version récente. Pour créer un instantané à la demande, reportez-vous à link:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-protect-apps.html#create-an-on-demand-snapshot["Créer un snapshot à la demande"^].
+. Sur le cluster source, créez la ressource personnalisée (CR) de planification de réplication :
 +
 [NOTE]
 ====
@@ -245,7 +246,7 @@ Si un calendrier existant pour l'application répond déjà aux exigences de con
 +
 [role="tabbed-block"]
 ====
-.Prendre un instantané à l'aide d'une CR
+.Créez la planification de réplication à l'aide d'une ressource personnalisée (CR).
 --
 .. Créez un planning de réplication pour l'application source :
 +
@@ -253,8 +254,8 @@ Si un calendrier existant pour l'application répond déjà aux exigences de con
 ... Configurez les attributs suivants :
 +
 **** *metadata.name*: (_required_) le nom de la ressource personnalisée d'horaire.
-**** *Spec.AppVaultRef*: (_required_) cette valeur doit correspondre au champ metadata.name de l'AppVault pour l'application source.
-**** *Spec.ApplicationRef*: (_required_) cette valeur doit correspondre au champ metadata.name de l'application source CR.
+**** *spec.appVaultRef* : (_Obligatoire_) Cette valeur doit correspondre au champ metadata.name de l’AppVault pour l’application source.
+**** *spec.applicationRef*: (_Obligatoire_) Cette valeur doit correspondre au champ metadata.name de la ressource personnalisée (CR) de l'application source.
 **** *Spec.backupRetention*: (_required_) ce champ est obligatoire et la valeur doit être définie sur 0.
 **** *Spec.enabled* : doit être défini sur true.
 **** *spec.granularity*: doit être défini sur `Custom`.
@@ -270,14 +271,14 @@ Exemple YAML :
 apiVersion: protect.trident.netapp.io/v1
 kind: Schedule
 metadata:
-  name: appmirror-schedule-0e1f88ab-f013-4bce-8ae9-6afed9df59a1
+  name: appmirror-schedule
   namespace: my-app-namespace
 spec:
-  appVaultRef: generic-s3-trident-protect-src-bucket-04b6b4ec-46a3-420a-b351-45795e1b5e34
+  appVaultRef: my-appvault-name
   applicationRef: my-app-name
   backupRetention: "0"
   enabled: true
-  granularity: custom
+  granularity: Custom
   recurrenceRule: |-
     DTSTART:20220101T000200Z
     RRULE:FREQ=MINUTELY;INTERVAL=5
@@ -296,13 +297,21 @@ kubectl apply -f trident-protect-schedule.yaml -n my-app-namespace
 
 
 --
-.Créer un snapshot à l'aide de l'interface de ligne de commande
+.Créez la planification de réplication à l'aide de l'interface de ligne de commande (CLI).
 --
-.. Créez l'instantané, en remplaçant les valeurs entre parenthèses par les informations de votre environnement. Par exemple :
+.. Créez la planification de réplication en remplaçant les valeurs entre crochets par les informations provenant de votre environnement :
 +
 [source, console]
 ----
-tridentctl-protect create snapshot <my_snapshot_name> --appvault <my_appvault_name> --app <name_of_app_to_snapshot> -n <application_namespace>
+tridentctl-protect create schedule --name appmirror-schedule --app <my_app_name> --appvault <my_app_vault> --granularity Custom --recurrence-rule <rule> --snapshot-retention <snapshot_retention_count> -n <my_app_namespace>
+----
++
+*Exemple:*
+
++
+[source, console]
+----
+tridentctl-protect create schedule --name appmirror-schedule --app <my_app_name> --appvault <my_app_vault> --granularity Custom --recurrence-rule  "DTSTART:20220101T000200Z\nRRULE:FREQ=MINUTELY;INTERVAL=5" --snapshot-retention 2 -n <my_app_namespace>
 ----
 
 
@@ -313,7 +322,7 @@ tridentctl-protect create snapshot <my_snapshot_name> --appvault <my_appvault_na
 +
 [source, console]
 ----
-kubectl apply -f trident-protect-appvault-primary-destination.yaml -n my-app-namespace
+kubectl apply -f trident-protect-appvault-primary-destination.yaml -n trident-protect
 ----
 . Créez une CR AppVault de destination pour l'application de destination sur le cluster de destination. Selon votre fournisseur de stockage, modifiez un exemple en fonction de link:trident-protect-appvault-custom-resources.html["Ressources personnalisées AppVault"]votre environnement :
 +
@@ -349,7 +358,7 @@ kubectl apply -f trident-protect-appvault-primary-destination.yaml -n my-app-nam
 +
 [source, console]
 ----
-kubectl apply -f trident-protect-appvault-secondary-destination.yaml -n my-app-namespace
+kubectl apply -f trident-protect-appvault-secondary-destination.yaml -n trident-protect
 ----
 
 
@@ -367,7 +376,8 @@ kubectl apply -f trident-protect-appvault-secondary-destination.yaml -n my-app-n
 *** *spec.namespaceMapping*: (_required_) les espaces de noms de destination et de source doivent correspondre à l'espace de noms d'application défini dans la CR de l'application correspondante.
 *** *Spec.sourceAppVaultRef*: (_required_) cette valeur doit correspondre au nom du AppVault pour l'application source.
 *** *Spec.sourceApplicationName*: (_required_) cette valeur doit correspondre au nom de l'application source que vous avez définie dans la CR de l'application source.
-*** *Spec.storageClassName*: (_required_) Choisissez le nom d'une classe de stockage valide sur le cluster. La classe de stockage doit être liée à une VM de stockage ONTAP utilisée par peering avec l'environnement source.
+*** *spec.sourceApplicationUID* : (Obligatoire) Cette valeur doit correspondre à l’UID de l’application source que vous avez définie dans la CR de l’application source.
+*** *spec.storageClassName*: (_Optionnel_) Choisissez le nom d'une classe de stockage valide sur le cluster. La classe de stockage doit être liée à une machine virtuelle de stockage ONTAP qui est appariée avec l'environnement source. Si la classe de stockage n'est pas spécifiée, la classe de stockage par défaut du cluster sera utilisée.
 *** *Spec.recurrenceRule* : définissez une date de début en heure UTC et un intervalle de récurrence.
 +
 Exemple YAML :
@@ -408,11 +418,19 @@ kubectl apply -f trident-protect-relationship.yaml -n my-app-namespace
 --
 .Créez un AppMirrorRelationship à l'aide de l'interface de ligne de commande
 --
-.. Créez et appliquez l'objet AppMirrorRelationship, en remplaçant les valeurs entre parenthèses par les informations de votre environnement. Par exemple :
+.. Créez et appliquez l'objet AppMirrorRelationship en remplaçant les valeurs entre crochets par les informations provenant de votre environnement :
 +
 [source, console]
 ----
-tridentctl-protect create appmirrorrelationship <name_of_appmirorrelationship> --destination-app-vault <my_vault_name> --recurrence-rule <rule> --source-app <my_source_app> --source-app-vault <my_source_app_vault> -n <application_namespace>
+tridentctl-protect create appmirrorrelationship <name_of_appmirorrelationship> --destination-app-vault <my_vault_name> --source-app-vault <my_vault_name> --recurrence-rule <rule> --namespace-mapping <ns_mapping> --source-app-id <source_app_UID> --source-app <my_source_app_name> --storage-class <storage_class_name> -n <application_namespace>
+----
++
+*Exemple:*
+
++
+[source, console]
+----
+tridentctl-protect create appmirrorrelationship my-amr --destination-app-vault appvault2 --source-app-vault appvault1 --recurrence-rule "DTSTART:20220101T000200Z\nRRULE:FREQ=MINUTELY;INTERVAL=5" --source-app my-app --namespace-mapping "my-source-ns1:my-dest-ns1,my-source-ns2:my-dest-ns2" --source-app-id 373f24c1-5769-404c-93c3-5538af6ccc36 --storage-class my-storage-class -n my-dest-ns1
 ----
 
 

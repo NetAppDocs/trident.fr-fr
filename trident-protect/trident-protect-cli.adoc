@@ -122,11 +122,11 @@ Une fois que vous avez installé le plug-in de l'interface de ligne de commande 
 .Activer la saisie semi-automatique pour le shell Bash
 --
 .Étapes
-. Téléchargez le script d'achèvement :
+. Créez le script de complétion :
 +
 [source, console]
 ----
-curl -L -O https://github.com/NetApp/tridentctl-protect/releases/download/25.10.0/tridentctl-completion.bash
+tridentctl-protect completion bash > tridentctl-completion.bash
 ----
 . Créez un nouveau répertoire dans votre répertoire personnel pour contenir le script :
 +
@@ -152,11 +152,11 @@ source ~/.bash/completions/tridentctl-completion.bash
 .Activer la saisie semi-automatique pour la coque Z.
 --
 .Étapes
-. Téléchargez le script d'achèvement :
+. Créez le script de complétion :
 +
 [source, console]
 ----
-curl -L -O https://github.com/NetApp/tridentctl-protect/releases/download/25.10.0/tridentctl-completion.zsh
+tridentctl-protect completion zsh > tridentctl-completion.zsh
 ----
 . Créez un nouveau répertoire dans votre répertoire personnel pour contenir le script :
 +

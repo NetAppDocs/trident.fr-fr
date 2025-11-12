@@ -102,11 +102,11 @@ NetApp Trident Protect propose des fonctionnalités avancées de gestion des don
 ** `protect.trident.netapp.io/volume-snapshots-ready-to-use-timeout`
 ** `protect.trident.netapp.io/volume-snapshots-created-timeout`
 +
-Voirlink:trident-protect-protect-apps.html["Prise en charge des annotations de sauvegarde et de planification"^] .
+Voirlink:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-protect-apps.html["Prise en charge des annotations de sauvegarde et de planification"^] .
 
 
 
-* Ajout d'une annotation à la CR planifiée pour configurer le délai d'expiration de la liaison PVC, qui sera utilisé par la CR de sauvegarde : `protect.trident.netapp.io/pvc-bind-timeout-sec` . Voirlink:trident-protect-protect-apps.html["Prise en charge des annotations de sauvegarde et de planification"^] .
+* Ajout d'une annotation à la CR planifiée pour configurer le délai d'expiration de la liaison PVC, qui sera utilisé par la CR de sauvegarde : `protect.trident.netapp.io/pvc-bind-timeout-sec` . Voirlink:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-protect-apps.html["Prise en charge des annotations de sauvegarde et de planification"^] .
 * Amélioré `tridentctl-protect` Listes de sauvegardes et d'instantanés avec un nouveau champ pour indiquer les échecs des hooks d'exécution.
 
 
