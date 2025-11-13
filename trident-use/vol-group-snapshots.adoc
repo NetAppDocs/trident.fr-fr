@@ -24,12 +24,12 @@ NOTE: VolumeGroupSnapshot est une fonctionnalité bêta de Kubernetes avec des A
 La prise en charge des instantanés de groupes de volumes est assurée par les pilotes de stockage suivants :
 
 * `ontap-san`Pilote - uniquement pour les protocoles iSCSI et FC, pas pour le protocole NVMe/TCP.
-* `ontap-san-economy`
+* `ontap-san-economy` - uniquement pour le protocole iSCSI.
 * `ontap-nas`
 
 
 
-NOTE: La prise en charge des instantanés de groupes de volumes n'est pas assurée pour les systèmes de stockage NetApp AFX.
+NOTE: La création d'instantanés de groupes de volumes n'est pas prise en charge pour les systèmes de stockage NetApp ASA r2 ou AFX.
 
 .Avant de commencer
 * Assurez-vous que votre version de Kubernetes est K8s 1.32 ou supérieure.
