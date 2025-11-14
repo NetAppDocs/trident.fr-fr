@@ -2934,10 +2934,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="3c49604e542827bab74a3fdc9c521379" category="doc">Personnaliser les noms et les étiquettes des volumes</block>
   <block id="52929ef06c83a3071dc677c6076f8eb3" category="paragraph">Prise en charge des noms et des libellés de volumes personnalisables :</block>
   <block id="ba7ad86bd3d0a50a4a04306d941e6c28" category="list-text">Opérations de création, d'importation et de clonage de volumes.</block>
-  <block id="174a7026faf4af3e1ec0eeec9d35af81" category="list-text">Dans le cas du pilote ontap-nas-Economy, seul le nom du volume Qtree est conforme au modèle de nom.</block>
-  <block id="12df52676a1d1f4040501d3a804b1a4b" category="list-text">Dans le cas d'un pilote ontap-san-Economy, seul le nom de LUN est conforme au modèle de nom.</block>
-  <block id="0ee903e586aac760f5cdfb2c770f936b" category="list-text">Les noms de volume personnalisables sont uniquement compatibles avec les pilotes ONTAP sur site.</block>
-  <block id="b3c7ca4cfca79f517812064c1b9b0ef3" category="list-text">Les noms de volume personnalisables ne s'appliquent pas aux volumes existants.</block>
   <block id="4c71628145ace597229ccf6ca6fdc8bf" category="section-title">Comportements clés des noms de volume personnalisables</block>
   <block id="a5a284fe1356005dc517f157bef35adc" category="list-text">Si une défaillance survient en raison d'une syntaxe incorrecte dans un modèle de nom, la création du back-end échoue. Toutefois, si l'application modèle échoue, le volume sera nommé conformément à la convention de nommage existante.</block>
   <block id="d654edd1d54bb9458ddce1a8e82a2733" category="list-text">Le préfixe de stockage n'est pas applicable lorsqu'un volume est nommé à l'aide d'un modèle de nom de la configuration back-end. Toute valeur de préfixe souhaitée peut être directement ajoutée au modèle.</block>
@@ -5973,4 +5969,9 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="8227b927875caa5115317241f2ef5aed" category="paragraph-title">Outils SMB</block>
   <block id="07481e3d69515bb71aba543becb5f83d" category="paragraph"><block ref="2c87a2692f74b765fc7d12f8607c123c" category="inline-link-macro-rx"></block> si vous utilisez :<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> provisionner des volumes SMB.</block>
   <block id="d35c59236d3e20dddbaa302d4a00761e" category="paragraph">Vous pouvez provisionner des volumes SMB à l'aide de<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> conducteurs.</block>
+  <block id="f69aa651a1e9b3f43819495ea61170d7" category="list-text">Dans le cas du<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> pilote, seul le nom du volume Qtree est conforme au modèle de nom.</block>
+  <block id="482b43f7720e701d1c20f10fcb766b00" category="list-text">Dans le cas du<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> pilote, seul le nom du LUN est conforme au modèle de nom.</block>
+  <block id="da9889ca93f8b399ea30566497c29a3e" category="list-text">Les noms de volumes personnalisés sont compatibles uniquement avec les pilotes ONTAP sur site.</block>
+  <block id="c45320b69becc7810ef088c7d038c27a" category="list-text">Les étiquettes personnalisées ne sont prises en charge que pour les<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>,<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block>, et<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> conducteurs.</block>
+  <block id="a9703a3dbb920f8f87b7d3293e2e0831" category="list-text">Les noms de volumes personnalisés ne s'appliquent pas aux volumes existants.</block>
 </blocks>

@@ -20,25 +20,26 @@ Avec Trident, vous pouvez attribuer des noms et des libellés significatifs aux 
 
 Prise en charge des noms et des libellés de volumes personnalisables :
 
-. Opérations de création, d'importation et de clonage de volumes.
-. Dans le cas du pilote ontap-nas-Economy, seul le nom du volume Qtree est conforme au modèle de nom.
-. Dans le cas d'un pilote ontap-san-Economy, seul le nom de LUN est conforme au modèle de nom.
+* Opérations de création, d'importation et de clonage de volumes.
+* Dans le cas du `ontap-nas-economy` pilote, seul le nom du volume Qtree est conforme au modèle de nom.
+* Dans le cas du `ontap-san-economy` pilote, seul le nom du LUN est conforme au modèle de nom.
 
 
 
 
 == Limites
 
-. Les noms de volume personnalisables sont uniquement compatibles avec les pilotes ONTAP sur site.
-. Les noms de volume personnalisables ne s'appliquent pas aux volumes existants.
+* Les noms de volumes personnalisés sont compatibles uniquement avec les pilotes ONTAP sur site.
+* Les étiquettes personnalisées ne sont prises en charge que pour les `ontap-san`, `ontap-nas`, et `ontap-nas-flexgroup` conducteurs.
+* Les noms de volumes personnalisés ne s'appliquent pas aux volumes existants.
 
 
 
 
 == Comportements clés des noms de volume personnalisables
 
-. Si une défaillance survient en raison d'une syntaxe incorrecte dans un modèle de nom, la création du back-end échoue. Toutefois, si l'application modèle échoue, le volume sera nommé conformément à la convention de nommage existante.
-. Le préfixe de stockage n'est pas applicable lorsqu'un volume est nommé à l'aide d'un modèle de nom de la configuration back-end. Toute valeur de préfixe souhaitée peut être directement ajoutée au modèle.
+* Si une défaillance survient en raison d'une syntaxe incorrecte dans un modèle de nom, la création du back-end échoue. Toutefois, si l'application modèle échoue, le volume sera nommé conformément à la convention de nommage existante.
+* Le préfixe de stockage n'est pas applicable lorsqu'un volume est nommé à l'aide d'un modèle de nom de la configuration back-end. Toute valeur de préfixe souhaitée peut être directement ajoutée au modèle.
 
 
 
