@@ -39,6 +39,9 @@ link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#ins
 
 *Points à prendre en compte* : * SCSI sur FC est pris en charge sur les environnements OpenShift et KubeVirt. * SCSI sur FC n'est pas pris en charge sur Docker. * L'auto-rétablissement iSCSI ne s'applique pas au SCSI sur FC.
 
+.Outils SMB
+link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#prepare-to-provision-smb-volumes["Préparez-vous au provisionnement des volumes SMB"] si vous utilisez : `ontap-nas` provisionner des volumes SMB.
+
 
 
 == Détection des services de nœud
@@ -441,3 +444,79 @@ sudo systemctl status multipath-tools
 
 --
 ====
+
+
+== Préparez-vous au provisionnement des volumes SMB
+
+Vous pouvez provisionner des volumes SMB à l'aide de `ontap-nas` conducteurs.
+
+
+WARNING: Vous devez configurer les protocoles NFS et SMB/CIFS au SVM pour créer un `ontap-nas-economy` volume SMB pour les clusters ONTAP sur site. La configuration de l'un de ces protocoles entraîne l'échec de la création du volume SMB.
+
+
+NOTE: `autoExportPolicy` N'est pas pris en charge pour les volumes SMB.
+
+.Avant de commencer
+Avant de pouvoir provisionner des volumes SMB, vous devez disposer des éléments suivants :
+
+* Cluster Kubernetes avec un nœud de contrôleur Linux et au moins un nœud worker Windows exécutant Windows Server 2022. Trident prend en charge les volumes SMB montés sur les pods s'exécutant sur les nœuds Windows uniquement.
+* Au moins un secret Trident contenant vos informations d'identification Active Directory. Pour générer un secret `smbcreds`:
++
+[listing]
+----
+kubectl create secret generic smbcreds --from-literal username=user --from-literal password='password'
+----
+* Un proxy CSI configuré en tant que service Windows. Pour configurer un `csi-proxy`, voir link:https://github.com/kubernetes-csi/csi-proxy["GitHub : proxy CSI"^] ou link:https://github.com/Azure/aks-engine/blob/master/docs/topics/csi-proxy-windows.md["GitHub : proxy CSI pour Windows"^] Pour les nœuds Kubernetes s'exécutant sur Windows.
+
+
+.Étapes
+. Pour les ONTAP sur site, vous pouvez créer un partage SMB ou Trident en créer un pour vous.
++
+
+NOTE: Les partages SMB sont requis pour Amazon FSX pour ONTAP.
+
++
+Vous pouvez créer les partages d'administration SMB de deux manières à l'aide de l' link:https://learn.microsoft.com/en-us/troubleshoot/windows-server/system-management-components/what-is-microsoft-management-console["Console de gestion Microsoft"^] Dossier partagé snap-in ou à l'aide de l'interface de ligne de commande ONTAP. Pour créer les partages SMB à l'aide de l'interface de ligne de commandes ONTAP :
+
++
+.. Si nécessaire, créez la structure du chemin d'accès au répertoire pour le partage.
++
+Le `vserver cifs share create` commande vérifie le chemin spécifié dans l'option -path lors de la création du partage. Si le chemin spécifié n'existe pas, la commande échoue.
+
+.. Créer un partage SMB associé au SVM spécifié :
++
+[listing]
+----
+vserver cifs share create -vserver vserver_name -share-name share_name -path path [-share-properties share_properties,...] [other_attributes] [-comment text]
+----
+.. Vérifiez que le partage a été créé :
++
+[listing]
+----
+vserver cifs share show -share-name share_name
+----
++
+
+NOTE: Reportez-vous à la section link:https://docs.netapp.com/us-en/ontap/smb-config/create-share-task.html["Créez un partage SMB"^] pour en savoir plus.
+
+
+
+. Lors de la création du back-end, vous devez configurer le suivant pour spécifier les volumes SMB. Pour toutes les options de configuration back-end FSX pour ONTAP, voir link:trident-fsx-examples.html["Exemples et options de configuration de FSX pour ONTAP"].
++
+[cols="1,2,1"]
+|===
+| Paramètre | Description | Exemple 
+
+
+| `smbShare` | Vous pouvez spécifier l'une des options suivantes : le nom d'un partage SMB créé à l'aide de la console de gestion Microsoft ou de l'interface de ligne de commande ONTAP ; un nom permettant à Trident de créer le partage SMB ; ou bien laisser le paramètre vide pour empêcher l'accès au partage commun aux volumes. Ce paramètre est facultatif pour les ONTAP sur site. Ce paramètre est requis pour Amazon FSX pour les systèmes back-end ONTAP et ne peut pas être vide. | `smb-share` 
+
+
+| `nasType` | *Doit être défini sur `smb`.* si elle est nulle, la valeur par défaut est `nfs`. | `smb` 
+
+
+| `securityStyle` | Style de sécurité pour les nouveaux volumes. *Doit être défini sur `ntfs` ou `mixed` Pour les volumes SMB.* | `ntfs` ou `mixed` Pour les volumes SMB 
+
+
+| `unixPermissions` | Mode pour les nouveaux volumes. *Doit rester vide pour les volumes SMB.* | « » 
+|===
+
