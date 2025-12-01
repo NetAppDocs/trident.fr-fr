@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-generate-support-bundle.html 
 keywords: trident, protect, bundle, support, netapp, custom, resource, file 
-summary: 'Trident Protect permet aux administrateurs de générer des bundles qui incluent des informations utiles pour le support NetApp, notamment des journaux, des metrics et des informations de topologie sur les clusters et les applications à gérer. Si vous êtes connecté à Internet, vous pouvez télécharger des offres groupées de support sur le site de support NetApp (NSS) à l"aide d"un fichier de ressources personnalisées (CR).' 
+summary: 'Trident Protect permet aux administrateurs de générer des ensembles contenant des informations utiles au support NetApp , notamment des journaux, des métriques et des informations de topologie sur les clusters et les applications gérés. Si vous êtes connecté à Internet, vous pouvez télécharger des modules de support sur le site de support NetApp (NSS) à l"aide d"un fichier de ressources personnalisé (CR).' 
 ---
-= Générez un pack de support Trident Protect
+= Générer un ensemble de support Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,7 +14,7 @@ summary: 'Trident Protect permet aux administrateurs de générer des bundles qu
 
 
 [role="lead"]
-Trident Protect permet aux administrateurs de générer des bundles contenant des informations utiles au support NetApp , notamment des journaux, des mesures et des informations de topologie sur les clusters et les applications sous gestion.  Si vous êtes connecté à Internet, vous pouvez télécharger des bundles de support sur le site de support NetApp (NSS) à l'aide d'un fichier de ressources personnalisé (CR).
+Trident Protect permet aux administrateurs de générer des ensembles contenant des informations utiles au support NetApp , notamment des journaux, des métriques et des informations de topologie sur les clusters et les applications gérés. Si vous êtes connecté à Internet, vous pouvez télécharger des bundles de support sur le site de support NetApp (NSS) à l'aide d'un fichier de ressources personnalisé (CR).
 
 [role="tabbed-block"]
 ====

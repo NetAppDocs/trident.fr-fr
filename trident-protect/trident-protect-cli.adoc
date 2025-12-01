@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-cli.html 
 keywords: trident, protect, command line utility, cli, netapp, custom, resources 
-summary: Vous pouvez utiliser la commande protectctl pour créer et interagir avec les ressources personnalisées Trident Protect. 
+summary: Vous pouvez utiliser la commande protectctl pour créer des ressources personnalisées Trident Protect et interagir avec elles. 
 ---
-= Installez le plug-in Trident Protect CLI
+= Installez le plugin CLI Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,11 +14,11 @@ summary: Vous pouvez utiliser la commande protectctl pour créer et interagir av
 
 
 [role="lead"]
-Vous pouvez utiliser le plug-in de ligne de commande Trident Protect, qui est une extension de l'utilitaire Trident `tridentctl`, pour créer et interagir avec les ressources personnalisées Trident Protect (CRS).
+Vous pouvez utiliser le plugin en ligne de commande Trident Protect, qui est une extension de Trident. `tridentctl` utilitaire, pour créer et interagir avec les ressources personnalisées (CR) de Trident Protect.
 
 
 
-== Installez le plug-in Trident Protect CLI
+== Installez le plugin CLI Trident Protect
 
 Avant d'utiliser l'utilitaire de ligne de commande, vous devez l'installer sur la machine que vous utilisez pour accéder à votre cluster. Procédez comme suit, selon si votre ordinateur utilise un processeur x64 ou ARM.
 
@@ -27,7 +27,7 @@ Avant d'utiliser l'utilitaire de ligne de commande, vous devez l'installer sur l
 .Télécharger le plug-in pour les processeurs Linux AMD64
 --
 .Étapes
-. Téléchargez le plug-in Trident Protect CLI :
+. Téléchargez le plugin CLI Trident Protect :
 +
 [source, console]
 ----
@@ -39,7 +39,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 .Télécharger le plug-in pour les processeurs Linux ARM64
 --
 .Étapes
-. Téléchargez le plug-in Trident Protect CLI :
+. Téléchargez le plugin CLI Trident Protect :
 +
 [source, console]
 ----
@@ -51,7 +51,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 .Télécharger le plug-in pour les processeurs Mac AMD64
 --
 .Étapes
-. Téléchargez le plug-in Trident Protect CLI :
+. Téléchargez le plugin CLI Trident Protect :
 +
 [source, console]
 ----
@@ -63,7 +63,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 .Télécharger le plug-in pour les processeurs Mac ARM64
 --
 .Étapes
-. Téléchargez le plug-in Trident Protect CLI :
+. Téléchargez le plugin CLI Trident Protect :
 +
 [source, console]
 ----
@@ -115,7 +115,7 @@ tridentctl-protect help
 
 == Activer la saisie semi-automatique de la commande
 
-Une fois que vous avez installé le plug-in de l'interface de ligne de commande Trident Protect, vous pouvez activer l'exécution automatique pour certaines commandes.
+Une fois le plugin CLI Trident Protect installé, vous pouvez activer la saisie semi-automatique pour certaines commandes.
 
 [role="tabbed-block"]
 ====

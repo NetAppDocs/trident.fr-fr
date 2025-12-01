@@ -14,10 +14,10 @@ summary: 'Protégez toutes les applications en effectuant des copies Snapshot et
 
 
 [role="lead"]
-Vous pouvez protéger toutes les applications gérées par Trident Protect en effectuant des snapshots et des sauvegardes à l'aide d'une règle de protection automatisée ou ad hoc.
+Vous pouvez protéger toutes les applications gérées par Trident Protect en prenant des instantanés et des sauvegardes à l'aide d'une politique de protection automatisée ou de manière ponctuelle.
 
 
-NOTE: Vous pouvez configurer Trident Protect pour qu'il bloque et dégèle les systèmes de fichiers pendant les opérations de protection des données. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["En savoir plus sur la configuration de la congélation du système de fichiers avec Trident Protect"].
+NOTE: Vous pouvez configurer Trident Protect pour geler et dégeler les systèmes de fichiers pendant les opérations de protection des données. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Apprenez-en davantage sur la configuration du gel du système de fichiers avec Trident Protect."].
 
 
 
@@ -390,13 +390,13 @@ kubectl get backup -n <namespace_name> <my_backup_cr_name> -o jsonpath='{.status
 
 == Activez la sauvegarde et la restauration pour les opérations Azure-NetApp-Files (ANF)
 
-Si vous avez installé Trident Protect, vous pouvez activer la fonctionnalité de sauvegarde et de restauration compactes pour les systèmes back-end qui utilisent la classe de stockage Azure-NetApp-Files et qui ont été créés avant Trident 24.06. Cette fonctionnalité fonctionne avec les volumes NFSv4 et ne consomme pas d'espace supplémentaire dans le pool de capacité.
+Si vous avez installé Trident Protect, vous pouvez activer une fonctionnalité de sauvegarde et de restauration économe en espace pour les backends de stockage qui utilisent la classe de stockage azure-netapp-files et qui ont été créés avant Trident 24.06. Cette fonctionnalité est compatible avec les volumes NFSv4 et ne consomme pas d'espace supplémentaire du pool de capacité.
 
 .Avant de commencer
 Vérifiez les points suivants :
 
 * Vous avez installé Trident Protect.
-* Vous avez défini une application dans Trident Protect. Cette application aura une fonctionnalité de protection limitée jusqu'à ce que vous ayez terminé cette procédure.
+* Vous avez défini une application dans Trident Protect. Cette application offrira des fonctionnalités de protection limitées jusqu'à ce que vous ayez terminé cette procédure.
 * Vous avez `azure-netapp-files` sélectionné comme classe de stockage par défaut pour votre système back-end de stockage.
 
 
@@ -426,13 +426,13 @@ Réponse :
 snapshotDirectory: "true"
 ----
 +
-Lorsque le répertoire de snapshots n'est pas activé, Trident Protect choisit la fonctionnalité de sauvegarde standard, qui consomme temporairement de l'espace dans le pool de capacité pendant le processus de sauvegarde. Dans ce cas, assurez-vous que l'espace disponible dans le pool de capacité est suffisant pour créer un volume temporaire de la taille du volume en cours de sauvegarde.
+Lorsque le répertoire de snapshots n'est pas activé, Trident Protect choisit la fonctionnalité de sauvegarde standard, qui consomme temporairement de l'espace dans le pool de capacité pendant le processus de sauvegarde. Dans ce cas, assurez-vous de disposer d'un espace suffisant dans le pool de capacité pour créer un volume temporaire de la taille du volume sauvegardé.
 
 
 
 
 
 .Résultat
-L'application est prête pour la sauvegarde et la restauration à l'aide de Trident Protect. Chaque demande de volume persistant est également disponible pour être utilisée par d'autres applications à des fins de sauvegarde et de restauration.
+L'application est prête pour la sauvegarde et la restauration à l'aide de Trident Protect. Chaque PVC peut également être utilisé par d'autres applications pour les sauvegardes et les restaurations.
 
 ====

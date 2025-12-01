@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-use-execution-hooks.html 
 keywords: trident, protect, execution hooks 
-summary: 'Vous pouvez créer un crochet d"exécution personnalisé pour une application à l"aide de Trident Protect. Vous devez disposer d"autorisations propriétaire, administrateur ou membre pour créer des crochets d"exécution.' 
+summary: 'Vous pouvez créer un point d"exécution personnalisé pour une application utilisant Trident Protect. Vous devez disposer des autorisations de propriétaire, d"administrateur ou de membre pour créer des points d"exécution.' 
 ---
-= Gérer les crochets d'exécution de Trident Protect
+= Gérer les hooks d'exécution de Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -20,7 +20,7 @@ Un crochet d'exécution est une action personnalisée que vous pouvez configurer
 
 == Types de crochets d'exécution
 
-Trident Protect prend en charge les types de crochets d'exécution suivants, en fonction du moment où ils peuvent être exécutés :
+Trident Protect prend en charge les types de hooks d'exécution suivants, en fonction du moment où ils peuvent être exécutés :
 
 * Pré-instantané
 * Post-snapshot
@@ -37,7 +37,7 @@ Trident Protect prend en charge les types de crochets d'exécution suivants, en 
 Lors de l'exécution d'une opération de protection des données, les événements de hook d'exécution ont lieu dans l'ordre suivant :
 
 . Tous les crochets d'exécution de pré-opération personnalisés applicables sont exécutés sur les conteneurs appropriés. Vous pouvez créer et exécuter autant de crochets de pré-opération personnalisés que vous le souhaitez, mais l'ordre d'exécution de ces crochets avant que l'opération ne soit ni garantie ni configurable.
-. Le système de fichiers se bloque, le cas échéant. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["En savoir plus sur la configuration de la congélation du système de fichiers avec Trident Protect"].
+. Des blocages du système de fichiers se produisent, le cas échéant. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Apprenez-en davantage sur la configuration du gel du système de fichiers avec Trident Protect."].
 . L'opération de protection des données est effectuée.
 . Les systèmes de fichiers gelés ne sont pas gelés, le cas échéant.
 . Tous les crochets d'exécution de post-opération personnalisés applicables sont exécutés sur les conteneurs appropriés. Vous pouvez créer et exécuter autant de crochets post-opération personnalisés que vous le souhaitez, mais l'ordre d'exécution de ces crochets après l'opération n'est ni garanti ni configurable.
@@ -67,9 +67,9 @@ NOTE: Si un hook d'exécution pré-snapshot ajoute, modifie ou supprime des ress
 Lors de la planification de crochets d'exécution pour vos applications, tenez compte des points suivants.
 
 * Un crochet d'exécution doit utiliser un script pour effectuer des actions. De nombreux crochets d'exécution peuvent référencer le même script.
-* Trident Protect exige que les scripts utilisés par les crochets d'exécution soient écrits au format de scripts shell exécutables.
+* Trident Protect exige que les scripts utilisés par les hooks d'exécution soient écrits au format de scripts shell exécutables.
 * La taille du script est limitée à 96 Ko.
-* Trident Protect utilise les paramètres du crochet d'exécution et les critères correspondants pour déterminer les crochets applicables à une opération de snapshot, de sauvegarde ou de restauration.
+* Trident Protect utilise les paramètres d'exécution et tous les critères correspondants pour déterminer quels hooks sont applicables à une opération de snapshot, de sauvegarde ou de restauration.
 
 
 
@@ -81,7 +81,7 @@ NOTE: Puisque les crochets d'exécution réduisent ou désactivent complètement
 
 Lorsque vous ajoutez ou modifiez un crochet d'exécution pour une application, vous pouvez ajouter des filtres au crochet d'exécution pour gérer les conteneurs auxquels le crochet correspond. Les filtres sont utiles pour les applications qui utilisent la même image de conteneur sur tous les conteneurs, mais ils peuvent utiliser chaque image à des fins différentes (comme Elasticsearch). Les filtres vous permettent de créer des scénarios dans lesquels des crochets d'exécution s'exécutent sur certains conteneurs, mais pas nécessairement tous identiques. Si vous créez plusieurs filtres pour un seul crochet d'exécution, ils sont combinés avec un opérateur ET logique. Vous pouvez avoir jusqu'à 10 filtres actifs par crochet d'exécution.
 
-Chaque filtre que vous ajoutez à un crochet d'exécution utilise une expression régulière pour faire correspondre les conteneurs de votre cluster. Lorsqu'un crochet correspond à un conteneur, le crochet exécute son script associé sur ce conteneur. Les expressions régulières pour les filtres utilisent la syntaxe de l'expression régulière 2 (RE2), qui ne prend pas en charge la création d'un filtre qui exclut les conteneurs de la liste des correspondances. Pour plus d'informations sur la syntaxe prise en charge par Trident Protect pour les expressions régulières dans les filtres de hook d'exécution, reportez-vous àla section https://github.com/google/re2/wiki/Syntax["Prise en charge de la syntaxe de l'expression régulière 2 (RE2)"^].
+Chaque filtre que vous ajoutez à un hook d’exécution utilise une expression régulière pour faire correspondre les conteneurs de votre cluster. Lorsqu'un hook correspond à un conteneur, le hook exécutera son script associé sur ce conteneur. Les expressions régulières pour les filtres utilisent la syntaxe d'expression régulière 2 (RE2), qui ne prend pas en charge la création d'un filtre excluant les conteneurs de la liste des correspondances. Pour plus d'informations sur la syntaxe prise en charge par Trident Protect pour les expressions régulières dans les filtres de hook d'exécution, consultez https://github.com/google/re2/wiki/Syntax["Prise en charge de la syntaxe de l'expression régulière 2 (RE2)"^] .
 
 
 NOTE: Si vous ajoutez un filtre d'espace de noms à un crochet d'exécution qui s'exécute après une opération de restauration ou de clonage et que la source et la destination de restauration ou de clonage sont dans des espaces de noms différents, le filtre d'espace de noms est appliqué uniquement à l'espace de noms de destination.
@@ -96,7 +96,7 @@ Visitez le https://github.com/NetApp/Verda["Projet GitHub NetApp Verda"] pour t�
 
 == Créer un crochet d'exécution
 
-Vous pouvez créer un crochet d'exécution personnalisé pour une application à l'aide de Trident Protect. Vous devez disposer d'autorisations propriétaire, administrateur ou membre pour créer des crochets d'exécution.
+Vous pouvez créer un point d'exécution personnalisé pour une application utilisant Trident Protect. Vous devez disposer des autorisations de propriétaire, d'administrateur ou de membre pour créer des points d'exécution.
 
 [role="tabbed-block"]
 ====
@@ -104,7 +104,7 @@ Vous pouvez créer un crochet d'exécution personnalisé pour une application à
 --
 .Étapes
 . Créez le fichier de ressource personnalisée (CR) et nommez-le `trident-protect-hook.yaml`.
-. Configurez les attributs suivants en fonction de votre environnement Trident Protect et de la configuration du cluster :
+. Configurez les attributs suivants pour qu'ils correspondent à votre environnement Trident Protect et à la configuration de votre cluster :
 +
 ** *metadata.name*: (_required_) le nom de cette ressource personnalisée; choisissez un nom unique et sensible pour votre environnement.
 ** *Spec.applicationRef*: (_required_) Nom Kubernetes de l'application pour laquelle exécuter le hook d'exécution.
@@ -221,7 +221,7 @@ L'exécution manuelle d'un crochet d'exécution se compose de deux étapes de ba
 --
 .Étapes
 . Créez le fichier de ressource personnalisée (CR) et nommez-le `trident-protect-resource-backup.yaml`.
-. Configurez les attributs suivants en fonction de votre environnement Trident Protect et de la configuration du cluster :
+. Configurez les attributs suivants pour qu'ils correspondent à votre environnement Trident Protect et à la configuration de votre cluster :
 +
 ** *metadata.name*: (_required_) le nom de cette ressource personnalisée; choisissez un nom unique et sensible pour votre environnement.
 ** *Spec.applicationRef*: (_required_) Nom Kubernetes de l'application pour laquelle créer la sauvegarde de ressource.
@@ -294,7 +294,7 @@ kubectl describe resourcebackup <my_backup_name>
 --
 .Étapes
 . Créez le fichier de ressource personnalisée (CR) et nommez-le `trident-protect-hook-run.yaml`.
-. Configurez les attributs suivants en fonction de votre environnement Trident Protect et de la configuration du cluster :
+. Configurez les attributs suivants pour qu'ils correspondent à votre environnement Trident Protect et à la configuration de votre cluster :
 +
 ** *metadata.name*: (_required_) le nom de cette ressource personnalisée; choisissez un nom unique et sensible pour votre environnement.
 ** *Spec.applicationRef*: (_required_) Assurez-vous que cette valeur correspond au nom de l'application du CR ResourceBackup que vous avez créé à l'étape 1.

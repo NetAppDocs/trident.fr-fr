@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-use-snapmirror-replication.html 
 keywords: trident, protect, netapp, snapmirror, data, asynchronous, replication, clusters 
-summary: 'Avec Trident Protect, vous pouvez utiliser les fonctionnalités de réplication asynchrone de la technologie NetApp SnapMirror pour répliquer les modifications des données et des applications d"un système back-end à un autre, sur le même cluster ou entre différents clusters.' 
+summary: 'Avec Trident Protect, vous pouvez utiliser les capacités de réplication asynchrone de la technologie NetApp SnapMirror pour répliquer les données et les modifications d"applications d"un système de stockage à un autre, sur le même cluster ou entre différents clusters.' 
 ---
-= Répliquez des applications à l'aide de NetApp SnapMirror et Trident Protect
+= Répliquez les applications à l'aide de NetApp SnapMirror et Trident Protect.
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,7 +14,7 @@ summary: 'Avec Trident Protect, vous pouvez utiliser les fonctionnalités de ré
 
 
 [role="lead"]
-Avec Trident Protect, vous pouvez utiliser les fonctionnalités de réplication asynchrone de la technologie NetApp SnapMirror pour répliquer les modifications des données et des applications d'un système back-end à un autre, sur le même cluster ou entre différents clusters.
+Avec Trident Protect, vous pouvez utiliser les capacités de réplication asynchrone de la technologie NetApp SnapMirror pour répliquer les données et les modifications d'applications d'un système de stockage à un autre, sur le même cluster ou entre différents clusters.
 
 
 
@@ -32,9 +32,9 @@ Vous pouvez empêcher l'écrasement d'annotations spécifiques dans l'espace de 
 helm upgrade trident-protect --set restoreSkipNamespaceAnnotations=<annotation_key_to_skip_1>,<annotation_key_to_skip_2> --reuse-values
 ----
 
-NOTE: Lors d'une opération de restauration ou de basculement, toutes les annotations et étiquettes d'espace de noms spécifiées dans `restoreSkipNamespaceAnnotations` et `restoreSkipNamespaceLabels` sont exclues de l'opération de restauration ou de basculement. Assurez-vous que ces paramètres sont configurés lors de l’installation initiale de Helm. Pour en savoir plus, consultez link:../trident-protect/trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["Configurer des paramètres supplémentaires du graphique de protection Trident"].
+NOTE: Lors d'une opération de restauration ou de basculement, toutes les annotations et étiquettes d'espace de noms spécifiées dans `restoreSkipNamespaceAnnotations` et `restoreSkipNamespaceLabels` sont exclues de l'opération de restauration ou de basculement. Assurez-vous que ces paramètres sont configurés lors de l’installation initiale de Helm. Pour en savoir plus, consultez link:../trident-protect/trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["Configurer les paramètres supplémentaires du graphique de barre de Trident Protect"].
 
-Si vous avez installé l'application source à l'aide de Helm avec l' `--create-namespace`indicateur, un traitement spécial est donné à la `name` clé d'étiquette. Lors du processus de restauration ou de basculement, Trident Protect copie cette étiquette dans l'espace de noms de destination, mais met à jour la valeur vers la valeur de l'espace de noms de destination si la valeur de la source correspond à l'espace de noms source. Si cette valeur ne correspond pas à l'espace de noms source, elle est copiée dans l'espace de noms de destination sans modification.
+Si vous avez installé l'application source à l'aide de Helm avec le `--create-namespace` Le drapeau, un traitement spécial est accordé au `name` Légende. Lors du processus de restauration ou de basculement, Trident Protect copie cette étiquette dans l'espace de noms de destination, mais met à jour la valeur avec la valeur de l'espace de noms de destination si la valeur de la source correspond à l'espace de noms source. Si cette valeur ne correspond pas à l'espace de noms source, elle est copiée dans l'espace de noms de destination sans modification.
 
 
 
@@ -99,7 +99,7 @@ Le tableau suivant illustre l'état de l'exemple d'espace de noms de destination
 
 |===
 
-NOTE: Vous pouvez configurer Trident Protect pour qu'il bloque et dégèle les systèmes de fichiers pendant les opérations de protection des données. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["En savoir plus sur la configuration de la congélation du système de fichiers avec Trident Protect"].
+NOTE: Vous pouvez configurer Trident Protect pour geler et dégeler les systèmes de fichiers pendant les opérations de protection des données. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Apprenez-en davantage sur la configuration du gel du système de fichiers avec Trident Protect."].
 
 
 
@@ -111,7 +111,7 @@ Lorsque vous utilisez la relation AppMirror pour protéger votre application, il
 * Lors d'une resynchronisation inverse ou d'une inversion, tous les hooks d'exécution existants sur l'application sont supprimés. Lorsque l'application source devient l'application de destination, ces hooks d'exécution ne sont plus valides et sont supprimés pour empêcher leur exécution.
 
 
-Pour en savoir plus sur les hooks d'exécution, reportez-vous à link:../trident-protect/trident-protect-use-execution-hooks.html["Gérer les crochets d'exécution de Trident Protect"] .
+Pour en savoir plus sur les hooks d'exécution, consultezlink:../trident-protect/trident-protect-use-execution-hooks.html["Gérer les hooks d'exécution de Trident Protect"] .
 
 
 
@@ -119,7 +119,7 @@ Pour en savoir plus sur les hooks d'exécution, reportez-vous à link:../trident
 
 La configuration d'une relation de réplication implique les éléments suivants :
 
-* Choix de la fréquence à laquelle Trident Protect doit créer une copie Snapshot d'application (qui inclut les ressources Kubernetes de l'application ainsi que les snapshots de volume pour chacun des volumes de l'application)
+* Choisir la fréquence à laquelle Trident Protect doit prendre un instantané de l'application (qui inclut les ressources Kubernetes de l'application ainsi que les instantanés de volume pour chacun des volumes de l'application).
 * Choix de la planification de la réplication (inclut les ressources Kubernetes ainsi que les données de volume persistant)
 * Définition de la durée de prise de l'instantané
 
@@ -448,7 +448,7 @@ kubectl get amr -n my-app-namespace <relationship name> -o=jsonpath='{.status}' 
 
 === Basculement vers le cluster de destination
 
-À l'aide de Trident Protect, vous pouvez basculer les applications répliquées vers un cluster de destination. Cette procédure arrête la relation de réplication et met l'application en ligne sur le cluster de destination. Trident Protect n'arrête pas l'application sur le cluster source si celle-ci était opérationnelle.
+Avec Trident Protect, vous pouvez basculer les applications répliquées vers un cluster de destination. Cette procédure interrompt la relation de réplication et met l'application en ligne sur le cluster de destination.  Trident Protect n'arrête pas l'application sur le cluster source si elle était opérationnelle.
 
 .Étapes
 . Sur le cluster de destination, modifiez le fichier CR AppMirrorRelationship (par exemple, `trident-protect-relationship.yaml`) et définissez la valeur de *spec.desiredState* sur `Promoted`.
@@ -509,7 +509,7 @@ Lorsque vous inversez la resynchronisation d'une relation de réplication ayant 
 
 == Inverser le sens de réplication de l'application
 
-Lorsque vous inversez le sens de la réplication, Trident Protect déplace l'application vers le back-end de stockage de destination tout en continuant à répliquer à nouveau vers le back-end de stockage source d'origine. Trident Protect arrête l'application source et réplique les données vers la destination avant de basculer vers l'application cible.
+Lorsque vous inversez le sens de la réplication, Trident Protect déplace l'application vers le système de stockage de destination tout en continuant à répliquer vers le système de stockage source d'origine.  Trident Protect arrête l'application source et réplique les données vers la destination avant de basculer vers l'application de destination.
 
 Dans ce cas, vous permutez la source et la destination.
 
@@ -609,7 +609,7 @@ Les actions suivantes se produisent en raison de la réplication inverse :
 
 === Rétablir le fonctionnement des applications sur le cluster source d'origine
 
-Grâce à Trident Protect, vous pouvez obtenir le « retour arrière » après un basculement en suivant la séquence suivante. Dans ce flux de travail pour restaurer le sens de réplication d'origine, Trident Protect réplique (resyncs) toute modification d'application vers l'application source d'origine avant d'inverser le sens de réplication.
+Avec Trident Protect, vous pouvez effectuer un « retour en arrière » après une opération de basculement en utilisant la séquence d'opérations suivante.  Dans ce flux de travail visant à rétablir le sens de réplication d'origine, Trident Protect réplique (resynchronise) toutes les modifications apportées à l'application vers l'application source d'origine avant d'inverser le sens de réplication.
 
 Ce processus commence à partir d'une relation qui a effectué un basculement vers une destination et implique les étapes suivantes :
 

@@ -2,7 +2,7 @@
 :allow-uri-read: 
 
 
-Trident Protect offre des fonctionnalités de gel et de dégel du système de fichiers pour les machines virtuelles KubeVirt lors des opérations de protection des données afin de garantir la cohérence des données. La méthode de configuration et le comportement par défaut des opérations de gel de VM varient selon les versions de Trident Protect, les versions plus récentes offrant une configuration simplifiée via les paramètres du graphique Helm.
+Trident Protect offre des fonctionnalités de gel et de dégel du système de fichiers pour les machines virtuelles KubeVirt lors des opérations de protection des données afin de garantir la cohérence des données.  La méthode de configuration et le comportement par défaut des opérations de gel de VM varient selon les versions de Trident Protect, les versions plus récentes offrant une configuration simplifiée via les paramètres du graphique Helm.
 
 
 NOTE: Pendant les opérations de restauration, tout  `VirtualMachineSnapshots` créés pour une machine virtuelle (VM) ne sont pas restaurés.
@@ -10,17 +10,17 @@ NOTE: Pendant les opérations de restauration, tout  `VirtualMachineSnapshots` c
 .Trident Protect 25.10 et versions ultérieures
 [%collapsible%open]
 ====
-Trident Protect gèle et débloque automatiquement les systèmes de fichiers KubeVirt pendant les opérations de protection des données afin de garantir la cohérence. À partir de Trident Protect 25.10, vous pouvez désactiver ce comportement à l'aide de `vm.freeze` paramètre lors de l'installation du graphique Helm. Ce paramètre est activé par défaut.
+Trident Protect gèle et débloque automatiquement les systèmes de fichiers KubeVirt pendant les opérations de protection des données afin de garantir la cohérence.  À partir de Trident Protect 25.10, vous pouvez désactiver ce comportement à l'aide de `vm.freeze` paramètre lors de l'installation du graphique Helm. Ce paramètre est activé par défaut.
 
 [source, console]
 ----
 helm install ... --set vm.freeze=false ...
 ----
 ====
-.Trident protège du 24.10.1 au 25.06
+.Trident Protect 24.10.1 à 25.06
 [%collapsible]
 ====
-Depuis Trident Protect 24.10.1, Trident Protect gèle et débloque automatiquement les systèmes de fichiers KubeVirt pendant les opérations de protection des données. Si vous le souhaitez, vous pouvez désactiver ce comportement automatique à l'aide de la commande suivante :
+À partir de Trident Protect 24.10.1, Trident Protect gèle et débloque automatiquement les systèmes de fichiers KubeVirt lors des opérations de protection des données. Vous pouvez désactiver ce comportement automatique à l'aide de la commande suivante :
 
 [source, console]
 ----
@@ -30,9 +30,9 @@ kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=
 .Trident Protect 24.10
 [%collapsible]
 ====
-Trident Protect 24.10 ne garantit pas automatiquement un état cohérent pour les systèmes de fichiers des machines virtuelles KubeVirt lors des opérations de protection des données. Pour protéger les données de vos machines virtuelles KubeVirt à l'aide de Trident Protect 24.10, vous devez activer manuellement la fonctionnalité de gel/dégel pour les systèmes de fichiers avant l'opération de protection des données. Cela permet de s'assurer que les systèmes de fichiers sont dans un état cohérent.
+Trident Protect 24.10 ne garantit pas automatiquement un état cohérent pour les systèmes de fichiers de machines virtuelles KubeVirt lors des opérations de protection des données.  Si vous souhaitez protéger les données de votre machine virtuelle KubeVirt à l'aide de Trident Protect 24.10, vous devez activer manuellement la fonctionnalité de gel/dégel des systèmes de fichiers avant l'opération de protection des données. Cela garantit que les systèmes de fichiers sont dans un état cohérent.
 
-Vous pouvez configurer Trident Protect 24.10 pour gérer le gel et le déblocage du système de fichiers de la machine virtuelle pendant les opérations de protection des données par link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["configuration de la virtualisation"^]puis à l'aide de la commande suivante :
+Vous pouvez configurer Trident Protect 24.10 pour gérer le gel et le dégel du système de fichiers de la machine virtuelle lors des opérations de protection des données.link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["configuration de la virtualisation"^] puis en utilisant la commande suivante :
 
 [source, console]
 ----

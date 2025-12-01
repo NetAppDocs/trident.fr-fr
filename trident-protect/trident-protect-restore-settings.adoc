@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-restore-settings.html 
 keywords: trident, protect, restore, data, backup 
-summary: 'Vous pouvez personnaliser les opérations de restauration de protection Trident à l"aide d"annotations, de paramètres d"espace de noms et d"options de stockage.' 
+summary: 'Vous pouvez personnaliser les opérations de restauration de Trident Protect à l"aide d"annotations, de paramètres d"espace de noms et d"options de stockage.' 
 ---
-= Utiliser les paramètres avancés de restauration de protection Trident
+= Utilisez les paramètres de restauration avancés de Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -32,9 +32,9 @@ Vous pouvez empêcher l'écrasement d'annotations spécifiques dans l'espace de 
 helm upgrade trident-protect --set restoreSkipNamespaceAnnotations=<annotation_key_to_skip_1>,<annotation_key_to_skip_2> --reuse-values
 ----
 
-NOTE: Lors d'une opération de restauration ou de basculement, toutes les annotations et étiquettes d'espace de noms spécifiées dans `restoreSkipNamespaceAnnotations` et `restoreSkipNamespaceLabels` sont exclues de l'opération de restauration ou de basculement. Assurez-vous que ces paramètres sont configurés lors de l’installation initiale de Helm. Pour en savoir plus, consultez link:../trident-protect/trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["Configurer des paramètres supplémentaires du graphique de protection Trident"].
+NOTE: Lors d'une opération de restauration ou de basculement, toutes les annotations et étiquettes d'espace de noms spécifiées dans `restoreSkipNamespaceAnnotations` et `restoreSkipNamespaceLabels` sont exclues de l'opération de restauration ou de basculement. Assurez-vous que ces paramètres sont configurés lors de l’installation initiale de Helm. Pour en savoir plus, consultez link:../trident-protect/trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["Configurer les paramètres supplémentaires du graphique de barre de Trident Protect"].
 
-Si vous avez installé l'application source à l'aide de Helm avec l' `--create-namespace`indicateur, un traitement spécial est donné à la `name` clé d'étiquette. Lors du processus de restauration ou de basculement, Trident Protect copie cette étiquette dans l'espace de noms de destination, mais met à jour la valeur vers la valeur de l'espace de noms de destination si la valeur de la source correspond à l'espace de noms source. Si cette valeur ne correspond pas à l'espace de noms source, elle est copiée dans l'espace de noms de destination sans modification.
+Si vous avez installé l'application source à l'aide de Helm avec le `--create-namespace` Le drapeau, un traitement spécial est accordé au `name` Légende. Lors du processus de restauration ou de basculement, Trident Protect copie cette étiquette dans l'espace de noms de destination, mais met à jour la valeur avec la valeur de l'espace de noms de destination si la valeur de la source correspond à l'espace de noms source. Si cette valeur ne correspond pas à l'espace de noms source, elle est copiée dans l'espace de noms de destination sans modification.
 
 
 

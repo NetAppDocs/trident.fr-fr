@@ -1,28 +1,28 @@
 ---
 section: trident-protect
-title: Protégez les applications avec Trident Protect
+title: Protégez vos applications avec Trident Protect
 entries:
 - title: Découvrez Trident Protect
   url: "/trident-protect/learn-about-trident-protect.html"
-- title: Installez Trident Protect
+- title: Installer Trident Protect
   entries:
   - title: Exigences de Trident Protect
     url: "/trident-protect/trident-protect-requirements.html"
-  - title: Installez Trident Protect
+  - title: Installer Trident Protect
     url: "/trident-protect/trident-protect-installation.html"
-  - title: Installez le plug-in Trident Protect CLI
+  - title: Installez le plugin CLI Trident Protect
     url: "/trident-protect/trident-protect-cli.html"
   - title: Personnaliser l'installation de Trident Protect
     url: "/trident-protect/trident-protect-customize-installation.html"
-- title: Gérez Trident Protect
+- title: Gérer Trident Protect
   entries:
   - title: Gestion des autorisations et du contrôle d'accès
     url: "/trident-protect/manage-authorization-access-control.html"
-  - title: Contrôlez les ressources Trident Protect
+  - title: Surveiller les ressources de Trident Protect
     url: "/trident-protect/monitor-trident-protect-resources.html"
-  - title: Générez un pack de support Trident Protect
+  - title: Générer un ensemble de support Trident Protect
     url: "/trident-protect/trident-protect-generate-support-bundle.html"
-  - title: Mettez à niveau Trident Protect
+  - title: Amélioration de Trident Protect
     url: "/trident-protect/trident-protect-upgrade.html"
 - title: Gérez et protégez les applications
   entries:
@@ -42,7 +42,7 @@ entries:
     url: "/trident-protect/trident-protect-use-snapmirror-replication.html"
   - title: Migrez les applications
     url: "/trident-protect/trident-protect-migrate-apps.html"
-  - title: Gérez les crochets d'exécution avec Trident Protect
+  - title: Gérez les hooks d'exécution avec Trident Protect
     url: "/trident-protect/trident-protect-use-execution-hooks.html"
 - title: Désinstallez Trident Protect
   url: "/trident-protect/trident-protect-uninstall.html"
