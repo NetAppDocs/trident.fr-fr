@@ -221,8 +221,20 @@ Une politique de protection protège une application en créant des instantanés
 
 ** *Spec.applicationRef* : nom Kubernetes de l'application à sauvegarder.
 ** *Spec.appVaultRef*: (_required_) Nom de l'AppVault où le contenu de la sauvegarde doit être stocké.
-** *spec.backupRetention*: Le nombre de sauvegardes à conserver.  Zéro indique qu'aucune sauvegarde ne doit être créée (instantanés uniquement).
-** *Spec.snapshotRetention* : le nombre d'instantanés à conserver. Zéro indique qu'aucun snapshot ne doit être créé.
+** *spec.backupRetention*: (_Obligatoire_) Le nombre de sauvegardes à conserver. Zéro indique qu'aucune sauvegarde ne doit être créée (instantanés uniquement).
+** *spec.backupReclaimPolicy*: (_Optionnel_) Détermine ce qui arrive à une sauvegarde si la ressource CR de sauvegarde est supprimée pendant sa période de rétention.  Après la période de conservation, les sauvegardes sont toujours supprimées. Valeurs possibles (sensible à la casse) :
++
+*** `Retain` (par défaut)
+*** `Delete`
+
+
+** *spec.snapshotRetention*: (_Obligatoire_) Le nombre de snapshots à conserver. La valeur zéro indique qu'aucun instantané ne doit être créé.
+** *spec.snapshotReclaimPolicy*: (_Optionnel_) Détermine ce qui arrive à un instantané si la ressource personnalisée (CR) de l'instantané est supprimée pendant sa période de rétention.  Après la période de conservation, les instantanés sont toujours supprimés. Valeurs possibles (sensible à la casse) :
++
+*** `Retain`
+*** `Delete`(défaut)
+
+
 ** *spec.granularity*: la fréquence à laquelle le programme doit s'exécuter. Valeurs possibles, ainsi que les champs associés obligatoires :
 +
 *** `Hourly`(nécessite que vous spécifiiez `spec.minute` )
@@ -301,7 +313,22 @@ NOTE: Vous pouvez utiliser `tridentctl-protect create schedule --help` pour affi
 +
 [source, console]
 ----
-tridentctl-protect create schedule <my_schedule_name> --appvault <my_appvault_name> --app <name_of_app_to_snapshot> --backup-retention <how_many_backups_to_retain> --data-mover <Kopia_or_Restic> --day-of-month <day_of_month_to_run_schedule> --day-of-week <day_of_month_to_run_schedule> --granularity <frequency_to_run> --hour <hour_of_day_to_run> --minute <minute_of_hour_to_run> --recurrence-rule <recurrence> --snapshot-retention <how_many_snapshots_to_retain> -n <application_namespace> --full-backup-rule <string>
+tridentctl-protect create schedule <my_schedule_name> \
+  --appvault <my_appvault_name> \
+  --app <name_of_app_to_snapshot> \
+  --backup-retention <how_many_backups_to_retain> \
+  --backup-reclaim-policy <Retain|Delete (default Retain)> \
+  --data-mover <Kopia_or_Restic> \
+  --day-of-month <day_of_month_to_run_schedule> \
+  --day-of-week <day_of_week_to_run_schedule> \
+  --granularity <frequency_to_run> \
+  --hour <hour_of_day_to_run> \
+  --minute <minute_of_hour_to_run> \
+  --recurrence-rule <recurrence> \
+  --snapshot-retention <how_many_snapshots_to_retain> \
+  --snapshot-reclaim-policy <Retain|Delete (default Delete)> \
+  --full-backup-rule <string> \
+  -n <application_namespace>
 ----
 +
 Vous pouvez définir le `--full-backup-rule` drapeau sur `always` pour une sauvegarde complète constante ou le personnaliser en fonction de vos besoins. Par exemple, si vous choisissez la granularité quotidienne, vous pouvez spécifier les jours de la semaine sur lesquels la sauvegarde complète doit avoir lieu. Par exemple, utilisez `--full-backup-rule "Monday,Thursday"` pour programmer une sauvegarde complète le lundi et le jeudi.
