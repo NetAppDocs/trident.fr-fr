@@ -493,6 +493,31 @@ tridentctl-protect create vault StorageGridS3 <vault-name> \
 ====
 
 
+=== Soutenu `providerConfig.s3` options de configuration
+
+Consultez le tableau suivant pour connaître les options de configuration du fournisseur S3 :
+
+[cols="1,3,2,1"]
+|===
+| Paramètre | Description | Valeur par défaut | Exemple 
+
+
+| `providerConfig.s3.skipCertValidation` | Désactiver la vérification des certificats SSL/TLS. | faux | "vrai", "faux" 
+
+
+| `providerConfig.s3.secure` | Activez la communication HTTPS sécurisée avec le point de terminaison S3. | vrai | "vrai", "faux" 
+
+
+| `providerConfig.s3.proxyURL` | Spécifiez l'URL du serveur proxy utilisé pour se connecter à S3. | Aucune | http://proxy.example.com:8080[] 
+
+
+| `providerConfig.s3.rootCA` | Fournissez un certificat d'autorité de certification racine personnalisé pour la vérification SSL/TLS. | Aucune | "CN=MyCustomCA" 
+
+
+| `providerConfig.s3.useIAM` | Activez l'authentification IAM pour accéder aux compartiments S3.  Applicable à l'identité du pod EKS. | faux | vrai, faux 
+|===
+
+
 == Afficher les informations AppVault
 
 Vous pouvez utiliser le plugin CLI Trident Protect pour consulter les informations relatives aux objets AppVault que vous avez créés sur le cluster.
