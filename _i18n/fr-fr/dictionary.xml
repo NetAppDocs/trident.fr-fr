@@ -2100,8 +2100,6 @@
   <block id="1dedbfd605df8b562acc8f759a8e9acc" category="list-text">Un cluster Kubernetes exécutant un <block ref="229e1052bb9ecd8cf2680d6f44691174" category="inline-link-macro-rx"></block></block>
   <block id="17c5eeb01739643b5aef94fe18b6c849" category="paragraph">Vous pouvez utiliser le sélecteur de version pour naviguer entre la dernière version et les quatre versions précédentes ou utiliser les liens ci-dessous.</block>
   <block id="2122a8acb599837078e6b76436e892c4" category="list-text">Kubernetes 1.27 est désormais pris en charge dans Trident. Mise à niveau de Trident avant la mise à niveau de Kubernetes.</block>
-  <block id="a3460163c4a2854c79a419dda57ac917" category="list-text">RHEL 8+ (AMD64 ET ARM64)</block>
-  <block id="f51a58a0cffb9f9953edce6411578b53" category="list-text">Ubuntu 22.04 ou version ultérieure (AMD64 et ARM64)</block>
   <block id="38a0b9f59e6fe23e1617dc0e78498afe" category="section-title">Détails sur le détachement forcé</block>
   <block id="20c0c9efee2da2645ec0eefaf3c75d8c" category="inline-link-macro">Kubernetes : arrêt du nœud sans interruption</block>
   <block id="8f57f52b7233aecf56728bcd48d3a51c" category="list-text">Identifiez et nettoyez les chemins publiés obsolètes sur le nœud.</block>
@@ -4992,7 +4990,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="e80b6a304e29d5dfcb9150f47d69db94" category="section-title">Prise en charge de Trident pour KubeVirt et OpenShift Virtualization</block>
   <block id="cffd29fb8e17cb30625130ee24cd667d" category="paragraph">Trident prend en charge les pilotes ONTAP suivants pour KubeVirt et OpenShift Virtualization :</block>
   <block id="0ae326ef84f2a6bc4be48951f88c0162" category="list-text">Mettez à jour la classe de stockage pour avoir le<block ref="7cfbb6f07899c8071ff38e69dca190e2" prefix=" " category="inline-code"></block> paramètre (par exemple :<block ref="6db865adcb81b7cf881ff9839476f850" prefix=" " category="inline-code"></block>) dans l'environnement OpenShift Virtualization. Si nécessaire, définissez le mode de volume pour bloquer explicitement à l'aide du<block ref="1467a571dd94848f616edc4a0c33b927" prefix=" " category="inline-code"></block> paramètre dans<block ref="c6dda2fd1e6d70d582099348cfe6c847" prefix=" " category="inline-code"></block> pour avertir CDI de créer des volumes de données de bloc.</block>
-  <block id="daa6a182f8035711e9635994f572c7bc" category="list-text">Versions de Red Hat Enterprise Linux CoreOS (RHCOS) prises en charge par OpenShift Container Platform (AMD64 et ARM64)</block>
   <block id="2bf380408feee0a9443f217c907f0681" category="inline-link-macro">Documentation de connexion Red Hat OpenShift</block>
   <block id="796814ebd3d324fe438f0c699c37c89e" category="admonition">Les tableaux ci-dessous contiennent uniquement les variables pertinentes pour la configuration du stockage en ce qui concerne le service de journalisation. Vous trouverez d'autres options <block ref="202ad309c67a74272d432350a2d0cf76" category="inline-link-macro-rx"></block>qui doivent être vérifiées, configurées et utilisées en fonction de votre déploiement.</block>
   <block id="3a298688c4d78e1b7532d3859cd16a57" category="inline-link-macro">Documentation de Red Hat OpenShift Container Platform 3.11</block>
@@ -5993,4 +5990,8 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="e40bdae327bee4d52c74e4b3250b08ce" category="cell"><block ref="27081e7eec2d2a1beae20d90b1d5af4f" prefix="" category="inline-code"></block></block>
   <block id="304bbbc132c2b33e03e087cb6838276e" category="cell">Activez l'authentification IAM pour accéder aux compartiments S3.  Applicable à l'identité du pod EKS.</block>
   <block id="09a18f0598e032559af2cd41ba3aa659" category="list-text">Assurez-vous qu'au moins une classe VolumeSnapshotClass existe. Pour plus d'informations, veuillez consulter<block ref="9597869a9c7d53c1c9b0a0dcb905675c" category="inline-link-macro-rx"></block> .</block>
+  <block id="01a2f6f3fc3712c00aaaff540b7187f3" category="list-text">Versions de Red Hat Enterprise Linux CoreOS (RHCOS) prises en charge par OpenShift Container Platform sur AMD64 et ARM64</block>
+  <block id="1c93bd59e1abbbe543685399acba3c3b" category="list-text">Red Hat Enterprise Linux (RHEL) 8 ou version ultérieure sur AMD64 et ARM64</block>
+  <block id="d79b838675f4d040c12110c1c22fcf32" category="list-text">Ubuntu 22.04 LTS ou version ultérieure sur AMD64 et ARM64</block>
+  <block id="02869471b3c4ac5c57fb8c2e1d4355dd" category="list-text">SUSE Linux Enterprise Server (SLES) 15 ou version ultérieure</block>
 </blocks>
