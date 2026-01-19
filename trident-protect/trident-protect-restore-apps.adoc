@@ -30,9 +30,13 @@ Vous pouvez utiliser Trident Protect pour restaurer votre application à partir 
 
 Lorsque vous restaurez une sauvegarde dans un espace de noms différent à l'aide d'une ressource personnalisée BackupRestore, Trident Protect restaure l'application dans un nouvel espace de noms et crée une ressource personnalisée d'application pour l'application restaurée. Pour protéger l'application restaurée, créez des sauvegardes ou des instantanés à la demande, ou établissez un calendrier de protection.
 
+[NOTE]
+====
+* La restauration d'une sauvegarde dans un espace de noms différent avec des ressources existantes ne modifie aucune ressource qui partage des noms avec ceux de la sauvegarde. Pour restaurer toutes les ressources de la sauvegarde, supprimez et recréez l'espace de noms cible ou restaurez la sauvegarde dans un nouvel espace de noms.
+* Lorsque vous utilisez une modification de configuration (CR) pour restaurer un nouvel espace de noms, vous devez créer manuellement l'espace de noms de destination avant d'appliquer la CR. Trident Protect crée automatiquement des espaces de noms uniquement lors de l'utilisation de l'interface de ligne de commande (CLI).
 
-NOTE: La restauration d'une sauvegarde dans un espace de noms différent avec des ressources existantes ne modifie aucune ressource qui partage des noms avec ceux de la sauvegarde. Pour restaurer toutes les ressources de la sauvegarde, supprimez et recréez l'espace de noms cible ou restaurez la sauvegarde dans un nouvel espace de noms.
 
+====
 .Avant de commencer
 Assurez-vous que l'expiration du jeton de session AWS suffit pour toutes les opérations de restauration s3 à long terme. Si le jeton expire pendant l'opération de restauration, l'opération peut échouer.
 
@@ -271,9 +275,13 @@ tridentctl-protect create backupinplacerestore <my_restore_name> \
 
 Vous pouvez restaurer une sauvegarde sur un autre cluster en cas de problème avec le cluster d'origine.
 
+[NOTE]
+====
+* Lorsque vous restaurez des sauvegardes à l'aide de Kopia comme outil de transfert de données, vous pouvez éventuellement spécifier des annotations dans le CR ou utiliser l'interface de ligne de commande pour contrôler le comportement du stockage temporaire utilisé par Kopia. Se référer à https://kopia.io/docs/getting-started/["Documentation Kopia"^] pour plus d'informations sur les options que vous pouvez configurer. Utilisez le `tridentctl-protect create --help` commande pour plus d'informations sur la spécification des annotations avec l'interface de ligne de commande Trident Protect.
+* Lorsque vous utilisez une modification de configuration (CR) pour restaurer un nouvel espace de noms, vous devez créer manuellement l'espace de noms de destination avant d'appliquer la CR. Trident Protect crée automatiquement des espaces de noms uniquement lors de l'utilisation de l'interface de ligne de commande (CLI).
 
-NOTE: Lorsque vous restaurez des sauvegardes à l'aide de Kopia comme outil de transfert de données, vous pouvez éventuellement spécifier des annotations dans le CR ou utiliser l'interface de ligne de commande pour contrôler le comportement du stockage temporaire utilisé par Kopia. Se référer à https://kopia.io/docs/getting-started/["Documentation Kopia"^] pour plus d'informations sur les options que vous pouvez configurer. Utilisez le `tridentctl-protect create --help` commande pour plus d'informations sur la spécification des annotations avec l'interface de ligne de commande Trident Protect.
 
+====
 .Avant de commencer
 Assurez-vous que les conditions préalables suivantes sont remplies :
 
@@ -397,9 +405,13 @@ tridentctl-protect create backuprestore <restore_name> \
 
 Vous pouvez restaurer des données à partir d'un instantané à l'aide d'un fichier de ressources personnalisé (CR), soit dans un espace de noms différent, soit dans l'espace de noms source d'origine. Lorsque vous restaurez un instantané dans un espace de noms différent à l'aide d'une ressource personnalisée SnapshotRestore, Trident Protect restaure l'application dans un nouvel espace de noms et crée une ressource personnalisée d'application pour l'application restaurée. Pour protéger l'application restaurée, créez des sauvegardes ou des instantanés à la demande, ou établissez un calendrier de protection.
 
+[NOTE]
+====
+* SnapshotRestore prend en charge le `spec.storageClassMapping` attribut, mais uniquement lorsque les classes de stockage source et de destination utilisent le même backend de stockage.  Si vous tentez de restaurer un `StorageClass` qui utilise un backend de stockage différent, l'opération de restauration échouera.
+* Lorsque vous utilisez une modification de configuration (CR) pour restaurer un nouvel espace de noms, vous devez créer manuellement l'espace de noms de destination avant d'appliquer la CR. Trident Protect crée automatiquement des espaces de noms uniquement lors de l'utilisation de l'interface de ligne de commande (CLI).
 
-NOTE: SnapshotRestore prend en charge le `spec.storageClassMapping` attribut, mais uniquement lorsque les classes de stockage source et de destination utilisent le même backend de stockage.  Si vous tentez de restaurer un `StorageClass` qui utilise un backend de stockage différent, l'opération de restauration échouera.
 
+====
 .Avant de commencer
 Assurez-vous que l'expiration du jeton de session AWS suffit pour toutes les opérations de restauration s3 à long terme. Si le jeton expire pendant l'opération de restauration, l'opération peut échouer.
 

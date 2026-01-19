@@ -328,13 +328,25 @@ tridentctl-protect create schedule <my_schedule_name> \
   --snapshot-retention <how_many_snapshots_to_retain> \
   --snapshot-reclaim-policy <Retain|Delete (default Delete)> \
   --full-backup-rule <string> \
+  --run-immediately <true|false> \
   -n <application_namespace>
 ----
 +
-Vous pouvez définir le `--full-backup-rule` drapeau sur `always` pour une sauvegarde complète constante ou le personnaliser en fonction de vos besoins. Par exemple, si vous choisissez la granularité quotidienne, vous pouvez spécifier les jours de la semaine sur lesquels la sauvegarde complète doit avoir lieu. Par exemple, utilisez `--full-backup-rule "Monday,Thursday"` pour programmer une sauvegarde complète le lundi et le jeudi.
+Les options suivantes vous offrent un contrôle supplémentaire sur votre emploi du temps :
 
 +
-Pour les planifications d'instantanés uniquement, définissez `--backup-retention 0` et spécifiez une valeur supérieure à 0 pour `--snapshot-retention` .
+** *Planification complète des sauvegardes* : Utilisez la `--full-backup-rule` Option permettant de planifier des sauvegardes complètes non incrémentales. Ce drapeau ne fonctionne qu'avec `--granularity Daily`. Valeurs possibles :
++
+*** `Always`: Créez une sauvegarde complète chaque jour.
+*** Jours de la semaine spécifiques : Indiquez un ou plusieurs jours séparés par des virgules (par exemple, `"Monday,Thursday"`). Valeurs valides : lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche.
++
+
+NOTE: Le `--full-backup-rule` Cette fonction ne fonctionne pas avec une granularité horaire, hebdomadaire ou mensuelle.
+
+
+
+** *Planifications instantanées uniquement* : Définir `--backup-retention 0` et spécifiez une valeur supérieure à zéro pour `--snapshot-retention`.
+
 
 
 
@@ -351,7 +363,7 @@ Le tableau suivant décrit les annotations que vous pouvez utiliser lors de la c
 | Annotation | Type | Description | Valeur par défaut 
 
 
-| protect.trident.netapp.io/full-backup-rule | chaîne | Spécifie la règle de planification des sauvegardes complètes. Vous pouvez le paramétrer pour `always` pour une sauvegarde complète et permanente ou personnalisez-la en fonction de vos besoins. Par exemple, si vous choisissez une granularité quotidienne, vous pouvez spécifier les jours de la semaine où la sauvegarde complète doit avoir lieu (par exemple, `"Monday,Thursday"` ). | Non configuré (toutes les sauvegardes sont incrémentales) 
+| protect.trident.netapp.io/full-backup-rule | chaîne | Spécifie la règle de planification des sauvegardes complètes. Vous pouvez le paramétrer pour `Always` pour une sauvegarde complète et permanente ou personnalisez-la en fonction de vos besoins. Par exemple, si vous choisissez une granularité quotidienne, vous pouvez spécifier les jours de la semaine où la sauvegarde complète doit avoir lieu (par exemple, `"Monday,Thursday"`). Les jours de semaine valides sont : lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche. Notez que cette annotation ne peut être utilisée qu'avec les calendriers qui possèdent `granularity` défini à `Daily`. | Non configuré (toutes les sauvegardes sont incrémentales) 
 
 
 | protect.trident.netapp.io/snapshot-completion-timeout | chaîne | Durée maximale autorisée pour l'exécution de l'opération globale de capture d'instantané. | "60m" 
