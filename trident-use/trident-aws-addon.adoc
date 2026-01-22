@@ -75,6 +75,12 @@ kubectl get pods -n trident
 L'exemple de commande suivant installe le module complémentaire Trident EKS :
 `eksctl create addon --cluster clusterName --name netapp_trident-operator --version v25.6.0-eksbuild.1` (avec une version dédiée)
 
+L'exemple de commande suivant installe le module complémentaire Trident EKS version 25.6.1 :
+`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v25.6.1-eksbuild.1` (avec une version dédiée)
+
+L'exemple de commande suivant installe le Trident EKS add-on version 25.6.2 :
+`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v25.6.2-eksbuild.1` (avec une version dédiée)
+
 .Désinstallez le module complémentaire NetApp Trident EKS à l'aide de l'interface de ligne de commande :
 La commande suivante désinstalle le module complémentaire Trident EKS :
 

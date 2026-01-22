@@ -189,6 +189,9 @@ Une fois l'installation du module complémentaire terminée, le module compléme
 
 *Pour l'identité du pod, utilisez le format suivant* :
 
+
+NOTE: Utilisez le
+
 [source, json]
 ----
 {
