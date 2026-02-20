@@ -1,0 +1,48 @@
+= Opérations prises en charge
+:allow-uri-read: 
+
+
+sidebar: sidebar permalink: trident-asar2-support.html keywords: asar2, trident, fcp, nvme, tcp, nvme/tcp, fibre channel summary: NetApp Trident prend en charge ONTAP ASA r2 pour iSCSI et NVMe/TCP. --- = NetApp Trident support pour les systèmes de stockage ONTAP ASA r2 :hardbreaks: :icons: font :imagesdir: ./media/
+
+[role="lead"]
+NetApp Trident 25.02 et versions ultérieures prennent en charge les systèmes NetApp ASA r2 comme backends de stockage. Consultez link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Systèmes ASA r2"^] pour plus d'informations.
+
+ASA r2 systems require the `ontap-san` pilote. Trident ne prend pas en charge le `ontap-san-economy` pilote pour les systèmes ASA r2.
+
+Lorsque vous spécifiez  `ontap-san` comme  `storageDriverName` dans la configuration du backend, Trident détecte automatiquement le système de stockage ASA r2.
+
+Trident offre une protection des données limitée pour les systèmes ASA r2 avec Trident protect.
+
+Les protocoles SAN pris en charge dépendent de votre version de Trident :
+
+* Trident 25.02 et versions ultérieures prennent en charge iSCSI.
+* Trident 25.06 et versions ultérieures prennent en charge NVMe/TCP en plus d'iSCSI.
+
+
+Vous devez affecter au moins un agrégat à la machine virtuelle de stockage (SVM) pour le stockage backend ONTAP. Consultez link:https://kb.netapp.com/on-prem/ASAr2/ASAr2_KBs/su_create_by_SVM_admin_using_CLI_fails_with_error_No_candidate_aggregates_are_available_for_storage_services["Affectation d'agrégats aux SVM dans les systèmes ASA r2"^] pour obtenir des instructions.
+
+
+
+== Opérations prises en charge
+
+* Provisionnement de volumes persistants (PVs)
+* Provisionnement dynamique des volumes
+* Création et suppression de volumes
+* Clonage de volumes
+* Extension des volumes
+* Gestion des classes de stockage
+
+
+
+
+== Opérations non prises en charge
+
+* Cryptage LUKS
+* SnapMirror volume réplication
+* Limiter l'utilisation de l'agrégat
+* Mode de réservation d'espace
+* Snapshots
+* Hiérarchisation
+
+
+Pour plus d'informations, consultez link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html["Options et exemples de configuration des SAN ONTAP"^].
