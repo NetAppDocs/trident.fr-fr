@@ -1,0 +1,187 @@
+---
+sidebar: sidebar 
+permalink: trident-use/google-cloud-netapp-volumes-auto-tiering.html 
+keywords: trident, google cloud netapp volumes, auto-tiering, storageclass, pvc annotations, data tiering, cooling days 
+summary: 'Configurez la hiérarchisation automatique des volumes Google Cloud NetApp à l"aide des mécanismes natifs de Kubernetes avec Trident.' 
+---
+= Configurer la hiérarchisation automatique pour Google Cloud NetApp Volumes
+:hardbreaks:
+:allow-uri-read: 
+:icons: 
+:imagesdir: ../media/
+:icontype: font:
+
+
+[role="lead"]
+Cette page décrit comment configurer l’auto-tiering pour Google Cloud NetApp Volumes à l’aide de Trident. L’auto-tiering est configuré via les paramètres du backend Trident et les annotations PersistentVolumeClaim lors du provisionnement des volumes.
+
+
+
+== Présentation
+
+La hiérarchisation automatique permet à Trident de provisionner des volumes qui déplacent automatiquement les données inactives d'un niveau de performance vers un niveau de capacité. Cela réduit le coût de stockage tout en préservant les performances pour les données fréquemment consultées.
+
+Trident applique les paramètres de hiérarchisation automatique uniquement lors de la création du volume. Les modifications après le provisionnement ne sont pas prises en charge dans Trident 26.02.
+
+
+
+== Concepts
+
+
+
+=== hiérarchisation automatique
+
+Le système de hiérarchisation automatique déplace les données rarement consultées d'un niveau de performance vers un niveau de capacité en fonction des modèles d'accès. Le déplacement des données s'effectue de manière asynchrone et n'est pas immédiat.
+
+
+
+=== politique de hiérarchisation
+
+La politique de hiérarchisation détermine si la hiérarchisation automatique est activée pour un volume.
+
+Les politiques suivantes sont prises en charge : * `auto` : Active la hiérarchisation automatique en fonction des modèles d’accès * `none` : Désactive la hiérarchisation automatique
+
+
+
+=== Jours de refroidissement
+
+Les jours de refroidissement spécifient le nombre minimal de jours pendant lesquels un bloc de données doit rester inactif avant de pouvoir être classé par niveau. Les jours de refroidissement s'appliquent uniquement lorsque la politique de classement par niveau est définie sur `auto`.
+
+
+
+== Modèle de configuration
+
+
+
+=== Étendues de configuration
+
+La hiérarchisation automatique peut être configurée à plusieurs niveaux :
+
+* **Portée du pool de stockage** S'applique à tous les volumes provisionnés à partir du pool.
+* **Portée du volume** S'applique à un seul volume par le biais des annotations PersistentVolumeClaim.
+
+
+Trident détermine la configuration effective en fonction de l'endroit où chaque paramètre est défini.
+
+
+
+=== Précédence de configuration
+
+Lorsque le même paramètre est défini à plusieurs niveaux, Trident applique l'ordre de priorité suivant :
+
+. Annotations PersistentVolumeClaim
+. Configuration du backend Trident
+. Paramètres par défaut du storage pool
+
+
+Les paramètres définis à un niveau de priorité supérieur remplacent les valeurs de niveau inférieur.
+
+
+
+== fonctionnalité prise en charge dans Trident 26.02
+
+Trident 26.02 prend en charge les fonctionnalités de hiérarchisation automatique suivantes pour Google Cloud NetApp Volumes :
+
+* Activation ou désactivation du auto-tiering lors de l'allocation des volumes
+* Définition d'une politique de hiérarchisation dans la configuration du backend Trident
+* Remplacement de la politique de hiérarchisation et du nombre de jours de refroidissement par volume à l'aide d'annotations PVC
+* Configuration des jours de refroidissement pour les volumes avec auto-tiering activé
+
+
+
+
+== fonctionnalité non prise en charge dans Trident 26.02
+
+Les opérations suivantes ne sont pas prises en charge :
+
+* Modification des paramètres de hiérarchisation automatique après la création du volume
+* Modification des politiques de hiérarchisation sur les volumes existants à l'aide des mises à jour Kubernetes
+* Application des paramètres de hiérarchisation automatique en dehors des workflows de provisionnement gérés par Trident
+
+
+
+
+== Paramètres de configuration du backend
+
+Les paramètres suivants contrôlent le comportement de hiérarchisation automatique lorsqu'ils sont définis dans la configuration du backend Trident :
+
+[cols="2,1,2"]
+|===
+| Paramètre | Obligatoire | Description 
+
+
+| tieringPolicy | Non | Politique de hiérarchisation des volumes (`auto` ou `none`) 
+
+
+| tieringMinimumCoolingDays | Non | Nombre de jours d'inactivité avant le classement des données (plage : 2–183, valeur par défaut : 31) 
+|===
+
+
+== Remplacements au niveau du volume à l'aide des annotations PersistentVolumeClaim
+
+
+
+=== Annotations prises en charge
+
+Les annotations PersistentVolumeClaim permettent de remplacer, volume par volume, les paramètres de hiérarchisation automatique.
+
+[cols="2,2"]
+|===
+| Annotation | Description 
+
+
+| `trident.netapp.io/tieringPolicy` | Remplace la politique de hiérarchisation pour le volume 
+
+
+| `trident.netapp.io/tieringMinimumCoolingDays` | Remplace la valeur des jours de refroidissement pour le volume 
+|===
+
+
+=== Exemple : PersistentVolumeClaim avec des substitutions de hiérarchisation automatique
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: auto-tiering-pvc
+  annotations:
+    trident.netapp.io/tieringPolicy: auto
+    trident.netapp.io/tieringMinimumCoolingDays: "45"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: google-cloud-netapp-volumes-auto-tiering
+  resources:
+    requests:
+      storage: 500Gi
+----
+
+
+== Comportement et limitations
+
+
+
+=== Comportement de provisionnement
+
+* Les paramètres de hiérarchisation automatique sont évalués et appliqués uniquement lors de la création du volume.
+* Trident ne réconcilie pas la configuration de hiérarchisation après le provisionnement.
+* Les jours de refroidissement sont ignorés lorsque la politique de hiérarchisation est définie sur `none`.
+
+
+
+
+=== Limitations de la plateforme
+
+* La hiérarchisation automatique est prise en charge uniquement pour les volumes NAS (NFS et SMB).
+* Les volumes de blocs (iSCSI) ne prennent pas en charge l’auto-tiering.
+* Le pool de stockage Google Cloud NetApp Volumes doit avoir la hiérarchisation automatique activée dans Google Cloud.
+
+
+
+
+=== Valeurs prises en charge
+
+* Plage de valeurs valide `tieringMinimumCoolingDays`: 2 à 183
+* Valeur par défaut : 31
+

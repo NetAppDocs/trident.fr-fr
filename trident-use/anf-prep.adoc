@@ -16,9 +16,23 @@ Avant de pouvoir configurer le système back-end Azure NetApp Files, vous devez 
 
 
 
+== Environnements cloud Azure pris en charge
+
+Trident prend en charge les backends Azure NetApp Files dans plusieurs environnements cloud Azure.
+
+Les clouds Azure pris en charge incluent :
+
+* Azure Commercial
+* Azure Government (Azure Government / MAG)
+
+
+Lors de la préparation de votre environnement, assurez-vous que votre abonnement Azure, votre configuration d'identité et vos ressources Azure NetApp Files sont créés dans l'environnement cloud Azure approprié.
+
+
+
 == Prérequis pour les volumes NFS et SMB
 
-Si vous utilisez Azure NetApp Files pour la première fois ou dans un nouvel emplacement, une configuration initiale est requise pour configurer Azure NetApp Files et créer un volume NFS. Reportez-vous à la section https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["Azure : configurez Azure NetApp Files et créez un volume NFS"^].
+Si vous utilisez Azure NetApp Files pour la première fois ou dans un nouvel emplacement, une configuration initiale est nécessaire pour configurer Azure NetApp Files et créer un volume NFS. Consultez  https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["Azure : configurez Azure NetApp Files et créez un volume NFS"^].
 
 Pour configurer et utiliser un https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Files"^] back-end, vous avez besoin des éléments suivants :
 
@@ -26,6 +40,7 @@ Pour configurer et utiliser un https://azure.microsoft.com/en-us/services/netapp
 ====
 * `subscriptionID`, `tenantID`, `clientID`, `location`, et `clientSecret` Sont facultatives lors de l'utilisation d'identités gérées sur un cluster AKS.
 * `tenantID`, `clientID`, et `clientSecret` Sont facultatives lors de l'utilisation d'une identité de cloud sur un cluster AKS.
+* Les déploiements Azure NetApp Files dans les clouds Azure non commerciaux nécessitent des points de terminaison Azure Resource Manager et d'authentification spécifiques au cloud. Assurez-vous que Trident et toute configuration backend utilisent les points de terminaison appropriés pour votre environnement cloud Azure.
 
 
 ====

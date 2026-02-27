@@ -1,0 +1,242 @@
+---
+sidebar: sidebar 
+permalink: trident-use/controller-scalability.html 
+keywords: trident, controller scalability, concurrency, san, nas, san-nvme, gcnv, nas-eco, san-eco 
+summary: 'Comprenez l"évolutivité du contrôleur, le comportement en matière de concurrence et la maturité des fonctionnalités.' 
+---
+= Évolutivité du contrôleur
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Trident introduit la scalabilité des contrôleurs grâce à une meilleure gestion de la concurrence entre plusieurs pilotes de stockage. Les clients peuvent identifier quels pilotes Trident prennent en charge la scalabilité des contrôleurs à disponibilité générale et quels pilotes sont disponibles en avant-première technique dans Trident 26.02. Cela permet de prendre des décisions de déploiement éclairées et d'assurer une gestion appropriée des risques pour les environnements Kubernetes évolutifs.
+
+
+
+== Concepts clés et définitions
+
+
+
+=== Évolutivité du contrôleur
+
+La scalabilité du contrôleur fait référence à la capacité du contrôleur Trident à traiter plusieurs opérations de stockage en parallèle, au lieu de les sérialiser derrière un seul verrou. Ces opérations comprennent la création, la suppression et le redimensionnement de volumes, la création et la suppression d'instantanés, la publication et la dépublication de volumes, ainsi que la gestion du backend.
+
+Lorsque la mise à l'échelle du contrôleur est activée, les opérations sur différents volumes et backends s'exécutent simultanément. Cela augmente le débit et réduit le temps d'exécution global dans les environnements comportant un grand nombre d'opérations PersistentVolumeClaim et VolumeSnapshot simultanées.
+
+
+
+== Prise en charge de l'évolutivité du contrôleur
+
+Trident prend en charge l'évolutivité du contrôleur avec différents niveaux de maturité en fonction du pilote de stockage.
+
+
+
+=== Disponibilité générale
+
+Les pilotes suivants prennent en charge la mise à l'échelle du contrôleur à la disponibilité générale dans Trident 26.02 :
+
+* `san`
+* `nas`
+* `san-nvme`
+* `google-cloud-netapp-volumes`
+
+
+
+
+== Activer la scalabilité du contrôleur
+
+La scalabilité du contrôleur est contrôlée par l’option de configuration  `enableConcurrency`. Cette option doit être explicitement activée lors de l’installation de Trident ou lors de la mise à jour d’un déploiement existant.
+
+
+
+=== Déploiement de l'opérateur Trident
+
+Pour activer la scalabilité du contrôleur avec l'opérateur Trident, définissez  `enableConcurrency` sur  `true` dans la ressource personnalisée  `TridentOrchestrator`.
+
+
+
+==== Nouvelle installation
+
+Créez ou modifiez le  `TridentOrchestrator` CR avec  `enableConcurrency` défini sur  `true` :
+
+[source]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  namespace: trident
+  enableConcurrency: true
+----
+Appliquer la CR :
+
+[source]
+----
+kubectl apply -f tridentorchestrator_cr.yaml
+----
+
+
+==== Installation existante
+
+Corrigez le  `TridentOrchestrator` CR existant pour activer l'évolutivité du contrôleur :
+
+[source]
+----
+kubectl patch torc trident --type=merge -p '{"spec":{"enableConcurrency":true}}'
+----
+Vérifiez que le paramètre a bien été appliqué :
+
+[source]
+----
+kubectl get torc trident -o jsonpath='{.status.currentInstallationParams.enableConcurrency}'
+----
+
+
+=== Déploiement Helm
+
+Pour activer la scalabilité du contrôleur avec Helm, définissez la valeur  `enableConcurrency` sur  `true`.
+
+
+
+==== Nouvelle installation
+
+[source]
+----
+helm install trident netapp-trident/trident-operator --namespace trident --create-namespace --set enableConcurrency=true
+----
+
+
+==== Installation existante
+
+[source]
+----
+helm upgrade trident netapp-trident/trident-operator --namespace trident --set enableConcurrency=true
+----
+Vous pouvez également définir  `enableConcurrency` sur  `true` dans un fichier  `values.yaml` personnalisé :
+
+[source]
+----
+# values.yaml
+enableConcurrency: true
+----
+Installez ou mettez à niveau en utilisant le fichier de valeurs :
+
+[source]
+----
+helm install trident netapp-trident/trident-operator --namespace trident --create-namespace -f values.yaml
+----
+
+
+=== déploiement tridentctl
+
+Pour activer la scalabilité du contrôleur avec  `tridentctl`, transmettez le drapeau  `--enable-concurrency` lors de l'installation.
+
+
+
+==== Nouvelle installation
+
+[source]
+----
+tridentctl install -n trident --enable-concurrency
+----
+
+
+==== Installation existante
+
+Pour activer la mise à l'échelle du contrôleur sur un déploiement existant basé sur  `tridentctl`, désinstallez et réinstallez avec l'indicateur :
+
+[source]
+----
+tridentctl uninstall -n trident
+tridentctl install -n trident --enable-concurrency
+----
+
+
+=== Vérifiez que la mise à l'échelle du contrôleur est activée
+
+Après avoir activé la mise à l'échelle du contrôleur, vérifiez que le contrôleur Trident fonctionne avec la concurrence activée en consultant les journaux du pod du contrôleur :
+
+[source]
+----
+kubectl logs -n trident deploy/trident-controller | grep -i concurrency
+----
+Vous devriez voir une entrée de journal indiquant que la concurrence est activée.
+
+
+
+=== Aperçu technique
+
+Les pilotes suivants prennent en charge la mise à l'échelle du contrôleur en tant qu'aperçu technique dans Trident 26.02 :
+
+* `nas-eco`
+* `san-eco`
+
+
+Pour ces pilotes :
+
+* La concurrence des contrôleurs est disponible pour l'évaluation et les tests
+* Le comportement peut changer dans les prochaines versions
+* L'utilisation en environnement de production n'est pas recommandée
+
+
+
+
+== Comportement de concurrence
+
+Lorsque la mise à l'échelle du contrôleur est activée :
+
+* Trident remplace le verrou global unique par un verrouillage fin, par ressource
+* Les opérations qui modifient la même ressource sont sérialisées afin de garantir la cohérence des données
+* Les opérations qui ne font que lire à partir d'une ressource peuvent s'exécuter simultanément avec d'autres opérations de lecture sur cette ressource
+* Trident limite le nombre de requêtes API ONTAP simultanées à 20 par LIF de gestion afin d’éviter la surcharge des systèmes de stockage backend
+* Si plusieurs backends partagent la même interface logique de gestion (LIF), ils partagent cette limite de 20 requêtes
+
+
+
+
+== Limitations et considérations connues
+
+Les considérations suivantes s'appliquent à l'évolutivité du contrôleur :
+
+* La concurrence est gérée en interne par le contrôleur Trident
+* Il n'y a pas de limites de concurrence configurables par l'utilisateur dans cette version
+* Le débit global dépend de :
++
+** Le pilote de stockage utilisé
+** Réactivité du backend
+** Performance du serveur API Kubernetes
+
+
+* Une forte concurrence peut augmenter la charge sur les systèmes de stockage backend
+
+
+
+
+== Avertissements et limitations
+
+Les limitations suivantes s'appliquent dans Trident 26.02 :
+
+* Le comportement de mise à l'échelle du contrôleur n'est pas identique pour tous les pilotes
+* Les pilotes en préversion technique peuvent présenter :
++
+** Performances irrégulières sous forte charge
+** Changements de comportement entre les versions
+
+
+* Le débogage des opérations simultanées peut être plus complexe en raison de l'exécution parallèle
+* Les indicateurs et les journaux peuvent afficher des résultats d'opérations entrelacées
+
+
+
+
+== Recommandations
+
+* Utilisez les pilotes à disponibilité générale (GA) pour les environnements de production nécessitant une évolutivité élevée
+* Évaluer les pilotes en préversion technique dans des environnements hors production
+* Surveillez les performances du backend et du contrôleur lors du fonctionnement à grande échelle
+* Évitez de présumer l'ordre des opérations dans les scripts d'automatisation
+

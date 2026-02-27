@@ -1,26 +1,56 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/gcnv.html 
-keywords: trident backend, google cloud netapp volumes, nfs volumes, nfs, drivers, access modes, rwo, rwx, rwp, rwop, file system, gke, cloud identity, google cloud 
-summary:  
+keywords: Trident backend, Google Cloud NetApp Volumes, NAS, NFS, SMB, file storage, GKE 
+summary: 'Configurez Trident pour provisionner des volumes NAS (NFS et SMB) à partir de Google Cloud NetApp Volumes.' 
 ---
-= Configurez un système back-end Google Cloud NetApp volumes
-:hardbreaks:
+= Configurer Google Cloud NetApp Volumes pour les charges de travail NAS
 :allow-uri-read: 
-:icons: font
-:imagesdir: ../media/
 
 
-[role="lead"]
-Vous pouvez désormais configurer Google Cloud NetApp volumes en tant que back-end pour Trident. Vous pouvez connecter des volumes NFS et SMB à l'aide d'un back-end Google Cloud NetApp volumes.
+[role="lead lead"]
+Vous pouvez configurer Google Cloud NetApp Volumes comme backend pour que Trident provisionne des volumes de stockage basés sur des fichiers. Trident peut attacher des volumes NFS et SMB en utilisant un backend Google Cloud NetApp Volumes.
+
+Trident utilise des backends distincts pour les charges de travail NAS et SAN dans Google Cloud NetApp Volumes. Le backend  `google-cloud-netapp-volumes` prend uniquement en charge les protocoles basés sur les fichiers et ne peut pas être utilisé pour provisionner des volumes iSCSI.
+
+Pour provisionner des volumes de blocs iSCSI, utilisez le
+`google-cloud-netapp-volumes-san` backend, qui est un type de backend distinct conçu spécifiquement pour les charges de travail SAN.
+
+
+
+== volumes NAS et volumes bloc iSCSI
+
+Google Cloud NetApp Volumes prend en charge à la fois le stockage NAS et le stockage bloc, qui diffèrent dans la manière dont les applications accèdent et gèrent les données.
+
+Les volumes NAS offrent un stockage basé sur des fichiers et sont accessibles via des protocoles de fichiers standard tels que NFS ou SMB. Les volumes sont montés en tant que systèmes de fichiers partagés et prennent en charge l'accès simultané depuis plusieurs pods ou nœuds.
+
+Les volumes iSCSI offrent un stockage bloc brut et sont accessibles comme des périphériques de bloc attachés aux nœuds Kubernetes. Le stockage bloc est généralement utilisé lorsque les charges de travail nécessitent un accès au niveau bloc ou un comportement d'E/S géré par l'application.
+
+Ceci s'applique aux environnements suivants :
+
+* Trident 26.02 et versions ultérieures
+* Google Kubernetes Engine (GKE)
+* Google Cloud NetApp Volumes pools NAS
+* Charges de travail NFS et SMB
+
+
+Pour les charges de travail bloc (iSCSI), voir xref:trident-use/gcnv-block.html[Configurer le stockage bloc (iSCSI)].
 
 
 
 == Détails du pilote Google Cloud NetApp volumes
 
-Trident fournit le `google-cloud-netapp-volumes` pilote pour communiquer avec le cluster. Les modes d'accès pris en charge sont : _ReadWriteOnce_ (RWO), _ReadOnlyMey_ (ROX), _ReadWriteMaly_ (RWX), _ReadWriteOncePod_ (RWOP).
+Trident fournit le  `google-cloud-netapp-volumes` driver pour provisionner le stockage NAS à partir de Google Cloud NetApp Volumes.
 
-[cols="2, 1, 1, 2, 2"]
+Le pilote prend en charge les modes d'accès suivants :
+
+* ReadWriteOnce (RWO)
+* ReadOnlyMany (ROX)
+* ReadWriteMany (RWX)
+* ReadWriteOncePod (RWOP)
+
+
+[cols="2,1,1,2,2"]
 |===
 | Conducteur | Protocole | Mode Volume | Modes d'accès pris en charge | Systèmes de fichiers pris en charge 
 
@@ -38,24 +68,23 @@ RWO, ROX, RWX, RWOP
 |===
 
 
-== Identité cloud pour GKE
+== Identité cloud pour Google Kubernetes Engine
 
-L'identité cloud permet aux pods Kubernetes d'accéder aux ressources Google Cloud en s'authentifiant comme identité de workload au lieu de fournir des informations d'identification Google Cloud explicites.
+L'identité cloud permet aux charges de travail Kubernetes d'accéder aux ressources Google Cloud en s'authentifiant en tant qu'identité de charge de travail au lieu d'utiliser des identifiants Google Cloud statiques.
 
-Pour tirer parti de l'identité cloud dans Google Cloud, vous devez disposer des éléments suivants :
+Pour utiliser l'identité cloud avec Google Cloud NetApp Volumes, vous devez disposer des éléments suivants :
 
-* Cluster Kubernetes déployé à l'aide de GKE.
-* Identité de la charge de travail configurée sur le cluster GKE et le serveur de métadonnées GKE configuré sur les pools de nœuds.
-* Compte de service GCP avec le rôle d'administrateur Google Cloud NetApp volumes (rôles/NetApp.admin) ou un rôle personnalisé.
-* Trident a installé, qui inclut le fournisseur cloud, afin de spécifier « GCP » et « cloudIdentity » en spécifiant le nouveau compte de service GCP. Un exemple est donné ci-dessous.
-+
+* Un cluster Kubernetes déployé à l'aide de Google Kubernetes Engine (GKE)
+* L'identité de la charge de travail est activée sur le cluster GKE et le serveur de métadonnées est activé sur les pools de nœuds
+* Un compte de service Google Cloud avec le rôle d'administrateur Google Cloud NetApp Volumes (`roles/netapp.admin`) ou un rôle personnalisé équivalent
+* Trident installé avec le fournisseur de cloud défini sur  `GCP` et l'annotation d'identité cloud configurée
+
+
 [role="tabbed-block"]
 ====
 .Opérateur Trident
 --
-Pour installer Trident à l'aide de l'opérateur Trident, modifiez `tridentorchestrator_cr.yaml` pour définir sur `cloudProvider` `"GCP"` et définir `cloudIdentity` sur `iam.gke.io/gcp-service-account: \cloudvolumes-admin-sa@mygcpproject.iam.gserviceaccount.com`.
-
-Par exemple :
+Pour installer Trident à l'aide de l'opérateur Trident, modifiez  `tridentorchestrator_cr.yaml` pour définir  `cloudProvider` sur  `GCP` et  `cloudIdentity` sur le compte de service GKE.
 
 [source, yaml]
 ----
@@ -64,40 +93,140 @@ kind: TridentOrchestrator
 metadata:
   name: trident
 spec:
-  debug: true
   namespace: trident
-  imagePullPolicy: IfNotPresent
   cloudProvider: "GCP"
-  cloudIdentity: 'iam.gke.io/gcp-service-account: cloudvolumes-admin-sa@mygcpproject.iam.gserviceaccount.com'
+  cloudIdentity: "iam.gke.io/gcp-service-account: cloudvolumes-admin-sa@mygcpproject.iam.gserviceaccount.com"
 ----
 --
 .Gouvernail
 --
-Définissez les valeurs des indicateurs *cloud-Provider (CP)* et *cloud-Identity (ci)* à l'aide des variables d'environnement suivantes :
-
-`export CP="GCP"`
-`export ANNOTATION="'iam.gke.io/gcp-service-account: \cloudvolumes-admin-sa@mygcpproject.iam.gserviceaccount.com'"`
-
-L'exemple suivant installe Trident et définit `cloudProvider` GCP à l'aide de la variable d'environnement `$CP` et définit le `cloudIdentity` à l'aide de la variable d'environnement `$ANNOTATION` :
+Définissez le fournisseur de cloud et l'identité cloud lors de l'installation de Trident avec Helm.
 
 [listing]
 ----
-helm install trident trident-operator-100.6.0.tgz --set cloudProvider=$CP --set cloudIdentity="$ANNOTATION"
+helm install trident trident-operator-100.6.0.tgz \
+  --set cloudProvider=GCP \
+  --set cloudIdentity="iam.gke.io/gcp-service-account: cloudvolumes-admin-sa@mygcpproject.iam.gserviceaccount.com"
 ----
 --
-.<code>tridentctl</code>
+.tridentctl
 --
-Définissez les valeurs des indicateurs *cloud Provider* et *cloud Identity* à l'aide des variables d'environnement suivantes :
-
-`export CP="GCP"`
-`export ANNOTATION="'iam.gke.io/gcp-service-account: \cloudvolumes-admin-sa@mygcpproject.iam.gserviceaccount.com'"`
-
-L'exemple suivant installe Trident et définit l' `cloud-provider`indicateur sur `$CP`, et `cloud-identity` sur `$ANNOTATION`:
+Installez Trident en spécifiant le fournisseur de cloud et l'identité cloud.
 
 [listing]
 ----
-tridentctl install --cloud-provider=$CP --cloud-identity="$ANNOTATION" -n trident
+tridentctl install \
+  --cloud-provider=GCP \
+  --cloud-identity="iam.gke.io/gcp-service-account: cloudvolumes-admin-sa@mygcpproject.iam.gserviceaccount.com" \
+  -n trident
 ----
 --
 ====
 
+
+== Configurer un backend NAS Trident
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: gcnv-nas
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: google-cloud-netapp-volumes
+  projectNumber: "<project-number>"
+  location: "<region>"
+  sdkTimeout: "600"
+  storage:
+  - labels:
+      cloud: gcp
+    network: "<vpc-network>"
+----
+
+
+== Provisionner des volumes NAS
+
+Les volumes NAS sont provisionnés à l'aide du  `google-cloud-netapp-volumes` backend et prennent en charge les protocoles NFS et SMB.
+
+
+
+=== StorageClass for les volumes NFS
+
+Pour provisionner des volumes NFS, définissez  `nasType` sur  `nfs`.
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gcnv-nfs
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "google-cloud-netapp-volumes"
+  trident.netapp.io/nasType: "nfs"
+allowVolumeExpansion: true
+----
+
+
+=== StorageClass for les volumes SMB
+
+En utilisant  `nasType`,  `csi.storage.k8s.io/node-stage-secret-name` et 
+`csi.storage.k8s.io/node-stage-secret-namespace`, vous pouvez spécifier un volume SMB et fournir les informations d'identification Active Directory requises.
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: gcnv-smb
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "google-cloud-netapp-volumes"
+  trident.netapp.io/nasType: "smb"
+  csi.storage.k8s.io/node-stage-secret-name: "smbcreds"
+  csi.storage.k8s.io/node-stage-secret-namespace: "default"
+allowVolumeExpansion: true
+----
+
+
+=== Exemple de PersistentVolumeClaim (RWX)
+
+Les volumes NAS prennent en charge l'accès simultané et sont généralement provisionnés avec
+`ReadWriteMany`.
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gcnv-nas-rwx
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: gcnv-nfs
+----
+
+
+=== Exemple de PersistentVolumeClaim (RWO)
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gcnv-nas-rwo
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: gcnv-nfs
+----
+
+NOTE: Les volumes NAS utilisent `volumeMode: Filesystem`.

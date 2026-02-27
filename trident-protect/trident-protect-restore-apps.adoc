@@ -63,6 +63,7 @@ NOTE: Lorsque vous restaurez des sauvegardes à l'aide de Kopia comme outil de t
 kubectl get backups <BACKUP_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
 ----
 ** *Spec.appVaultRef*: (_required_) Nom de l'AppVault où sont stockés le contenu de la sauvegarde.
+** *spec.destinationApplicationName* : (_Facultatif_) Le nom de l’application restaurée. Si ce nom est fourni, l’application restaurée utilise ce nom. Si ce nom n’est pas fourni, l’application restaurée utilise le nom de l’application source.
 ** *spec.namespaceMapping*: mappage de l'espace de noms source de l'opération de restauration sur l'espace de noms de destination. Remplacez `my-source-namespace` et `my-destination-namespace` par des informations provenant de votre environnement.
 +
 [source, yaml]
@@ -76,6 +77,7 @@ metadata:
 spec:
   appArchivePath: my-backup-path
   appVaultRef: appvault-name
+  destinationApplicationName: my-new-app-name
   namespaceMapping: [{"source": "my-source-namespace", "destination": "my-destination-namespace"}]
 ----
 
@@ -143,7 +145,7 @@ kubectl apply -f trident-protect-backup-restore-cr.yaml
 ----
 tridentctl-protect create backuprestore <my_restore_name> \
 --backup <backup_namespace>/<backup_to_restore> \
---namespace-mapping <source_to_destination_namespace_mapping> \
+--namespace-mapping <source_to_destination_namespace_mapping> \ --destination-app-name<custom_app_name>\
 -n <application_namespace>
 ----
 
@@ -154,7 +156,12 @@ tridentctl-protect create backuprestore <my_restore_name> \
 
 == Restaurer à partir d'une sauvegarde vers l'espace de noms d'origine
 
-Vous pouvez à tout moment restaurer une sauvegarde dans l'espace de noms d'origine.
+Vous pouvez restaurer une sauvegarde dans l'espace de noms d'origine à tout moment. Lorsque vous effectuez une restauration sur place, Trident Protect gère automatiquement les planifications de protection et les opérations en cours afin d'éviter les points de récupération invalides :
+
+* Tous les plans de protection activés pour l'application sont désactivés avant le début de la restauration. Cela empêche les sauvegardes planifiées ou les instantanés de s'exécuter pendant la restauration des ressources de l'application.
+* Après la restauration réussie, seules les planifications qui étaient activées avant la restauration sont réactivées. Les planifications qui étaient déjà désactivées restent désactivées.
+* Toute opération de sauvegarde ou de capture instantanée en cours est annulée avant le début de la restauration. Si une opération n'est pas annulée dans les 5 minutes, la restauration se poursuit et un avertissement est consigné dans le statut du CR de restauration.
+
 
 .Avant de commencer
 Assurez-vous que l'expiration du jeton de session AWS suffit pour toutes les opérations de restauration s3 à long terme. Si le jeton expire pendant l'opération de restauration, l'opération peut échouer.
@@ -354,6 +361,7 @@ kubectl get backups <BACKUP_NAME> -n my-app-namespace -o jsonpath='{.status.appA
 
 NOTE: Si BackupRestore CR n'est pas disponible, vous pouvez utiliser la commande mentionnée à l'étape 2 pour afficher le contenu de la sauvegarde.
 
+** *spec.destinationApplicationName* : (_Facultatif_) Le nom de l’application restaurée. Si ce nom est fourni, l’application restaurée utilise ce nom. Si ce nom n’est pas fourni, l’application restaurée utilise le nom de l’application source.
 ** *spec.namespaceMapping*: mappage de l'espace de noms source de l'opération de restauration sur l'espace de noms de destination. Remplacez `my-source-namespace` et `my-destination-namespace` par des informations provenant de votre environnement.
 +
 Par exemple :
@@ -369,6 +377,7 @@ metadata:
 spec:
   appVaultRef: appvault-name
   appArchivePath: my-backup-path
+  destinationApplicationName: my-new-app-name
   namespaceMapping: [{"source": "my-source-namespace", "destination": "my-destination-namespace"}]
 ----
 
@@ -392,6 +401,7 @@ tridentctl-protect create backuprestore <restore_name> \
 --namespace-mapping <source_to_destination_namespace_mapping> \
 --appvault <appvault_name> \
 --path <backup_path> \
+--destination-app-name <custom_app_name> \
 --context <destination_cluster_name> \
 -n <application_namespace>
 ----
@@ -435,6 +445,7 @@ Assurez-vous que l'expiration du jeton de session AWS suffit pour toutes les op�
 ----
 kubectl get snapshots <SNAPHOT_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
 ----
+** *spec.destinationApplicationName* : (_Facultatif_) Le nom de l’application restaurée. Si ce nom est fourni, l’application restaurée utilise ce nom. Si ce nom n’est pas fourni, l’application restaurée utilise le nom de l’application source.
 ** *spec.namespaceMapping*: mappage de l'espace de noms source de l'opération de restauration sur l'espace de noms de destination. Remplacez `my-source-namespace` et `my-destination-namespace` par des informations provenant de votre environnement.
 +
 [source, yaml]
@@ -522,6 +533,7 @@ Par exemple :
 tridentctl-protect create snapshotrestore <my_restore_name> \
 --snapshot <namespace/snapshot_to_restore> \
 --namespace-mapping <source_to_destination_namespace_mapping> \
+--destination-app-name <custom_app_name> \
 -n <application_namespace>
 ----
 
@@ -534,7 +546,12 @@ tridentctl-protect create snapshotrestore <my_restore_name> \
 
 == Restaurer à partir d'un snapshot vers l'espace de noms d'origine
 
-Vous pouvez à tout moment restaurer un snapshot dans l'espace de noms d'origine.
+Vous pouvez restaurer un instantané dans l'espace de noms d'origine à tout moment. Lorsque vous effectuez une restauration sur place, Trident Protect gère automatiquement les planifications de protection et les opérations en cours afin d'éviter les points de récupération invalides :
+
+* Tous les plans de protection activés pour l'application sont désactivés avant le début de la restauration. Cela empêche les sauvegardes planifiées ou les instantanés de s'exécuter pendant la restauration des ressources de l'application.
+* Après la restauration réussie, seules les planifications qui étaient activées avant la restauration sont réactivées. Les planifications qui étaient déjà désactivées restent désactivées.
+* Toute opération de sauvegarde ou de capture instantanée en cours est annulée avant le début de la restauration. Si une opération n'est pas annulée dans les 5 minutes, la restauration se poursuit et un avertissement est consigné dans le statut du CR de restauration.
+
 
 .Avant de commencer
 Assurez-vous que l'expiration du jeton de session AWS suffit pour toutes les opérations de restauration s3 à long terme. Si le jeton expire pendant l'opération de restauration, l'opération peut échouer.

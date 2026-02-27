@@ -26,6 +26,25 @@ Pour éviter d'éventuels échecs, vous pouvez désactiver toutes les planificat
 
 
 ====
+
+
+== Étape 1 : sélectionnez une version
+
+Les versions de Trident Protect suivent une convention de nommage basée sur la date `YY.MM`, où « YY » est les deux derniers chiffres de l'année et « MM » est le mois. Les versions dot suivent une `YY.MM.X` convention, où « X » est le niveau de correctif. Vous sélectionnerez la version vers laquelle effectuer la mise à niveau en fonction de la version à partir de laquelle vous effectuez la mise à niveau.
+
+* Vous pouvez effectuer une mise à niveau directe vers n'importe quelle version cible située dans un intervalle de quatre versions maximum par rapport à votre version installée. Par exemple, vous pouvez effectuer une mise à niveau directe de 24.10 (ou de toute version dérivée de 24.10) vers 25.10.
+* Si vous effectuez une mise à niveau depuis une version en dehors de la fenêtre de quatre versions, effectuez une mise à niveau en plusieurs étapes. Utilisez les instructions de mise à niveau pour la link:../earlier-versions.html["version antérieure"] version à partir de laquelle vous effectuez la mise à niveau afin de passer à la version la plus récente qui correspond à la fenêtre de quatre versions. Par exemple, si vous utilisez la version 24.10 et souhaitez passer à la version 26.02 :
++
+.. Première mise à jour de 24.10 à 25.02.
+.. Ensuite, passez de 25.02 à 26.02.
+
+
+
+
+
+
+== Étape 2 : Mise à niveau de Trident Protect
+
 Pour mettre à niveau Trident Protect, procédez comme suit.
 
 .Étapes

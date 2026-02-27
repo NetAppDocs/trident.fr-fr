@@ -248,6 +248,7 @@ Une politique de protection protège une application en créant des instantanés
 ** *spec.dayOfWeek*: (_Facultatif_) Le jour de la semaine (0 - 7) pendant lequel la planification doit s'exécuter.  Les valeurs de 0 ou 7 indiquent dimanche.  Ce champ est obligatoire si la granularité est définie sur `Weekly` .  La valeur doit être fournie sous forme de chaîne.
 ** *spec.hour*: (_Facultatif_) L'heure de la journée (0 - 23) à laquelle le programme doit s'exécuter.  Ce champ est obligatoire si la granularité est définie sur `Daily` , `Weekly` , ou `Monthly` .  La valeur doit être fournie sous forme de chaîne.
 ** *spec.minute*: (_Facultatif_) La minute de l'heure (0 - 59) à laquelle la planification doit s'exécuter.  Ce champ est obligatoire si la granularité est définie sur `Hourly` , `Daily` , `Weekly` , ou `Monthly` .  La valeur doit être fournie sous forme de chaîne.
+** *spec.runImmediately* : (_Optionnel_) Définissez sur  `true` pour déclencher une exécution de base unique et immédiate (sauvegarde et/ou snapshot selon les paramètres de rétention) lors de la création de la planification. La valeur par défaut est  `false`. Cela ne modifie pas la récurrence ultérieure.
 +
 Exemple de YAML pour la planification de sauvegarde et de snapshot :
 
@@ -290,6 +291,28 @@ spec:
   granularity: Daily
   hour: "2"
   minute: "0"
+----
++
+Exemple YAML pour une planification avec exécution immédiate :
+
++
+[source, yaml]
+----
+---
+apiVersion: protect.trident.netapp.io/v1
+kind: Schedule
+metadata:
+  namespace: my-app-namespace
+  name: my-daily-schedule-run-immediately
+spec:
+  applicationRef: my-application
+  appVaultRef: appvault-name
+  backupRetention: "7"
+  snapshotRetention: "7"
+  granularity: Daily
+  hour: "3"
+  minute: "0"
+  runImmediately: true
 ----
 
 
@@ -345,6 +368,7 @@ NOTE: Le `--full-backup-rule` Cette fonction ne fonctionne pas avec une granular
 
 
 
+** *Protection immédiate de la base de référence* : Utilisez  `--run-immediately true` pour créer une sauvegarde ou un instantané initial immédiatement lors de la création de la planification, plutôt que d'attendre la première exécution planifiée. La valeur par défaut est  `false`.
 ** *Planifications instantanées uniquement* : Définir `--backup-retention 0` et spécifiez une valeur supérieure à zéro pour `--snapshot-retention`.
 
 
