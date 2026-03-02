@@ -1,0 +1,487 @@
+---
+sidebar: sidebar 
+permalink: trident-use/manage-autogrow-policies.html 
+keywords: trident, autogrow, automatic volume expansion, autogrow policy, persistent volume claim resize, ontap, kubernetes 
+summary: 'Gérez l"expansion automatique du volume à l"aide des politiques Autogrow de Trident.' 
+---
+= Gérer les stratégies Autogrow
+:allow-uri-read: 
+
+
+[role="lead"]
+Après avoir créé des stratégies Autogrow, vous pouvez les consulter, les mettre à jour et les supprimer selon vos besoins. Vous pouvez également surveiller quels volumes utilisent une stratégie donnée.
+
+
+
+== Afficher les politiques Autogrow
+
+
+
+=== Lister toutes les politiques
+
+Utilisez  `kubectl` pour lister toutes les stratégies d'extension automatique de votre cluster :
+
+[source, console]
+----
+kubectl get tridentautogrowpolicy
+----
+Vous pouvez également utiliser `tridentctl` :
+
+[source, console]
+----
+tridentctl get autogrowpolicy
+----
+
+
+=== Afficher les détails de la politique
+
+Pour consulter la spécification complète et l'état d'une politique :
+
+[source, console]
+----
+kubectl describe tridentautogrowpolicy production-db-policy
+----
+Pour afficher une règle avec ses volumes associés au format YAML :
+
+[source, console]
+----
+tridentctl get autogrowpolicy production-db-policy -o yaml
+----
+
+
+== Mettre à jour une politique Autogrow
+
+Vous pouvez modifier une politique existante pour changer son seuil, son taux de croissance ou sa taille maximale. Les modifications prennent effet immédiatement pour tous les volumes qui utilisent la politique.
+
+
+IMPORTANT: Les modifications affectent tous les volumes utilisant actuellement cette politique. Testez d'abord les modifications dans un environnement hors production lorsque cela est possible.
+
+.Étapes
+. Modifier la politique :
++
+[source, console]
+----
+kubectl edit tridentautogrowpolicy production-db-policy
+----
+. Modifiez les  `spec` champs selon vos besoins :
++
+[source, yaml]
+----
+spec:
+  usedThreshold: "75%"    # Changed from 80%
+  growthAmount: "20%"     # Changed from 10%
+  maxSize: "1Ti"          # Changed from 500Gi
+----
+. Enregistrez et quittez. Les modifications prennent effet immédiatement.
+
+
+
+
+=== Considérations relatives à la mise à jour
+
+* *Effet immédiat :* Tous les volumes utilisant la politique adoptent de nouveaux paramètres lors de la prochaine évaluation de la croissance.
+* *Aucun redémarrage du volume nécessaire :* Les modifications s'appliquent à la prochaine opération de croissance.
+* *Testez d'abord :* Validez les modifications dans un environnement non production lorsque cela est possible.
+* *Communiquer les changements :* Informez les équipes lorsque vous modifiez des politiques partagées.
+
+
+
+
+== Supprimer une politique Autogrow
+
+Les politiques d'autogrow utilisent la protection du finaliseur pour empêcher toute suppression accidentelle pendant que des volumes les utilisent activement.
+
+.Étapes
+. Supprimez la règle :
++
+[source, console]
+----
+kubectl delete tridentautogrowpolicy production-db-policy
+----
+. Si des volumes utilisent encore cette stratégie, la suppression entre dans un état `Deleting`. Vérifiez quels volumes sont concernés :
++
+[source, console]
+----
+tridentctl get autogrowpolicy production-db-policy -o yaml
+----
+. Supprimez la stratégie de chaque volume concerné. Choisissez l'une des options suivantes :
++
+--
+** *Option A : Désactiver explicitement la croissance automatique* en définissant l’annotation sur `"none"`:
++
+[source, console]
+----
+kubectl annotate pvc <pvc-name> \
+  trident.netapp.io/autogrowPolicy="none" \
+  --overwrite
+----
+** *Option B: Supprimer complètement l’annotation :*
++
+[source, console]
+----
+kubectl annotate pvc <pvc-name> \
+  trident.netapp.io/autogrowPolicy-
+----
+
+
+--
+
+
+
+
+=== Comportement de suppression
+
+[cols="1,2"]
+|===
+| Scénario | Comportement 
+
+
+| Aucun volume n'utilise la politique | La règle est supprimée immédiatement. 
+
+
+| Les volumes utilisent la politique | La stratégie entre dans  `Deleting` état. Un finaliseur bloque la finalisation jusqu'à ce que tous les volumes soient supprimés. 
+
+
+| Tous les volumes sont supprimés de la stratégie | Les finalizers sont supprimés et la policy est supprimée. 
+|===
+
+
+== Surveiller l'utilisation de la politique Autogrow
+
+
+
+=== Vérifiez les volumes à l'aide d'une règle
+
+[source, console]
+----
+tridentctl get autogrowpolicy production-db-policy -o json | jq '.volumes'
+----
+
+
+=== Découvrez quelle politique un volume utilise
+
+[source, console]
+----
+kubectl get pvc database-pvc -o jsonpath='{.metadata.annotations.trident\.netapp\.io/autogrowPolicy}'
+----
+
+
+=== Surveiller les événements de stratégie
+
+[source, console]
+----
+kubectl get events --field-selector involvedObject.kind=TridentAutogrowPolicy
+----
+
+
+== Protocoles pris en charge
+
+Autogrow prend en charge les protocoles de stockage suivants :
+
+* NFS
+* ISCSI
+* FCP
+* NVMe
+
+
+
+NOTE: Pour les volumes SAN, si la valeur configurée `growthAmount` est de 50 Mio ou moins, Trident augmente automatiquement la marge de croissance à 51 Mo pour l'opération de redimensionnement, tant que la taille résultante ne dépasse pas `maxSize`.
+
+
+
+== Limitations connues
+
+* *Volumes de blocs bruts NVMe ONTAP :* Les volumes créés avec des versions d'ONTAP antérieures à 9.16.1 ne prennent pas en charge l'autogrow.
+* *Volumes existants (déploiements brownfield) :* L’extension automatique peut ne pas fonctionner pour les volumes existants, même si une stratégie d’extension automatique valide est appliquée. Ceci est dû à une migration en cours des publications de volumes. Pour confirmer que la migration est terminée, vérifiez les journaux du contrôleur Trident pour les messages `"Migration completed"`.
+
+
+
+
+== Foire aux questions
+
+
+
+=== À quel moment Trident évalue le seuil ?
+
+Trident surveille en permanence l'utilisation du volume. Lorsque la capacité utilisée dépasse le `usedThreshold`, Trident crée une demande de redimensionnement interne et augmente le volume de la valeur configurée `growthAmount`.
+
+Par exemple, cette politique déclenche une extension à 80% de la capacité et augmente le volume de 10% à chaque fois, jusqu'à un maximum de 500 GiB :
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: standard-autogrow
+spec:
+  usedThreshold: "80%"
+  growthAmount: "10%"
+  maxSize: "500Gi"
+----
+
+
+=== Puis-je appliquer une stratégie après que les volumes ont déjà été provisionnés ?
+
+Oui. Vous pouvez créer une stratégie d'autogrow à tout moment et l'appliquer aux PVC existants en ajoutant ou en mettant à jour l' `trident.netapp.io/autogrowPolicy`annotation. Vous n'avez pas besoin de recréer le PVC ni le StorageClass.
+
+Pour appliquer une politique à un PVC existant :
+
+[source, console]
+----
+kubectl annotate pvc <pvc-name> \
+  trident.netapp.io/autogrowPolicy="production-db-policy" \
+  --overwrite
+----
+Pour appliquer une politique à un StorageClass existant :
+
+[source, console]
+----
+kubectl annotate storageclass ontap-gold \
+  trident.netapp.io/autogrowPolicy="production-db-policy" \
+  --overwrite
+----
+
+
+=== Que se passe-t-il si je configure une stratégie d'autogrow à la fois sur le StorageClass et sur le PVC ?
+
+L'annotation PVC est toujours prioritaire. Si un PVC possède l' `trident.netapp.io/autogrowPolicy`annotation, Trident utilise cette valeur, quelle que soit la valeur spécifiée par la StorageClass. Consultez link:create-autogrow-policies.adoc#_policy_precedence["Précédence de la politique"] pour plus de détails.
+
+Par exemple, étant donné ce StorageClass :
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-gold
+  annotations:
+    trident.netapp.io/autogrowPolicy: "standard-agp"
+provisioner: csi.trident.netapp.io
+allowVolumeExpansion: true
+----
+Et ce PVC qui annule la politique StorageClass :
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: database-pvc
+  annotations:
+    trident.netapp.io/autogrowPolicy: "logs-policy"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: ontap-gold
+----
+Trident utilise  `logs-policy` pour  `database-pvc`, pas  `standard-agp`.
+
+
+
+=== Comment désactiver l'autogrow pour un volume spécifique ?
+
+Définissez l'annotation PVC sur  `"none"`. Cela remplace toute politique au niveau de la StorageClass pour ce volume :
+
+[source, console]
+----
+kubectl annotate pvc <pvc-name> \
+  trident.netapp.io/autogrowPolicy="none" \
+  --overwrite
+----
+Vous pouvez vérifier que la croissance automatique est désactivée :
+
+[source, console]
+----
+kubectl get pvc <pvc-name> -o jsonpath='{.metadata.annotations.trident\.netapp\.io/autogrowPolicy}'
+----
+.Résultat attendu
+[source, console]
+----
+none
+----
+
+
+=== Que se passe-t-il lorsqu'un volume atteint maxSize?
+
+Trident cesse d'étendre le volume. Aucune autre demande de redimensionnement n'est créée pour ce volume, même si l'utilisation continue d'augmenter au-delà de la `usedThreshold`.
+
+Par exemple, avec cette politique, Trident cesse d'augmenter le volume une fois qu'il atteint 100 GiB :
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: capped-policy
+spec:
+  usedThreshold: "90%"
+  growthAmount: "10Gi"
+  maxSize: "100Gi"
+----
+Pour autoriser une croissance illimitée, omettez `maxSize` ou définissez-la sur `0` :
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: unlimited-policy
+spec:
+  usedThreshold: "85%"
+  growthAmount: "10%"
+----
+
+
+=== Puis-je modifier une stratégie sans redémarrer les volumes ?
+
+Oui. Lorsque vous mettez à jour une stratégie, tous les volumes utilisant cette stratégie adoptent les nouveaux paramètres lors de la prochaine évaluation de la croissance. Aucun redémarrage de volume n'est requis.
+
+Pour mettre à jour une politique en place :
+
+[source, console]
+----
+kubectl edit tridentautogrowpolicy production-db-policy
+----
+Modifiez les champs si nécessaire :
+
+[source, yaml]
+----
+spec:
+  usedThreshold: "75%"    # Changed from 80%
+  growthAmount: "20%"     # Changed from 10%
+  maxSize: "1Ti"          # Changed from 500Gi
+----
+Enregistrez et quittez. Vérifiez la politique mise à jour :
+
+[source, console]
+----
+kubectl get tridentautogrowpolicy production-db-policy
+----
+.Résultat attendu
+[source, console]
+----
+NAME                   USED THRESHOLD   GROWTH AMOUNT   STATE
+production-db-policy   75%              20%             Success
+----
+
+
+=== Pourquoi ma stratégie est-elle en état d'échec ?
+
+Un  `Failed` état indique que la spécification de la politique contient des erreurs de validation. Exécutez la commande suivante pour afficher les détails de l’erreur :
+
+[source, console]
+----
+kubectl describe tridentautogrowpolicy <policy-name>
+----
+Les causes fréquentes incluent une valeur invalide `usedThreshold` (doit être comprise entre 1 et 99 %), une `growthAmount` qui dépasse `maxSize`, ou un format de quantité Kubernetes invalide. Corrigez la spécification et réappliquez :
+
+[source, console]
+----
+kubectl apply -f autogrow-policy.yaml
+----
+
+
+=== Pourquoi ne puis-je pas supprimer une policy ?
+
+Les politiques utilisent une protection de finalisation. Si des volumes utilisent encore la politique, la suppression entre dans un  `Deleting` état et attend que tous les volumes soient supprimés de la politique.
+
+Identifiez les volumes concernés :
+
+[source, console]
+----
+tridentctl get autogrowpolicy production-db-policy -o yaml
+----
+Supprimez ensuite l'annotation de chaque PVC :
+
+[source, console]
+----
+# Option A: Explicitly disable autogrow
+kubectl annotate pvc <pvc-name> \
+  trident.netapp.io/autogrowPolicy="none" \
+  --overwrite
+
+# Option B: Remove the annotation entirely
+kubectl annotate pvc <pvc-name> \
+  trident.netapp.io/autogrowPolicy-
+----
+Après la suppression de tous les volumes, le finaliseur est libéré et la policy est supprimée.
+
+
+
+=== La fonction d'extension automatique fonctionne-t-elle avec tous les backends ONTAP ?
+
+La fonctionnalité d'extension automatique prend en charge les protocoles NFS, iSCSI, FCP et NVMe. Cependant, les volumes de blocs bruts NVMe nécessitent ONTAP 9.16.1 ou une version ultérieure.
+
+Les volumes existants dans les déploiements brownfield peuvent nécessiter la migration de la publication des volumes avant que l'autogrow ne prenne effet. Vérifiez l'état de la migration en consultant les journaux du contrôleur Trident :
+
+[source, console]
+----
+kubectl logs -l app=trident-controller -n trident | grep "Migration completed"
+----
+Les exemples suivants de StorageClass montrent l’extension automatique configurée pour les backends NAS et SAN :
+
+.Backend NAS
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-nas-autogrow
+  annotations:
+    trident.netapp.io/autogrowPolicy: "standard-autogrow"
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-nas"
+  fsType: "ext4"
+allowVolumeExpansion: true
+----
+.Backend SAN
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: database-storage
+  annotations:
+    trident.netapp.io/autogrowPolicy: "production-db-policy"
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-san"
+  fsType: "ext4"
+allowVolumeExpansion: true
+----
+
+
+=== Quel est le montant minimal de croissance pour les volumes SAN ?
+
+Pour les volumes SAN, la marge de croissance minimale effective est de 51 Mo. Si vous configurez une  `growthAmount` de 50 Mio ou moins, Trident augmente automatiquement la croissance à 51 Mo pour l'opération de redimensionnement.
+
+Par exemple, cette politique définit une  `growthAmount` de  `"40Mi"`, mais Trident applique une croissance de 51 Mo à tout volume SAN qui l'utilise :
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: san-minimal-policy
+spec:
+  usedThreshold: "85%"
+  growthAmount: "40Mi"
+  maxSize: "100Gi"
+----
+Pour éviter ce réglage automatique, définissez  `growthAmount` sur une valeur supérieure à 50 Mio :
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentAutogrowPolicy
+metadata:
+  name: san-policy
+spec:
+  usedThreshold: "85%"
+  growthAmount: "100Mi"
+  maxSize: "500Gi"
+----

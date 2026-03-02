@@ -29,6 +29,19 @@ NOTE: Si vous utilisez Kubernetes pour la première fois, familiarisez-vous avec
 
 
 
+== Plateformes Kubernetes prises en charge
+
+Trident est compatible avec un large éventail de distributions et de plateformes Kubernetes.
+
+Plateformes prises en charge :
+
+* Kubernetes en amont
+* Red Hat OpenShift
+* SUSE Harvester 1.7.0 (ONTAP iSCSI)
+
+
+
+
 == Intégration de Kubernetes avec les produits NetApp
 
 Le portefeuille de produits de stockage NetApp s'intègre à de nombreux aspects des clusters Kubernetes avec des fonctionnalités avancées de gestion des données qui améliorent la fonctionnalité, la capacité, les performances et la disponibilité du déploiement Kubernetes.

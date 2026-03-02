@@ -1,8 +1,15 @@
-= Opérations prises en charge
+---
+sidebar: sidebar 
+permalink: trident-asar2-support.html 
+keywords: asar2, trident, fcp, nvme, tcp, nvme/tcp, fibre channel 
+summary: NetApp Trident prend en charge ONTAP ASA r2 pour iSCSI et NVMe/TCP. 
+---
+= NetApp Trident prise en charge de Trident pour les systèmes de stockage ONTAP ASA r2
+:hardbreaks:
 :allow-uri-read: 
+:icons: font
+:imagesdir: ./media/
 
-
-sidebar: sidebar permalink: trident-asar2-support.html keywords: asar2, trident, fcp, nvme, tcp, nvme/tcp, fibre channel summary: NetApp Trident prend en charge ONTAP ASA r2 pour iSCSI et NVMe/TCP. --- = NetApp Trident support pour les systèmes de stockage ONTAP ASA r2 :hardbreaks: :icons: font :imagesdir: ./media/
 
 [role="lead"]
 NetApp Trident 25.02 et versions ultérieures prennent en charge les systèmes NetApp ASA r2 comme backends de stockage. Consultez link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Systèmes ASA r2"^] pour plus d'informations.
