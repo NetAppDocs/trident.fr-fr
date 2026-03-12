@@ -35,13 +35,13 @@ helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-he
 +
 [source, console]
 ----
-helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --version 100.2510.0 --create-namespace --namespace trident-protect
+helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --version 100.2602.0 --create-namespace --namespace trident-protect
 ----
 . Pour activer la journalisation de débogage (recommandée pour le dépannage), vous pouvez utiliser la commande suivante (facultative) :
 +
 [source, console]
 ----
-helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --set logLevel=debug --version 100.2510.0 --create-namespace --namespace trident-protect
+helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --set logLevel=debug --version 100.2602.0 --create-namespace --namespace trident-protect
 ----
 +
 La journalisation de débogage aide le support NetApp à résoudre les problèmes sans nécessiter de modifications du niveau de journalisation ni de reproduction du problème.
@@ -89,7 +89,7 @@ docker push <private-registry-url>/controller:26.02.0
 ----
 +
 
-NOTE: Pour obtenir la carte de barre, commencez par la télécharger sur un ordinateur connecté à Internet. `helm pull trident-protect --version 100.2510.0 --repo https://netapp.github.io/trident-protect-helm-chart`, puis copiez le résultat `trident-protect-100.2510.0.tgz` Téléchargez le fichier dans votre environnement hors ligne et installez-le en utilisant `helm install trident-protect ./trident-protect-100.2510.0.tgz` au lieu de la référence au dépôt dans l'étape finale.
+NOTE: Pour obtenir le graphique Helm, téléchargez d'abord le graphique Helm sur une machine ayant accès à Internet à l'aide de  `helm pull trident-protect --version 100.2602.0 --repo https://netapp.github.io/trident-protect-helm-chart`, puis copiez le fichier  `trident-protect-100.2602.0.tgz` résultant dans votre environnement hors ligne et installez-le en utilisant  `helm install trident-protect ./trident-protect-100.2602.0.tgz` au lieu de la référence du dépôt à l'étape finale.
 
 . Créez l'espace de noms système Trident Protect :
 +
@@ -132,13 +132,13 @@ NOTE: Le `imageRegistry` et `imagePullSecrets` Les valeurs s'appliquent à toute
 +
 [source, console]
 ----
-helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name_of_cluster> --version 100.2510.0 --create-namespace --namespace trident-protect -f protectValues.yaml
+helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name_of_cluster> --version 100.2602.0 --create-namespace --namespace trident-protect -f protectValues.yaml
 ----
 . Pour activer la journalisation de débogage (recommandée pour le dépannage), vous pouvez utiliser la commande suivante (facultative) :
 +
 [source, console]
 ----
-helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --set logLevel=debug --version 100.2510.0 --create-namespace --namespace trident-protect -f protectValues.yaml
+helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --set logLevel=debug --version 100.2602.0 --create-namespace --namespace trident-protect -f protectValues.yaml
 ----
 +
 La journalisation de débogage aide le support NetApp à résoudre les problèmes sans nécessiter de modifications du niveau de journalisation ni de reproduction du problème.
