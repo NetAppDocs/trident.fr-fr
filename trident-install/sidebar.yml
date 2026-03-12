@@ -26,6 +26,5 @@ entries:
   entries:
   - title: Installez Trident à l'aide d'OpenShift OperatorHub
     url: "/trident-get-started/openshift-operator-deploy.html"
-  - title: Passez d'un opérateur de la communauté Trident à un opérateur certifié
-      OpenShift
-    url: "/trident-get-started/openshift-certified-operator-deploy.html"
+  - title: Passez à l’opérateur Trident certifié OpenShift
+    url: "/trident-install/openshift-certified-operator-deploy.html"
