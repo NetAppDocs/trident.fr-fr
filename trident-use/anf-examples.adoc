@@ -166,7 +166,7 @@ Vous pouvez contrôler le provisionnement des volumes par défaut en spécifiant
 `exportRule` Doit être une liste séparée par des virgules d'une combinaison d'adresses IPv4 ou de sous-réseaux IPv4 en notation CIDR. Ignoré pour les volumes SMB. | « 0.0.0.0/0 » 
 
 
-| `snapshotDir` | Contrôle la visibilité du répertoire .snapshot | « True » pour NFSv4 « false » pour NFSv3 
+| `snapshotDir` | Accès au `.snapshot` répertoire | `true`, `false` (Défini explicitement). 
 
 
 | `size` | Taille par défaut des nouveaux volumes | « 100 G » 

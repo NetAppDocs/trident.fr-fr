@@ -86,7 +86,7 @@ Ces ports sont destinés aux ensembles de démons de nœuds CSI et aux montages 
 | TCP 8443 | Sortant | HTTPS vers le proxy Web Services E-Series | E-Series (iSCSI) | Comme ci-dessus. 
 
 
-| TCP/UDP 111 | Sortant | RPCBIND/portmapper | ONTAP-NAS (NFSv3/v4), ANF (NFS) | Requis pour v3 ; optionnel pour v4 (déchargement du pare-feu) ; à restreindre si utilisation exclusive de NFSv4. 
+| TCP/UDP 111 | Sortant | RPCBIND/portmapper | ONTAP-NAS (NFSv3/v4), ANF (NFS) | Requis pour v3 ; optionnel pour v4 (déchargement du pare-feu) ; à restreindre si vous utilisez -only. 
 
 
 | TCP/UDP 2049 | Sortant | Démon NFS | ONTAP-NAS (NFSv3/v4), ANF (NFS) | Données essentielles ; bien connues ; utilisez TCP pour la fiabilité. 
