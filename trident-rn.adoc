@@ -122,7 +122,7 @@ Deux solutions de contournement sont disponibles :
 
 
 
-== Quoi de neuf dans la version 26.02
+== Quoi de neuf dans la version 25.10
 
 Découvrez les nouveautés de Trident et Trident Protect, notamment les améliorations, les correctifs et les fonctionnalités obsolètes.
 
