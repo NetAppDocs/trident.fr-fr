@@ -316,6 +316,63 @@ image:./san-import-igroup.png["Image de LUN mappées sur iqn et iqn du cluster."
 ====
 
 
+== Exemples d'économie SAN ONTAP
+
+Les exemples suivants montrent comment importer des volumes gérés et non gérés pour le backend  `ontap-san-economy`.
+
+[role="tabbed-block"]
+====
+.Volume géré
+--
+Lors de l'importation d'un volume géré, Trident prend possession du FlexVol et le renomme. Vous devez tenir compte de ce renommage lors de l'importation de plusieurs LUN provenant du même FlexVol.
+
+L'exemple suivant importe  `lun1` du FlexVol `toimport` en tant que volume géré nommé  `vol-managed-saneco` :
+
+[listing]
+----
+tridentctl import volume vol-managed-saneco toimport/lun1 -f import1.yaml
+----
+Après l'importation `lun1`, Trident renomme le FlexVol (par exemple, en `trident_lun_pool_xyz`). Pour importer d'autres LUNs du même FlexVol, utilisez le nouveau nom FlexVol :
+
+[listing]
+----
+tridentctl import volume vol-managed-saneco trident_lun_pool_xyz/lun2 -f import2.yaml
+----
+
+NOTE: Le  `ontap-san-economy` backend importe une LUN à la fois. Vous pouvez automatiser plusieurs importations à l'aide d'un script.
+
+--
+.Volume non géré
+--
+Lorsque vous importez un volume non géré, Trident ne prend pas possession du FlexVol®. Cependant, le FlexVol® et la LUN doivent suivre les conventions de nommage Trident.
+
+Format de nommage FlexVol®::
++
+--
+[listing]
+----
+trident_lun_pool_STORAGEPREFIX_RANDOMSTRING
+----
+* `STORAGEPREFIX` est la valeur de  `storagePrefix` dans votre configuration backend. La valeur par défaut est  `trident`.
+* `RANDOMSTRING` est n'importe quelle chaîne de caractères que vous choisissez.
+
+
+--
+Exigence de dénomination des LUN:: Le LUN doit être nommé `lun0`.
+Exemple:: Si votre  `storagePrefix` est  `xyz`, le chemin complet vers le LUN est :
++
+--
+[listing]
+----
+trident_lun_pool_xyz_randomstring/lun0
+----
+--
+
+
+--
+====
+
+
 === Elément
 
 Trident prend en charge le logiciel NetApp Element et l'importation de volumes NetApp HCI à l'aide du `solidfire-san` pilote.

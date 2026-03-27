@@ -1,5 +1,11 @@
 ---
 indexpage:
+  title: Documentation Trident 26.02
+  summary: Trident est un mécanisme de provisionnement et d'orchestration open source
+    du stockage géré par NetApp. Il vous permet de créer des volumes de stockage pour
+    les applications conteneurisées gérées par Docker et Kubernetes.
+  keywords: trident, 2602, documentation, release notes, get started, deploy, upgrade,
+    use, data management, protection, demos, tutorials, blogs, community
   lead: Trident est un mécanisme de provisionnement et d'orchestration open source
     du stockage géré par NetApp. Il vous permet de créer des volumes de stockage pour
     les applications conteneurisées gérées par Docker et Kubernetes.

@@ -38,12 +38,16 @@ Trident prend en charge l'évolutivité du contrôleur avec différents niveaux 
 
 Les pilotes suivants prennent en charge la mise à l'échelle du contrôleur à la disponibilité générale dans Trident 26.02 :
 
-* `san`
-* `nas`
-* `san-nvme`
+* `ontap-san`
+* `ontap-nas`
 * `google-cloud-netapp-volumes`
 
 
+[NOTE]
+====
+Les `google-cloud-netapp-volumes` et `google-cloud-netapp-volumes-san` pilotes sont différents. Seul `google-cloud-netapp-volumes` est pris en charge. N'utilisez pas `google-cloud-netapp-volumes-san` dans les configurations ou exemples backend.
+
+====
 
 
 == Activer la scalabilité du contrôleur

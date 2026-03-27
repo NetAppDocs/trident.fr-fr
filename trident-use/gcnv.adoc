@@ -29,7 +29,7 @@ Les volumes iSCSI offrent un stockage bloc brut et sont accessibles comme des p√
 Ceci s'applique aux environnements suivants :
 
 * Trident 26.02 et versions ult√©rieures
-* Google Kubernetes Engine (GKE)
+* Google Kubernetes Engine (GKE) ou Red Hat OpenShift
 * Google Cloud NetApp Volumes pools NAS
 * Charges de travail NFS et SMB
 

@@ -148,7 +148,7 @@ Découvrez les nouveautés de Trident et Trident Protect, notamment les amélior
 
 
 * Ajout d'une option permettant au contrôleur Trident d'utiliser le réseau hôte via Helm, l'opérateur et Tridentctl (link:https://github.com/NetApp/trident/issues/858["Numéro 858"] ).
-* Ajout de la prise en charge manuelle de la QoS au pilote ANF, la rendant prête pour la production dans Trident 26.02 ; cette amélioration expérimentale a été introduite dans Trident 25.06.
+* Ajout de la prise en charge manuelle de la QoS au pilote ANF, la rendant prête pour la production dans Trident 25.10 ; cette amélioration expérimentale a été introduite dans Trident 25.06.
 
 
 
