@@ -304,7 +304,7 @@ Assurez-vous que les conditions préalables suivantes sont remplies :
 
 
 .Étapes
-. Vérifiez la disponibilité de la ressource personnalisée AppVault sur le cluster de destination à l'aide du plugin CLI Trident Protect :
+. Vérifiez que la AppVault CR existe sur le cluster de destination à l'aide du plugin CLI Trident Protect :
 +
 [source, console]
 ----
@@ -312,9 +312,9 @@ tridentctl-protect get appvault --context <destination_cluster_name>
 ----
 +
 
-NOTE: Assurez-vous que l'espace de noms destiné à la restauration d'application existe sur le cluster de destination.
+NOTE: Si la AppVault CR n'existe pas sur le cluster de destination, créez-la en suivant les étapes dans link:trident-protect-appvault-custom-resources.html["Utilisez les objets Trident Protect AppVault pour gérer les compartiments."].
 
-. Afficher le contenu de la sauvegarde de l'AppVault disponible à partir du cluster de destination :
+. Consultez le contenu de la sauvegarde disponible de AppVault sur le cluster de destination, et notez  `appArchivePath` de la sauvegarde que vous souhaitez restaurer :
 +
 [source, console]
 ----
@@ -342,6 +342,9 @@ L'exécution de cette commande affiche les sauvegardes disponibles dans le AppVa
 . Restaurez l'application sur le cluster de destination à l'aide du nom AppVault et du chemin d'archivage :
 
 
+
+NOTE: Lors de l'utilisation d'une CR, assurez-vous que l'espace de noms destiné à la restauration de l'application existe sur le cluster de destination.
+
 [role="tabbed-block"]
 ====
 .Utiliser une CR
@@ -351,16 +354,7 @@ L'exécution de cette commande affiche les sauvegardes disponibles dans le AppVa
 +
 ** *metadata.name*: (_required_) le nom de cette ressource personnalisée; choisissez un nom unique et sensible pour votre environnement.
 ** *Spec.appVaultRef*: (_required_) Nom de l'AppVault où sont stockés le contenu de la sauvegarde.
-** *Spec.appArchivePath* : chemin d'accès dans AppVault où sont stockés le contenu de la sauvegarde. Vous pouvez utiliser la commande suivante pour trouver ce chemin :
-+
-[source, console]
-----
-kubectl get backups <BACKUP_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
-----
-+
-
-NOTE: Si BackupRestore CR n'est pas disponible, vous pouvez utiliser la commande mentionnée à l'étape 2 pour afficher le contenu de la sauvegarde.
-
+** *spec.appArchivePath* : (Obligatoire) Le chemin à l'intérieur de AppVault où le contenu de la sauvegarde est stocké. Utilisez la commande de l’étape 2 pour afficher le contenu de la sauvegarde et trouver  `appArchivePath` la sauvegarde que vous souhaitez restaurer.
 ** *spec.destinationApplicationName* : (_Facultatif_) Le nom de l’application restaurée. Si ce nom est fourni, l’application restaurée utilise ce nom. Si ce nom n’est pas fourni, l’application restaurée utilise le nom de l’application source.
 ** *spec.namespaceMapping*: mappage de l'espace de noms source de l'opération de restauration sur l'espace de noms de destination. Remplacez `my-source-namespace` et `my-destination-namespace` par des informations provenant de votre environnement.
 +
