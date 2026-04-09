@@ -37,26 +37,26 @@ Vérifiez les points suivants avant de configurer le module complémentaire Trid
 . Veillez à créer un rôle IAM et un code AWS secret pour permettre aux pods d'EKS d'accéder aux ressources AWS. Pour obtenir des instructions, reportez-vous à la section link:../trident-use/trident-fsx-iam-role.html["Créez un rôle IAM et un code secret AWS"^].
 . Sur votre cluster EKS Kubernetes, accédez à l'onglet *Add-ons*.
 +
-image::../media/aws-eks-01.png[eks aws 01]
+image::../media/aws-eks-01.png[Onglet Modules complémentaires du cluster EKS]
 
 . Accédez à *add-ons* AWS Marketplace et choisissez la catégorie _Storage_.
 +
-image::../media/aws-eks-02.png[eks aws 02]
+image::../media/aws-eks-02.png[Catégorie de stockage des modules complémentaires AWS Marketplace]
 
 . Localisez *NetApp Trident* et cochez la case du module complémentaire Trident, puis cliquez sur *Suivant*.
 . Choisissez la version souhaitée du module complémentaire.
 +
-image::../media/aws-eks-03.png[eks aws 03]
+image::../media/aws-eks-03.png[Sélection de la version du module complémentaire Trident]
 
 . Configurez les paramètres du module complémentaire requis.
 +
-image::../media/aws-eks-04.png[eks aws 04]
+image::../media/aws-eks-04.png[Paramètres de configuration du module complémentaire Trident]
 
 . Si vous utilisez IRSA (rôles IAM pour le compte de service), reportez-vous aux étapes de configuration supplémentaireslink:https://docs.netapp.com/us-en/trident/trident-use/trident-fsx-install-trident.html#enable-the-trident-add-on-for-aws["ici"] .
 . Sélectionnez *Créer*.
 . Vérifiez que l'état du complément est _Active_.
 +
-image::../media/aws-eks-05.png[eks aws 05]
+image::../media/aws-eks-05.png[Trident État actif de l'extension Trident]
 
 . Exécutez la commande suivante pour vérifier que Trident est correctement installé sur le cluster :
 +

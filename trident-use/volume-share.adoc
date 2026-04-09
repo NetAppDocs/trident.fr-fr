@@ -141,7 +141,7 @@ Vous pouvez supprimer un volume partagé entre plusieurs namespaces. Trident sup
 
 == Utiliser `tridentctl get` pour interroger des volumes subordonnés
 
-À l'aide du[`tridentctl` vous pouvez exécuter l' `get` commande pour obtenir des volumes subordonnés. Pour plus d'informations, consultez le lien :../trident-Reference/tridentctl.html[`tridentctl` commandes et options].
+En utilisant l'[`tridentctl`utilitaire, vous pouvez exécuter la commande  `get`pour obtenir les volumes subordonnés. Pour plus d'informations, consultez le lien : ../trident-reference/trident-cl.html[`tridentctl` commandes et options].
 
 [listing]
 ----

@@ -18,7 +18,7 @@ Avant d'utiliser l'opérateur Trident pour mettre à niveau Trident, vous devez 
 
 == Gestion des mises à niveau par l'opérateur Trident
 
-L'une des nombreuses link:../trident-get-started/kubernetes-deploy.html["Avantages de l'utilisation de l'opérateur Trident"] à installer et à mettre à niveau Trident est la gestion automatique des objets Trident et Kubernetes sans interrompre les volumes montés existants. De cette façon, Trident peut prendre en charge les mises à niveau sans temps d'indisponibilité, ou link:https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/["_mises à jour en continu_"^]. En particulier, l'opérateur Trident communique avec le cluster Kubernetes pour :
+L'un des nombreux link:../trident-install/kubernetes-deploy.html["Avantages de l'utilisation de l'opérateur Trident"] moyens d'installer et de mettre à niveau Trident est la gestion automatique des objets Trident et Kubernetes sans perturber les volumes montés existants. De cette façon, Trident peut prendre en charge les mises à niveau sans interruption, ou link:https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/["_mises à jour en continu_"^]. Plus précisément, l'opérateur Trident communique avec le cluster Kubernetes pour :
 
 * Supprimez et recréez le déploiement du contrôleur Trident et le nœud DemonSet.
 * Remplacez l'afficheur de contrôleur Trident et les pods de nœud Trident par de nouvelles versions.

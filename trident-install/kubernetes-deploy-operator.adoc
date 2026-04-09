@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: trident-get-started/kubernetes-deploy-operator.html 
+permalink: trident-install/kubernetes-deploy-operator.html 
 keywords: deploy, Trident, methods, operator, tridentctl, registry, registries 
 summary: 'Vous pouvez déployer manuellement l"opérateur Trident pour installer Trident. Ce processus s"applique aux installations où les images de conteneur requises par Trident ne sont pas stockées dans un registre privé.' 
 ---
@@ -38,7 +38,7 @@ Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisat
 
 == Déployer manuellement l'opérateur Trident et installer Trident
 
-Révision link:../trident-get-started/kubernetes-deploy.html["présentation de l'installation"] pour vous assurer que les conditions préalables à l'installation sont respectées et que vous avez sélectionné l'option d'installation appropriée pour votre environnement.
+Vérifiez link:kubernetes-deploy.html["présentation de l'installation"] pour vous assurer que vous avez respecté les prérequis d'installation et sélectionné la bonne option d'installation pour votre environnement.
 
 .Avant de commencer
 Avant de commencer l'installation, connectez-vous à l'hôte Linux et vérifiez qu'il gère un travail. link:requirements.html["Cluster Kubernetes pris en charge"^] et que vous disposez des privilèges nécessaires.
