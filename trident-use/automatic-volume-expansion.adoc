@@ -9,16 +9,15 @@ summary: 'Configurez et gérez l"expansion automatique des volumes à l"aide des
 
 
 [role="lead"]
-L'extension automatique des volumes permet aux Persistent Volumes provisionnés par Trident d'augmenter automatiquement leur capacité lorsque celle-ci atteint un seuil défini. Cette fonctionnalité réduit les coûts d'exploitation et contribue à prévenir les interruptions d'application dues à la saturation de la capacité.
-
-L'extension automatique du volume est mise en œuvre à l'aide des Autogrow Policies. Une Autogrow Policy définit :
+L'extension automatique des volumes permet aux Persistent Volumes provisionnés par Trident d'augmenter automatiquement leur capacité lorsque celle-ci atteint un seuil défini. Cette fonctionnalité réduit les coûts d'exploitation et contribue à prévenir les interruptions d'application dues à la saturation de la capacité. L'extension automatique du volume est mise en œuvre à l'aide des Autogrow Policies. Une Autogrow Policy définit :
 
 * Le seuil d'utilisation qui déclenche l'expansion
 * La quantité dont le volume augmente
 * La taille maximale que le volume peut atteindre
 
 
-Les volumes augmentent automatiquement lorsque le seuil d'utilisation défini est dépassé. Les volumes ne sont jamais réduits automatiquement.
+
+NOTE: Les volumes augmentent automatiquement lorsque le seuil d'utilisation défini est dépassé. Les volumes ne sont jamais réduits automatiquement.
 
 
 
@@ -33,8 +32,8 @@ Avant de configurer l'extension automatique du volume, assurez-vous que les exig
 +
 ** Système de fichiers réseau (NFS)
 ** Internet Small Computer Systems Interface (iSCSI)
-** Protocole Fibre Channel (NVMe)
-** Non-Volatile Memory Express over Fabrics (FCP)
+** Non-Volatile Memory Express (NVMe)
+** Protocole Fibre Channel (FCP)
 
 
 
@@ -51,8 +50,8 @@ Avant de configurer l'extension automatique du volume, assurez-vous que les exig
 +
 ** Système de fichiers réseau (NFS)
 ** Internet Small Computer Systems Interface (iSCSI)
-** Protocole Fibre Channel (NVMe)
-** Non-Volatile Memory Express over Fabrics (FCP)
+** Non-Volatile Memory Express (NVMe)
+** Protocole Fibre Channel (FCP)
 
 
 
