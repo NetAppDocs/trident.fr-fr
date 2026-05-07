@@ -54,12 +54,10 @@ entries:
       url: "/trident-use/trident-fsx-iam-role.html"
     - title: Installation de Trident
       url: "/trident-use/trident-fsx-install-trident.html"
-    - title: Configurer le back-end de stockage
-      url: "/trident-use/trident-fsx-storage-backend.html"
-    - title: Configurer la configuration automatique du backend
-      url: "/trident-use/trident-fsx-auto-backend-configuration.html"
-    - title: Configuration de la classe de stockage et de la PVC
+    - title: Configurer la classe de stockage
       url: "/trident-use/trident-fsx-storageclass-pvc.html"
+    - title: Configurer un PVC
+      url: "/trident-use/trident-fsx-create-pvc.html"
     - title: Déploiement de l'application exemple
       url: "/trident-use/trident-fsx-deploy-sample.html"
     - title: Configurer le module d'extension Trident EKS sur un cluster EKS
@@ -92,10 +90,8 @@ entries:
     url: "/trident-use/controller-scalability.html"
   - title: Extension automatique du volume
     url: "/trident-use/automatic-volume-expansion.html"
-  - title: Créer une politique Autogrow
-    url: "/trident-use/automatic-volume-expansion.html"
-  - title: Gérer une politique Autogrow
-    url: "/trident-use/create-autogrow-policy.html"
+  - title: Gérer l'extension automatique de volume
+    url: "/trident-use/manage-autogrow-policies.html"
   - title: Importer des volumes
     url: "/trident-use/vol-import.html"
   - title: Personnaliser les noms des volumes
