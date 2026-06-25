@@ -5972,8 +5972,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="69a4986cbe93f4162ce953d8e917b215" category="list-text"><block ref="69a4986cbe93f4162ce953d8e917b215" category="inline-link-rx"></block></block>
   <block id="4c2c3e7d0f5cd32449fc11925a3ad7bc" category="doc">Documentation Trident 26.02</block>
   <block id="28b62bff68083dad22bdf1acf812f48a" category="list-text">Kubernetes 1.35 est désormais pris en charge dans Trident. Mettez à niveau Trident avant de mettre à niveau Kubernetes.</block>
-  <block id="3efcec6a387ab5737e772a3baeea51b2" category="list-text">Kubernetes 1.27 - 1.35</block>
-  <block id="43e43f38c3caf4af908ea20149dccef1" category="paragraph">1.27 - 1.35</block>
   <block id="ac6cc7900e3d9478b2fcf3a73c070b29" category="section-title">Images de conteneur requises pour Trident 26.02</block>
   <block id="627219ce2083b03812e10846d1307811" category="list-text">*spec.runImmediately* : (_Optionnel_) Définissez sur <block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> pour déclencher une exécution de base unique et immédiate (sauvegarde et/ou snapshot selon les paramètres de rétention) lors de la création de la planification. La valeur par défaut est <block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block>. Cela ne modifie pas la récurrence ultérieure.</block>
   <block id="b267d2c4b44dd537f81ddd4d1ca1cdd8" category="paragraph">Exemple YAML pour une planification avec exécution immédiate :</block>
@@ -6352,7 +6350,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="0e2ef50b7c69ffbf62cb09918ee19243" category="paragraph">Trident est compatible avec un large éventail de distributions et de plateformes Kubernetes.</block>
   <block id="9dc48bb809ddb16298a6203467073aba" category="list-text">SUSE Harvester 1.7.0 (ONTAP iSCSI)</block>
   <block id="ec92eeadf77128110614c3ae4b04e5c6" category="list-text">OpenShift 4.12, 4.14 - 4.21 (Si vous prévoyez d'utiliser la préparation de nœud iSCSI avec OpenShift 4.19, la version minimale de Trident prise en charge est 25.06.1.)</block>
-  <block id="991b6998365b18269e10fd6932757c88" category="list-text">Rancher Kubernetes Engine 2 (RKE2) v1.28.x - 1.35.x</block>
   <block id="fa39b55af1ef0692bcd52101a2886102" category="inline-link-macro">Documentation sur la scalabilité du contrôleur</block>
   <block id="132f0447aa079a2a979713029f6c5c0f" category="list-text">Ajout de la prise en charge en disponibilité générale (GA) de la concurrence pour ONTAP-NAS (NFS uniquement), ONTAP-SAN (iSCSI, FCP, NVMe) et Google Cloud NetApp Volumes (GCNV), faisant passer cette fonctionnalité de Tech Preview à la version finale. Voir la <block ref="2cdc5fbb0ceee513eb25d6f3a67c7e5a" category="inline-link-macro-rx"></block> pour plus d'informations.</block>
   <block id="79c677a07b8e51f9201ddd1c415adbfc" category="inline-link-macro">Documentation sur l’extension automatique du volume</block>
@@ -6613,7 +6610,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="9d5a9690e203a91236d7cd904141669f" category="section-title">Quoi de neuf dans la version 25.10</block>
   <block id="f74472a1f5a071b8eb49ce2cf4c7f852" category="paragraph">Cette configuration est idéale lorsque vous débutez avec Google Cloud NetApp Volumes et que vous faites des essais, mais en pratique, vous pourriez avoir besoin de définir une portée supplémentaire pour les volumes que vous provisionnez.</block>
   <block id="8eff9b9f03bae3f241ea78649c5afe12" category="admonition">Remplacez <block ref="49e22ed291a6cbd4445ed587b8bd46c4" prefix=" " category="inline-code"></block> et <block ref="7d02a93664a6fdb768f99da64ea2b2e7" prefix=" " category="inline-code"></block> par vos identifiants de compte de service.</block>
-  <block id="5efca7076d66285d044c3d550f412284" category="cell">v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0</block>
   <block id="bc8f2e08eff77df26551ba5e4180236f" category="list-text">(_Facultatif_) Si nécessaire, vous pouvez ajouter un filtrage des ressources à la même CR pour inclure ou exclure des ressources spécifiques :</block>
   <block id="b5576cce77be319ad80f479a5e774cba" category="list-text">*Exemple de filtre générique :*</block>
   <block id="4878b93d7331aa7f789a8e06af931f1a" category="list-text">*Exemple de filtre uniquement PVC :*</block>
@@ -6812,4 +6808,9 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="8e31ed98521d2fbd01629de60bdbfd6a" category="list-text">Exécution Go : <block ref="472bd143483bc49bc89effbd314435c0" category="inline-link-macro-rx"></block></block>
   <block id="278b5284fc6585f71203297ebab6500e" category="inline-link-macro">CVE-2025-23109</block>
   <block id="fd2c12a453dd202f7117b96858090a49" category="list-text">Dépendances supplémentaires :<block ref="7beaa9a23a5ebb4abc880f48947240a7" category="inline-link-macro-rx"></block></block>
+  <block id="1f07946fee6ac5cb85e38a3da3d8db2e" category="list-text">Kubernetes 1.36 est désormais pris en charge dans Trident. Mettez à niveau Trident avant de mettre à niveau Kubernetes.</block>
+  <block id="4713d9468516722d04cb8a63424d6222" category="list-text">Kubernetes 1.27 - 1.36</block>
+  <block id="203760c50a5659765fa822dc460e7e7b" category="list-text">Rancher Kubernetes Engine 2 (RKE2) v1.28.x - 1.36.x</block>
+  <block id="f3157f5bea9295ba633b817f5c01eba4" category="paragraph">1.27 - 1.36</block>
+  <block id="8f56aaf2c6729a76e30900b2be574507" category="cell">v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.36.0</block>
 </blocks>
