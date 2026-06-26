@@ -12,7 +12,7 @@ summary: 'Vous pouvez utiliser le terminal REST directement si vous préférez i
 
 
 [role="lead"]
-Sont le moyen le plus simple d'interagir avec l'API REST Trident, mais link:tridentctl.html["commandes et options tridentctl"]vous pouvez utiliser le terminal REST directement si vous préférez.
+Bien que link:../trident-managing-k8s/tridentctl.html["commandes et options tridentctl"] soit le moyen le plus simple d'interagir avec l'API REST de Trident, vous pouvez utiliser directement le point de terminaison REST si vous préférez.
 
 
 

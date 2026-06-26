@@ -32,7 +32,7 @@ Ceci s'applique aux environnements suivants :
 * Pools de stockage Google Cloud NetApp Volumes
 
 
-Pour configurer le stockage bloc (iSCSI), voir xref:trident-use/gcnv-block.html[Configurer le stockage bloc (iSCSI)].
+Pour configurer le stockage bloc (iSCSI), voir link:gcnv-block.html["Configurer le stockage bloc (iSCSI)"].
 
 
 

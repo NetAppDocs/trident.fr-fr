@@ -38,12 +38,12 @@ Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisat
 
 == Déployez l'opérateur Trident et installez Trident à l'aide d'Helm
 
-Utiliser le Tridentlink:https://netapp.github.io/trident-helm-chart["Graphique Helm"^] vous pouvez déployer l'opérateur Trident et installer Trident en une seule étape.
+Avec Trident link:https://artifacthub.io/packages/helm/netapp-trident/trident-operator["Graphique Helm"^] Vous pouvez déployer l'opérateur Trident et installer Trident en une étape.
 
 Vérifiez link:kubernetes-deploy.html["présentation de l'installation"] pour vous assurer que vous avez respecté les prérequis d'installation et sélectionné la bonne option d'installation pour votre environnement.
 
 .Avant de commencer
-En plus de link:kubernetes-deploy.html#before-you-deploy["conditions préalables au déploiement"] vous avez besoin de link:https://v3.helm.sh/["Version 3 de Helm"^].
+En plus de link:kubernetes-deploy.html#before-you-begin["conditions préalables au déploiement"] vous avez besoin de link:https://v3.helm.sh/["Version 3 de Helm"^].
 
 
 IMPORTANT: Lors de l'installation de Trident dans un référentiel privé, si vous utilisez le `imageRegistry` commutateur pour spécifier l'emplacement du référentiel, n'utilisez pas `/netapp/` dans le chemin du référentiel.
