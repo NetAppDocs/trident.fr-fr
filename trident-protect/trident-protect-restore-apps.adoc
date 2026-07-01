@@ -21,6 +21,7 @@ Vous pouvez utiliser Trident Protect pour restaurer votre application à partir 
 * Lorsque vous restaurez une application, tous les crochets d'exécution configurés pour l'application sont restaurés avec l'application. Si un hook d'exécution post-restauration est présent, il s'exécute automatiquement dans le cadre de l'opération de restauration.
 * La restauration à partir d'une sauvegarde vers un espace de noms différent ou vers l'espace de noms d'origine est prise en charge pour les volumes qtree. En revanche, la restauration à partir d'un snapshot vers un espace de noms différent ou vers l'espace de noms d'origine n'est pas prise en charge pour les volumes qtree.
 * Vous pouvez utiliser des paramètres avancés pour personnaliser les opérations de restauration. Pour en savoir plus, consultez link:../trident-protect/trident-protect-restore-settings.html["Utilisez les paramètres de restauration avancés de Trident Protect"].
+* Pour restaurer des machines virtuelles (VM) KubeVirt spécifiques à partir d'une archive sans restaurer toutes les ressources de l'espace de noms, utilisez le champ  `includedVirtualMachines` sur une CR de restauration. Pour les CR prises en charge, la référence des champs et des exemples YAML, consultez link:trident-protect-kubevirt-vms.html["Protégez les machines virtuelles KubeVirt avec Trident Protect"].
 
 
 ====
@@ -449,7 +450,7 @@ apiVersion: protect.trident.netapp.io/v1
 kind: SnapshotRestore
 metadata:
   name: my-cr-name
-  namespace: my-app-namespace
+  namespace: my-destination-namespace
 spec:
   appVaultRef: appvault-name
   appArchivePath: my-snapshot-path
@@ -571,7 +572,13 @@ Assurez-vous que l'expiration du jeton de session AWS suffit pour toutes les op�
 kubectl get snapshots <SNAPSHOT_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
 ----
 +
-[source, yaml]
++
+
+
+
+
+
+[listing]
 ----
 ---
 apiVersion: protect.trident.netapp.io/v1
@@ -583,28 +590,16 @@ spec:
   appVaultRef: appvault-name
   appArchivePath: my-snapshot-path
 ----
++ . (_Facultatif_) Si vous devez sélectionner uniquement certaines ressources de l'application à restaurer, ajoutez un filtrage qui inclut ou exclut les ressources marquées d'étiquettes particulières :
 
++ REMARQUE : Trident Protect sélectionne automatiquement certaines ressources en fonction de leur relation avec les ressources que vous sélectionnez. Par exemple, si vous sélectionnez une ressource de revendication de volume persistant et qu’elle possède un pod associé, Trident Protect restaurera également le pod associé.
 
-. (_Facultatif_) si vous devez sélectionner uniquement certaines ressources de l'application à restaurer, ajoutez un filtrage qui inclut ou exclut les ressources marquées avec des étiquettes particulières :
-+
++ * *resourceFilter.resourceSelectionCriteria* : (Requis pour le filtrage) Utilisez  `Include` ou  `Exclude` pour inclure ou exclure une ressource définie dans resourceMatchers. Ajoutez les paramètres suivants resourceMatchers pour définir les ressources à inclure ou à exclure : ** *resourceFilter.resourceMatchers* : Un tableau d’objets resourceMatcher. Si vous définissez plusieurs éléments dans ce tableau, ils correspondent à une opération OU, et les champs à l’intérieur de chaque élément (group, kind, version) correspondent à une opération ET. *** *resourceMatchers[].group* : (_Optionnel_) Groupe de la ressource à filtrer. *** *resourceMatchers[].kind* : (_Optionnel_) Type de la ressource à filtrer. *** *resourceMatchers[].version* : (_Optionnel_) Version de la ressource à filtrer. *** *resourceMatchers[].names* : (_Optionnel_) Noms dans le champ metadata.name de la ressource à filtrer. *** *resourceMatchers[].namespaces* : (_Optionnel_) Espaces de noms dans le champ metadata.name de la ressource à filtrer. *** *resourceMatchers[].labelSelectors* : (_Optionnel_) Chaîne de sélection d’étiquette dans le champ metadata.name de la ressource Kubernetes tel que défini dans le  https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Documentation Kubernetes"^]. Par exemple :  `"trident.netapp.io/os=linux"`.
 
-NOTE: Trident Protect sélectionne automatiquement certaines ressources en raison de leur relation avec les ressources que vous sélectionnez.  Par exemple, si vous sélectionnez une ressource de revendication de volume persistant et qu'elle possède un pod associé, Trident Protect restaurera également le pod associé.
-
-+
-** *ResourceFilter.resourceSelectionCriteria*: (Requis pour le filtrage) utiliser `Include` ou `Exclude` inclure ou exclure une ressource définie dans resourceMatchers. Ajoutez les paramètres resourceMatchers suivants pour définir les ressources à inclure ou à exclure :
-+
-*** *ResourceFilter.resourceMatchers* : un tableau d'objets resourceMatcher. Si vous définissez plusieurs éléments dans ce tableau, ils correspondent en tant qu'opération OU et les champs de chaque élément (groupe, type, version) correspondent en tant qu'opération ET.
-+
-**** *ResourceMatchers[].group*: (_Optional_) Groupe de la ressource à filtrer.
-**** *ResourceMatchers[].kind*: (_Optional_) Type de la ressource à filtrer.
-**** *ResourceMatchers[].version*: (_Optional_) version de la ressource à filtrer.
-**** *ResourceMatchers[].names*: (_Optional_) noms dans le champ Kubernetes metadata.name de la ressource à filtrer.
-**** *ResourceMatchers[].namespaces*: (_Optional_) Namespaces dans le champ Kubernetes metadata.name de la ressource à filtrer.
-**** *ResourceMatchers[].labelSelectors*: (_Optional_) chaîne de sélecteur de libellé dans le champ Kubernetes metadata.name de la ressource, comme défini dans le https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors["Documentation Kubernetes"^]. Par exemple : `"trident.netapp.io/os=linux"`.
-+
-Par exemple :
++ Par exemple :
 
 +
+
 [source, yaml]
 ----
 spec:
@@ -624,20 +619,14 @@ spec:
         namespaces: ["my-resource-namespaces"]
         labelSelectors: ["trident.netapp.io/os=linux"]
 ----
++ . Après avoir rempli le  `trident-protect-snapshot-ipr-cr.yaml` fichier avec les valeurs correctes, appliquez le CR :
 
-
-
-
-
-
-. Une fois que vous avez rempli le `trident-protect-snapshot-ipr-cr.yaml` fichier avec les valeurs correctes, appliquez la CR :
 +
+
 [source, console]
 ----
 kubectl apply -f trident-protect-snapshot-ipr-cr.yaml
 ----
-
-
 --
 .Utiliser l'interface de ligne de commande
 --

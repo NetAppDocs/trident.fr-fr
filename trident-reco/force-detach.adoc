@@ -150,7 +150,7 @@ Les animaux TNR peuvent se trouver dans l'un des états suivants :
 
 
 
-NOTE: Vous pouvez également utiliser d'autres méthodes pour détecter les défaillances de nœuds, comme indiqué dans le<<Integrating Custom Node Health Check Solutions>> section ci-dessous.
+NOTE: Vous pouvez également utiliser d'autres méthodes pour détecter les défaillances de nœud, comme spécifié dans la section <<Intégration de solutions personnalisées de vérification de l'état des nœuds>> ci-dessous.
 
 Voirlink:https://www.redhat.com/en/blog/node-health-check-operator["Opérateur de vérification de l'état des nœuds"^] pour plus d'informations.
 

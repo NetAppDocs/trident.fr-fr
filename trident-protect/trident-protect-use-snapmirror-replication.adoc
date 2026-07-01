@@ -384,6 +384,17 @@ NOTE: Lors de l'utilisation d'une modification commerciale (CR), créez manuelle
 *** *Spec.sourceApplicationName*: (_required_) cette valeur doit correspondre au nom de l'application source que vous avez définie dans la CR de l'application source.
 *** *spec.sourceApplicationUID* : (Obligatoire) Cette valeur doit correspondre à l’UID de l’application source que vous avez définie dans la CR de l’application source.
 *** *spec.storageClassName*: (_Optionnel_) Choisissez le nom d'une classe de stockage valide sur le cluster. La classe de stockage doit être liée à une machine virtuelle de stockage ONTAP qui est appariée avec l'environnement source. Si la classe de stockage n'est pas spécifiée, la classe de stockage par défaut du cluster sera utilisée.
+*** *Spécifications storageClassMapping* : (Optionnel) Associe les classes de stockage source aux classes de stockage de destination pour chaque PVC au sein du même AMR. Chaque entrée nécessite un `source` et un `destination` nom de classe de stockage. Lorsqu'elle est définie, `storageClassMapping` remplace `storageClassName` entièrement ; les PVC sans entrée source correspondante utilisent la classe de stockage par défaut du cluster, et non `storageClassName`.
++
+Lors de l'utilisation  `storageClassMapping` dans un CR AppMirrorRelationship, veuillez prendre en compte les restrictions suivantes :
+
++
+**** `storageClassMapping`remplace `storageClassName`entièrement. Lorsque les deux champs sont renseignés, `storageClassName`est ignoré.
+**** Les PVC avec des classes de stockage source qui n'ont pas d'entrée correspondante dans `storageClassMapping` utilisent la classe de stockage par défaut du cluster, pas `storageClassName`.
+**** Chaque entrée nécessite à la fois une valeur  `source` et  `destination`.
+**** Modifier la classe de stockage de destination peut entraîner la suppression et la recréation des PVC de destination existants.
+
+
 *** *Spec.recurrenceRule* : définissez une date de début en heure UTC et un intervalle de récurrence.
 +
 Exemple YAML :
@@ -428,10 +439,14 @@ kubectl apply -f trident-protect-relationship.yaml -n my-app-namespace
 +
 [source, console]
 ----
-tridentctl-protect create appmirrorrelationship <name_of_appmirorrelationship> --destination-app-vault <my_vault_name> --source-app-vault <my_vault_name> --recurrence-rule <rule> --namespace-mapping <ns_mapping> --source-app-id <source_app_UID> --source-app <my_source_app_name> --storage-class <storage_class_name> -n <application_namespace>
+tridentctl-protect create appmirrorrelationship <name_of_appmirorrelationship> --destination-app-vault <my_vault_name> --source-app-vault <my_vault_name> --recurrence-rule <rule> --namespace-mapping <ns_mapping> --source-app-id <source_app_UID> --source-app <my_source_app_name> --storage-class <storage_class_name> --storageclass-mapping  <src_class:dst_class> -n <application_namespace>
 ----
 +
-*Exemple:*
+
+NOTE: Utilisez  `--storageclass-mapping` pour associer des classes de stockage source individuelles à des classes de stockage de destination. Spécifiez une ou plusieurs  `source:destination` paires séparées par des virgules (par exemple,  `"class-a:class-b,class-c:class-d"`). Utilisez  `*:destination-class` comme caractère générique pour associer tous les PVC non mappés à une seule classe de stockage de destination. Lorsque  `--storageclass-mapping` est défini,  `--storage-class` est ignoré.
+
++
+*Exemple utilisant une seule classe de stockage de destination (`--storage-class`):*
 
 +
 [source, console]

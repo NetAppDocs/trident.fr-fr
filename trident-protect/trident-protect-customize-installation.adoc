@@ -136,7 +136,7 @@ Les valeurs par défaut seront remplacées par celles spécifiées dans le `sccc
 
 == Configurer les paramètres supplémentaires du graphique de barre de Trident Protect
 
-Vous pouvez personnaliser les paramètres AutoSupport et le filtrage des espaces de noms pour répondre à vos besoins spécifiques.  Le tableau suivant décrit les paramètres de configuration disponibles :
+Vous pouvez personnaliser les paramètres AutoSupport, le filtrage des espaces de noms et la gestion des certificats webhook OpenShift pour répondre à vos besoins spécifiques. Le tableau suivant décrit les paramètres de configuration disponibles :
 
 |===
 | Paramètre | Type | Description 
@@ -155,6 +155,9 @@ Vous pouvez personnaliser les paramètres AutoSupport et le filtrage des espaces
 
 
 | restaurerSkipNamespaceLabels | chaîne | Liste séparée par des virgules d'étiquettes d'espace de noms à exclure des opérations de sauvegarde et de restauration.  Vous permet de filtrer les espaces de noms en fonction des étiquettes. 
+
+
+| useOpenshiftServiceCA | booléen | Permet l'intégration avec l'opérateur d'autorité de certification de service natif de OpenShift pour la création et l'injection automatiques de certificats TLS pour le webhook d'admission Trident Protect. Lorsqu'il est défini sur  `true`, l'opérateur d'autorité de certification de service gère automatiquement les certificats TLS du webhook. À utiliser uniquement sur les clusters OpenShift. (par défaut :  `false`) 
 |===
 Vous pouvez configurer ces options à l’aide d’un fichier de configuration YAML ou d’indicateurs de ligne de commande :
 
@@ -174,6 +177,7 @@ autoSupport:
   insecure: true
 restoreSkipNamespaceAnnotations: "annotation1,annotation2"
 restoreSkipNamespaceLabels: "label1,label2"
+useOpenshiftServiceCA: true
 ----
 . Après avoir rempli le `values.yaml` fichier avec les valeurs correctes, appliquez le fichier de configuration :
 +
@@ -196,6 +200,7 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
   --set autoSupport.proxy=http://my.proxy.url \
   --set-string restoreSkipNamespaceAnnotations="{annotation1,annotation2}" \
   --set-string restoreSkipNamespaceLabels="{label1,label2}" \
+  --set useOpenshiftServiceCA=true \
   --reuse-values
 ----
 

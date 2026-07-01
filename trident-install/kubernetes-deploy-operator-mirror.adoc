@@ -25,7 +25,7 @@ Vous pouvez déployer manuellement l'opérateur Trident pour installer Trident. 
 ====
 []
 =====
-* Kubernetes 1.35 est désormais pris en charge dans Trident. Mettez à niveau Trident avant de mettre à niveau Kubernetes.
+* Kubernetes 1.36 est désormais pris en charge dans Trident. Mettez à niveau Trident avant de mettre à niveau Kubernetes.
 * Trident applique strictement l'utilisation de la configuration de chemins d'accès multiples dans les environnements SAN, avec une valeur recommandée de `find_multipaths: no` dans le fichier multipath.conf.
 +
 Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisation de `find_multipaths: yes` ou `find_multipaths: smart` la valeur du fichier multipath.conf entraînera des échecs de montage. Trident a recommandé l'utilisation de `find_multipaths: no` depuis la version 21.07.
@@ -41,7 +41,7 @@ Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisat
 Vérifiez link:kubernetes-deploy.html["présentation de l'installation"] pour vous assurer que vous avez respecté les prérequis d'installation et sélectionné la bonne option d'installation pour votre environnement.
 
 .Avant de commencer
-Connectez-vous à l'hôte Linux et vérifiez qu'il gère un environnement de travail et link:requirements.html["Cluster Kubernetes pris en charge"^] et que vous disposez des privilèges nécessaires.
+Connectez-vous à l'hôte Linux et vérifiez qu'il gère un système fonctionnel et link:../trident-get-started/requirements.html["Cluster Kubernetes pris en charge"] que vous disposez des privilèges nécessaires.
 
 
 NOTE: Avec OpenShift, utilisez `oc` au lieu de `kubectl` dans tous les exemples qui suivent, et connectez-vous en tant que *system:admin* en premier lieu en cours d'exécution `oc login -u system:admin` ou `oc login -u kube-admin`.

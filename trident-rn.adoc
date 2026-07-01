@@ -29,7 +29,102 @@ Découvrez les nouveautés de NetApp Trident et Trident Protect, y compris les a
 
 
 
+==== Améliorations
+
+* *Kubernetes* :
++
+** Ajout de la prise en charge de la disponibilité générale (GA) pour la concurrence des pilotes ONTAP-NAS-Economy et ONTAP-SAN-Economy, faisant passer cette fonctionnalité de la version d'évaluation technique à la version finale, et ajout de la prise en charge de la concurrence GA pour les pilotes Azure NetApp Files (ANF) et SolidFire.
+** Ajout de la prise en charge de Kubernetes 1.36.
+** Ajout de la prise en charge de la disponibilité générale (GA) pour l’extension automatique des volumes avec les pilotes NAS et SAN Google Cloud NetApp Volumes (GCNV).
+** Ajout du placement équilibré Unified ONTAP pour une sélection optimale des agrégats lors du provisionnement de nouveaux volumes (link:https://github.com/NetApp/trident/issues/64["Problème n° 64"]).
+** Ajout de la prise en charge ONTAP AFX pour le pilote ONTAP-NAS-Flexgroup dans ONTAP.
+** Ajout d'une intégration avec le NetApp Shift Toolkit pour simplifier les migrations de machines virtuelles lors de l'utilisation du Red Hat OpenShift Migration Toolkit for Virtualization.
+** Ajout de la prise en charge de Cloud Identity pour le pilote SAN GCNV.
+** Ajout de la prise en charge des volumes subordonnés pour la propagation de la publication de volumes Trident (TVP) et les flux de travail d’extension automatique.
+** Ajout de la prise en charge des mises à jour de volumes et des instantanés de groupes de volumes lors de l’exécution de Trident avec la concurrence activée.
+** Ajout d'une limitation dynamique du débit gRPC pour GCNV.
+** Ajout d'une sonde d'exécution de disponibilité du contrôleur et optimisation des paramètres QPS et Burst de l'API Kubernetes par défaut pour le contrôleur et les sidecars.
+** Amélioration du séquencement des opérations sur les nœuds grâce au découplage des étapes d'attachement, de configuration du chiffrement et de formatage du système de fichiers.
+** Les systèmes de fichiers racine des conteneurs Trident ont été montés en lecture seule pour améliorer la sécurité.
+** Ajout d'une suppression au mieux des instantanés pour les instantanés de volumes clonés dans les backends ONTAP lorsque l'instantané source d'un volume cloné est supprimé.
+** Ajout de la reconnaissance des PVC de clone de sauvegarde pour empêcher les PVC temporaires créés par Veeam Kasten, Trilio et Cohesity de rester bloqués dans la file d'attente de récupération de volume ONTAP.
+** Gestion améliorée des ARN AWS pour la prise en charge de régions spécifiques.
+
+
+
+
+
+
+==== Améliorations expérimentales
+
+
+NOTE: Ne pas utiliser dans des environnements de production.
+
+* *[Aperçu technique]* : Ajout de la prise en charge de l'importation de qtree ONTAP-NAS-Economy.
+* *[Aperçu technique]* : Ajout de la prise en charge de la concurrence pour les pilotes ASA-R2 (SAN et NVMe).
+* *[Aperçu technique]* : Ajout du transport HTTP GCNV en mode ONTAP pour les pilotes ONTAP-SAN et ONTAP-NAS.
+
+
+
+
 ==== Correctifs
+
+* *Kubernetes* :
++
+** Correction des conditions de concurrence et de la gestion d'état pour les opérations simultanées de publication/dépublication, de clonage, de mise en cache et de mise à jour du backend.
+** Correction des conditions de concurrence des règles d'export et de la gestion simultanée de la publication/dépublication pour les volumes subordonnés et les clones en lecture seule dans les pilotes ONTAP-NAS et ONTAP-NAS-Economy.
+** Correction de la découverte ONTAP-NAS-Economy FlexVol après un basculement MetroCluster lorsque les règles de snapshot diffèrent (link:https://github.com/NetApp/trident/issues/1082["Problème n° 1082"]).
+** Correction des tentatives de suppression de volume ONTAP-NAS-Economy qui interrompaient les suppressions qtree de longue durée (link:https://github.com/NetApp/trident/issues/1121["Problème n° 1121"]).
+** Correction du comportement d'importation et de redimensionnement d'ONTAP-SAN et d'ONTAP-SAN-Economy, y compris la validation de fsType, la gestion des métadonnées de volume et le comportement du mode d'extension automatique.
+** Correction d'une condition de concurrence d'espace de noms NVMe/TCP lors de la création simultanée de volumes (link:https://github.com/NetApp/trident/issues/1089["Problème n° 1089"]).
+** Correction des échecs de redimensionnement iSCSI qui survenaient lorsque les chemins et les portails disponibles ne correspondaient pas, et amélioration du comportement lors des redimensionnements répétés.
+** Correction des échecs de suppression de volumes ONTAP-SAN dus à des conditions d'occupation des volumes.
+** Correction de la gestion des erreurs ONTAP REST et amélioration du comportement du délai d'expiration de l'état SVM.
+** Correction de la gestion des pools zonaux SAN GCNV et des groupes d'hôtes, normalisation de la conversion des identifiants de volume et normalisation des requêtes de création inférieures à la taille minimale.
+** Correction de la sélection du pool de capacité natif GCNV afin d’exclure les pools en mode ONTAP.
+** Correction du basculement KubeVirt pour les machines virtuelles utilisant Trident Automated Workload Failover afin d'accélérer le basculement des machines virtuelles.
+** Correction des problèmes de contrôle d'accès basé sur les rôles (RBAC) liés à l'installation gérée par l'opérateur, notamment les nœuds ClusterRoles manquants et la réconciliation incorrecte de ClusterRole et ClusterRoleBinding lors des mises à niveau. Cela s'applique aux installations basées sur l'opérateur et sur Helm qui utilisent le chart Trident Operator.
+** Correction des différences persistantes GitOps sur le TridentConfigurator et les CRD associés en omettant les valeurs de priorité par défaut et en corrigeant l'indentation du modèle YAML (link:https://github.com/NetApp/trident/issues/915["Problème n° 915"], link:https://github.com/NetApp/trident/issues/1120["Problème n° 1120"]).
+** Correction du patching des CRD TridentVolumePublication lors d'une mise à niveau Helm (link:https://github.com/NetApp/trident/issues/1151["Problème n° 1151"]).
+** Correction de l'ordre de démarrage CSI en démarrant le service CSI gRPC avant les nouvelles tentatives d'enregistrement des nœuds.
+** Correction des superpositions de configuration de clonage SMB sécurisé lors d'opérations simultanées.
+** Correction des annotations manquantes sur le pod du contrôleur Trident après une mise à niveau (link:https://github.com/NetApp/trident/issues/1004["Problème n°1004"]).
+** Amélioration du provisionnement lent des qtrees sur les grands SVM (link:https://github.com/NetApp/trident/issues/1142["Problème n° 1142"]).
+** Correction apportée à ControllerPublish pour utiliser le type de système de fichiers de configuration du volume au lieu d'un type de système de fichiers par défaut incorrect.
+** Correction d'un problème où les périphériques dm orphelins pouvaient provoquer des échecs CSI répétés NodeUnstageVolume.
+** Amélioration du nettoyage des nœuds obsolètes et des chemins multiples grâce à la suppression des artefacts de chemins multiples fantômes et des ressources TridentNode obsolètes après le nettoyage des nœuds supprimés de manière logique.
+
+
+
+
+
+
+=== Protection Trident
+
+
+
+==== Améliorations
+
+* Ajout de l'intégration de l'opérateur OpenShift Service CA pour automatiser la gestion des certificats TLS pour le webhook d'admission Trident Protect. Activez-la en définissant  `useOpenshiftServiceCA` sur  `true` dans vos valeurs Helm. Pour en savoir plus, consultez link:trident-protect/trident-protect-customize-installation.html["Personnaliser l'installation de Trident Protect"^].
+* Ajout de la prise en charge de la sauvegarde et de la restauration des machines virtuelles KubeVirt sur OpenShift Virtualization. Protégez toutes les machines virtuelles d’un espace de noms ou ciblez des machines virtuelles spécifiques par leur nom, et restaurez sélectivement des machines virtuelles individuelles à partir d’une sauvegarde ou d’un instantané. Pour en savoir plus, consultez link:trident-protect/trident-protect-kubevirt-vms.html["Protégez les machines virtuelles KubeVirt avec Trident Protect"^].
+* Prise en charge des transformations de ressources ajoutée, vous permettant d'ajouter, de supprimer et de modifier les attributs des ressources Kubernetes lors du processus de restauration. Pour en savoir plus, consultez link:trident-protect/trident-protect-resource-transformations.html["Modifiez les ressources au fur et à mesure de leur restauration à l'aide de ressources personnalisées"].
+* Ajout de la prise en charge de  `storageClassMapping` dans AppMirrorRelationship (AMR), permettant le mappage des classes de stockage pour les PVC individuels au sein d'une même définition AMR. Pour en savoir plus, consultez link:trident-protect/trident-protect-use-snapmirror-replication.html["Répliquez les applications à l'aide de NetApp SnapMirror et Trident Protect."^].
+
+
+
+
+==== Correctifs
+
+* Correction d'un problème de restauration de machines virtuelles inter-clusters qui échouait avec une erreur de webhook d'admission lorsque l'espace de noms de l'application source n'existait pas sur le cluster de destination.
+* Correction d'un problème de restauration sélective sur place de machines virtuelles qui échouait lors de la création de l'application en raison d'une incompatibilité de spécifications avec une ressource personnalisée d'application existante ; l'application existante est désormais réutilisée.
+* Correction d’un problème où les tâches de restauration sur place de machines virtuelles restaient bloquées dans un état  `Running` lorsque la machine virtuelle et son PersistentVolumeClaim étaient supprimés ; un PersistentVolumeClaim manquant est désormais considéré comme une erreur fatale.
+* Correction d’un problème qui déclenchait incorrectement, lors de la modification d’une planification de protection existante, une sauvegarde ou une exécution de snapshot immédiate.
+* Correction du problème où le finaliseur d'instantané tentait de récupérer la ressource personnalisée de l'application après sa suppression ; le finaliseur ignore désormais l'opération lorsque l'application est introuvable.
+* La capacité de stockage protégée fixe augmente considérablement après une restauration sur place d'une machine virtuelle grâce à l'utilisation d'une copie partielle lors de l'étape de copie PersistentVolumeClaim.
+* Correction d'un problème où Trident Protect supprimait l'objet snapshot Kubernetes avant de confirmer la suppression du snapshot sous-jacent dans ONTAP ; le finaliseur attend désormais la  `VolumeSnapshot`suppression.
+* Correction d'un problème où les instantanés ne se poursuivaient pas lorsqu'une opération de gel de machine virtuelle échouait ; les opérations de gel et de dégel se poursuivent désormais en cas d'échec.
+* Correction d’un problème où les applications de machines virtuelles KubeVirt recréaient incorrectement les PersistentVolumeClaims lors des opérations d’inversion, de resynchronisation inverse et de resynchronisation AppMirrorRelationship.
+
 
 
 

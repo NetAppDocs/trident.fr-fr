@@ -129,6 +129,8 @@ Vous pouvez configurer Trident Protect 24.10 pour gérer le gel et le dégel du 
 kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=true -n trident-protect
 ----
 ====
+Pour savoir comment définir des applications et restaurer des machines virtuelles avec Trident Protect, consultez link:trident-protect-kubevirt-vms.html["Protégez les machines virtuelles KubeVirt avec Trident Protect"].
+
 
 
 == Conditions requises pour la réplication SnapMirror

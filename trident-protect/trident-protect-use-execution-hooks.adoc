@@ -93,6 +93,9 @@ NOTE: Si vous ajoutez un filtre d'espace de noms à un crochet d'exécution qui 
 Visitez le https://github.com/NetApp/Verda["Projet GitHub NetApp Verda"] pour télécharger des scripts d'exécution réels pour les applications courantes telles qu'Apache Cassandra et Elasticsearch. Vous pouvez également voir des exemples et obtenir des idées pour structurer vos propres crochets d'exécution personnalisés.
 
 
+NOTE: Les scripts du dépôt Verda sont fournis tels quels et ne sont pas officiellement pris en charge par NetApp. Le support NetApp couvre uniquement le framework des hooks d'exécution au sein de Trident Protect.
+
+
 
 == Créer un crochet d'exécution
 

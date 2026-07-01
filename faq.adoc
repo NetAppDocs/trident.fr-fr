@@ -62,7 +62,7 @@ Non. Il n'y a pas de changement en ce qui concerne l'expérience utilisateur et 
 
 === Trident prend-il en charge une installation hors ligne à partir d'un registre privé ?
 
-Oui, Trident peut être installé hors ligne. Reportez-vous à link:../trident-install/kubernetes-deploy.html["En savoir plus sur l'installation de Trident"^].
+Oui, Trident peut être installé hors ligne. Consultez link:./trident-install/kubernetes-deploy.html["En savoir plus sur l'installation de Trident"].
 
 
 

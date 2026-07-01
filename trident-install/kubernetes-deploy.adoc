@@ -25,7 +25,7 @@ Pour garantir que Trident peut être installé dans un large éventail d'environ
 ====
 []
 =====
-* Kubernetes 1.35 est désormais pris en charge dans Trident. Mettez à niveau Trident avant de mettre à niveau Kubernetes.
+* Kubernetes est désormais pris en charge dans Trident. Mettez à niveau Trident avant de mettre à niveau Kubernetes.
 * Trident applique strictement l'utilisation de la configuration de chemins d'accès multiples dans les environnements SAN, avec une valeur recommandée de `find_multipaths: no` dans le fichier multipath.conf.
 +
 Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisation de `find_multipaths: yes` ou `find_multipaths: smart` la valeur du fichier multipath.conf entraînera des échecs de montage. Trident a recommandé l'utilisation de `find_multipaths: no` depuis la version 21.07.
@@ -40,7 +40,7 @@ Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisat
 
 Quel que soit votre chemin d'installation, vous devez avoir :
 
-* Privilèges complets vers un cluster Kubernetes pris en charge exécutant une version prise en charge de Kubernetes et conditions requises pour les fonctionnalités activées. Vérifiez le link:requirements.html["de formation"] pour plus d'informations.
+* Accès complet à un cluster Kubernetes compatible, exécutant une version compatible de Kubernetes et dont les fonctionnalités requises sont activées. Consultez la link:../trident-get-started/requirements.html["de formation"] pour plus de détails.
 * Accès à un système de stockage NetApp pris en charge.
 * Capacité de monter des volumes à partir de tous les nœuds de travail Kubernetes.
 * Un hôte Linux avec `kubectl` (ou `oc`, Si vous utilisez OpenShift) installé et configuré pour gérer le cluster Kubernetes que vous souhaitez utiliser.
