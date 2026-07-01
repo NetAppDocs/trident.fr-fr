@@ -49,6 +49,7 @@ Découvrez les nouveautés de NetApp Trident et Trident Protect, y compris les a
 ** Ajout d'une suppression au mieux des instantanés pour les instantanés de volumes clonés dans les backends ONTAP lorsque l'instantané source d'un volume cloné est supprimé.
 ** Ajout de la reconnaissance des PVC de clone de sauvegarde pour empêcher les PVC temporaires créés par Veeam Kasten, Trilio et Cohesity de rester bloqués dans la file d'attente de récupération de volume ONTAP.
 ** Gestion améliorée des ARN AWS pour la prise en charge de régions spécifiques.
+** Empêcher le rétrécissement des Flexvols lors de l'opération de redimensionnement pour le pilote ONTAP-SAN-ECONOMY.
 
 
 
