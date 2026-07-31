@@ -16,6 +16,7 @@ Avant d'installer Trident, vous devez vérifier la configuration système requis
 
 
 
+[[critical-information-about-trident]]
 == Informations critiques sur Trident
 
 *Vous devez lire les informations critiques suivantes sur Trident.*
@@ -36,6 +37,7 @@ Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisat
 ====
 
 
+[[supported-frontends-orchestrators]]
 == Systèmes front-end (orchestrateurs) pris en charge
 
 Trident prend en charge plusieurs moteurs de mise en conteneurs et orchestrateurs, notamment :
@@ -59,6 +61,7 @@ WARNING: Avant de mettre à niveau un cluster Kubernetes de la version 1.25 vers
 
 
 
+[[supported-backends-storage]]
 == Systèmes back-end pris en charge (stockage)
 
 Pour utiliser Trident, vous avez besoin d'un ou plusieurs des systèmes back-end pris en charge suivants :
@@ -74,6 +77,7 @@ Pour utiliser Trident, vous avez besoin d'un ou plusieurs des systèmes back-end
 
 
 
+[[trident-support-for-kubevirt-and-openshift-virtualization]]
 == Prise en charge de Trident pour KubeVirt et OpenShift Virtualization
 
 .Pilotes de stockage pris en charge :
@@ -99,6 +103,7 @@ Trident prend en charge les pilotes ONTAP suivants pour KubeVirt et OpenShift Vi
 
 
 
+[[trident-support-for-kubernetes-on-kubernetes-and-openshift-hosted-control-planes]]
 == Prise en charge de Trident pour Kubernetes sur Kubernetes et les plans de contrôle hébergés OpenShift
 
 À partir de la version 26.06, Trident prend pleinement en charge la topologie Kubernetes sur Kubernetes. Les clusters Kubernetes dont les nœuds s’exécutent en tant que machines virtuelles KubeVirt sur un cluster d’infrastructure (hôte). Cette topologie sous-tend les offres de plan de contrôle hébergé telles que les plans de contrôle hébergés (HCP) OpenShift sur OpenShift Virtualization.
@@ -142,6 +147,7 @@ Dans le cluster invité, utilisez les protocoles IP suivants : NFS, iSCSI et NV
 
 
 
+[[feature-requirements]]
 == Configuration requise
 
 Le tableau ci-dessous résume les fonctionnalités disponibles dans cette version d'Trident et les versions de Kubernetes qu'il prend en charge.
@@ -208,6 +214,7 @@ Non
 |===
 
 
+[[tested-host-operating-systems]]
 == Systèmes d'exploitation hôtes testés
 
 Bien que Trident ne prenne pas officiellement en charge des systèmes d'exploitation spécifiques, les éléments suivants sont connus pour fonctionner :
@@ -229,6 +236,7 @@ Le `tridentctl` Utility s'exécute également sur l'une de ces distributions de 
 
 
 
+[[host-configuration]]
 == Configuration de l'hôte
 
 Tous les nœuds workers du cluster Kubernetes doivent pouvoir monter les volumes provisionnés pour vos pods. Pour préparer les nœuds worker, vous devez installer les outils NFS, iSCSI ou NVMe en fonction de votre sélection de pilotes.
@@ -237,6 +245,7 @@ link:../trident-use/worker-node-prep.html["Préparez le nœud de travail"]
 
 
 
+[[storage-system-configuration]]
 == Configuration du système de stockage
 
 Trident peut nécessiter des modifications d'un système de stockage avant qu'une configuration back-end ne puisse l'utiliser.
@@ -245,6 +254,7 @@ link:../trident-use/backends.html["Configuration des systèmes back-end"]
 
 
 
+[[trident-ports]]
 == Ports Trident
 
 Trident requiert l'accès à des ports spécifiques pour la communication.
@@ -253,13 +263,15 @@ link:../trident-reference/ports.html["Ports Trident"]
 
 
 
+[[container-images-and-corresponding-kubernetes-versions]]
 == Images de conteneur et versions Kubernetes correspondantes
 
 Pour les installations à air comprimé, la liste suivante est une référence aux images de conteneur nécessaires à l'installation de Trident. Utiliser `tridentctl images` la commande pour vérifier la liste des images de conteneur nécessaires.
 
 
 
-=== Images de conteneur requises pour Trident 26.02
+[[container-images-required-for-trident-26-06]]
+=== Images de conteneur requises pour Trident 26.06
 
 [cols="2"]
 |===
@@ -267,14 +279,14 @@ Pour les installations à air comprimé, la liste suivante est une référence a
 
 
 | v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0, v1.36.0  a| 
-* docker.io/netapp/trident:26.02.0
-* docker.io/netapp/trident-autosupport:26.02
+* docker.io/netapp/trident:26.06.0
+* docker.io/netapp/trident-autosupport:26.06
 * registry.k8s.io/sig-storage/csi-provisioner:v6.1.0
 * registry.k8s.io/sig-storage/csi-attacher:v4.10.0
 * registry.k8s.io/sig-storage/csi-resizer:v2.0.0
 * registry.k8s.io/sig-storage/csi-snapshotter:v8.5.0
 * registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.15.0
-* docker.io/netapp/trident-operator:26.02.0 (facultatif)
+* docker.io/netapp/trident-operator:26.06.0 (facultatif)
 
 
 |===

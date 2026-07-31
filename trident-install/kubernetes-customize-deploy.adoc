@@ -16,6 +16,7 @@ L'opérateur Trident vous permet de personnaliser l'installation Trident à l'ai
 
 
 
+[[understanding-controller-pods-and-node-pods]]
 == Présentation des pods de contrôleur et des nœuds
 
 Trident s'exécute sous la forme d'un pod de contrôleur unique et d'un pod de nœud sur chaque nœud de travail du cluster. Le pod du nœud doit être en cours d'exécution sur tout hôte sur lequel vous souhaitez potentiellement monter un volume Trident .
@@ -28,6 +29,7 @@ Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-p
 
 
 
+[[configuration-options]]
 == Options de configuration
 
 
@@ -90,7 +92,7 @@ Télémétrie | `"http://proxy.example.com:8888"`
 | `logFormat` | Format de journalisation Trident à utiliser [TEXT,json] | `"text"` 
 
 
-| `tridentImage` | Image Trident à installer | `"netapp/trident:26.02"` 
+| `tridentImage` | Image Trident à installer | `"netapp/trident:26.06"` 
 
 
 | `imageRegistry` | Chemin d'accès au registre interne, du format
@@ -265,6 +267,7 @@ NOTE: Pour plus d'informations sur le formatage des paramètres du pod, reportez
 
 
 
+[[sample-configurations]]
 == Exemples de configurations
 
 Vous pouvez utiliser les attributs dans<<Options de configuration>> lors de la définition `TridentOrchestrator` pour personnaliser votre installation.

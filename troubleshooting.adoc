@@ -19,6 +19,7 @@ NOTE: Pour obtenir de l'aide sur Trident, créez un bundle de support à l'aide 
 
 
 
+[[general-troubleshooting]]
 == Dépannage général
 
 * Si le pod Trident ne fonctionne pas correctement (par exemple, lorsque le pod Trident est coincé dans le `ContainerCreating` phase avec moins de deux conteneurs prêts à l'emploi), en cours d'exécution `kubectl -n trident describe deployment trident` et `kubectl -n trident describe pod trident-********-****` peut fournir des informations exploitables supplémentaires. Obtenir des journaux kubelet (par exemple, via `journalctl -xeu kubelet`) peut également être utile.
@@ -71,6 +72,7 @@ Installé avec tridentctl::
 
 
 
+[[unsuccessful-trident-deployment-using-the-operator]]
 == Échec du déploiement de Trident avec l'opérateur
 
 Si vous déployez Trident à l'aide de l'opérateur, le statut de `TridentOrchestrator` modifications de `Installing` à `Installed`. Si vous observez l' `Failed` status, et l'opérateur ne peut pas récupérer en lui-même, il est recommandé de vérifier les journaux de l'opérateur en exécutant la commande suivante :
@@ -138,6 +140,7 @@ Pour résoudre le problème, vous devez modifier le `TridentOrchestrator` CR. Vo
 
 
 
+[[unsuccessful-trident-deployment-using-tridentctl]]
 == Échec du déploiement de Trident avec `tridentctl`
 
 Pour vous aider à déterminer ce qui s'est mal passé, vous pouvez exécuter à nouveau le programme d'installation à l'aide du ``-d`` argument, qui active le mode débogage et vous aide à comprendre le problème :
@@ -160,6 +163,7 @@ INFO Trident uninstallation succeeded.
 ----
 
 
+[[completely-remove-trident-and-crds]]
 == Retirez complètement les Trident et les CRD
 
 Vous pouvez supprimer complètement Trident et tous les CRD créés et les ressources personnalisées associées.
@@ -199,12 +203,14 @@ tridentctl obliviate crd
 ====
 
 
+[[nvme-node-unstaging-failure-with-rwx-raw-block-namespaces-o-kubernetes-1-26]]
 == Échec de l'annulation du transfert de nœud NVMe avec les espaces de noms de bloc bruts RWX o Kubernetes 1.26
 
 Si vous exécutez Kubernetes 1.26, l'annulation de l'environnement de nœud peut échouer lors de l'utilisation de NVMe/TCP avec les espaces de noms de bloc bruts RWX. Les scénarios suivants offrent une solution de contournement à la défaillance. Vous pouvez également mettre à niveau Kubernetes vers la version 1.27.
 
 
 
+[[deleted-the-namespace-and-pod]]
 === Espace de noms et pod supprimés
 
 Imaginez un namespace géré par Trident (volume persistant NVMe) attaché à un pod. Si vous supprimez l'espace de nom directement du back-end ONTAP, le processus de déstaging est bloqué après la tentative de suppression du pod. Ce scénario n'a aucun impact sur le cluster Kubernetes ou tout autre fonctionnement.
@@ -214,6 +220,7 @@ Démontez le volume persistant (correspondant à cet espace de noms) du nœud re
 
 
 
+[[blocked-datalifs]]
 === DataLIFs bloquées
 
  If you block (or bring down) all the dataLIFs of the NVMe Trident backend, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
@@ -222,6 +229,7 @@ Afficher les dataLIFS pour restaurer toutes les fonctionnalités.
 
 
 
+[[deleted-namespace-mapping]]
 === Mappage de l'espace de noms supprimé
 
  If you remove the `hostNQN` of the worker node from the corresponding subsystem, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
@@ -230,6 +238,7 @@ Ajoutez le `hostNQN` retour au sous-système.
 
 
 
+[[nfsv4-2-clients-report-invalid-argument-after-upgrading-ontap-when-when-expecting-v4-2-xattrs-being-enabled]]
 == Les clients NFSv4.2 signalent un « argument non valide » après la mise à niveau ONTAP alors qu'ils s'attendent à ce que « v4.2-xattrs » soit activé
 
 Après la mise à niveau ONTAP, les clients NFSv4.2 peuvent signaler des erreurs « argument non valide » lors de la tentative de montage des exportations NFSv4.2. Ce problème se produit lorsque le `v4.2-xattrs` l'option n'est pas activée sur le SVM. .Solution de contournement Activer le `v4.2-xattrs` option sur le SVM ou mise à niveau vers ONTAP 9.12.1 ou version ultérieure, où cette option est activée par défaut.

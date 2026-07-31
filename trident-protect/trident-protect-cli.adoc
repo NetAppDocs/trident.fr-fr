@@ -18,6 +18,7 @@ Vous pouvez utiliser le plugin en ligne de commande Trident Protect, qui est une
 
 
 
+[[install-the-trident-protect-cli-plugin]]
 == Installez le plugin CLI Trident Protect
 
 Avant d'utiliser l'utilitaire de ligne de commande, vous devez l'installer sur la machine que vous utilisez pour accéder à votre cluster. Procédez comme suit, selon si votre ordinateur utilise un processeur x64 ou ARM.
@@ -31,7 +32,7 @@ Avant d'utiliser l'utilitaire de ligne de commande, vous devez l'installer sur l
 +
 [source, console]
 ----
-curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/26.06.0/tridentctl-protect-linux-amd64
+curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/v26.06.0/tridentctl-protect-linux-amd64
 ----
 
 
@@ -43,7 +44,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 +
 [source, console]
 ----
-curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/26.06.0/tridentctl-protect-linux-arm64
+curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/v26.06.0/tridentctl-protect-linux-arm64
 ----
 
 
@@ -55,7 +56,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 +
 [source, console]
 ----
-curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/26.06.0/tridentctl-protect-macos-amd64
+curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/v26.06.0/tridentctl-protect-macos-amd64
 ----
 
 
@@ -67,7 +68,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 +
 [source, console]
 ----
-curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/26.06.0/tridentctl-protect-macos-arm64
+curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/releases/download/v26.06.0/tridentctl-protect-macos-arm64
 ----
 
 
@@ -98,6 +99,7 @@ NOTE: La copie du plug-in vers un emplacement de la variable PATH vous permet d'
 
 
 
+[[view-trident-cli-plugin-help]]
 == Afficher l'Trident aide du plug-in de l'interface de ligne
 
 Vous pouvez utiliser les fonctions d'aide du plug-in intégré pour obtenir une aide détaillée sur les fonctionnalités du plug-in :
@@ -113,6 +115,7 @@ tridentctl-protect help
 
 
 
+[[enable-command-auto-completion]]
 == Activer la saisie semi-automatique de la commande
 
 Une fois le plugin CLI Trident Protect installé, vous pouvez activer la saisie semi-automatique pour certaines commandes.

@@ -16,6 +16,7 @@ Trident offre aux utilisateurs de Kubernetes la possibilité d'étendre leurs vo
 
 
 
+[[expand-an-iscsi-volume]]
 == Développez un volume iSCSI
 
 Vous pouvez développer un volume persistant iSCSI à l'aide du mécanisme de provisionnement CSI.
@@ -25,6 +26,7 @@ NOTE: L'extension de volume iSCSI est prise en charge par `ontap-san`, `ontap-sa
 
 
 
+[[step-1-configure-the-storageclass-to-support-volume-expansion]]
 === Étape 1 : configurer la classe de stockage pour prendre en charge l'extension de volume
 
 Modifiez la définition de la classe de stockage pour définir le `allowVolumeExpansion` champ à `true`.
@@ -48,6 +50,7 @@ Pour une classe de stockage déjà existante, modifiez-la pour l'inclure `allowV
 
 
 
+[[step-2-create-a-pvc-with-the-storageclass-you-created]]
 === Étape 2 : créez une demande de volume persistant avec la classe de stockage que vous avez créée
 
 Modifiez la définition de la demande de volume persistant et mettez à jour le `spec.resources.requests.storage` pour refléter la nouvelle taille souhaitée, qui doit être supérieure à la taille d'origine.
@@ -84,6 +87,7 @@ pvc-8a814d62-bd58-4253-b0d1-82f2885db671   1Gi        RWO            Delete     
 ----
 
 
+[[step-3-define-a-pod-that-attaches-the-pvc]]
 === Étape 3 : définissez un pod qui fixe la demande de volume persistant
 
 Reliez le volume persistant à un pod pour qu'il soit redimensionné. Lors du redimensionnement d'un volume persistant iSCSI, deux scénarios sont possibles :
@@ -118,6 +122,7 @@ Mounted By:    ubuntu-pod
 ----
 
 
+[[step-4-expand-the-pv]]
 === Étape 4 : développez le volume persistant
 
 Pour redimensionner la PV créée de 1Gi à 2Gi, modifiez la définition de la demande de volume persistant et mettez à jour la `spec.resources.requests.storage` À 2Gi.
@@ -157,6 +162,7 @@ spec:
 ----
 
 
+[[step-5-validate-the-expansion]]
 === Étape 5 : valider l'extension
 
 Vous pouvez valider le fonctionnement correct de l'extension en vérifiant la taille de la demande de volume persistant, du volume PV et du volume Trident :
@@ -178,6 +184,7 @@ tridentctl get volumes -n trident
 ----
 
 
+[[expand-an-fc-volume]]
 == Développez un volume FC
 
 Vous pouvez étendre un volume persistant FC à l'aide du mécanisme de provisionnement CSI.
@@ -187,6 +194,7 @@ NOTE: L'extension de volume FC est prise en charge par le `ontap-san` pilote et 
 
 
 
+[[step-1-configure-the-storageclass-to-support-volume-expansion]]
 === Étape 1 : configurer la classe de stockage pour prendre en charge l'extension de volume
 
 Modifiez la définition de la classe de stockage pour définir le `allowVolumeExpansion` champ à `true`.
@@ -210,6 +218,7 @@ Pour une classe de stockage déjà existante, modifiez-la pour l'inclure `allowV
 
 
 
+[[step-2-create-a-pvc-with-the-storageclass-you-created]]
 === Étape 2 : créez une demande de volume persistant avec la classe de stockage que vous avez créée
 
 Modifiez la définition de la demande de volume persistant et mettez à jour le `spec.resources.requests.storage` pour refléter la nouvelle taille souhaitée, qui doit être supérieure à la taille d'origine.
@@ -246,6 +255,7 @@ pvc-8a814d62-bd58-4253-b0d1-82f2885db671   1Gi        RWO            Delete     
 ----
 
 
+[[step-3-define-a-pod-that-attaches-the-pvc]]
 === Étape 3 : définissez un pod qui fixe la demande de volume persistant
 
 Reliez le volume persistant à un pod pour qu'il soit redimensionné. Lors du redimensionnement d'un volume persistant FC, il existe deux scénarios :
@@ -280,6 +290,7 @@ Mounted By:    ubuntu-pod
 ----
 
 
+[[step-4-expand-the-pv]]
 === Étape 4 : développez le volume persistant
 
 Pour redimensionner la PV créée de 1Gi à 2Gi, modifiez la définition de la demande de volume persistant et mettez à jour la `spec.resources.requests.storage` À 2Gi.
@@ -319,6 +330,7 @@ spec:
 ----
 
 
+[[step-5-validate-the-expansion]]
 === Étape 5 : valider l'extension
 
 Vous pouvez valider le fonctionnement correct de l'extension en vérifiant la taille de la demande de volume persistant, du volume PV et du volume Trident :
@@ -340,12 +352,14 @@ tridentctl get volumes -n trident
 ----
 
 
+[[expand-an-nfs-volume]]
 == Développez un volume NFS
 
 Trident prend en charge l'extension de volume pour les PV NFS provisionnés sur `ontap-nas` , `ontap-nas-economy` , `ontap-nas-flexgroup` , et `azure-netapp-files` backends.
 
 
 
+[[step-1-configure-the-storageclass-to-support-volume-expansion]]
 === Étape 1 : configurer la classe de stockage pour prendre en charge l'extension de volume
 
 Pour redimensionner un volume persistant NFS, l'administrateur doit d'abord configurer la classe de stockage afin de permettre l'extension du volume en paramétrant le `allowVolumeExpansion` champ à `true`:
@@ -369,6 +383,7 @@ Si vous avez déjà créé une classe de stockage sans cette option, vous pouvez
 
 
 
+[[step-2-create-a-pvc-with-the-storageclass-you-created]]
 === Étape 2 : créez une demande de volume persistant avec la classe de stockage que vous avez créée
 
 [listing]
@@ -403,6 +418,7 @@ pvc-08f3d561-b199-11e9-8d9f-5254004dfdb7   20Mi       RWO            Delete     
 ----
 
 
+[[step-3-expand-the-pv]]
 === Étape 3 : développez le volume persistant
 
 Pour redimensionner le PV de 20 Mio nouvellement créé à 1 Gio, modifiez le PVC et définissez  `spec.resources.requests.storage` à 1 Gio :
@@ -442,6 +458,7 @@ spec:
 ----
 
 
+[[step-4-validate-the-expansion]]
 === Étape 4 : valider l'extension
 
 Vous pouvez valider le redimensionnement travaillé correctement en vérifiant la taille de la demande de volume persistant, de la valeur PV et du volume Trident :

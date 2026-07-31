@@ -21,6 +21,7 @@ NOTE: Vous pouvez configurer Trident Protect pour geler et dégeler les système
 
 
 
+[[create-an-on-demand-snapshot]]
 == Créer un snapshot à la demande
 
 Vous pouvez créer un snapshot à la demande à tout moment.
@@ -84,6 +85,7 @@ tridentctl-protect create snapshot <my_snapshot_name> --appvault <my_appvault_na
 ====
 
 
+[[create-an-on-demand-backup]]
 == Créez une sauvegarde à la demande
 
 Vous pouvez sauvegarder une application à tout moment.
@@ -168,6 +170,7 @@ Vous pouvez éventuellement utiliser `--full-backup` l'indicateur pour spécifie
 ====
 
 
+[[supported-backup-annotations]]
 === Annotations de sauvegarde prises en charge
 
 Le tableau suivant décrit les annotations que vous pouvez utiliser lors de la création d'une demande de modification de sauvegarde :
@@ -193,6 +196,7 @@ Le tableau suivant décrit les annotations que vous pouvez utiliser lors de la c
 |===
 
 
+[[create-a-data-protection-schedule]]
 == Créez un calendrier de protection des données
 
 Une politique de protection protège une application en créant des instantanés, des sauvegardes ou les deux selon un calendrier défini.  Vous pouvez choisir de créer des instantanés et des sauvegardes toutes les heures, tous les jours, toutes les semaines et tous les mois, et vous pouvez spécifier le nombre de copies à conserver.  Vous pouvez planifier une sauvegarde complète non incrémentielle en utilisant l'annotation full-backup-rule.  Par défaut, toutes les sauvegardes sont incrémentielles.  L’exécution périodique d’une sauvegarde complète, ainsi que de sauvegardes incrémentielles entre les deux, permet de réduire le risque associé aux restaurations.
@@ -378,6 +382,7 @@ NOTE: Le `--full-backup-rule` Cette fonction ne fonctionne pas avec une granular
 ====
 
 
+[[supported-schedule-annotations]]
 === Annotations de planification prises en charge
 
 Le tableau suivant décrit les annotations que vous pouvez utiliser lors de la création d'une demande de changement (CR) de planification :
@@ -403,6 +408,7 @@ Le tableau suivant décrit les annotations que vous pouvez utiliser lors de la c
 |===
 
 
+[[delete-a-snapshot]]
 == Supprime un snapshot
 
 Supprimez les snapshots programmés ou à la demande dont vous n'avez plus besoin.
@@ -418,6 +424,7 @@ kubectl delete snapshot <snapshot_name> -n my-app-namespace
 
 
 
+[[delete-a-backup]]
 == Supprimer une sauvegarde
 
 Supprimez les sauvegardes planifiées ou à la demande qui ne vous sont plus nécessaires.
@@ -436,6 +443,7 @@ kubectl delete backup <backup_name> -n my-app-namespace
 
 
 
+[[check-the-status-of-a-backup-operation]]
 == Vérifier l'état d'une opération de sauvegarde
 
 Vous pouvez utiliser la ligne de commande pour vérifier l'état d'une opération de sauvegarde en cours, terminée ou ayant échoué.
@@ -451,6 +459,7 @@ kubectl get backup -n <namespace_name> <my_backup_cr_name> -o jsonpath='{.status
 
 
 
+[[enable-backup-and-restore-for-azure-netapp-files-anf-operations]]
 == Activez la sauvegarde et la restauration pour les opérations Azure-NetApp-Files (ANF)
 
 Si vous avez installé Trident Protect, vous pouvez activer une fonctionnalité de sauvegarde et de restauration économe en espace pour les backends de stockage qui utilisent la classe de stockage azure-netapp-files et qui ont été créés avant Trident 24.06. Cette fonctionnalité est compatible avec les volumes NFSv4 et ne consomme pas d'espace supplémentaire du pool de capacité.

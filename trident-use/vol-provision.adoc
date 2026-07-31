@@ -16,6 +16,7 @@ Créez une demande de volume persistant qui utilise la classe de stockage Kubern
 
 
 
+[[overview]]
 == Présentation
 
 Une https://kubernetes.io/docs/concepts/storage/persistent-volumes["_PersistentVolumeClaim_"^] demande de volume persistant est une demande d'accès au volume persistant sur le cluster.
@@ -26,6 +27,7 @@ Une fois la demande de volume créée, vous pouvez la monter dans un pod.
 
 
 
+[[create-the-pvc]]
 == Créer la PVC
 
 .Étapes
@@ -74,6 +76,7 @@ kubectl delete pod pv-pod
 
 
 
+[[sample-manifests]]
 === Exemples de manifestes
 
 .Exemples de manifestes de demande de volume persistant

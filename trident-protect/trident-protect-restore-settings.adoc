@@ -18,6 +18,7 @@ Vous pouvez personnaliser les opérations de restauration à l’aide de paramè
 
 
 
+[[namespace-annotations-and-labels-during-restore-and-failover-operations]]
 == Annotations et étiquettes de namespace pendant les opérations de restauration et de basculement
 
 Lors des opérations de restauration et de basculement, les libellés et les annotations dans l'espace de noms de destination correspondent aux libellés et aux annotations dans l'espace de noms source. Des étiquettes ou des annotations provenant de l'espace de noms source qui n'existent pas dans l'espace de noms de destination sont ajoutées et toutes les étiquettes ou annotations qui existent déjà sont écrasées pour correspondre à la valeur de l'espace de noms source. Les libellés ou annotations qui existent uniquement dans l'espace de noms de destination restent inchangés.
@@ -40,6 +41,7 @@ Si vous avez installé l'application source à l'aide de Helm avec le `--create-
 
 
 
+[[example]]
 === Exemple
 
 L'exemple suivant présente un espace de noms source et de destination, chacun avec des annotations et des libellés différents. Vous pouvez voir l'état de l'espace de noms de destination avant et après l'opération, ainsi que la manière dont les annotations et les étiquettes sont combinées ou écrasées dans l'espace de noms de destination.
@@ -102,12 +104,14 @@ Le tableau suivant illustre l'état de l'exemple d'espace de noms de destination
 |===
 
 
+[[supported-fields]]
 == Champs pris en charge
 
 Cette section décrit les champs supplémentaires disponibles pour les opérations de restauration.
 
 
 
+[[storage-class-mapping]]
 === Mappage des classes de stockage
 
 Le `spec.storageClassMapping` L'attribut définit un mappage d'une classe de stockage présente dans l'application source vers une nouvelle classe de stockage sur le cluster cible.  Vous pouvez l'utiliser lors de la migration d'applications entre des clusters avec différentes classes de stockage ou lors du changement du backend de stockage pour les opérations BackupRestore.
@@ -124,6 +128,7 @@ storageClassMapping:
 ----
 
 
+[[supported-annotations]]
 == Annotations prises en charge
 
 Cette section répertorie les annotations prises en charge pour configurer différents comportements du système. Si une annotation n'est pas explicitement définie par l'utilisateur, le système utilisera la valeur par défaut.

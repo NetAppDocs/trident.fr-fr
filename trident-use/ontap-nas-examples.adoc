@@ -19,6 +19,7 @@ NOTE: Seuls les `ontap-nas` Le pilote (avec protocole NFS) est pris en charge po
 
 
 
+[[backend-configuration-options]]
 == Options de configuration du back-end
 
 Dans la configuration du backend Trident, il n'est pas nécessaire de préciser que votre système est un NetApp AFX storage system. Lorsque vous sélectionnez `ontap-nas` comme `storageDriverName`, Trident détecte automatiquement le système de stockage AFX. Certains paramètres de configuration du backend ne sont pas applicables aux systèmes de stockage AFX.
@@ -143,6 +144,7 @@ Ne pas utiliser `debugTraceFlags` à moins que vous ne soyez en mesure de dépan
 |===
 
 
+[[backend-configuration-options-for-provisioning-volumes]]
 == Options de configuration back-end pour les volumes de provisionnement
 
 Vous pouvez contrôler le provisionnement par défaut à l'aide de ces options dans `defaults` section de la configuration. Pour un exemple, voir les exemples de configuration ci-dessous.
@@ -198,6 +200,7 @@ NOTE: L'utilisation de groupes de règles de qualité de service avec Trident n�
 
 
 
+[[volume-provisioning-examples]]
 === Exemples de provisionnement de volumes
 
 Voici un exemple avec des valeurs par défaut définies :
@@ -245,6 +248,7 @@ Les backends existants des installations précédentes provisionneront les volum
 
 
 
+[[minimal-configuration-examples]]
 == Exemples de configuration minimaux
 
 Les exemples suivants montrent des configurations de base qui laissent la plupart des paramètres par défaut. C'est la façon la plus simple de définir un back-end.
@@ -427,6 +431,7 @@ labels:
 ====
 
 
+[[examples-of-backends-with-virtual-pools]]
 == Exemples de systèmes back-end avec pools virtuels
 
 Dans les exemples de fichiers de définition back-end présentés ci-dessous, des valeurs par défaut spécifiques sont définies pour tous les pools de stockage, tels que `spaceReserve` aucune, `spaceAllocation` lors de la fausse idée, et `encryption` faux. Les pools virtuels sont définis dans la section stockage.
@@ -612,6 +617,7 @@ storage:
 ====
 
 
+[[map-backends-to-storageclasses]]
 == Mappage des systèmes back-end aux classes de stockage
 
 Les définitions de classe de stockage suivantes se rapportent à <<Exemples de systèmes back-end avec pools virtuels>>. À l'aide du `parameters.selector` Chaque classe de stockage indique quels pools virtuels peuvent être utilisés pour héberger un volume. Les aspects définis dans le pool virtuel sélectionné seront définis pour le volume.
@@ -687,6 +693,7 @@ Trident décide du pool virtuel sélectionné et s'assure que les besoins en sto
 
 
 
+[[update-datalif-after-initial-configuration]]
 == Mise à jour `dataLIF` après la configuration initiale
 
 Vous pouvez modifier la dataLIF après la configuration initiale en exécutant la commande suivante pour fournir le nouveau fichier JSON back-end avec une dataLIF mise à jour.
@@ -700,10 +707,12 @@ NOTE: Si des ESV sont associées à un ou plusieurs pods, vous devez arrêter to
 
 
 
+[[secure-smb-examples]]
 == Exemples de PME sécurisées
 
 
 
+[[backend-configuration-with-ontap-nas-driver]]
 === Configuration du backend avec le pilote ontap-nas
 
 [source, yaml]
@@ -726,6 +735,7 @@ spec:
 ----
 
 
+[[backend-configuration-with-ontap-nas-economy-driver]]
 === Configuration du backend avec le pilote ontap-nas-economy
 
 [source, yaml]
@@ -748,6 +758,7 @@ spec:
 ----
 
 
+[[backend-configuration-with-storage-pool]]
 === Configuration du backend avec pool de stockage
 
 [source, yaml]
@@ -775,6 +786,7 @@ spec:
 ----
 
 
+[[storage-class-example-with-ontap-nas-driver]]
 === Exemple de classe de stockage avec le pilote ontap-nas
 
 [source, yaml]
@@ -800,6 +812,7 @@ NOTE: Assurez-vous d'ajouter  `annotations` pour activer le protocole SMB sécur
 
 
 
+[[storage-class-example-with-ontap-nas-economy-driver]]
 === Exemple de classe de stockage avec le pilote ontap-nas-economy
 
 [source, yaml]
@@ -822,6 +835,7 @@ volumeBindingMode: Immediate
 ----
 
 
+[[pvc-example-with-a-single-ad-user]]
 === Exemple de PVC avec un seul utilisateur AD
 
 [source, yaml]
@@ -847,6 +861,7 @@ spec:
 ----
 
 
+[[pvc-example-with-multiple-ad-users]]
 === Exemple de PVC avec plusieurs utilisateurs AD
 
 [source, yaml]

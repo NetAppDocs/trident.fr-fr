@@ -13,6 +13,7 @@ Vous pouvez configurer Google Cloud NetApp Volumes comme backend pour que Triden
 
 
 
+[[overview]]
 == Présentation
 
 Trident prend en charge Google Cloud NetApp Volumes pour les charges de travail NAS (NFS et SMB) et bloc (iSCSI).
@@ -36,6 +37,7 @@ Pour configurer le stockage bloc (iSCSI), voir link:gcnv-block.html["Configurer 
 
 
 
+[[prepare-to-configure]]
 == Préparez la configuration
 
 L'identité cloud permet aux charges de travail Kubernetes d'accéder aux ressources Google Cloud en s'authentifiant en tant qu'identité de charge de travail au lieu d'utiliser des informations d'identification statiques.
@@ -92,6 +94,8 @@ tridentctl install \
 ====
 
 
+[[configure-nas-storage]]
+[[nas]]
 == Configurer le stockage NAS
 
 
@@ -101,6 +105,7 @@ Lors de la localisation d'un volume, Trident peut évaluer plusieurs variantes d
 
 
 
+[[driver-details]]
 === Détails du pilote
 
 Trident fournit le  `google-cloud-netapp-volumes` driver pour provisionner le stockage NAS à partir de Google Cloud NetApp Volumes.
@@ -131,6 +136,7 @@ RWO, ROX, RWX, RWOP
 |===
 
 
+[[configure-a-trident-nas-backend]]
 === Configurer un backend NAS Trident
 
 [source, yaml]
@@ -153,6 +159,7 @@ spec:
 ----
 
 
+[[provision-nas-volumes]]
 === Provisionner des volumes NAS
 
 Les volumes NAS sont provisionnés à l'aide du  `google-cloud-netapp-volumes` backend et prennent en charge les protocoles NFS et SMB.

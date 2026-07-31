@@ -16,6 +16,7 @@ La  https://kubernetes.io/docs/concepts/storage/storage-classes/["Objet classe d
 
 
 
+[[create-a-storageclass-object]]
 == Créer un objet StorageClass
 
 Lorsque vous créez un StorageClass pour FSx for ONTAP, Trident créera automatiquement la configuration backend.
@@ -25,6 +26,7 @@ NOTE: Si vous souhaitez configurer manuellement le stockage backend, veuillez vo
 
 
 
+[[specify-required-storageclass-parameters]]
 === Spécifiez les paramètres requis StorageClass
 
 Les trois paramètres suivants doivent être définis lors de la création d'un StorageClass :
@@ -184,6 +186,7 @@ Une fois la modification appliquée, Trident met à jour la configuration du bac
 
 
 
+[[create-a-kubernetes-storageclass-without-automatic-backend-configuration]]
 === Créer un StorageClass Kubernetes sans configuration automatique du backend
 
 Si vous souhaitez créer le backend Trident et le StorageClass séparément, suivez ces étapes.
@@ -198,6 +201,7 @@ Trident crée le VolumeSnapshotClass une seule fois. Trident réutilise le même
 
 
 
+[[create-the-trident-backend]]
 === Créer le backend Trident
 
 Pour créer un backend Trident, vous devez créer un fichier de configuration au format JSON ou YAML. Le fichier doit spécifier le type de stockage souhaité (NAS ou SAN), le système de fichiers, la SVM à utiliser et la méthode d'authentification. L'exemple suivant montre comment définir un stockage basé sur NAS et utiliser un secret AWS pour stocker les informations d'identification de la SVM que vous souhaitez utiliser :
@@ -319,6 +323,7 @@ Pour plus d'informations sur les autres options de configuration, consultez la <
 
 
 
+[[configure-a-storage-class-without-automatic-backend-configuration]]
 === Configurer une classe de stockage *sans* configuration automatique du backend
 
 Voici des exemples de configurations de classes de stockage à utiliser avec Trident et FSx pour ONTAP.
@@ -447,12 +452,14 @@ basic-csi    csi.trident.netapp.io   15h
 ----
 
 
+[[provision-smb-volumes]]
 == Volumes de provisionnement pour PME
 
 Vous pouvez provisionner des volumes SMB à l'aide du  `ontap-nas` driver. Cependant, pour ce faire, vous devez effectuer ces étapes : link:worker-node-prep.html#prepare-to-provision-smb-volumes["Préparez-vous au provisionnement des volumes SMB"].
 
 
 
+[[backend-advanced-configuration-and-examples]]
 == Configuration avancée back-end et exemples
 
 Voir le tableau suivant pour les options de configuration du back-end :
@@ -553,6 +560,7 @@ Ne pas utiliser `debugTraceFlags` à moins que vous ne soyez en mesure de dépan
 |===
 
 
+[[backend-configuration-options-for-provisioning-volumes]]
 == Options de configuration back-end pour les volumes de provisionnement
 
 Vous pouvez contrôler le provisionnement par défaut à l'aide de ces options dans `defaults` section de la configuration. Pour un exemple, voir les exemples de configuration ci-dessous.

@@ -16,6 +16,7 @@ Vous pouvez installer Trident à l'aide de `tridentctl`. Ce processus s'applique
 
 
 
+[[critical-information-about-trident10]]
 == Informations essentielles concernant Trident10
 
 *Vous devez lire les informations critiques suivantes sur Trident.*
@@ -33,6 +34,7 @@ Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisat
 ====
 
 
+[[install-trident-using-tridentctl]]
 == Installez Trident à l'aide de `tridentctl`
 
 Vérifiez link:kubernetes-deploy.html["présentation de l'installation"] pour vous assurer que vous avez respecté les prérequis d'installation et sélectionné la bonne option d'installation pour votre environnement.
@@ -69,18 +71,20 @@ kubectl run -i --tty ping --image=busybox --restart=Never --rm -- \
 ====
 
 
+[[step-1-download-the-trident-installer-package]]
 == Étape 1 : téléchargez le package du programme d'installation de Trident
 
 Le package d'installation Trident crée un pod Trident, configure les objets CRD utilisés pour maintenir son état et initialise les side-cars CSI pour effectuer des actions telles que le provisionnement et la connexion de volumes aux hôtes du cluster. Téléchargez et extrayez la dernière version du programme d'installation de Trident sur link:https://github.com/NetApp/trident/releases/latest["La section _Assets_ sur GitHub"^]. Mettez à jour _<Trident-installer-XX.XX.X.tar.gz>_ dans l'exemple avec la version Trident sélectionnée.
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v26.02.0/trident-installer-26.02.0.tar.gz
-tar -xf trident-installer-26.02.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v26.06.0/trident-installer-26.06.0.tar.gz
+tar -xf trident-installer-26.06.0.tar.gz
 cd trident-installer
 ----
 
 
+[[step-2-install-trident]]
 == Étape 2 : installez Trident
 
 Installez Trident dans l'espace de noms souhaité en exécutant la `tridentctl install` commande. Vous pouvez ajouter des arguments supplémentaires pour spécifier l'emplacement du registre d'images.
@@ -98,14 +102,14 @@ Installez Trident dans l'espace de noms souhaité en exécutant la `tridentctl i
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:26.02 --trident-image <your-registry>/trident:26.02.0
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:26.06 --trident-image <your-registry>/trident:26.06.0
 ----
 --
 .Images dans différents registres
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:26.02 --trident-image <your-registry>/trident:26.02.0
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:26.06 --trident-image <your-registry>/trident:26.06.0
 ----
 --
 ====
@@ -132,12 +136,14 @@ INFO Trident installation succeeded.
 ----
 
 
+[[verify-the-installation]]
 == Vérifiez l'installation
 
 Vous pouvez vérifier votre installation à l'aide de l'état de création du pod ou `tridentctl`.
 
 
 
+[[using-pod-creation-status]]
 === Utilisation du statut de création du pod
 
 Vous pouvez vérifier si l'installation de Trident est terminée en vérifiant l'état des pods créés :
@@ -155,6 +161,7 @@ NOTE: Si l'installateur ne se termine pas correctement ou si  `trident-controlle
 
 
 
+[[using-tridentctl]]
 === À l'aide de `tridentctl`
 
 Vous pouvez utiliser `tridentctl` pour vérifier la version de Trident installée.
@@ -166,11 +173,12 @@ Vous pouvez utiliser `tridentctl` pour vérifier la version de Trident installé
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 26.02.0        | 26.02.0        |
+| 26.06.0        | 26.06.0        |
 +----------------+----------------+
 ----
 
 
+[[sample-configurations]]
 == Exemples de configurations
 
 Les exemples suivants fournissent des exemples de configuration pour l'installation de Trident à l'aide de `tridentctl`.

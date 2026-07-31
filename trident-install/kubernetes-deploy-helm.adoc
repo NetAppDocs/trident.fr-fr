@@ -16,6 +16,7 @@ Vous pouvez déployer l'opérateur Trident et installer Trident à l'aide de Hel
 
 
 
+[[critical-information-about-trident-25-10]]
 == Informations essentielles concernant le Trident 25.10
 
 *Vous devez lire les informations critiques suivantes sur Trident.*
@@ -36,6 +37,7 @@ Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisat
 ====
 
 
+[[deploy-the-trident-operator-and-install-trident-using-helm]]
 == Déployez l'opérateur Trident et installez Trident à l'aide d'Helm
 
 Avec Trident link:https://artifacthub.io/packages/helm/netapp-trident/trident-operator["Graphique Helm"^] Vous pouvez déployer l'opérateur Trident et installer Trident en une étape.
@@ -68,6 +70,7 @@ Vous pouvez utiliser `helm list` pour vérifier les détails de l'installation t
 
 
 
+[[pass-configuration-data-during-install]]
 == Transmettre les données de configuration pendant l'installation
 
 Il existe deux façons de passer les données de configuration au cours de l'installation :
@@ -94,6 +97,7 @@ helm install <name> netapp-trident/trident-operator --version 100.2602.0  --crea
 ----
 
 
+[[configuration-options]]
 == Options de configuration
 
 Ce tableau et le `values.yaml` Le fichier, qui fait partie du graphique Helm, fournit la liste des clés et leurs valeurs par défaut.
@@ -380,6 +384,7 @@ Permet la mise en réseau de l'hôte pour le contrôleur Trident . Ceci est util
 |===
 
 
+[[understanding-controller-pods-and-node-pods]]
 === Présentation des pods de contrôleur et des nœuds
 
 Trident s'exécute comme un seul pod de contrôleur, plus un pod de nœud sur chaque nœud worker du cluster. Le pod de nœud doit s'exécuter sur n'importe quel hôte sur lequel vous souhaitez potentiellement monter un volume Trident.

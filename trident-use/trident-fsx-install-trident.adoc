@@ -22,6 +22,7 @@ Si vous souhaitez utiliser la fonctionnalité snapshot, installez le module comp
 
 
 
+[[install-trident-via-helm]]
 == Installez Trident via Helm
 
 [role="tabbed-block"]
@@ -106,12 +107,14 @@ helm install trident-operator netapp-trident/trident-operator --version 100.2502
 ====
 
 
+[[install-trident-via-the-eks-add-on]]
 == Installez Trident via le module complémentaire EKS
 
 Le module complémentaire Trident EKS inclut les derniers correctifs de sécurité et de bogues, et est validé par AWS pour une utilisation avec Amazon EKS. Le module complémentaire EKS vous permet de vous assurer de manière cohérente que vos clusters Amazon EKS sont sécurisés et stables et de réduire la quantité de travail à effectuer pour installer, configurer et mettre à jour des modules complémentaires.
 
 
 
+[[prerequisites]]
 === Prérequis
 
 Vérifiez les points suivants avant de configurer le module complémentaire Trident pour AWS EKS :
@@ -128,6 +131,7 @@ Vérifiez les points suivants avant de configurer le module complémentaire Trid
 
 
 
+[[enable-the-trident-add-on-for-aws]]
 === Activez le module complémentaire Trident pour AWS
 
 [role="tabbed-block"]
@@ -235,6 +239,7 @@ eksctl create addon --name netapp_trident-operator --cluster <cluster_name> --fo
 ====
 
 
+[[update-the-trident-eks-add-on]]
 === Mettez à jour le module complémentaire Trident EKS
 
 [role="tabbed-block"]
@@ -299,6 +304,7 @@ Si vous supprimez l' `--force` option et que l'un des paramètres du module comp
 ====
 
 
+[[uninstallremove-the-trident-eks-add-on]]
 === Désinstallez/supprimez le module complémentaire Trident EKS
 
 Vous avez deux options pour supprimer un module complémentaire Amazon EKS :

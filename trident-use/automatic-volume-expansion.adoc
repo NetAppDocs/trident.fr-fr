@@ -21,6 +21,7 @@ NOTE: Les volumes augmentent automatiquement lorsque le seuil d'utilisation déf
 
 
 
+[[requirements]]
 == De formation
 
 Avant de configurer l'extension automatique du volume, assurez-vous que les exigences suivantes sont remplies :
@@ -40,6 +41,7 @@ Avant de configurer l'extension automatique du volume, assurez-vous que les exig
 
 
 
+[[limitations]]
 == Limites
 
 * Les volumes de blocs bruts ONTAP Non-Volatile Memory Express antérieurs à ONTAP 9.16.1 ne prennent pas en charge l'extension automatique.
@@ -58,6 +60,7 @@ Avant de configurer l'extension automatique du volume, assurez-vous que les exig
 
 
 
+[[provision-volumes-with-autogrow-policy]]
 == Provisionnement de volumes avec stratégie d'extension automatique
 
 La politique Autogrow peut être configurée à deux niveaux :
@@ -68,6 +71,7 @@ La politique Autogrow peut être configurée à deux niveaux :
 
 
 
+[[create-an-autogrow-policy]]
 == Créer une politique Autogrow
 
 Les politiques Autogrow permettent l'expansion automatique des volumes lorsque ceux-ci atteignent un seuil de capacité défini.
@@ -92,6 +96,7 @@ Cette flexibilité vous permet d'introduire une extension automatique sans recr�
 
 
 
+[[autogrow-policy-specifications]]
 === Spécifications de la politique Autogrow
 
 Les politiques d'autogrow sont des ressources personnalisées Kubernetes définies comme suit :
@@ -114,6 +119,7 @@ Les politiques d'autogrow sont des ressources personnalisées Kubernetes défini
 |===
 
 
+[[create-an-autogrow-policy]]
 == Créer une politique Autogrow
 
 .Étapes
@@ -153,6 +159,7 @@ standard-autogrow   80%              10%             Success
 
 
 
+[[policy-states]]
 == États de la stratégie
 
 Après avoir créé une politique, Trident valide la spécification et lui attribue l'un des états suivants :
@@ -172,6 +179,7 @@ Après avoir créé une politique, Trident valide la spécification et lui attri
 |===
 
 
+[[associate-a-policy-with-a-storageclass]]
 == Associer une politique à une StorageClass
 
 Vous pouvez associer une stratégie d'autogrow à un StorageClass en utilisant l'annotation  `trident.netapp.io/autogrowPolicy`. Tous les volumes provisionnés à partir de ce StorageClass héritent de la stratégie.
@@ -218,6 +226,7 @@ production-db-policy
 
 
 
+[[policy-precedence]]
 == Précédence de la politique
 
 Lorsque des annotations de stratégie d'extension automatique sont définies à la fois sur un StorageClass et un PVC, Trident applique les règles de priorité suivantes :
@@ -248,12 +257,14 @@ Lorsque des annotations de stratégie d'extension automatique sont définies à 
 |===
 
 
+[[configuration-examples]]
 == Exemples de configuration
 
 Les exemples suivants montrent les configurations courantes d'Autogrow Policy pour différents cas d'usage.
 
 
 
+[[conservative-policy-for-production-databases]]
 === Politique conservatrice pour les bases de données de production
 
 [source, yaml]
@@ -269,6 +280,7 @@ spec:
 ----
 
 
+[[log-storage-with-fixed-growth-increments]]
 === Stockage de journaux avec incréments de croissance fixes
 
 [source, yaml]
@@ -284,6 +296,7 @@ spec:
 ----
 
 
+[[minimal-policy-with-defaults]]
 === Politique minimale avec valeurs par défaut
 
 Lorsque vous omettez  `growthAmount` et  `maxSize`, Trident utilise les valeurs par défaut (`10%` (croissance, taille illimitée) :
@@ -299,6 +312,7 @@ spec:
 ----
 
 
+[[policy-with-a-custom-maxsize-and-default-growthamount]]
 === Stratégie avec une valeur personnalisée maxSize et la valeur par défaut growthAmount
 
 [source, yaml]
@@ -313,6 +327,7 @@ spec:
 ----
 
 
+[[aggressive-growth-with-unlimited-maxsize]]
 === Croissance agressive avec maxSize illimité
 
 [source, yaml]
@@ -327,6 +342,7 @@ spec:
 ----
 
 
+[[policy-with-fractional-percentages]]
 === Politique avec des pourcentages fractionnaires
 
 [source, yaml]
@@ -345,6 +361,7 @@ NOTE: Les pourcentages fractionnaires sont pris en charge. Si vous spécifiez pl
 
 
 
+[[nas-storageclass-with-autogrow]]
 === NAS StorageClass avec Autogrow
 
 [source, yaml]
@@ -363,6 +380,7 @@ allowVolumeExpansion: true
 ----
 
 
+[[san-storageclass-with-autogrow]]
 === SAN StorageClass avec Autogrow
 
 [source, yaml]

@@ -16,6 +16,7 @@ Trident prend en charge la configuration automatique du backend pour AWS FSx for
 
 
 
+[[understand-how-automatic-backend-configuration-works]]
 == Comprendre le fonctionnement de la configuration automatique du backend
 
 Trident déduit la configuration du backend à partir de la définition de la StorageClass. Lorsque vous appliquez la StorageClass, Trident valide les paramètres requis, crée le backend et annote la StorageClass avec le statut.
@@ -24,6 +25,7 @@ Trident crée le VolumeSnapshotClass une seule fois. Trident réutilise le même
 
 
 
+[[specify-required-storageclass-parameters]]
 == Spécifiez les paramètres requis StorageClass
 
 Pour déclencher la création automatique du backend, définissez les paramètres requis dans la StorageClass `parameters` section.
@@ -43,6 +45,7 @@ Pour déclencher la création automatique du backend, définissez les paramètre
 |===
 
 
+[[specify-optional-parameters]]
 == Spécifiez les paramètres optionnels
 
 Vous pouvez transmettre des paramètres backend optionnels via le StorageClass. Définissez toutes les valeurs optionnelles sous forme de chaînes dans la section StorageClass `parameters`.
@@ -51,6 +54,7 @@ Pour une liste complète des paramètres du backend, voir : link:trident-fsx-st
 
 
 
+[[create-a-storageclass]]
 == Créer un StorageClass
 
 L'exemple suivant montre un StorageClass qui déclenche une configuration automatique du backend.
@@ -74,6 +78,7 @@ Après avoir appliqué le StorageClass, Trident crée automatiquement le backend
 
 
 
+[[verify-backend-configuration-status]]
 == Vérifier l'état de la configuration du backend
 
 Trident enregistre le résultat de la création du backend dans les annotations StorageClass.
@@ -107,6 +112,7 @@ Confirmez que  `trident.netapp.io/configuratorStatus` est défini sur  `Success`
 
 
 
+[[add-additional-fsxn-file-systems]]
 == Ajouter des systèmes de fichiers FSxN supplémentaires
 
 Si vous avez besoin de stockage supplémentaire tout en continuant à utiliser le même StorageClass, ajoutez des identifiants de système de fichiers FSxN supplémentaires.
@@ -123,6 +129,7 @@ Une fois la modification appliquée, Trident met à jour la configuration du bac
 
 
 
+[[operational-considerations-and-limitations]]
 == Considérations et limitations opérationnelles
 
 La suppression d'un StorageClass entraîne généralement la suppression du Trident backend associé. Cela peut perturber la connectivité du stockage et interrompre les charges de travail en cours. Évaluez l'impact avant de supprimer un StorageClass géré.

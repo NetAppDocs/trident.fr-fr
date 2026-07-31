@@ -18,6 +18,7 @@ Ces options sont simples à utiliser lors de l'opération de création de volume
 
 
 
+[[ontap-volume-options]]
 == Options de volume ONTAP
 
 Les options de création de volumes pour NFS, iSCSI et FC sont les suivantes :
@@ -105,6 +106,7 @@ Les options supplémentaires suivantes sont disponibles pour iSCSI *uniquement* 
 |===
 
 
+[[examples]]
 === Exemples
 
 Voir les exemples ci-dessous :
@@ -161,6 +163,7 @@ docker volume create -d netapp --name my_vol --opt snapshotPolicy=myPolicy
 
 
 
+[[element-software-volume-options]]
 == Options de volumes du logiciel Element
 
 Les options du logiciel Element présentent les règles de taille et de qualité de services associées au volume. Lorsque le volume est créé, la politique de QoS associée à celui-ci est spécifiée à l'aide du `-o type=service_level` nomenclature
@@ -185,6 +188,7 @@ Utilisez 512 ou 4096, par défaut 512 ou l’entrée de configuration DefaultBlo
 |===
 
 
+[[example]]
 === Exemple
 
 Voir l'exemple de fichier de configuration suivant avec les définitions QoS :

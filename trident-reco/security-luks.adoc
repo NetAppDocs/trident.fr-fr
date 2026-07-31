@@ -34,6 +34,7 @@ Si rien n'est renvoyé, votre processeur ne prend pas en charge AES-ni. Pour plu
 
 
 
+[[enable-luks-encryption]]
 == Activez le cryptage LUKS
 
 Vous pouvez activer le chiffrement côté hôte par volume en utilisant Linux Unified Key Setup (LUKS) pour SAN ONTAP et les volumes ÉCONOMIQUES SAN ONTAP.
@@ -97,12 +98,14 @@ stringData:
 
 
 
+[[limitations]]
 === Limites
 
 Les volumes LUKS-chiffrés ne peuvent pas tirer parti de la déduplication et de la compression ONTAP.
 
 
 
+[[backend-configuration-for-importing-luks-volumes]]
 == Configuration back-end pour l'importation de volumes LUKS
 
 Pour importer un volume LUKS, vous devez définir `luksEncryption` sur sur(`true` le back-end. L' `luksEncryption`option indique à Trident si le volume est conforme LUKS (`true`) ou non conforme LUKS ) (`false`comme indiqué dans l'exemple suivant.
@@ -124,6 +127,7 @@ defaults:
 ----
 
 
+[[pvc-configuration-for-importing-luks-volumes]]
 == Configuration PVC pour l'importation de volumes LUKS
 
 Pour importer des volumes LUKS de façon dynamique, définissez l'annotation `trident.netapp.io/luksEncryption` sur `true` et incluez une classe de stockage LUKS activée dans la demande de volume virtuel, comme indiqué dans cet exemple.
@@ -147,6 +151,7 @@ spec:
 ----
 
 
+[[rotate-a-luks-passphrase]]
 == Faites pivoter une phrase de passe LUKS
 
 Vous pouvez faire pivoter la phrase de passe LUKS et confirmer la rotation.
@@ -241,6 +246,7 @@ NOTE: Si deux phrases de passe sont renvoyées, par exemple `luksPassphraseNames
 
 
 
+[[enable-volume-expansion]]
 == Activer l'extension de volume
 
 Vous pouvez activer l'extension de volume sur un volume chiffré LUKS.

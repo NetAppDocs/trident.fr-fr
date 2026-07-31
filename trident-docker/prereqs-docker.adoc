@@ -16,6 +16,7 @@ Avant de pouvoir déployer Trident, vous devez installer et configurer les prér
 
 
 
+[[verify-the-requirements]]
 == Vérifier les exigences
 
 * Vérifiez que votre déploiement répond à toutes les link:../trident-get-started/requirements.html["de formation"].
@@ -30,6 +31,7 @@ docker --version
 
 
 
+[[nfs-tools]]
 === Outils NFS
 
 Installez les outils NFS à l'aide des commandes de votre système d'exploitation.
@@ -56,6 +58,7 @@ WARNING: Redémarrez les nœuds workers après l'installation des outils NFS afi
 
 
 
+[[iscsi-tools]]
 === Outils iSCSI
 
 Installez les outils iSCSI à l'aide des commandes de votre système d'exploitation.
@@ -158,6 +161,7 @@ sudo systemctl status open-iscsi
 ====
 
 
+[[nvme-tools]]
 == Outils NVMe
 
 Installez les outils NVMe à l'aide des commandes correspondant à votre système d'exploitation.
@@ -192,6 +196,7 @@ sudo modprobe nvme-tcp
 ====
 
 
+[[fc-tools]]
 == Outils FC
 
 Installez les outils FC à l'aide des commandes de votre système d'exploitation.

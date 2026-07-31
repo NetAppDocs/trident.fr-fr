@@ -16,6 +16,7 @@ Vous pouvez personnaliser la configuration par défaut de Trident Protect pour r
 
 
 
+[[specify-trident-protect-container-resource-limits]]
 == Spécifiez les limites de ressources du conteneur Trident Protect
 
 Vous pouvez utiliser un fichier de configuration pour spécifier les limites de ressources des conteneurs Trident Protect après l'installation de Trident Protect.  La définition de limites de ressources vous permet de contrôler la quantité de ressources du cluster consommées par les opérations de Trident Protect.
@@ -87,6 +88,7 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
 
 
 
+[[customize-security-context-constraints]]
 == Personnaliser les contraintes de contexte de sécurité
 
 Vous pouvez utiliser un fichier de configuration pour modifier les contraintes de contexte de sécurité OpenShift (SCC) pour les conteneurs Trident Protect après avoir installé Trident Protect. Ces contraintes définissent les restrictions de sécurité des pods dans un cluster Red Hat OpenShift.
@@ -134,6 +136,7 @@ Les valeurs par défaut seront remplacées par celles spécifiées dans le `sccc
 
 
 
+[[configure-additional-trident-protect-helm-chart-settings]]
 == Configurer les paramètres supplémentaires du graphique de barre de Trident Protect
 
 Vous pouvez personnaliser les paramètres AutoSupport, le filtrage des espaces de noms et la gestion des certificats webhook OpenShift pour répondre à vos besoins spécifiques. Le tableau suivant décrit les paramètres de configuration disponibles :
@@ -209,6 +212,7 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
 ====
 
 
+[[restrict-trident-protect-pods-to-specific-nodes]]
 == Limiter les pods Trident Protect à des nœuds spécifiques
 
 Vous pouvez utiliser la contrainte de sélection de nœuds nodeSelector de Kubernetes pour contrôler quels nœuds sont éligibles pour exécuter des pods Trident Protect, en fonction des étiquettes de nœud.  Par défaut, Trident Protect est limité aux nœuds exécutant Linux. Vous pouvez personnaliser davantage ces contraintes en fonction de vos besoins.

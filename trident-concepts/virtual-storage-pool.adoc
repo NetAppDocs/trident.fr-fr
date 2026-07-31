@@ -16,6 +16,7 @@ Les pools virtuels fournissent une couche d'abstraction entre les systèmes back
 
 
 
+[[learn-about-virtual-pools]]
 == En savoir plus sur les pools virtuels
 
 L'administrateur du stockage peut définir des pools virtuels sur l'un des systèmes Trident back-end dans un fichier de définition JSON ou YAML.

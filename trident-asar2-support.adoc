@@ -31,6 +31,7 @@ Vous devez affecter au moins un agrégat à la machine virtuelle de stockage (SV
 
 
 
+[[supported-operations]]
 == Opérations prises en charge
 
 * Provisionnement de volumes persistants (PVs)
@@ -43,6 +44,7 @@ Vous devez affecter au moins un agrégat à la machine virtuelle de stockage (SV
 
 
 
+[[unsupported-operations]]
 == Opérations non prises en charge
 
 * Cryptage LUKS

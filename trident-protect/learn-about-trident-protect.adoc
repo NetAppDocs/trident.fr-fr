@@ -17,6 +17,7 @@ Vous pouvez protéger les applications avec Trident Protect en créant des resso
 
 
 
+[[whats-next]]
 == Et la suite ?
 
 Vous pouvez vous renseigner sur les exigences de Trident Protect avant de l'installer :

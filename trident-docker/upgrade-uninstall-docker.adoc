@@ -16,6 +16,7 @@ Vous pouvez mettre à niveau Trident pour Docker en toute sécurité, sans impac
 
 
 
+[[upgrade]]
 == Mise à niveau
 
 Effectuez les étapes ci-dessous pour mettre à niveau Trident pour Docker.
@@ -77,6 +78,7 @@ IMPORTANT: Si vous effectuez une mise à niveau d'une ancienne version de Triden
 
 
 
+[[uninstall]]
 == Désinstaller
 
 Procédez comme suit pour désinstaller Trident pour Docker.

@@ -19,6 +19,7 @@ NOTE: Pour vous authentifier à l'aide d'un rôle IAM AWS, un cluster Kubernetes
 
 
 
+[[create-aws-secrets-manager-secret]]
 == Créez un secret AWS secrets Manager
 
 Comme Trident émettra des API pour un vServer FSX afin de gérer le stockage pour vous, il aura besoin d'informations d'identification pour le faire. La façon sécurisée de transmettre ces informations d'identification est de passer par un secret AWS secrets Manager. Par conséquent, si vous n'en avez pas déjà un, vous devrez créer un secret AWS secrets Manager contenant les informations d'identification du compte vsadmin.
@@ -32,6 +33,7 @@ aws secretsmanager create-secret --name trident-secret --description "Trident CS
 ----
 
 
+[[create-iam-policy]]
 == Créer une politique IAM
 
 Trident a également besoin des autorisations AWS pour s'exécuter correctement. Par conséquent, vous devez créer une stratégie qui donne à Trident les autorisations dont elle a besoin.
@@ -75,6 +77,7 @@ aws iam create-policy --policy-name AmazonFSxNCSIDriverPolicy --policy-document 
 ----
 
 
+[[create-pod-identity-or-iam-role-for-service-account-association-irsa]]
 === Créer une identité de pod ou un rôle IAM pour l'association de comptes de service (IRSA)
 
 Vous pouvez configurer un compte de service Kubernetes pour qu'il assume un rôle AWS Identity and Access Management (IAM) avec l'identité de pod EKS ou le rôle IAM pour l'association de comptes de service (IRSA). Tous les pods configurés pour utiliser ce compte de service peuvent alors accéder à tous les services AWS auxquels ce rôle est autorisé.

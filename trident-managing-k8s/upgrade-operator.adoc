@@ -16,6 +16,7 @@ Vous pouvez mettre à niveau Trident à l'aide de l'opérateur Trident, soit man
 
 
 
+[[upgrade-a-manual-installation]]
 == Mettre à niveau une installation manuelle
 
 Vous pouvez effectuer une mise à niveau d'une installation d'opérateur Trident à l'échelle d'un cluster vers une autre installation d'opérateur Trident à l'échelle d'un cluster.  Toutes les versions de Trident utilisent un opérateur à portée de cluster.
@@ -59,6 +60,7 @@ kubectl create -f 25.06.0/trident-installer/deploy/<bundle.yaml> -n trident
 
 
 
+[[upgrade-a-helm-installation]]
 == Mettre à niveau une installation Helm
 
 Vous pouvez mettre à niveau une installation Trident Helm.
@@ -104,6 +106,7 @@ NOTE: Si vous définissez des options personnalisées lors de l'installation ini
 
 
 
+[[upgrade-from-a-tridentctl-installation-to-trident-operator]]
 == Mise à niveau à partir d'un `tridentctl` Installation sur l'opérateur Trident
 
 Vous pouvez effectuer la mise à niveau vers la dernière version de l'opérateur Trident à partir d'un `tridentctl` installation. Les systèmes back-end et ESV existants seront automatiquement disponibles.

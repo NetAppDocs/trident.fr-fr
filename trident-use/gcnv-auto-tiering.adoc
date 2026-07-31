@@ -17,24 +17,28 @@ La hiérarchisation automatique est configurée via les paramètres du backend T
 
 
 
+[[overview]]
 == Présentation
 
 La hiérarchisation automatique permet à Trident de provisionner des volumes qui déplacent automatiquement les données inactives d'un niveau de performance vers un niveau de capacité. Cela réduit le coût de stockage tout en préservant les performances pour les données fréquemment consultées.
 
-Trident applique les paramètres de hiérarchisation automatique uniquement lors de la création du volume. Les modifications après le provisionnement ne sont pas prises en charge dans Trident 26.02.
+Trident applique les paramètres de hiérarchisation automatique uniquement lors de la création du volume. Les modifications après le provisionnement ne sont pas prises en charge dans Trident 26.06.
 
 
 
+[[concepts]]
 == Concepts
 
 
 
+[[auto-tiering]]
 === hiérarchisation automatique
 
 Le système de hiérarchisation automatique déplace les données rarement consultées d'un niveau de performance vers un niveau de capacité en fonction des modèles d'accès. Le déplacement des données s'effectue de manière asynchrone et n'est pas immédiat.
 
 
 
+[[tiering-policy]]
 === politique de hiérarchisation
 
 La politique de hiérarchisation détermine si la hiérarchisation automatique est activée pour un volume.
@@ -43,16 +47,19 @@ Les politiques suivantes sont prises en charge : * `auto` : Active la hiérarc
 
 
 
+[[cooling-days]]
 === Jours de refroidissement
 
 Les jours de refroidissement spécifient le nombre minimal de jours pendant lesquels un bloc de données doit rester inactif avant de pouvoir être classé par niveau. Les jours de refroidissement s'appliquent uniquement lorsque la politique de classement par niveau est définie sur `auto`.
 
 
 
+[[configuration-model]]
 == Modèle de configuration
 
 
 
+[[configuration-scopes]]
 === Étendues de configuration
 
 La hiérarchisation automatique peut être configurée à plusieurs niveaux :
@@ -65,6 +72,7 @@ Trident détermine la configuration effective en fonction de l'endroit où chaqu
 
 
 
+[[configuration-precedence]]
 === Précédence de configuration
 
 Lorsque le même paramètre est défini à plusieurs niveaux, Trident applique l'ordre de priorité suivant :
@@ -78,9 +86,10 @@ Les paramètres définis à un niveau de priorité supérieur remplacent les val
 
 
 
-== fonctionnalité prise en charge dans Trident 26.02
+[[supported-functionality-in-trident-26-06]]
+== fonctionnalité prise en charge dans Trident 26.06
 
-Trident 26.02 prend en charge les fonctionnalités de hiérarchisation automatique suivantes pour Google Cloud NetApp Volumes :
+Trident 26.06 prend en charge les fonctionnalités de hiérarchisation automatique suivantes pour Google Cloud NetApp Volumes :
 
 * Activation ou désactivation du auto-tiering lors de l'allocation des volumes
 * Définition d'une politique de hiérarchisation dans la configuration du backend Trident
@@ -90,7 +99,8 @@ Trident 26.02 prend en charge les fonctionnalités de hiérarchisation automatiq
 
 
 
-== fonctionnalité non prise en charge dans Trident 26.02
+[[unsupported-functionality-in-trident-26-06]]
+== fonctionnalité non prise en charge dans Trident 26.06
 
 Les opérations suivantes ne sont pas prises en charge :
 
@@ -101,6 +111,7 @@ Les opérations suivantes ne sont pas prises en charge :
 
 
 
+[[backend-configuration-parameters]]
 == Paramètres de configuration du backend
 
 Les paramètres suivants contrôlent le comportement de hiérarchisation automatique lorsqu'ils sont définis dans la configuration du backend Trident :
@@ -117,10 +128,12 @@ Les paramètres suivants contrôlent le comportement de hiérarchisation automat
 |===
 
 
+[[volume-level-overrides-using-persistentvolumeclaim-annotations]]
 == Remplacements au niveau du volume à l'aide des annotations PersistentVolumeClaim
 
 
 
+[[supported-annotations]]
 === Annotations prises en charge
 
 Les annotations PersistentVolumeClaim permettent de remplacer, volume par volume, les paramètres de hiérarchisation automatique.
@@ -137,6 +150,7 @@ Les annotations PersistentVolumeClaim permettent de remplacer, volume par volume
 |===
 
 
+[[example-persistentvolumeclaim-with-auto-tiering-overrides]]
 === Exemple : PersistentVolumeClaim avec des substitutions de hiérarchisation automatique
 
 [source, yaml]
@@ -158,10 +172,12 @@ spec:
 ----
 
 
+[[behavior-and-limitations]]
 == Comportement et limitations
 
 
 
+[[provisioning-behavior]]
 === Comportement de provisionnement
 
 * Les paramètres de hiérarchisation automatique sont évalués et appliqués uniquement lors de la création du volume.
@@ -171,6 +187,7 @@ spec:
 
 
 
+[[platform-limitations]]
 === Limitations de la plateforme
 
 * La hiérarchisation automatique est prise en charge uniquement pour les volumes NAS (NFS et SMB).
@@ -180,6 +197,7 @@ spec:
 
 
 
+[[supported-values]]
 === Valeurs prises en charge
 
 * Plage de valeurs valide `tieringMinimumCoolingDays`: 2 à 183

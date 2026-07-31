@@ -16,7 +16,8 @@ Vous pouvez déployer manuellement l'opérateur Trident pour installer Trident. 
 
 
 
-== Informations essentielles concernant Trident 26.02
+[[critical-information-about-trident-26-06]]
+== Informations essentielles concernant Trident 26.06
 
 *Vous devez lire les informations critiques suivantes sur Trident.*
 
@@ -25,7 +26,7 @@ Vous pouvez déployer manuellement l'opérateur Trident pour installer Trident. 
 ====
 []
 =====
-* Kubernetes 1.35 est désormais pris en charge dans Trident. Mettez à niveau Trident avant de mettre à niveau Kubernetes.
+* Kubernetes 1.36 est désormais pris en charge dans Trident. Mettez à niveau Trident avant de mettre à niveau Kubernetes.
 * Trident applique strictement l'utilisation de la configuration de chemins d'accès multiples dans les environnements SAN, avec une valeur recommandée de `find_multipaths: no` dans le fichier multipath.conf.
 +
 Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisation de `find_multipaths: yes` ou `find_multipaths: smart` la valeur du fichier multipath.conf entraînera des échecs de montage. Trident a recommandé l'utilisation de `find_multipaths: no` depuis la version 21.07.
@@ -36,6 +37,7 @@ Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisat
 ====
 
 
+[[manually-deploy-the-trident-operator-and-install-trident]]
 == Déployer manuellement l'opérateur Trident et installer Trident
 
 Vérifiez link:kubernetes-deploy.html["présentation de l'installation"] pour vous assurer que vous avez respecté les prérequis d'installation et sélectionné la bonne option d'installation pour votre environnement.
@@ -72,18 +74,20 @@ kubectl run -i --tty ping --image=busybox --restart=Never --rm -- \
 ====
 
 
+[[step-1-download-the-trident-installer-package]]
 === Étape 1 : téléchargez le package du programme d'installation de Trident
 
 Le programme d'installation de Trident contient tout ce dont vous avez besoin pour déployer l'opérateur Trident et installer Trident. Téléchargez et extrayez la dernière version du programme d'installation de Trident sur link:https://github.com/NetApp/trident/releases/latest["La section _Assets_ sur GitHub"^].
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v26.02.0/trident-installer-26.02.0.tar.gz
-tar -xf trident-installer-26.02.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v26.06.0/trident-installer-26.06.0.tar.gz
+tar -xf trident-installer-26.06.0.tar.gz
 cd trident-installer
 ----
 
 
+[[step-2-create-the-tridentorchestrator-crd]]
 === Étape 2 : créez le `TridentOrchestrator` CRD
 
 Créer le `TridentOrchestrator` Définition de ressource personnalisée (CRD). Vous allez créer un `TridentOrchestrator` Ressource personnalisée plus tard. Utilisez la version CRD YAML appropriée dans `deploy/crds` pour créer le `TridentOrchestrator` CRD.
@@ -94,6 +98,7 @@ kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.1
 ----
 
 
+[[step-3-deploy-the-trident-operator]]
 === Étape 3 : déployer l'opérateur Trident
 
 Le programme d'installation de Trident fournit un fichier de bundle qui peut être utilisé pour installer l'opérateur et créer des objets associés. Le fichier de bundle est un moyen facile de déployer l'opérateur et d'installer Trident à l'aide d'une configuration par défaut.
@@ -147,6 +152,7 @@ IMPORTANT: Il ne doit y avoir que *une instance* de l'opérateur dans un cluster
 
 
 
+[[step-4-create-the-tridentorchestrator-and-install-trident]]
 === Étape 4 : créez le `TridentOrchestrator` Et installer Trident
 
 Vous pouvez maintenant créer `TridentOrchestrator` et installer Trident. Vous pouvez éventuellement link:kubernetes-customize-deploy.html["Personnalisez votre installation de Trident"]utiliser les attributs de la `TridentOrchestrator` spécification.
@@ -174,7 +180,7 @@ Status:
   Current Installation Params:
     IPv6:                      false
     Autosupport Hostname:
-    Autosupport Image:         netapp/trident-autosupport:26.02
+    Autosupport Image:         netapp/trident-autosupport:26.06
     Autosupport Proxy:
     Autosupport Serial Number:
     Debug:                     true
@@ -184,10 +190,10 @@ Status:
     Kubelet Dir:          /var/lib/kubelet
     Log Format:           text
     Silence Autosupport:  false
-    Trident Image:        netapp/trident:26.02.0
+    Trident Image:        netapp/trident:26.06.0
   Message:                  Trident installed  Namespace:                trident
   Status:                   Installed
-  Version:                  v26.02.0
+  Version:                  v26.06.0
 Events:
     Type Reason Age From Message ---- ------ ---- ---- -------Normal
     Installing 74s trident-operator.netapp.io Installing Trident Normal
@@ -195,12 +201,14 @@ Events:
 ----
 
 
+[[verify-the-installation]]
 == Vérifiez l'installation
 
 Il existe plusieurs façons de vérifier votre installation.
 
 
 
+[[using-tridentorchestrator-status]]
 === À l'aide de `TridentOrchestrator` état
 
 Le statut de `TridentOrchestrator` Indique si l'installation a réussi et affiche la version de Trident installée. Pendant l'installation, l'état de `TridentOrchestrator` modifications de `Installing` à `Installed`. Si vous observez l' `Failed` l'état et l'opérateur ne parvient pas à récupérer lui-même, link:../troubleshooting.html["vérifiez les journaux"].
@@ -233,6 +241,7 @@ Le statut de `TridentOrchestrator` Indique si l'installation a réussi et affich
 |===
 
 
+[[using-pod-creation-status]]
 === Utilisation du statut de création du pod
 
 Vous pouvez vérifier si l'installation de Trident est terminée en vérifiant l'état des pods créés :
@@ -250,6 +259,7 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 ----
 
 
+[[using-tridentctl]]
 === À l'aide de `tridentctl`
 
 Vous pouvez utiliser `tridentctl` pour vérifier la version de Trident installée.
@@ -261,6 +271,6 @@ Vous pouvez utiliser `tridentctl` pour vérifier la version de Trident installé
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 26.02.0        | 26.02.0        |
+| 26.06.0        | 26.06.0        |
 +----------------+----------------+
 ----

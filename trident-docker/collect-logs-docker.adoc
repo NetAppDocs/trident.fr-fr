@@ -16,6 +16,7 @@ Vous pouvez recueillir des journaux pour obtenir de l'aide en matière de dépan
 
 
 
+[[collect-logs-for-troubleshooting]]
 == Collecte des journaux pour le dépannage
 
 .Étapes
@@ -64,6 +65,7 @@ docker plugin enable <plugin>
 
 
 
+[[general-troubleshooting-tips]]
 == Conseils généraux de dépannage
 
 * Le problème le plus courant auquel les nouveaux utilisateurs se sont exécutés est une mauvaise configuration qui empêche le plug-in de s'initialiser. Lorsque cela se produit, vous verrez probablement un message tel que celui-ci lorsque vous essayez d'installer ou d'activer le plug-in :

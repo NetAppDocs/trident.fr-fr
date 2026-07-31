@@ -16,6 +16,7 @@ Vous avez besoin de plusieurs instances de Trident lorsque vous souhaitez dispos
 
 
 
+[[steps-for-docker-managed-plugin-version-1-1317-03-or-later]]
 == Étapes du plug-in géré par Docker (version 1.13/17.03 ou ultérieure)
 
 . Lancez la première instance en spécifiant un alias et un fichier de configuration.
@@ -51,6 +52,7 @@ docker volume create -d silver --name ntapSilver
 
 
 
+[[steps-for-traditional-version-1-12-or-earlier]]
 == Étapes pour les versions traditionnelles (version 1.12 ou antérieure)
 
 . Lancez le plug-in avec une configuration NFS à l'aide d'un ID de pilote personnalisé :

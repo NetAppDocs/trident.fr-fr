@@ -19,6 +19,7 @@ NOTE: PSS remplace les politiques de sécurité Pod (PSP). La PSP est obsolète 
 
 
 
+[[required-kubernetes-security-context-and-related-fields]]
 == Contexte de sécurité Kubernetes requis et champs associés
 
 [cols=","]
@@ -53,6 +54,7 @@ NOTE: PSS remplace les politiques de sécurité Pod (PSP). La PSP est obsolète 
 |===
 
 
+[[pod-security-standards-pss]]
 == Normes de sécurité du pod (PSS)
 
 [cols=",,"]
@@ -71,6 +73,7 @@ WARNING: La modification des étiquettes de l'espace de noms peut entraîner l'a
 
 
 
+[[pod-security-policies-psp]]
 == Politiques de sécurité des pods (PSP)
 
 [cols=",,"]
@@ -151,6 +154,7 @@ WARNING: La modification des étiquettes de l'espace de noms peut entraîner l'a
 |===
 
 
+[[security-context-constraints-scc]]
 == Contraintes de contexte de sécurité (SCC)
 
 [cols=",,"]

@@ -18,6 +18,7 @@ Un crochet d'exécution est une action personnalisée que vous pouvez configurer
 
 
 
+[[types-of-execution-hooks]]
 == Types de crochets d'exécution
 
 Trident Protect prend en charge les types de hooks d'exécution suivants, en fonction du moment où ils peuvent être exécutés :
@@ -32,6 +33,7 @@ Trident Protect prend en charge les types de hooks d'exécution suivants, en fon
 
 
 
+[[order-of-execution]]
 === Ordre d'exécution
 
 Lors de l'exécution d'une opération de protection des données, les événements de hook d'exécution ont lieu dans l'ordre suivant :
@@ -62,6 +64,7 @@ NOTE: Si un hook d'exécution pré-snapshot ajoute, modifie ou supprime des ress
 
 
 
+[[important-notes-about-custom-execution-hooks]]
 == Remarques importantes sur les crochets d'exécution personnalisés
 
 Lors de la planification de crochets d'exécution pour vos applications, tenez compte des points suivants.
@@ -77,6 +80,7 @@ NOTE: Puisque les crochets d'exécution réduisent ou désactivent complètement
 
 
 
+[[execution-hook-filters]]
 == Filtres de crochet d'exécution
 
 Lorsque vous ajoutez ou modifiez un crochet d'exécution pour une application, vous pouvez ajouter des filtres au crochet d'exécution pour gérer les conteneurs auxquels le crochet correspond. Les filtres sont utiles pour les applications qui utilisent la même image de conteneur sur tous les conteneurs, mais ils peuvent utiliser chaque image à des fins différentes (comme Elasticsearch). Les filtres vous permettent de créer des scénarios dans lesquels des crochets d'exécution s'exécutent sur certains conteneurs, mais pas nécessairement tous identiques. Si vous créez plusieurs filtres pour un seul crochet d'exécution, ils sont combinés avec un opérateur ET logique. Vous pouvez avoir jusqu'à 10 filtres actifs par crochet d'exécution.
@@ -88,6 +92,7 @@ NOTE: Si vous ajoutez un filtre d'espace de noms à un crochet d'exécution qui 
 
 
 
+[[execution-hook-examples]]
 == Exemples de crochet d'exécution
 
 Visitez le https://github.com/NetApp/Verda["Projet GitHub NetApp Verda"] pour télécharger des scripts d'exécution réels pour les applications courantes telles qu'Apache Cassandra et Elasticsearch. Vous pouvez également voir des exemples et obtenir des idées pour structurer vos propres crochets d'exécution personnalisés.
@@ -97,6 +102,7 @@ NOTE: Les scripts du dépôt Verda sont fournis tels quels et ne sont pas offici
 
 
 
+[[create-an-execution-hook]]
 == Créer un crochet d'exécution
 
 Vous pouvez créer un point d'exécution personnalisé pour une application utilisant Trident Protect. Vous devez disposer des autorisations de propriétaire, d'administrateur ou de membre pour créer des points d'exécution.
@@ -205,6 +211,7 @@ tridentctl-protect create exechook <my_exec_hook_name> --action <action_type> --
 ====
 
 
+[[manually-run-an-execution-hook]]
 == Exécutez manuellement un crochet d'exécution
 
 Vous pouvez exécuter manuellement un crochet d'exécution à des fins de test ou si vous devez exécuter de nouveau le crochet manuellement après un échec. Vous devez disposer des autorisations propriétaire, administrateur ou membre pour exécuter manuellement les crochets d'exécution.

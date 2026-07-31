@@ -18,6 +18,7 @@ Trident Protect vous permet de sauvegarder et de restaurer des machines virtuell
 
 
 
+[[kubevirt-protection-modes]]
 == KubeVirt modes de protection
 
 Trident Protect prend en charge deux méthodes pour définir quelles KubeVirt VMs protéger. Choisissez un mode lors de la définition d'une application :
@@ -45,6 +46,7 @@ NOTE: Trident Protect peut geler et dégeler les systèmes de fichiers des machi
 
 
 
+[[resources-collected-during-backup-and-snapshot]]
 == Ressources collectées lors de la sauvegarde et de l'instantané
 
 Lorsque vous créez une sauvegarde ou un instantané pour une application qui inclut des machines virtuelles KubeVirt, Trident Protect collecte les ressources de machines virtuelles sélectionnées et découvre automatiquement leurs ressources dépendantes.
@@ -57,6 +59,7 @@ Le comportement de collecte s'applique dans deux cas :
 
 
 
+[[vm-scoped-collection]]
 === collection à portée de VM
 
 Pour les applications à portée de machine virtuelle, Trident Protect commence par chaque  `VirtualMachine` répertoriée dans  `includedVirtualMachines` et découvre les ressources dépendantes nécessaires à la restauration de cette machine virtuelle.
@@ -115,6 +118,7 @@ NOTE: Une fois toutes les ressources d'espace de noms au niveau de la machine vi
 
 
 
+[[namespace-based-collection]]
 === Collection basée sur les espaces de noms
 
 Pour les applications basées sur des espaces de noms, Trident Protect analyse les espaces de noms sélectionnés et collecte toutes les ressources correspondantes. Si des KubeVirt `VirtualMachine` objets sont trouvés, Trident Protect collecte automatiquement leurs ressources dépendantes, notamment les types d’instances, les préférences et  `virt-launcher` Pods, de la même manière que pour les applications à portée de machine virtuelle.
@@ -123,6 +127,7 @@ Cela signifie que les ressources spécifiques à la VM sont incluses dans votre 
 
 
 
+[[protect-vms-using-namespace-based-application-definitions]]
 == Protégez les machines virtuelles à l'aide de définitions d'applications basées sur les espaces de noms
 
 Lors de la création d'une application basée sur un espace de noms, Trident Protect analyse les espaces de noms sélectionnés et collecte toutes les ressources, y compris toutes les machines virtuelles KubeVirt. Pour chaque machine virtuelle détectée, Trident Protect collecte également les ressources dépendantes nécessaires à la sauvegarde et à la restauration de cette machine virtuelle.
@@ -148,6 +153,7 @@ Après avoir créé l'application, utilisez les workflows standard de Trident Pr
 
 
 
+[[restore-behavior-for-namespace-based-vm-applications]]
 === Comportement de restauration pour les applications de machines virtuelles basées sur les espaces de noms
 
 Étant donné que les applications basées sur les espaces de noms collectent les ressources des espaces de noms sélectionnés, la sauvegarde ou l’instantané peut inclure des objets d’exécution KubeVirt et des métadonnées gérées par KubeVirt. Certains de ces objets ne doivent pas être restaurés directement, car ils représentent l’état d’exécution du cluster source.
@@ -181,6 +187,7 @@ NOTE: Trident Protect restaure les ressources KubeVirt dans un ordre défini afi
 
 
 
+[[dynamic-vm-protection-with-label-selectors]]
 == Protection dynamique des machines virtuelles avec sélecteurs d'étiquettes
 
 Si vous souhaitez protéger les machines virtuelles de manière dynamique sans avoir à lister le nom de chaque machine virtuelle, utilisez des définitions d'application basées sur l'espace de noms avec des sélecteurs d'étiquettes.
@@ -242,6 +249,7 @@ spec:
 ----
 
 
+[[protect-specific-vms-with-includedvirtualmachines]]
 == Protégez des machines virtuelles spécifiques avec includedVirtualMachines
 
 Utilisez  `includedVirtualMachines` lorsque vous souhaitez protéger un ensemble nommé de VirtualMachines sur un ou plusieurs espaces de noms et restaurer sélectivement des machines virtuelles spécifiques à partir d'un archivage des sauvegardes.
@@ -306,6 +314,7 @@ spec:
 ----
 
 
+[[restore-specific-kubevirt-vms]]
 == Restaurer des machines virtuelles KubeVirt spécifiques
 
 Vous pouvez utiliser  `includedVirtualMachines` sur les CR de restauration pour restaurer uniquement les machines virtuelles KubeVirt sélectionnées à partir d'une sauvegarde, d'un instantané ou d'une archive d'instantanés répliqués.
@@ -316,6 +325,7 @@ Si vous ne spécifiez  `includedVirtualMachines` pas dans la CR de restauration,
 
 
 
+[[supported-restore-crs-and-cli-commands]]
 === CR et commandes CLI de restauration prises en charge
 
 Le tableau suivant répertorie les CR de restauration qui prennent en charge  `includedVirtualMachines` et leurs commandes CLI correspondantes.
@@ -344,6 +354,7 @@ NOTE: L' `tridentctl-protect` CLI ne propose pas de paramètre pour  `includedVi
 
 
 
+[[vm-scoped-restore-behavior]]
 === Comportement de restauration à l'échelle de la machine virtuelle
 
 Le  `includedVirtualMachines`champ d'une CR de restauration utilise le même format de sélecteur que la CR d'application :
@@ -362,6 +373,7 @@ Si vous utilisez `namespaceMapping`, Trident Protect sélectionne d'abord les ma
 
 
 
+[[generate-restore-yaml-with-the-cli]]
 === Générez le fichier YAML de restauration avec l'interface de ligne de commande (CLI)
 
 Vous pouvez utiliser `tridentctl-protect` pour générer un CR de restauration de base, puis modifier le YAML pour ajouter `includedVirtualMachines`.
@@ -380,6 +392,7 @@ kubectl apply -f <restore_name>.yaml
 ----
 
 
+[[example-define-a-vm-based-application]]
 === Exemple : Définir une application basée sur une machine virtuelle
 
 L'application suivante protège trois machines virtuelles spécifiques réparties sur deux espaces de noms.
@@ -406,6 +419,7 @@ spec:
 ----
 
 
+[[example-create-a-backup]]
 === Exemple : créer une sauvegarde
 
 La création d'une sauvegarde pour une application basée sur une machine virtuelle utilise le CR de sauvegarde standard. Aucun champ spécifique à la machine virtuelle n'est requis dans le CR de sauvegarde.
@@ -423,6 +437,7 @@ spec:
 ----
 
 
+[[example-restore-a-single-vm-from-a-backup]]
 === Exemple : Restaurer une seule machine virtuelle à partir d’une sauvegarde
 
 L'exemple suivant restaure uniquement  `database-server` à partir de l'archivage des sauvegardes. Les autres machines virtuelles de l'archive, telles que  `app-server` et  `prometheus-vm`, sont ignorées.
@@ -453,6 +468,7 @@ Seuls  `database-server` et ses ressources dépendantes, telles que DataVolumes,
 
 
 
+[[example-restore-a-single-vm-in-place-from-a-backup]]
 === Exemple : Restaurer une seule machine virtuelle sur place à partir d’une sauvegarde
 
 L'exemple suivant restaure uniquement  `database-server` dans son espace de noms d'origine à partir de l'archivage des sauvegardes.
@@ -478,6 +494,7 @@ kubectl apply -f ipr-db-only.yaml
 ----
 
 
+[[example-restore-a-single-vm-from-a-snapshot]]
 === Exemple : Restaurer une seule machine virtuelle à partir d’un instantané
 
 L'exemple suivant restaure uniquement  `ubuntu-vm-blue-a627be38` à partir d'une archive de snapshot.
@@ -503,6 +520,7 @@ kubectl apply -f blue-vm-snap-restore.yaml
 ----
 
 
+[[combine-vm-restore-with-other-filters]]
 === Combinez la restauration de la machine virtuelle avec d'autres filtres
 
 Vous pouvez utiliser  `includedVirtualMachines` avec  `resourceFilter`,  `namespaceMapping` et  `storageClassMapping` dans le même CR de restauration pour affiner ce qui est restauré.
@@ -528,6 +546,7 @@ Pour plus de détails sur le comportement de restauration, veuillez vous référ
 
 
 
+[[create-a-vm-scoped-application-using-the-cli]]
 == Créez une application à portée de machine virtuelle à l'aide de l'interface de ligne de commande (CLI)
 
 Utilisez le  `--virtual-machines` indicateur pour limiter la portée d'une application à des machines virtuelles KubeVirt spécifiques plutôt qu'à des espaces de noms entiers. Le  `--virtual-machines` indicateur est mutuellement exclusif avec  `--namespaces`.
@@ -557,6 +576,7 @@ tridentctl-protect create application <application_name> \
 
 
 
+[[related-information]]
 == Informations connexes
 
 * link:trident-protect-manage-applications.html["Définissez une application pour la gestion"]

@@ -16,6 +16,7 @@ En savoir plus sur les ports utilisés par Trident pour la communication.
 
 
 
+[[overview]]
 == Présentation
 
 Trident utilise différents ports pour communiquer au sein des clusters Kubernetes et avec les systèmes de stockage. Voici un résumé des principaux ports, de leur utilité et des considérations de sécurité associées.
@@ -34,6 +35,7 @@ Trident utilise différents ports pour communiquer au sein des clusters Kubernet
 
 
 
+[[ports-for-controller-nodes]]
 === Ports pour les nœuds de contrôleur
 
 Ces ports sont principalement destinés à l'opérateur Trident (gestion du backend). Tous les ports internes sont au niveau du pod ; autorisez-les sur les nœuds uniquement si le pare-feu hôte interfère avec le CNI.
@@ -59,6 +61,7 @@ Ces ports sont principalement destinés à l'opérateur Trident (gestion du back
 |===
 
 
+[[ports-for-worker-nodes]]
 === Ports pour les nœuds de travail
 
 Ces ports sont destinés aux ensembles de démons de nœuds CSI et aux montages de pods. Les ports de données sont sortants vers les LIF de données de stockage ; incluez les extras NFSv3 si vous utilisez NFSv3 (optionnel pour NFSv4).

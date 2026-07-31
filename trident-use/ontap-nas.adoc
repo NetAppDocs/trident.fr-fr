@@ -16,6 +16,7 @@ Découvrez comment configurer un back-end ONTAP avec les pilotes ONTAP et NAS Cl
 
 
 
+[[ontap-nas-driver-details]]
 == Détails du pilote NAS ONTAP
 
 Trident fournit les pilotes de stockage NAS suivants pour communiquer avec le cluster ONTAP. Les modes d'accès pris en charge sont : _ReadWriteOnce_ (RWO), _ReadOnlyMey_ (ROX), _ReadWriteMaly_ (RWX), _ReadWriteOncePod_ (RWOP).
@@ -71,6 +72,7 @@ RWO, ROX, RWX, RWOP
 ====
 
 
+[[user-permissions]]
 == Autorisations utilisateur
 
 Trident s'attend à être exécuté en tant qu'administrateur ONTAP ou SVM, en général avec l'utilisateur du cluster ou un `vsadmin` utilisateur SVM, ou en tant qu' `admin`utilisateur avec un nom différent et le même rôle.

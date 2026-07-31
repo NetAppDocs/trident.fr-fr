@@ -16,6 +16,7 @@ Avec Trident, vous pouvez créer un volume dans un espace de noms principal et l
 
 
 
+[[features]]
 == Caractéristiques
 
 Le système TridentVolumeReference CR vous permet de partager en toute sécurité des volumes ReadWriteMaly (RWX) NFS sur un ou plusieurs espaces de noms Kubernetes. Cette solution Kubernetes-native présente plusieurs avantages :
@@ -31,6 +32,7 @@ image::cross-namespace-sharing.png[Schéma conceptuel du partage de l'espace de 
 
 
 
+[[quick-start]]
 == Démarrage rapide
 
 Vous pouvez configurer le partage de volumes NFS en quelques étapes seulement.
@@ -53,6 +55,7 @@ Le propriétaire de l'espace de noms de destination crée le PVC subalterne pour
 
 
 
+[[configure-the-source-and-destination-namespaces]]
 == Configurer les espaces de noms source et de destination
 
 Pour garantir la sécurité, le partage de l'espace de noms croisé nécessite une collaboration et une action du propriétaire de l'espace de noms source, de l'administrateur de cluster et du propriétaire de l'espace de noms de destination. Le rôle utilisateur est désigné dans chaque étape.
@@ -133,12 +136,14 @@ Trident lit l' `shareFromPVC`annotation sur la demande de volume de destination 
 
 
 
+[[delete-a-shared-volume]]
 == Supprimer un volume partagé
 
 Vous pouvez supprimer un volume partagé entre plusieurs namespaces. Trident supprime l'accès au volume sur l'espace de noms source et maintient l'accès aux autres espaces de noms qui partagent le volume. Lorsque tous les espaces de noms qui référencent le volume sont supprimés, Trident supprime le volume.
 
 
 
+[[use-tridentctl-get-to-query-subordinate-volumes]]
 == Utiliser `tridentctl get` pour interroger des volumes subordonnés
 
 En utilisant l'[`tridentctl`utilitaire, vous pouvez exécuter la commande  `get`pour obtenir les volumes subordonnés. Pour plus d'informations, consultez le lien : ../trident-reference/trident-cl.html[`tridentctl` commandes et options].
@@ -157,6 +162,7 @@ Alarmes :
 
 
 
+[[limitations]]
 == Limites
 
 * Trident ne peut pas empêcher les espaces de noms de destination d'écrire sur le volume partagé. Nous vous recommandons d'utiliser un verrouillage de fichiers ou d'autres processus pour éviter d'écraser les données du volume partagé.
@@ -166,6 +172,7 @@ Alarmes :
 
 
 
+[[for-more-information]]
 == Pour en savoir plus
 
 Pour en savoir plus sur l'accès aux volumes multi-espaces de noms :

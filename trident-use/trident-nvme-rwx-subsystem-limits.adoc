@@ -16,6 +16,7 @@ ReadWriteMany (RWX) volumes utilisant le protocole NVMe ont une limite de scalab
 
 
 
+[[understand-the-64-node-limit]]
 == Comprendre la limite de 64 nœuds
 
 Si vous prévoyez d'utiliser des volumes ReadWriteMany (RWX) avec le protocole NVMe, un seul volume NVMe RWX ne peut pas être monté par plus de 64 nœuds dans un cluster Kubernetes.
@@ -26,10 +27,12 @@ Cette limitation s'applique uniquement aux volumes RWX qui utilisent le protocol
 
 
 
+[[understand-nvme-subsystem-models]]
 == Comprendre les modèles de sous-système NVMe
 
 
 
+[[per-volume-subsystem-model-trident-releases-earlier-than-26-02]]
 === Modèle de sous-système par volume (Trident releases earlier than 26.02)
 
 Dans les versions de Trident antérieures à 26.02, les volumes NVMe RWX sont provisionnés à l'aide d'un modèle de sous-système par volume. Chaque volume NVMe RWX est associé à son propre sous-système NVMe dédié sur ONTAP.
@@ -38,6 +41,7 @@ Ce modèle est simple, mais il a une limite d'évolutivité inférieure. Dans le
 
 
 
+[[super-subsystem-model-introduced-in-trident-26-02]]
 === Modèle de super-sous-système (introduit dans Trident 26.02)
 
 À partir de Trident 26.02, les volumes RWX NVMe utilisent un modèle de super-sous-système partagé. Plusieurs volumes RWX NVMe partagent le même sous-système NVMe.
@@ -48,6 +52,7 @@ Chaque volume RWX NVMe prend en charge jusqu'à 64 nœuds.
 
 
 
+[[identify-error-symptoms]]
 == Identifier les symptômes d'erreur
 
 Si vous créez ou attachez des volumes RWX NVMe à grande échelle, vous pourriez observer des erreurs similaires aux suivantes :
@@ -60,12 +65,14 @@ Cette erreur indique que la limite du contrôleur du sous-système ONTAP NVMe a 
 
 
 
+[[resolve-subsystem-limit-errors]]
 == Résoudre les erreurs de limite du sous-système
 
 Pour dépasser les limitations des sous-systèmes par volume et profiter du modèle de super-sous-système, mettez à niveau vers Trident 26.02 ou une version ultérieure.
 
 
 
+[[upgrade-trident-to-apply-the-super-subsystem-model]]
 == Mettre à niveau Trident pour appliquer le modèle de super-sous-système
 
 Pour appliquer le modèle de super-sous-système aux volumes RWX NVMe :

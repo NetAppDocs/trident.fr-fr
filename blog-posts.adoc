@@ -16,6 +16,7 @@ Vous trouverez ici d'excellents blogs sur NetApp Trident et Trident Protect :
 
 
 
+[[trident-blogs]]
 == Blogs Trident
 
 * 16 octobre 2025 :link:https://www.netapp.com/blog/trident-25-10-advanced-kubernetes-storage-solutions/["Solutions de stockage avancées pour Kubernetes"^]
@@ -39,6 +40,7 @@ Vous trouverez ici d'excellents blogs sur NetApp Trident et Trident Protect :
 
 
 
+[[trident-protect-blogs]]
 == Blogs de Trident Protect
 
 * 16 mai 2025 :link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Automating-registry-failover-for-disaster-recovery-with-Trident-protect-post/ba-p/460777["Automatisation du basculement du registre pour la reprise après sinistre avec les hooks post-restauration de Trident Protect"^]

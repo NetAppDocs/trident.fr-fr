@@ -16,6 +16,7 @@ Avec Trident, vous pouvez attribuer des noms et des libellés significatifs aux 
 
 
 
+[[before-you-begin]]
 == Avant de commencer
 
 Prise en charge des noms et des libellés de volumes personnalisables :
@@ -27,6 +28,7 @@ Prise en charge des noms et des libellés de volumes personnalisables :
 
 
 
+[[limitations]]
 == Limites
 
 * Les noms de volumes personnalisés sont compatibles uniquement avec les pilotes ONTAP sur site.
@@ -36,6 +38,7 @@ Prise en charge des noms et des libellés de volumes personnalisables :
 
 
 
+[[key-behaviors-of-customizable-volume-names]]
 == Comportements clés des noms de volume personnalisables
 
 * Si une défaillance survient en raison d'une syntaxe incorrecte dans un modèle de nom, la création du back-end échoue. Toutefois, si l'application modèle échoue, le volume sera nommé conformément à la convention de nommage existante.
@@ -44,6 +47,7 @@ Prise en charge des noms et des libellés de volumes personnalisables :
 
 
 
+[[backend-configuration-examples-with-name-template-and-labels]]
 == Exemples de configuration back-end avec modèle de nom et étiquettes
 
 Les modèles de noms personnalisés peuvent être définis au niveau de la racine et/ou du pool.
@@ -104,6 +108,7 @@ Les modèles de noms personnalisés peuvent être définis au niveau de la racin
 ----
 
 
+[[name-template-examples]]
 == Exemples de modèles de noms
 
 *Exemple 1* :
@@ -120,6 +125,7 @@ Les modèles de noms personnalisés peuvent être définis au niveau de la racin
 ----
 
 
+[[points-to-consider]]
 == Points à prendre en compte
 
 . Dans le cas des importations en volume, les étiquettes ne sont mises à jour que si le volume existant comporte des étiquettes dans un format spécifique. Par exemple : `{"provisioning":{"Cluster":"ClusterA", "PVC": "pvcname"}}`.

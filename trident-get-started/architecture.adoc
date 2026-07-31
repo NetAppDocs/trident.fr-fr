@@ -16,6 +16,7 @@ Trident s'exécute comme un seul pod de contrôleur et un pod de nœuds sur chaq
 
 
 
+[[understanding-controller-pods-and-node-pods]]
 == Présentation des pods de contrôleur et des nœuds
 
 Trident se déploie comme un seul <<Pod du contrôleur Trident>> et un ou plusieurs <<Pods de nœuds Trident>> dans le cluster Kubernetes et utilise des conteneurs sidecar Kubernetes standard _CSI_ pour simplifier le déploiement des plug-ins CSI. link:https://kubernetes-csi.github.io/docs/sidecar-containers.html["Conteneurs Sidecar Kubernetes CSI"^] Sont gérés par la communauté Kubernetes Storage.
@@ -31,6 +32,7 @@ image::../media/trident-arch.png[Diagramme de l'architecture Trident sur le clus
 
 
 
+[[trident-controller-pod]]
 === Pod du contrôleur Trident
 
 Le pod du contrôleur Trident est un pod unique exécutant le plug-in du contrôleur CSI.
@@ -45,6 +47,7 @@ image::../media/controller-pod.png[Schéma du module de contrôleur Trident exé
 
 
 
+[[trident-node-pods]]
 === Pods de nœuds Trident
 
 Les pods de nœud Trident sont des pods privilégiés exécutant le plug-in CSI Node.
@@ -59,6 +62,7 @@ image::../media/node-pod.png[Schéma du pod de nœud Trident exécutant le plug-
 
 
 
+[[supported-kubernetes-cluster-architectures]]
 == Architectures de cluster Kubernetes prises en charge
 
 Trident est pris en charge dans les architectures Kubernetes suivantes :

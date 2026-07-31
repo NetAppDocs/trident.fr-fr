@@ -22,6 +22,7 @@ IMPORTANT: Ne supprimez pas la `TridentOrchestrator` ressource personnalisée (C
 
 
 
+[[switch-from-the-community-operator]]
 == Passez de l'opérateur communautaire
 
 .Étapes
@@ -43,6 +44,7 @@ WARNING: Ne sélectionnez pas *Supprimer toutes les instances d'opérande de cet
 
 
 
+[[switch-from-a-helm-based-operator-installation]]
 == Passer d'une installation opérateur basée sur Helm
 
 .Étapes
@@ -63,6 +65,7 @@ helm uninstall <release-name> -n trident
 
 
 
+[[switch-from-a-manually-deployed-operator]]
 == Passer d’un opérateur déployé manuellement
 
 Si vous avez installé Trident en déployant manuellement l’opérateur à l’aide d’un  `bundle.yaml` du package d’installation, supprimez-le en supprimant le même manifeste.
@@ -79,6 +82,8 @@ kubectl delete -f deploy/bundle.yaml -n trident
 
 
 
+[[install-the-openshift-certified-operator]]
+[[install-certified]]
 == Installez l’opérateur certifié OpenShift
 
 .Étapes
@@ -92,6 +97,7 @@ image::../media/openshift-operator-05.png[Installez]
 
 
 
+[[verification]]
 == Vérification
 
 * Vérifiez le pupitre de commande de l'OperatorHub pour vous assurer que le nouvel opérateur certifié a été installé correctement.

@@ -16,6 +16,7 @@ Découvrez les options de configuration back-end pour Google Cloud NetApp volume
 
 
 
+[[backend-configuration-options]]
 == Options de configuration du back-end
 
 Chaque back-end provisionne les volumes dans une seule région Google Cloud. Pour créer des volumes dans d'autres régions, vous pouvez définir des systèmes back-end supplémentaires.
@@ -74,6 +75,7 @@ Chaque back-end provisionne les volumes dans une seule région Google Cloud. Pou
 |===
 
 
+[[volume-provisioning-options]]
 == Options de provisionnement de volumes
 
 Vous pouvez contrôler le provisionnement de volume par défaut dans le `defaults` section du fichier de configuration.
@@ -96,6 +98,7 @@ Vous pouvez contrôler le provisionnement de volume par défaut dans le `default
 |===
 
 
+[[example-configurations]]
 == Exemples de configurations
 
 Les exemples suivants montrent des configurations de base qui laissent la plupart des paramètres par défaut. C'est la façon la plus simple de définir un back-end.
@@ -354,6 +357,7 @@ supportedTopologies:
 ====
 
 
+[[whats-next]]
 == Et la suite ?
 
 Après avoir créé le fichier de configuration backend, exécutez la commande suivante :
@@ -381,6 +385,7 @@ Après avoir identifié et corrigé le problème avec le fichier de configuratio
 
 
 
+[[storage-class-definitions]]
 == Définitions des classes de stockage
 
 Voici une définition de base `StorageClass` qui fait référence au back-end ci-dessus.
@@ -434,6 +439,7 @@ Pour plus de détails sur les classes de stockage, reportez-vous link:../trident
 
 
 
+[[example-definitions-for-smb-volumes]]
 === Exemples de définitions pour les volumes SMB
 
 A l'aide de `nasType`, `node-stage-secret-name`, et  `node-stage-secret-namespace`, vous pouvez spécifier un volume SMB et fournir les informations d'identification Active Directory requises. N'importe quel utilisateur/mot de passe Active Directory avec des autorisations n'importe quel/aucune peut être utilisé pour le secret d'étape du nœud.
@@ -494,6 +500,7 @@ NOTE: `nasType: smb` Filtres pour les pools qui prennent en charge les volumes S
 
 
 
+[[pvc-definition-example]]
 === Exemple de définition de PVC
 
 [source, yaml]

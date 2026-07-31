@@ -16,6 +16,7 @@ Avec Trident, vous pouvez créer de nouveaux volumes à l'aide de volumes ou de 
 
 
 
+[[prerequisites]]
 == Prérequis
 
 Avant de cloner des volumes, assurez-vous que les systèmes back-end source et de destination sont du même type et ont la même classe de stockage.
@@ -25,6 +26,7 @@ NOTE: Le clonage entre les espaces de noms est pris en charge uniquement pour le
 
 
 
+[[quick-start]]
 == Démarrage rapide
 
 Vous pouvez configurer le clonage de volumes en quelques étapes seulement.
@@ -47,6 +49,7 @@ Le propriétaire de l'espace de noms de destination crée une demande de volume 
 
 
 
+[[configure-the-source-and-destination-namespaces]]
 == Configurer les espaces de noms source et de destination
 
 Pour garantir la sécurité, le clonage de volumes entre espaces de noms nécessite la collaboration et l'action du propriétaire de l'espace de noms source, de l'administrateur du cluster et du propriétaire de l'espace de noms de destination. Le rôle utilisateur est désigné dans chaque étape.
@@ -121,6 +124,7 @@ spec:
 
 
 
+[[limitations]]
 == Limites
 
 * Pour les demandes de provisionnement virtuels provisionnées à l'aide de pilotes ONTAP-nas-Economy, les clones en lecture seule ne sont pas pris en charge.

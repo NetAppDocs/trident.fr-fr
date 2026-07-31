@@ -18,6 +18,7 @@ Les problèmes connus suivants ont une incidence sur la version actuelle :
 
 
 
+[[volumesnapshots-not-reaching-readytouse-state]]
 == VolumeSnapshots n'atteignent pas l'état ReadyToUse
 
 [WARNING]
@@ -33,6 +34,7 @@ Deux solutions de contournement sont disponibles :
 
 
 
+[[restoring-restic-backups-of-large-files-can-fail]]
 == La restauration des sauvegardes Restic de fichiers volumineux peut échouer
 
 Lors de la restauration de fichiers de 30 Go ou plus à partir d'une sauvegarde Amazon S3 effectuée à l'aide de Restic, l'opération de restauration peut échouer. En guise de solution de contournement, sauvegardez les données en utilisant Kopia comme outil de transfert de données (Kopia est l'outil de transfert de données par défaut pour les sauvegardes). Se référer à https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-protect-apps.html["Protégez les applications à l'aide de Trident Protect"^] pour les instructions.
