@@ -18,7 +18,7 @@ Vous pouvez facilement mettre à niveau une installation Trident existante à l'
 La désinstallation et la réinstallation de Trident agit comme une mise à niveau. Lorsque vous désinstallez Trident, la demande de volume persistant et le volume persistant utilisés par le déploiement Trident ne sont pas supprimés. Les volumes persistants déjà provisionnés restent disponibles pendant que Trident est hors ligne et Trident provisionne les volumes pour toutes les demandes de volume persistant créées entre la remise en ligne.
 
 .Avant de commencer
-Révision link:upgrade-trident.html#select-an-upgrade-method["Sélectionnez une méthode de mise à niveau"] avant la mise à niveau avec `tridentctl`.
+Vérifiez link:upgrade-trident.html#step-3-select-an-upgrade-method["Sélectionnez une méthode de mise à niveau"] avant la mise à niveau en utilisant  `tridentctl`.
 
 .Étapes
 . Exécutez la commande de désinstallation dans `tridentctl` pour supprimer toutes les ressources associées à Trident, à l'exception des CRD et des objets associés.

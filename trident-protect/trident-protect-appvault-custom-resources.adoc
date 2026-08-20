@@ -517,7 +517,7 @@ Consultez le tableau suivant pour connaître les options de configuration du fou
 | `providerConfig.s3.secure` | Activez la communication HTTPS sécurisée avec le point de terminaison S3. | vrai | "vrai", "faux" 
 
 
-| `providerConfig.s3.proxyURL` | Spécifiez l'URL du serveur proxy utilisé pour se connecter à S3. | Aucune | http://proxy.example.com:8080[] 
+| `providerConfig.s3.proxyURL` | Spécifiez l'URL du serveur proxy utilisé pour se connecter à S3. | Aucune | \http://proxy.example.com:8080 
 
 
 | `providerConfig.s3.rootCA` | Fournissez un certificat d'autorité de certification racine personnalisé pour la vérification SSL/TLS. | Aucune | "CN=MyCustomCA" 

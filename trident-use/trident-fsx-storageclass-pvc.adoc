@@ -319,7 +319,7 @@ backend-tbc-ontap-nas        tbc-ontap-nas        933e0071-66ce-4324-b9ff-f96d91
 ----
 
 
-Pour plus d'informations sur les autres options de configuration, consultez la <<Backend-advanced-configuration-and-examples>> section ci-dessous.
+Pour plus d'informations sur les autres options de configuration, consultez la <<first-link,Configuration avancée du backend et exemples>> section ci-dessous.
 
 
 
@@ -459,8 +459,8 @@ Vous pouvez provisionner des volumes SMB à l'aide du  `ontap-nas` driver. Cepen
 
 
 
-[[backend-advanced-configuration-and-examples]]
-== Configuration avancée back-end et exemples
+[[first-linkbackend-advanced-configuration-and-examples]]
+== [[first-link]]Configuration avancée et exemples du backend
 
 Voir le tableau suivant pour les options de configuration du back-end :
 
