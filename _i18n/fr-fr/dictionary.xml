@@ -7319,4 +7319,11 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="d25a42bf8872d5c2742f43937586ad40" category="inline-xref">Configuration avancée du backend et exemples</block>
   <block id="f3bbb160e5770652e96a6a7ce5e4aaa9" category="paragraph">Pour plus d'informations sur les autres options de configuration, consultez la <block ref="24ff2177ac2d3277f1e79fe1615781ee" category="inline-xref-macro-rx"></block> section ci-dessous.</block>
   <block id="3929c8e22750fae0b1b6ca0e82f82fd3" category="section-title">[[first-link]]Configuration avancée et exemples du backend</block>
+  <block id="c3bd78da5a8e8ae22bd50629327c0c26" category="section-title">Nouveautés de la version 26.06.1</block>
+  <block id="0063db86c3042093f4b48db59ca75d87" category="list-text">Correction d'un problème de concurrence entre la publication CSI et le déplacement de volume qui pouvait permettre d'attacher un volume en utilisant des informations d'accès obsolètes.</block>
+  <block id="99bc89ae140f34c4ef13f436b3578358" category="list-text">Correction d'un problème de concurrence où NodeGetInfo pouvait renvoyer des étiquettes de topologie vides avant la fin de l'enregistrement du nœud, ce qui entraînait des échecs de provisionnement tenant compte de la topologie.</block>
+  <block id="8141a9378a82f2d156fbd38ada6c3466" category="list-text">Correction d'un problème rare de concurrence de déconnexion NVMe qui pouvait interrompre un sous-système partagé alors qu'un autre pod était encore en cours de connexion.</block>
+  <block id="13d49e861126c9f4e8187c3ed601942a" category="list-text">Correction des échecs de publication de clones PVC NVMe (et du mappage incorrect de l'espace de noms parent) lors de la création de clones d'un volume monté en situation de concurrence.</block>
+  <block id="92908f9dc019fbc39650b0f44ecbe68d" category="list-text">Correction des échecs de création d'instantanés pour les PVC sur les backends ONTAP-SAN-Economy utilisant un nameTemplate.</block>
+  <block id="241bcdc29e2aecc9374092674e96e3b7" category="list-text">Ajout de l’option <block ref="c187d606271268ec08cafc7fe2d89aba" prefix=" " category="inline-code"></block> (secondes) dans la configuration du backend ONTAP pour définir les délais d’expiration des clients API REST et ZAPI par backend.</block>
 </blocks>
