@@ -4326,8 +4326,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="ffe4cfc202d643b50342b93a4a11a82f" category="section-title">Promotion de la demande de volume persistant secondaire lors d'un basculement planifié</block>
   <block id="1d60b89a076d7f30b8efdef50e842f68" category="paragraph">Lors d'un basculement planifié (migration), effectuez les étapes suivantes pour promouvoir la demande de volume persistant secondaire :</block>
   <block id="3310d9a60c164accb7c262ab6e9fbc65" category="list-text">Sur le cluster Kubernetes principal, créez un snapshot de la demande de volume persistant et attendez que le snapshot soit créé.</block>
-  <block id="8b17b79902950942165541a8ab704363" category="list-text">Sur le cluster Kubernetes principal, créez la CR SnapshotInfo pour obtenir des informations internes.</block>
-  <block id="678346d79faaa65b2da52e6d7ddce845" category="list-text">Sur le cluster Kubernetes secondaire, mettez à jour le champ _spec.state_ du _TridentMirrorRelationship_ CR en _promu_ et _spec.promotedSnapshotHandle_ en tant que nom interne du snapshot.</block>
   <block id="7b007b14980acd66e9301e02a5670f47" category="list-text">Sur le cluster Kubernetes secondaire, confirmez l'état (champ status.state) de TridentMirrorRelationship à promu.</block>
   <block id="f69101c0107c4bbf8f0ccc9141beb68b" category="section-title">Restaurer une relation de miroir après un basculement</block>
   <block id="9a023cbe1d3be933d8edb6228f9901ce" category="paragraph">Avant de restaurer une relation de symétrie, choisissez le côté que vous voulez faire comme nouveau principal.</block>
@@ -6619,7 +6617,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="7d6abad6d9b0cb2c17d374eb60cfd549" category="paragraph">Voici des exemples de configurations de classes de stockage à utiliser avec Trident et FSx pour ONTAP.</block>
   <block id="79aed0c0cab8f60748d97cff824e71d8" category="section-title">Classe de stockage pour NFS</block>
   <block id="1aeaba8f713cb76c3933e520e71db58b" category="paragraph">Vous pouvez utiliser cet exemple pour configurer StorageClass pour des volumes utilisant NFS (reportez-vous à la section Attributs Trident ci-dessous pour la liste complète des attributs) :</block>
-  <block id="3c2af55b3b722b8e55112e627dcfa582" category="section-title">Classe de stockage pour iSCSI</block>
   <block id="157051d3c2492a3589f7ef937c9a3380" category="paragraph">Utilisez cet exemple pour configurer StorageClass pour des volumes utilisant iSCSI :</block>
   <block id="5182a799b5d9bfc055f426543bab1173" category="section-title">Classe de stockage utilisant NFSv3 et AWS Bottlerocket</block>
   <block id="d95d0aae1fadec77938feae823d4861b" category="section-title">Attributs de Trident StorageClass</block>
@@ -7326,4 +7323,7 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="13d49e861126c9f4e8187c3ed601942a" category="list-text">Correction des échecs de publication de clones PVC NVMe (et du mappage incorrect de l'espace de noms parent) lors de la création de clones d'un volume monté en situation de concurrence.</block>
   <block id="92908f9dc019fbc39650b0f44ecbe68d" category="list-text">Correction des échecs de création d'instantanés pour les PVC sur les backends ONTAP-SAN-Economy utilisant un nameTemplate.</block>
   <block id="241bcdc29e2aecc9374092674e96e3b7" category="list-text">Ajout de l’option <block ref="c187d606271268ec08cafc7fe2d89aba" prefix=" " category="inline-code"></block> (secondes) dans la configuration du backend ONTAP pour définir les délais d’expiration des clients API REST et ZAPI par backend.</block>
+  <block id="69eb48c01ded3a79590a6ae42b855f34" category="section-title">Classe de stockage pour iSCSI</block>
+  <block id="791aed607ce65a32c8115590f604749d" category="list-text">Sur le cluster Kubernetes principal, créez le TridentTridentSnapshotInfoCR pour obtenir les détails internes.</block>
+  <block id="e239ae5dff4b309ee9e4b5a6800472ca" category="list-text">Sur le cluster Kubernetes secondaire, mettez à jour le champ _spec.state_ de la ressource personnalisée _TridentMirrorRelationship_ à _promoted_ et _spec.volumeMappings[].promotedSnapshotHandle_ pour qu’il corresponde à l’internalName du snapshot.</block>
 </blocks>

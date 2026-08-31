@@ -233,19 +233,22 @@ Lors d'un basculement planifié (migration), effectuez les étapes suivantes pou
 
 .Étapes
 . Sur le cluster Kubernetes principal, créez un snapshot de la demande de volume persistant et attendez que le snapshot soit créé.
-. Sur le cluster Kubernetes principal, créez la CR SnapshotInfo pour obtenir des informations internes.
+. Sur le cluster Kubernetes principal, créez le TridentTridentSnapshotInfoCR pour obtenir les détails internes.
 +
 .Exemple
 [source, yaml]
 ----
-kind: SnapshotInfo
+kind: TridentSnapshotInfo
 apiVersion: trident.netapp.io/v1
 metadata:
   name: csi-nas
 spec:
-  snapshot-name: csi-nas-snapshot
+  snapshotName csi-nas-snapshot
 ----
-. Sur le cluster Kubernetes secondaire, mettez à jour le champ _spec.state_ du _TridentMirrorRelationship_ CR en _promu_ et _spec.promotedSnapshotHandle_ en tant que nom interne du snapshot.
++
+.. Sur le cluster Kubernetes secondaire, mettez à jour le champ _spec.state_ de la ressource personnalisée _TridentMirrorRelationship_ à _promoted_ et _spec.volumeMappings[].promotedSnapshotHandle_ pour qu’il corresponde à l’internalName du snapshot.
+
+
 . Sur le cluster Kubernetes secondaire, confirmez l'état (champ status.state) de TridentMirrorRelationship à promu.
 
 
