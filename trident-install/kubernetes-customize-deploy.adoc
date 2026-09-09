@@ -140,14 +140,11 @@ La limite de requêtes par seconde (QPS) utilisée par le contrôleur lors de la
 
 
 | `enableConcurrency`  a| 
-Permet des opérations simultanées du contrôleur Trident pour un débit amélioré.
+Permet le fonctionnement simultané des contrôleurs Trident pour un débit amélioré. Pour plus d'informations sur les pilotes pris en charge, consultez le lien : https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[Controller Scalability documentation].
+| `resources` 
 
 
-NOTE: *Aperçu technique* : Cette fonctionnalité est expérimentale et prend actuellement en charge des flux de travail parallèles limités avec les pilotes ONTAP-NAS (NFS uniquement) et ONTAP-SAN (NVMe pour ONTAP 9 unifié), en plus de l’aperçu technique existant pour le pilote ONTAP-SAN (protocoles iSCSI et FCP dans ONTAP 9 unifié).
-| faux 
-
-
-| `resources`  a| 
+ a| 
 Définit les limites et les requêtes de ressources Kubernetes pour le contrôleur Trident et les pods de nœuds. Vous pouvez configurer le processeur et la mémoire de chaque conteneur et sidecar pour gérer l'allocation des ressources dans Kubernetes.
 
 Pour plus d'informations sur la configuration des demandes et des limites de ressources, veuillez consulter la documentation.link:https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/["Gestion des ressources pour les pods et les conteneurs"^] .
@@ -252,15 +249,10 @@ resources:
         limits:
           cpu:
           memory:
-----
+----| `httpsMetrics` 
 
 
-| `httpsMetrics` | Activer HTTPS pour le point de terminaison des métriques Prometheus. | faux 
-
-
-| `hostNetwork`  a| 
-Permet la mise en réseau de l'hôte pour le contrôleur Trident . Ceci est utile lorsque vous souhaitez séparer le trafic frontal et le trafic dorsal dans un réseau multi-foyers.
-| faux 
+| Activer HTTPS pour le point de terminaison des métriques Prometheus. | faux | `hostNetwork` 
 |===
 
 NOTE: Pour plus d'informations sur le formatage des paramètres du pod, reportez-vous à la section link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Attribution de pods aux nœuds"^].

@@ -248,10 +248,7 @@ WARNING: Ne supprimez pas l'affinité par défaut du fichier values.yaml. Lorsqu
 
 
 | `enableConcurrency`  a| 
-Permet des opérations simultanées du contrôleur Trident pour un débit amélioré.
-
-
-NOTE: *Aperçu technique* : Cette fonctionnalité est expérimentale et prend actuellement en charge des flux de travail parallèles limités avec les pilotes ONTAP-NAS (NFS uniquement) et ONTAP-SAN (NVMe pour ONTAP 9 unifié), en plus de l’aperçu technique existant pour le pilote ONTAP-SAN (protocoles iSCSI et FCP dans ONTAP 9 unifié).
+Permet le fonctionnement simultané des contrôleurs Trident pour un débit amélioré. Pour plus d'informations sur les pilotes pris en charge, consultez le lien : https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[Controller Scalability documentation].
 | faux 
 
 
