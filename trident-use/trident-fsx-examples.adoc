@@ -29,7 +29,7 @@ Voir le tableau suivant pour les options de configuration du back-end :
 | `version` |  | Toujours 1 
 
 
-| `storageDriverName` | Nom du pilote de stockage | `ontap-nas`, `ontap-nas-economy`, `ontap-nas-flexgroup`, `ontap-san`, `ontap-san-economy` 
+| `storageDriverName` | Nom du pilote de stockage. Ne peut pas être modifié après création. Pour mettre à jour ce paramètre, vous devez créer un nouveau backend. | `ontap-nas`, `ontap-nas-economy`, `ontap-nas-flexgroup`, `ontap-san`, `ontap-san-economy` 
 
 
 | `backendName` | Nom personnalisé ou système back-end de stockage | Nom du pilote + "_" + dataLIF 

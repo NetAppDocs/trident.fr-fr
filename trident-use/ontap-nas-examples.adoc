@@ -37,7 +37,9 @@ Le tableau suivant présente les options de configuration du backend :
 
 
 | `storageDriverName`  a| 
-Nom du pilote de stockage
+Nom du pilote de stockage.
+
+Ne peut pas être modifié après la création. Pour mettre à jour ce paramètre, vous devez créer un nouveau backend.
 
 
 NOTE: Pour les systèmes NetApp AFX uniquement `ontap-nas` est pris en charge.
