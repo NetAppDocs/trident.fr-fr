@@ -4,7 +4,7 @@ permalink: trident-use/backends.html
 keywords: backends, storage system, anf, element, hci, solidfire, ontap, aff, fas, ontap select, configure backends, fsx 
 summary: Un back-end définit la relation entre Trident et un système de stockage. Il explique à Trident comment communiquer avec ce système de stockage et comment Trident doit provisionner les volumes à partir de celui-ci. 
 ---
-= Configuration des systèmes back-end
+= Configurer les backends Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

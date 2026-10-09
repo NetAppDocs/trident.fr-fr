@@ -4,7 +4,7 @@ permalink: trident-use/monitor-trident.html
 keywords: telemetry, Trident, monitor, metrics, health, volume usage, autosupport 
 summary: 'Trident fournit un ensemble de terminaux de metrics Prometheus que vous pouvez utiliser pour contrôler les performances d"Trident.' 
 ---
-= Surveillez Trident
+= Surveiller les opérations de stockage de Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

@@ -4,7 +4,7 @@ permalink: trident-reco/storage-config-best-practices.html
 keywords: kubernetes, clusters, nodes, components, master, compute 
 summary: Un cluster Kubernetes se compose généralement de deux types de nœuds, chacun responsable des différents aspects des fonctionnalités. 
 ---
-= Configuration de stockage sous-jacente
+= Meilleures pratiques pour la configuration du stockage Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

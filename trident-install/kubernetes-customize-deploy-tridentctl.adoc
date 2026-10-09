@@ -4,7 +4,7 @@ permalink: trident-install/kubernetes-customize-deploy-tridentctl.html
 keywords: deploy, Trident, methods, operator, tridentctl, helm, attributes, customize 
 summary: 'Vous pouvez utiliser le programme d"installation de Trident pour personnaliser le déploiement.' 
 ---
-= Personnalisez l'installation tridentctl
+= Personnalisez l’installation de Trident tridentctl
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

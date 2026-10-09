@@ -4,7 +4,7 @@ permalink: trident-concepts/snapshots.html
 keywords: provisioning, Trident 
 summary: Découvrez comment Trident gère la création de snapshots de volumes pour ses pilotes. 
 ---
-= Snapshots de volume
+= Création d’instantanés de volume Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

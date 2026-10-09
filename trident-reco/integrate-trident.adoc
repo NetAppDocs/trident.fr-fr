@@ -4,7 +4,7 @@ permalink: trident-reco/integrate-trident.html
 keywords: kubernetes, clusters, nodes, components, master, compute, fsx, flexgroup, flexvolume, solidfire, hci, virtual pool 
 summary: Un cluster Kubernetes se compose généralement de deux types de nœuds, chacun responsable des différents aspects des fonctionnalités. 
 ---
-= Intégrez Trident
+= Intégrer Trident à Kubernetes
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

@@ -4,7 +4,7 @@ permalink: trident-use/worker-node-prep.html
 keywords: storage class, manage storage class, storage classes, kubernetes storage classes, worker node, nfs, iscsi, kubernetes clusters, self-healing, healing, nvme, tcp 
 summary: 'Tous les nœuds workers du cluster Kubernetes doivent pouvoir monter les volumes provisionnés pour vos pods. Si vous utilisez le pilote ONTAP-nas, ONTAP-nas-économie, ontap-nas-flexgroup pour l"un de vos systèmes back-end, vos nœuds workers ont besoin des outils NFS. Sinon, ils nécessitent les outils iSCSI.' 
 ---
-= Préparez le nœud de travail
+= Préparer le nœud de travail Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

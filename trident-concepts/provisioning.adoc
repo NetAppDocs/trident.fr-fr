@@ -4,7 +4,7 @@ permalink: trident-concepts/provisioning.html
 keywords: provisioning, Trident 
 summary: 'Le provisionnement dans Trident comporte deux phases principales. La première phase associe une classe de stockage à l"ensemble des pools de stockage back-end appropriés et effectue la préparation nécessaire avant le provisionnement. La deuxième phase inclut la création du volume et nécessite le choix d"un pool de stockage parmi ceux associés à la classe de stockage du volume en attente.' 
 ---
-= Provisionnement
+= Processus de provisionnement des volumes Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

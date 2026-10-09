@@ -4,7 +4,7 @@ permalink: trident-install/kubernetes-deploy-tridentctl.html
 keywords: deploy, Trident, methods, tridentctl, windows 
 summary: 'Vous pouvez installer Trident à l"aide de `tridentctl`. Ce processus s"applique aux installations où les images de conteneur requises par Trident sont stockées dans un registre privé ou non.' 
 ---
-= Installation à l'aide de tridentctl
+= Installez Trident à l'aide de tridentctl
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

@@ -4,7 +4,7 @@ permalink: trident-reco/security-reco.html
 keywords: security, chap, trident, namespace, nve, nae, encryption, volume encryption, aggregate encryption 
 summary: Suivez les recommandations ci-dessous pour vous assurer que votre installation Trident est sécurisée. 
 ---
-= Sécurité
+= Recommandations de sécurité de Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

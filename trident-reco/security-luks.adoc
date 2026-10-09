@@ -4,7 +4,7 @@ permalink: trident-reco/security-luks.html
 keywords: security, luks, linux unified key setup, encryption, key rotation, resizing, advanced encryption, rotation, key, import 
 summary: 'Vous pouvez activer Linux Unified Key Setup (LUKS) pour chiffrer les volumes ONTAP SAN et ONTAP SAN ECONOMY sur Trident. Trident prend en charge le redimensionnement de volume et la rotation de clés (phrase de passe) pour les volumes chiffrés LUKS.' 
 ---
-= Configuration de clé unifiée Linux (LUKS)
+= Trident Linux Unified Key Setup (LUKS)
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

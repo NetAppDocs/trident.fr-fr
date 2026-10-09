@@ -4,7 +4,7 @@ permalink: trident-use/vol-import.html
 keywords: volumes, import volumes, drivers, tridentctl import, pv, persistent volumes, pvc, disaster recovery, dr, clone, reuse, managed volume, unmanaged volume, managed, annotations 
 summary: 'Vous pouvez importer des volumes de stockage existants en tant que PV Kubernetes à l"aide de  `tridentctl import` ou d’annotations PVC.' 
 ---
-= Importer des volumes
+= Importer des volumes Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
