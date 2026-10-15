@@ -65,6 +65,9 @@ Facultatif lorsque des identités gérées ou des identités de cloud sont utili
 Facultatif lorsque les identités gérées sont activées sur un cluster AKS. |  
 
 
+| `cloudConfiguration.cloudName` | Identifie l’environnement cloud pour le backend. Définir sur `AzureGovernment` lors de l’utilisation d’Azure Government. |  
+
+
 | `resourceGroups` | Liste des groupes de ressources pour le filtrage des ressources découvertes | «[] » (sans filtre) 
 
 
@@ -117,10 +120,18 @@ Les clouds Azure pris en charge incluent :
 
 * Azure Commercial
 * Azure Government (Azure Government / MAG)
+* Azure Chine
 
 
 Lorsque vous déployez Trident ou créez un backend Azure NetApp Files, assurez-vous que Azure Resource Manager et les points de terminaison d'authentification correspondent à votre environnement cloud. Si les points de terminaison ne correspondent pas,  `tridentctl` ne peut pas s'authentifier et la création du backend échoue.
 
+Pour un backend Azure Government, définissez `cloudConfiguration.cloudName` dans la configuration du backend :
+
+[source, yaml]
+----
+cloudConfiguration:
+  cloudName: AzureGovernment
+----
 
 
 [[required-permissions-and-resources]]

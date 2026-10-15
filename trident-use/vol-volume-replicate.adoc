@@ -164,14 +164,24 @@ metadata:
   name: csi-nas
 spec:
   state: established
+  replicationPolicy: MirrorAllSnapshots
+  replicationSchedule: 5min
   volumeMappings:
   - localPVCName: csi-nas
     remoteVolumeHandle: "datavserver:trident_pvc_3bedd23c_46a8_4384_b12b_3c38b313c1e1"
 ----
 +
-Trident crée une relation SnapMirror avec le nom de la stratégie de relation configurée (ou par défaut pour ONTAP) et l'initialise.
+Le TMR `spec` comporte quatre champs de niveau supérieur `state`, qui définit l’état de relation souhaité (voir <<États de réplication des volumes>>) `volumeMappings`, qui associe les PVC locaux à leurs descripteurs de volume distants, ainsi que les champs facultatifs  `replicationPolicy` et  `replicationSchedule` décrits ci-dessous.
 
-.. Créez une demande de volume persistant avec une classe de stockage précédemment créée pour agir en tant que classe secondaire (destination SnapMirror).
+
+
+
+
+Les champs `replicationPolicy` et `replicationSchedule` sont facultatifs. Définissez `replicationPolicy` sur le nom d’une stratégie SnapMirror asynchrone sur ONTAP et `replicationSchedule` sur le nom d’une planification ONTAP. Si l’un des champs est omis, Trident utilise la stratégie de réplication ou la planification correspondante configurée sur le backend. Définissez ces champs lorsque vous créez la relation ; vous ne pouvez pas modifier la stratégie ni la planification une fois la relation établie. Pour utiliser des paramètres différents, supprimez et recréez le TMR.
+
+Trident crée et initialise une relation SnapMirror à l’aide de la politique et de la planification de réplication configurées.
+
+. Créez une demande de volume persistant avec une classe de stockage précédemment créée pour agir en tant que classe secondaire (destination SnapMirror).
 +
 .Exemple
 [source, yaml]
@@ -192,8 +202,6 @@ storageClassName: csi-nas
 ----
 +
 Trident vérifie la CRD TridentMirrorRelationship et ne crée pas le volume si la relation n'existe pas. Si la relation existe, Trident s'assurera que le nouveau FlexVol volume est placé sur un SVM peering avec le SVM distant défini dans le MirrorRelationship.
-
-
 
 
 
@@ -261,7 +269,7 @@ Avant de restaurer une relation de symétrie, choisissez le côté que vous voul
 
 .Étapes
 . Sur le cluster Kubernetes secondaire, assurez-vous que les valeurs du champ _spec.remoteVolumeHandle_ du champ TridentMirrorRelationship sont mises à jour.
-. Sur le cluster Kubernetes secondaire, mettez à jour le champ _spec.mirror_ de TridentMirrorRelationship sur `reestablished`.
+. Sur le cluster Kubernetes secondaire, mettez à jour le champ _spec.state_ de TridentMirrorRelationship à  `reestablished`.
 
 
 

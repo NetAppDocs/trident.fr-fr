@@ -25,6 +25,7 @@ Les clouds Azure pris en charge incluent :
 
 * Azure Commercial
 * Azure Government (Azure Government / MAG)
+* Azure Chine
 
 
 Lorsque vous déployez Trident ou configurez un backend Azure NetApp Files, assurez-vous qu'Azure Resource Manager et les points de terminaison d'authentification correspondent à votre environnement cloud.
@@ -105,7 +106,7 @@ L'exemple suivant installe Trident et configure  `cloudProvider` en utilisant la
 
 [listing]
 ----
-helm install trident trident-operator-100.2602.0.tgz --create-namespace --namespace <trident-namespace> --set cloudProvider=$CP
+helm install trident trident-operator-100.2606.0.tgz --create-namespace --namespace <trident-namespace> --set cloudProvider=$CP
 ----
 --
 .<code>tridentctl</code>

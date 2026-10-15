@@ -25,6 +25,7 @@ Les clouds Azure pris en charge incluent :
 
 * Azure Commercial
 * Azure Government (Azure Government / MAG)
+* Azure Chine
 
 
 Lors de la préparation de votre environnement, assurez-vous que votre abonnement Azure, votre configuration d'identité et vos ressources Azure NetApp Files sont créés dans l'environnement cloud Azure approprié.
