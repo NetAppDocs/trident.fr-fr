@@ -40,6 +40,9 @@ Lorsque vous créez des objets AppVault à l'aide de CR ou du plugin CLI Trident
 
 
 
+NOTE: Pour chiffrer les métadonnées des instantanés et des sauvegardes ou modifier le mot de passe du coffre-fort, utilisez le `spec.vaultPasswordSecretRef` champ. Consultez link:trident-protect-encrypt-appvault-metadata.html["Chiffrer les métadonnées de AppVault pour les instantanés et les sauvegardes Trident Protect"].
+
+
 
 ==== Créez un mot de passe secret pour le référentiel du Data Mover
 

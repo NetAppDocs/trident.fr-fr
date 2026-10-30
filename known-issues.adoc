@@ -18,6 +18,17 @@ Les problèmes connus suivants ont une incidence sur la version actuelle :
 
 
 
+[[volumes-remain-attached-after-upgrading-from-trident-22-10-or-earlier]]
+== Les volumes restent attachés après la mise à niveau depuis Trident 22.10 ou une version antérieure
+
+Ce problème concerne les clients qui effectuent une mise à niveau directe de Trident 22.10 ou d'une version antérieure vers Trident 26.10 alors que des volumes sont attachés. Les mises à niveau depuis Trident 23.01 ou une version ultérieure ne sont pas concernées.
+
+Après la mise à niveau, il est possible que les volumes concernés ne se détachent pas. Les pods utilisant des volumes ReadWriteOnce (RWO) ne peuvent pas être déplacés vers un autre nœud et peuvent signaler une erreur de multi-attachement. La suppression du PersistentVolume (PV) peut également se bloquer.
+
+Pour contourner ce problème, sur le nœud qui possède l’attachement de volume obsolète, supprimez le fichier restant `volumePublishInfo.json` du répertoire `globalmount` de ce volume.
+
+
+
 [[volumesnapshots-not-reaching-readytouse-state]]
 == VolumeSnapshots n'atteignent pas l'état ReadyToUse
 

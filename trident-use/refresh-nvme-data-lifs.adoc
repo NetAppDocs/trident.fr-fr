@@ -1,0 +1,124 @@
+---
+sidebar: sidebar 
+permalink: trident-use/refresh-nvme-data-lifs.html 
+keywords: Trident, NVMe, NVMe/TCP, data LIF, ONTAP SAN, ASA r2 
+summary: Configurez Trident pour actualiser les LIF de données NVMe pour les volumes publiés. 
+---
+= Actualiser les LIF de données NVMe
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Activez l'actualisation des LIF de données NVMe pour permettre aux volumes NVMe publiés d'utiliser les LIF qui sont ajoutées, supprimées ou auxquelles une nouvelle adresse est attribuée sans recréer le backend ni redémarrer Trident.
+
+
+
+[[overview]]
+== Présentation
+
+Lorsque vous ajoutez un backend SAN ONTAP, Trident détecte les LIF de données NVMe pour la SVM. Par défaut, Trident conserve cet ensemble de LIF jusqu'à ce que vous ajoutiez à nouveau le backend ou que vous redémarriez Trident.
+
+Définissez `enableDataLIFRefresh` sur `true` pour actualiser les LIF de données NVMe pendant l’exécution de Trident. Les volumes NVMe publiés utilisent alors les LIF qui sont ajoutées, supprimées ou auxquelles une nouvelle adresse est attribuée.
+
+Cette option est un paramètre d'installation, et non un paramètre de configuration du backend. Elle est désactivée par défaut.
+
+La mise à jour des LIF de données NVMe est disponible à partir de Trident 26.10.
+
+Cette fonctionnalité s'applique à:
+
+* `ontap-san` avec `sanType: nvme` sur ONTAP unifié.
+* `ontap-san` utilisation de NVMe/TCP sur ASA r2.
+
+
+[CAUTION]
+====
+La suppression ou le remplacement simultané de toutes les LIF de données entraîne une interruption de service. Si vous prévoyez de supprimer ou de remplacer toutes les LIF de données, assurez-vous qu'une LIF de remplacement est d'abord en place afin que l'accès aux données ne soit pas interrompu.
+
+====
+
+
+[[enable-nvme-data-lif-refresh]]
+== Activer l'actualisation des LIF de données NVMe
+
+
+
+[[trident-operator]]
+=== Opérateur Trident
+
+Pour une nouvelle installation, définissez `enableDataLIFRefresh` dans la `TridentOrchestrator` spécification :
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  namespace: trident
+  enableDataLIFRefresh: true
+----
+Appliquez le manifeste :
+
+[source, console]
+----
+kubectl apply -f tridentorchestrator_cr.yaml
+----
+Pour une installation existante, appliquez le correctif `TridentOrchestrator`:
+
+[source, console]
+----
+kubectl patch torc trident --type=merge -p '{"spec":{"enableDataLIFRefresh":true}}'
+----
+Vérifiez la valeur appliquée :
+
+[source, console]
+----
+kubectl get torc trident -o jsonpath='{.status.currentInstallationParams.enableDataLIFRefresh}'
+----
+
+
+[[helm]]
+=== Gouvernail
+
+Pour une nouvelle installation, définissez la valeur Helm :
+
+[source, console]
+----
+helm install trident netapp-trident/trident-operator \
+  --namespace trident --create-namespace \
+  --set enableDataLIFRefresh=true
+----
+Pour une installation Helm existante, mettez à niveau la release avec la valeur activée :
+
+[source, console]
+----
+helm upgrade trident netapp-trident/trident-operator \
+  --namespace trident \
+  --reuse-values \
+  --set enableDataLIFRefresh=true
+----
+Vous pouvez également définir `enableDataLIFRefresh: true` dans un fichier de valeurs Helm et le transmettre à `helm upgrade` avec `-f <values-file>`.
+
+
+
+[[tridentctl]]
+=== tridentctl
+
+Pour une nouvelle installation, utilisez l' `--enable-datalif-refresh`indicateur :
+
+[source, console]
+----
+tridentctl install --enable-datalif-refresh -n trident
+----
+Pour activer cette option sur une installation `tridentctl` existante, désinstallez Trident puis réinstallez-le en ajoutant l'indicateur. Suivez les précautions indiquées link:../trident-managing-k8s/uninstall-trident.html["Désinstaller Trident"]avant la désinstallation.
+
+[source, console]
+----
+tridentctl uninstall -n trident
+tridentctl install --enable-datalif-refresh -n trident
+----
+
+NOTE: L’indicateur `--enable-datalif-refresh` est une option d’installation et n’est pas affiché dans `tridentctl install --help`.

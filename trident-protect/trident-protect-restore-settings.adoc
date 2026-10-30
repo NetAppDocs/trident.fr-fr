@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-restore-settings.html 
-keywords: trident, protect, restore, data, backup 
+keywords: trident, protect, restore, data, backup, mac address, retain-mac-address 
 summary: 'Vous pouvez personnaliser les opérations de restauration de Trident Protect à l"aide d"annotations, de paramètres d"espace de noms et d"options de stockage.' 
 ---
 = Utilisez les paramètres de restauration avancés de Trident Protect
@@ -145,4 +145,7 @@ Cette section répertorie les annotations prises en charge pour configurer diff�
 
 
 | protect.trident.netapp.io/pvc-bind-timeout-sec | chaîne | Délai maximal (en secondes) d'attente pour que les PersistentVolumeClaims (PVC) nouvellement créées atteignent le `Bound` phase précédant l'échec des opérations. S'applique à tous les types de restauration CR (BackupRestore, BackupInplaceRestore, SnapshotRestore, SnapshotInplaceRestore). Utilisez une valeur plus élevée si votre système de stockage ou votre cluster nécessite souvent plus de temps. | "1200" (20 minutes) 
+
+
+| protect.trident.netapp.io/retain-mac-address | chaîne | Pour les VM KubeVirt, définissez sur `"true"` pour conserver l'adresse MAC de la première interface réseau lors de la restauration, par exemple lorsqu'une licence d'application y est liée. Cela s'applique à tous les types de CR de restauration ainsi qu'à AppMirrorRelationship (définissez-le avant de promouvoir la relation). Par défaut, Trident Protect supprime cette adresse MAC pour éviter les conflits. Si la VM source s'exécute toujours sur le même réseau, arrêtez-la ou restaurez-la d'abord sur un réseau isolé pour éviter une adresse MAC en double. | Non défini (l’adresse MAC est supprimée) 
 |===

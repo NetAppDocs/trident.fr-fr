@@ -1,0 +1,136 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-failover-older-snapshot.html 
+keywords: trident protect, netapp, snapmirror, failover, older snapshot, recovery point, ransomware, AppMirrorRelationship, promotedSnapshot 
+summary: Basculer une application répliquée vers un instantané antérieur, afin de permettre une récupération à partir d’un point dans le temps antérieur à toute détérioration ou compromission des données. 
+---
+= Basculez vers un instantané antérieur à l'aide de Trident Protect
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Utilisez Trident Protect pour basculer une application répliquée vers un instantané antérieur, permettant ainsi une récupération à un moment antérieur à l’endommagement ou à la compromission des données. Par défaut, le basculement utilise l'instantané transféré le plus récent.
+
+
+CAUTION: Le basculement vers un instantané plus ancien amène ONTAP SnapMirror à supprimer les instantanés du cluster de destination plus récents que l’instantané sélectionné, car ils ne sont plus valides. Ajoutez l’annotation à cette procédure uniquement si cette perte de données est acceptable.
+
+.Avant de commencer
+* Une AppMirrorRelationship existe et est dans l’état `Established`. Pour en créer une, consultez link:trident-protect-use-snapmirror-replication.html#set-up-a-replication-relationship["Configuration d'une relation de réplication"]. Pour vérifier l’état, exécutez  `kubectl get amr -n <namespace> <relationship_name> -o=jsonpath='{.status}'`.
+* Les clusters source et de destination utilisent des systèmes de stockage back-end ONTAP avec la réplication SnapMirror. Azure NetApp Files et les autres back-ends non ONTAP ne sont pas pris en charge. Reportez-vous à link:trident-protect-requirements.html#requirements-for-snapmirror-replication["Conditions requises pour la réplication SnapMirror"].
+* Une planification d'instantanés (avec `snapshotRetention` plus de 1) existe sur l'application source.
+
+
+
+
+[[identify-the-snapshot]]
+== Identifier l'instantané
+
+Chaque instantané a une heure d’achèvement, vous pouvez donc choisir le moment précis que vous souhaitez.
+
+.Étapes
+. Sur le cluster source, listez les instantanés :
++
+[source, console]
+----
+kubectl get snapshots -n my-app-namespace
+----
+. Trouvez l’instantané vers lequel basculer. Utilisez la `completionTimestamp` valeur pour sélectionner le point dans le temps.
+. Obtenez le chemin d'accès à l'archive de cet instantané :
++
+[source, console]
+----
+kubectl get snapshots <snapshot_name> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
+----
+. Enregistrez la dernière partie du chemin, c'est-à-dire tout ce qui suit la dernière barre oblique. Cette partie est le _basename_. Par exemple :
++
+[listing]
+----
+20231114173500_schedule-20231114173500_f8df8bd3-a727-4a14-b954-9666aa618b55
+----
++
+
+NOTE: Utilisez le nom de base, et non le nom de la ressource personnalisée de l’instantané.
+
+
+
+.Résultat
+Le nom de base de l'instantané sélectionné est enregistré.
+
+
+
+[[fail-over-to-the-selected-snapshot]]
+== Basculer vers l'instantané sélectionné
+
+Spécifiez l'instantané à promouvoir et confirmez la perte de données en ajoutant une annotation.
+
+.Étapes
+. Sur le cluster de destination, ajoutez l’annotation à AppMirrorRelationship. Sans cette annotation, un basculement ne peut utiliser que le snapshot transféré le plus récent.
++
+[source, console]
+----
+kubectl annotate appmirrorrelationship <relationship_name> -n my-app-namespace protect.trident.netapp.io/allow-promotion-with-older-snapshots="true"
+----
+. Modifiez le fichier CR AppMirrorRelationship (par exemple `trident-protect-relationship.yaml`) :
++
+** Définissez *spec.desiredState* sur `Promoted`.
+** Définissez *spec.promotedSnapshot* sur le nom de base que vous avez enregistré dans <<Identifier l'instantané>>.
++
+Par exemple :
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AppMirrorRelationship
+metadata:
+  name: <relationship_name>
+  namespace: <namespace>
+  annotations:
+    protect.trident.netapp.io/allow-promotion-with-older-snapshots: "true"
+spec:
+  desiredState: Promoted
+  promotedSnapshot: <basename>
+----
+
+
+. Appliquer la CR :
++
+[source, console]
+----
+kubectl apply -f trident-protect-relationship.yaml -n my-app-namespace
+----
+. Vérifiez l'état de la relation :
++
+[source, console]
+----
+kubectl get amr -n my-app-namespace <relationship_name> -o=jsonpath='{.status}' | jq
+----
+
+
+.Résultat
+La relation passe à l' `Promoted`état, et l'application s'exécute sur le cluster de destination avec les données de l'instantané sélectionné.
+
+Si la relation reste à l’état  `Promoting` et que  `status.error` affiche  `The snapshot provided is invalid or older than the most recently transferred snapshot`, l’annotation est manquante ou n’est pas définie sur  `true`. Ajoutez l’annotation et réessayez.
+
+.Et la suite ?
+Pour revenir au cluster d'origine, effectuez un link:trident-protect-use-snapmirror-replication.html#reverse-resync-a-failed-over-replication-relationship["resynchronisation inversée"], puis link:trident-protect-use-snapmirror-replication.html#reverse-application-replication-direction["inverser le sens de la réplication"].
+
+
+CAUTION: Pour revenir au cluster d'origine, n'effectuez pas de resynchronisation classique. Une resynchronisation classique supprime l'application basculée et rétablit la relation avec l'instantané source le plus récent.
+
+
+
+[[related-information]]
+== Informations connexes
+
+* link:trident-protect-use-snapmirror-replication.html["Configurez et gérez la réplication d'applications à l'aide de Trident Protect"]
+* link:trident-protect-use-snapmirror-replication.html#fail-over-to-destination-cluster["Basculement vers le cluster de destination"]
+* link:trident-protect-use-snapmirror-replication.html#resync-a-failed-over-replication-relationship["Resynchronisation d'une relation de réplication ayant échoué"]
+* link:trident-protect-use-snapmirror-replication.html#fail-back-applications-to-the-original-source-cluster["Rétablir le fonctionnement des applications sur le cluster source d'origine"]
+* link:trident-protect-protect-apps.html#create-a-data-protection-schedule["Créez un calendrier de protection des données"]
+

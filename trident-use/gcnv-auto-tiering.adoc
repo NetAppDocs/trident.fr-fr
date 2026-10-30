@@ -22,7 +22,7 @@ La hiérarchisation automatique est configurée via les paramètres du backend T
 
 La hiérarchisation automatique permet à Trident de provisionner des volumes qui déplacent automatiquement les données inactives d'un niveau de performance vers un niveau de capacité. Cela réduit le coût de stockage tout en préservant les performances pour les données fréquemment consultées.
 
-Trident applique les paramètres de hiérarchisation automatique uniquement lors de la création du volume. Les modifications après le provisionnement ne sont pas prises en charge dans Trident 26.06.
+Trident applique les paramètres de hiérarchisation automatique uniquement lors de la création du volume. Les modifications après le provisionnement ne sont pas prises en charge dans Trident 26.10.
 
 
 
@@ -86,10 +86,10 @@ Les paramètres définis à un niveau de priorité supérieur remplacent les val
 
 
 
-[[supported-functionality-in-trident-26-06]]
-== fonctionnalité prise en charge dans Trident 26.06
+[[supported-functionality-in-trident-26-10]]
+== fonctionnalité prise en charge dans Trident 26.10
 
-Trident 26.06 prend en charge les fonctionnalités de hiérarchisation automatique suivantes pour Google Cloud NetApp Volumes :
+Trident 26.10 prend en charge les fonctionnalités de hiérarchisation automatique suivantes pour Google Cloud NetApp Volumes :
 
 * Activation ou désactivation du auto-tiering lors de l'allocation des volumes
 * Définition d'une politique de hiérarchisation dans la configuration du backend Trident
@@ -99,8 +99,8 @@ Trident 26.06 prend en charge les fonctionnalités de hiérarchisation automatiq
 
 
 
-[[unsupported-functionality-in-trident-26-06]]
-== fonctionnalité non prise en charge dans Trident 26.06
+[[unsupported-functionality-in-trident-26-10]]
+== fonctionnalité non prise en charge dans Trident 26.10
 
 Les opérations suivantes ne sont pas prises en charge :
 

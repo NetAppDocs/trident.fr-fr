@@ -16,9 +16,13 @@ summary: 'Protégez toutes les applications en effectuant des copies Snapshot et
 [role="lead"]
 Vous pouvez protéger toutes les applications gérées par Trident Protect en prenant des instantanés et des sauvegardes à l'aide d'une politique de protection automatisée ou de manière ponctuelle.
 
+[NOTE]
+====
+* Vous pouvez configurer Trident Protect pour geler et dégeler les systèmes de fichiers pendant les opérations de protection des données. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Apprenez-en davantage sur la configuration du gel du système de fichiers avec Trident Protect."].
+* Pour créer un instantané des volumes associés d'une application au même instant, définissez des groupes de volumes dans l'application. Reportez-vous à link:trident-protect-volume-group-snapshots.html["Utilisez les instantanés de groupes de volumes avec Trident Protect"].
 
-NOTE: Vous pouvez configurer Trident Protect pour geler et dégeler les systèmes de fichiers pendant les opérations de protection des données. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Apprenez-en davantage sur la configuration du gel du système de fichiers avec Trident Protect."].
 
+====
 
 
 [[create-an-on-demand-snapshot]]

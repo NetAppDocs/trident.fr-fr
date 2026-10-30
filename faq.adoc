@@ -384,7 +384,7 @@ La protection contre la demande de volume persistant est automatiquement activé
 [[can-i-grow-nfs-pvcs-that-were-created-by-trident]]
 === Puis-je augmenter les ESV NFS créées par Trident ?
 
-Oui. Vous pouvez développer une demande de volume persistant créée par Trident. Notez que la croissance automatique de volume est une fonctionnalité ONTAP qui n'est pas applicable à Trident.
+Oui. Vous pouvez étendre un PVC NFS créé par Trident. Les stratégies d’extension automatique de Trident peuvent étendre automatiquement les PVC en fonction des seuils de capacité. Le dimensionnement automatique des volumes ONTAP est distinct et s’applique aux pilotes SAN ONTAP pris en charge : il augmente le FlexVol sous-jacent sans modifier la taille du PVC. Pour plus d’informations, consultez link:trident-use/ontap-autosize.html["Dimensionnement automatique du volume ONTAP"^].
 
 
 

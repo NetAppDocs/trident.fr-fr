@@ -47,7 +47,7 @@ Vous devez affecter au moins un agrégat à la machine virtuelle de stockage (SV
 [[unsupported-operations]]
 == Opérations non prises en charge
 
-* Cryptage LUKS
+* chiffrement Linux Unified Key Setup (LUKS)
 * SnapMirror volume réplication
 * Limiter l'utilisation de l'agrégat
 * Mode de réservation d'espace

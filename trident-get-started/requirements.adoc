@@ -26,7 +26,7 @@ Avant d'installer Trident, vous devez vérifier la configuration système requis
 ====
 []
 =====
-* Kubernetes 1.37 est désormais pris en charge par Trident. Veuillez mettre à niveau Trident avant de mettre à niveau Kubernetes.
+* Trident 26.10 prend en charge Kubernetes 1.27 à 1.37. Consultez la liste des images spécifiques à chaque version ci-dessous avant de mettre à niveau Kubernetes.
 * Trident applique strictement l'utilisation de la configuration de chemins d'accès multiples dans les environnements SAN, avec une valeur recommandée de `find_multipaths: no` dans le fichier multipath.conf.
 +
 Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisation de `find_multipaths: yes` ou `find_multipaths: smart` la valeur du fichier multipath.conf entraînera des échecs de montage. Trident a recommandé l'utilisation de `find_multipaths: no` depuis la version 21.07.
@@ -50,6 +50,13 @@ Trident prend en charge plusieurs moteurs de mise en conteneurs et orchestrateur
 NOTE: Trident continue de prendre en charge les anciennes versions d'OpenShift conformément à lalink:https://access.redhat.com/support/policy/updates/openshift["Cycle de vie des versions de Red Hat Extended Update Support (EUS)"] , même s'ils s'appuient sur des versions de Kubernetes qui ne sont plus officiellement prises en charge en amont.  Lors de l'installation de Trident dans de tels cas, vous pouvez ignorer en toute sécurité tous les messages d'avertissement concernant la version de Kubernetes.
 
 * Rancher Kubernetes Engine 2 (RKE2) v1.28.x - 1.37.x
+* Talos OS pour NFSv4, iSCSI et NVMe/TCP. Les extensions système Talos suivantes sont requises pour chaque protocole ; veuillez vérifier ces exigences auprès de Sidero Labs.
++
+** NFSv4 : `siderolabs/nfs-utils`
+** iSCSI: `siderolabs/iscsi-tools`, `siderolabs/multipath-tools`, et `siderolabs/trident-iscsi-tools`
+** NVMe/TCP: `siderolabs/nvme-cli`, `siderolabs/util-linux-tools`, et `siderolabs/trident-iscsi-tools`
+
+
 
 
 Trident fonctionne également avec de nombreuses autres offres Kubernetes entièrement gérées et autogérées, notamment Google Kubernetes Engine (GKE), Amazon Elastic Kubernetes Services (EKS), Azure Kubernetes Service (AKS), Mirantis Kubernetes Engine (MKE) et le portefeuille VMware Tanzu.
@@ -106,10 +113,10 @@ Trident prend en charge les pilotes ONTAP suivants pour KubeVirt et OpenShift Vi
 [[trident-support-for-kubernetes-on-kubernetes-and-openshift-hosted-control-planes]]
 == Prise en charge de Trident pour Kubernetes sur Kubernetes et les plans de contrôle hébergés OpenShift
 
-À partir de la version 26.06, Trident prend pleinement en charge la topologie Kubernetes sur Kubernetes. Les clusters Kubernetes dont les nœuds s’exécutent en tant que machines virtuelles KubeVirt sur un cluster d’infrastructure (hôte). Cette topologie sous-tend les offres de plan de contrôle hébergé telles que les plans de contrôle hébergés (HCP) OpenShift sur OpenShift Virtualization.
+Trident prend pleinement en charge la topologie Kubernetes sur Kubernetes. Il s’agit de clusters Kubernetes dont les nœuds s’exécutent en tant que machines virtuelles KubeVirt sur un cluster d’infrastructure (hôte). Cette topologie sous-tend les offres de plan de contrôle hébergé, telles que les plans de contrôle hébergés (HCP) OpenShift sur OpenShift Virtualization.
 
 
-NOTE: Cette configuration fonctionnait dans les versions précédentes, mais la qualification complète commence avec 26.06.
+NOTE: Cette configuration fonctionnait dans les versions précédentes, mais la qualification complète a commencé avec la version 26.06.
 
 Le cluster invité (locataire) utilise le pilote CSI KubeVirt (`kubevirt-csi` comme fournisseur de stockage. Lorsqu'une charge de travail dans le cluster invité requiert un  `PersistentVolumeClaim` volume, le pilote CSI KubeVirt crée un volume correspondant dans le cluster d'infrastructure. Trident provisionne le volume à partir d'ONTAP, et le volume est connecté à chaud à la machine virtuelle du nœud invité. Trident s'exécute uniquement dans le cluster d'infrastructure. Le cluster invité consomme le stockage ONTAP indirectement via le pilote CSI KubeVirt.
 
@@ -124,13 +131,13 @@ Le cluster invité (locataire) utilise le pilote CSI KubeVirt (`kubevirt-csi` co
 | Composant | Version 
 
 
-| Trident | 26,06 
+| Trident | 26,10 
 
 
-| Kubernetes (infrastructure et cluster invité) | 1,36 
+| Kubernetes (infrastructure et cluster invité) | 1,37 
 
 
-| KubeVirt | 1.9.0-beta.0 
+| KubeVirt | 1.9.0 
 
 
 | Importateur de données conteneurisé (CDI) | 1,65 
@@ -268,22 +275,22 @@ link:../trident-reference/ports.html["Ports Trident"]
 
 Pour les installations à air comprimé, la liste suivante est une référence aux images de conteneur nécessaires à l'installation de Trident. Utiliser `tridentctl images` la commande pour vérifier la liste des images de conteneur nécessaires.
 
-La prise en charge de Kubernetes 1.37 est disponible à partir de Trident 26.06. La liste d'images 26.06.2 ci-dessous inclut les images pour Kubernetes 1.37.
+La liste d’images Trident 26.10 ci-dessous inclut les images pour Kubernetes 1.37.
 
 
 
-[[container-images-required-for-trident-26-06-0]]
-=== Images de conteneurs requises pour Trident 26.06.0
+[[container-images-required-for-trident-26-10-0]]
+=== Images de conteneurs requises pour Trident 26.10.0
 
 [cols="2"]
 |===
 | Versions de Kubernetes | Image de conteneur 
 
 
-| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0, v1.36.0  a| 
-* docker.io/netapp/trident:26.06.0
-* docker.io/netapp/trident-autosupport:26.06
-* docker.io/netapp/trident-operator:26.06.0 (facultatif)
+| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0, v1.36.0, v1.37.0  a| 
+* docker.io/netapp/trident:26.10.0
+* docker.io/netapp/trident-autosupport:26.10
+* docker.io/netapp/trident-operator:26.10.0 (facultatif)
 * registry.k8s.io/sig-storage/csi-attacher:v4.11.0
 * registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.17.0
 * registry.k8s.io/sig-storage/csi-provisioner:v6.3.0
@@ -302,7 +309,7 @@ La prise en charge de Kubernetes 1.37 est disponible à partir de Trident 26.06.
 | Versions de Kubernetes | Image de conteneur 
 
 
-| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0, v1.36.0, v1.37.0  a| 
+| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0, v1.36.0  a| 
 * docker.io/netapp/trident:26.06.2
 * docker.io/netapp/trident-autosupport:26.06
 * docker.io/netapp/trident-operator:26.06.2 (facultatif)

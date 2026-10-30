@@ -16,15 +16,15 @@ Vous pouvez installer Trident à l'aide de `tridentctl`. Ce processus s'applique
 
 
 
-[[critical-information-about-trident10]]
-== Informations essentielles concernant Trident10
+[[critical-information-about-trident-26-10]]
+== Informations essentielles concernant Trident 26.10
 
 *Vous devez lire les informations critiques suivantes sur Trident.*
 
 .<strong> informations sur le Trident </strong>
 [%collapsible%open]
 ====
-* Kubernetes 1.27 est désormais pris en charge dans Trident. Mise à niveau de Trident avant la mise à niveau de Kubernetes.
+* Kubernetes 1.37 est pris en charge par Trident 26.10. Mettez à niveau Trident avant de mettre à niveau Kubernetes.
 * Trident applique strictement l'utilisation de la configuration de chemins d'accès multiples dans les environnements SAN, avec une valeur recommandée de `find_multipaths: no` dans le fichier multipath.conf.
 +
 Utilisation d'une configuration sans chemins d'accès multiples ou de l'utilisation de `find_multipaths: yes` ou `find_multipaths: smart` la valeur du fichier multipath.conf entraînera des échecs de montage. Trident a recommandé l'utilisation de `find_multipaths: no` depuis la version 21.07.
@@ -78,8 +78,8 @@ Le package d'installation Trident crée un pod Trident, configure les objets CRD
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v26.06.0/trident-installer-26.06.0.tar.gz
-tar -xf trident-installer-26.06.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v26.10.0/trident-installer-26.10.0.tar.gz
+tar -xf trident-installer-26.10.0.tar.gz
 cd trident-installer
 ----
 
@@ -102,14 +102,14 @@ Installez Trident dans l'espace de noms souhaité en exécutant la `tridentctl i
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:26.06 --trident-image <your-registry>/trident:26.06.0
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:26.10 --trident-image <your-registry>/trident:26.10.0
 ----
 --
 .Images dans différents registres
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:26.06 --trident-image <your-registry>/trident:26.06.0
+./tridentctl install -n trident --image-registry <csi-registry> --autosupport-image <autosupport-registry>/trident-autosupport:26.10 --trident-image <trident-registry>/trident:26.10.0
 ----
 --
 ====
@@ -173,7 +173,7 @@ Vous pouvez utiliser `tridentctl` pour vérifier la version de Trident installé
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 26.06.0        | 26.06.0        |
+| 26.10.0        | 26.10.0        |
 +----------------+----------------+
 ----
 
@@ -211,5 +211,15 @@ Pour activer les opérations simultanées du contrôleur Trident afin d'amélior
 [listing]
 ----
 tridentctl install --enable-concurrency -n trident
+----
+====
+.Actualiser les LIF de données NVMe
+[%collapsible]
+====
+Pour actualiser les LIF de données NVMe pour les volumes publiés lorsque la configuration des LIF change, installez Trident avec `--enable-datalif-refresh`. Pour les pilotes pris en charge et les détails de configuration, consultez link:../trident-use/refresh-nvme-data-lifs.html["Actualiser les LIF de données NVMe"].
+
+[listing]
+----
+tridentctl install --enable-datalif-refresh -n trident
 ----
 ====

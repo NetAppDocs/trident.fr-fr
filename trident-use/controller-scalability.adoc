@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/controller-scalability.html 
-keywords: trident, controller scalability, concurrency, san, nas, san-nvme, gcnv, ontap-nas-economy, ontap-san-economy, asa-r2 
+keywords: trident, controller scalability, concurrency, san, nas, san-nvme, gcnv, ontap-nas-economy, ontap-san-economy, ontap-nas-flexgroup, asa-r2 
 summary: 'Comprenez l"évolutivité du contrôleur, le comportement en matière de concurrence et la maturité des fonctionnalités.' 
 ---
 = Évolutivité du contrôleur
@@ -14,7 +14,7 @@ summary: 'Comprenez l"évolutivité du contrôleur, le comportement en matière 
 [role="lead"]
 Trident améliore la scalabilité du contrôleur grâce à une concurrence accrue sur plusieurs pilotes de stockage. Lorsque vous activez la scalabilité du contrôleur, le contrôleur Trident traite les opérations de stockage en parallèle au lieu de les sérialiser, ce qui augmente le débit dans les environnements Kubernetes comportant de nombreuses opérations simultanées.
 
-Avant le déploiement, déterminez quels pilotes Trident prennent en charge la mise à l'échelle du contrôleur à la disponibilité générale et quels pilotes sont disponibles en version préliminaire technique dans Trident 26.06. Cela vous aide à prendre des décisions éclairées concernant le déploiement et à gérer les risques. La mise à l'échelle du contrôleur est désactivée par défaut.
+Avant le déploiement, déterminez quels pilotes Trident prennent en charge la mise à l'échelle du contrôleur à la disponibilité générale et quels pilotes sont disponibles en version préliminaire technique dans Trident 26.10. Cela vous aide à prendre des décisions éclairées concernant le déploiement et à gérer les risques. La mise à l'échelle du contrôleur est désactivée par défaut.
 
 
 
@@ -51,11 +51,12 @@ Trident prend en charge l'évolutivité du contrôleur à différents niveaux de
 [[general-availability]]
 === Disponibilité générale
 
-Les pilotes suivants prennent en charge la mise à l'échelle du contrôleur à la disponibilité générale dans Trident 26.06 :
+Les pilotes suivants prennent en charge la mise à l'échelle du contrôleur à la disponibilité générale dans Trident 26.10 :
 
 * `ontap-san`
 * `ontap-nas`
 * `ontap-nas-economy`
+* `ontap-nas-flexgroup`
 * `ontap-san-economy`
 * `google-cloud-netapp-volumes`
 * `azure-netapp-files`
@@ -72,7 +73,7 @@ Les `google-cloud-netapp-volumes` et `google-cloud-netapp-volumes-san` pilotes s
 [[technical-preview]]
 === Aperçu technique
 
-Le pilote suivant prend en charge la mise à l'échelle du contrôleur en tant que fonctionnalité en avant-première technique dans Trident 26.06 :
+Le pilote suivant prend en charge la mise à l'échelle du contrôleur en tant que fonctionnalité en avant-première technique dans Trident 26.10 :
 
 * `asa-r2` (SAN et NVMe)
 
@@ -266,7 +267,7 @@ Lorsque la mise à l'échelle du contrôleur est activée, le contrôleur Triden
 [[caveats-and-limitations]]
 == Avertissements et limitations
 
-Les considérations suivantes s'appliquent à l'évolutivité du contrôleur dans Trident 26.06 :
+Les considérations suivantes s'appliquent à l'évolutivité du contrôleur dans Trident 26.10 :
 
 * La mise à l'échelle du contrôleur ne prend en charge que les pilotes figurant dans les listes de disponibilité générale et d'aperçu technique. Pour plus de détails, consultez <<before-you-enable,Avant d'activer>>.
 * Le contrôleur Trident gère la concurrence en interne. Cette version ne propose aucune limite de concurrence configurable par l'utilisateur.

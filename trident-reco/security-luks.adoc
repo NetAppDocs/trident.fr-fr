@@ -12,7 +12,7 @@ summary: 'Vous pouvez activer Linux Unified Key Setup (LUKS) pour chiffrer les v
 
 
 [role="lead"]
-Vous pouvez activer Linux Unified Key Setup (LUKS) pour chiffrer les volumes ONTAP SAN et ONTAP SAN ECONOMY sur Trident. Trident prend en charge la rotation de phrase de passe et l'extension de volume pour les volumes chiffrés LUKS.
+Linux Unified Key Setup (LUKS) est une spécification de chiffrement de disque. Trident utilise LUKS pour fournir un chiffrement par volume côté hôte pour les volumes ONTAP SAN et ONTAP SAN ECONOMY, avec prise en charge de la rotation des phrases de passe et de l'extension de volume.
 
 Dans Trident, les volumes chiffrés LUKS utilisent le cypher et le mode aes-xts-mclair 64, comme recommandé par link:https://csrc.nist.gov/publications/detail/sp/800-38e/final["NIST"^].
 
@@ -95,6 +95,48 @@ stringData:
   luks-passphrase: secretA
 ----
 
+
+
+
+[[use-luks-with-rwx-raw-block-volumes]]
+== Utilisez LUKS avec les volumes de blocs bruts RWX
+
+À partir de Trident 26.10, vous pouvez utiliser le chiffrement LUKS avec des volumes de blocs bruts basés sur iSCSI qui sont rattachés à plusieurs nœuds Kubernetes à l’aide du mode d’accès `ReadWriteMany` (RWX). Cela est utile pour des workloads tels que les machines virtuelles KubeVirt qui doivent rattacher le même volume chiffré sur un nœud de destination alors qu’il est encore rattaché au nœud source pendant une migration à chaud.
+
+La prise en charge de RWX LUKS est limitée aux volumes de blocs bruts. Les volumes RWX LUKS en mode système de fichiers ne sont pas pris en charge. L'application gère l'accès concurrent aux données déchiffrées ; Trident gère uniquement les opérations LUKS.
+
+Configurez LUKS sur le backend, StorageClass et le Secret de phrase secrète comme décrit dans <<Activez le cryptage LUKS>>. Créez ensuite un PVC avec `volumeMode: Block` et `ReadWriteMany`:
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-rwx-pvc
+  namespace: my-app
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Block
+  storageClassName: san-luks-rwx
+  resources:
+    requests:
+      storage: 10Gi
+----
+Les pods sur plusieurs nœuds peuvent attacher ce PVC comme périphérique de blocs brut. Trident formate le périphérique avec LUKS2 lors de sa première connexion et ouvre le volume chiffré existant sur les nœuds suivants. Les opérations LUKS existantes, telles que la rotation de la phrase de passe et l’extension du volume, sont prises en charge.
+
+
+
+[[why-trident-serializes-luks-operations]]
+=== Pourquoi Trident sérialise les opérations LUKS
+
+LUKS2 stocke des copies redondantes de son en-tête de chiffrement au début du périphérique de blocs. `cryptsetup` peut réparer un en-tête lorsqu'il détecte que les copies diffèrent, y compris lors de commandes qui semblent être en lecture seule. Son verrouillage est local à un nœud et ne peut pas coordonner les opérations sur d'autres nœuds. Si un nœud met à jour l'en-tête pendant qu'un autre exécute `cryptsetup`, le second nœud pourrait déclencher une réparation de l'en-tête et interrompre la mise à jour, ce qui risquerait de corrompre l'en-tête.
+
+Pour éviter les accès concurrents aux en-têtes, Trident utilise un bail Kubernetes pour chaque volume LUKS RWX. Avant qu’un nœud n’exécute une  `cryptsetup`commande sur le volume, il doit détenir le bail. Trident libère le bail après une opération réussie. Si un autre nœud demande une opération pendant que le bail est détenu, Trident renvoie une erreur réessayable et Kubernetes réessaie plus tard. Les opérations sur différents volumes sont indépendantes.
+
+Si une `cryptsetup` opération échoue, Trident conserve intentionnellement le bail afin que seul le même nœud puisse réessayer. Un événement d'avertissement avec la raison `LeaseRetained` consigne l'échec. Les baux n'expirent pas automatiquement ; un administrateur ne doit supprimer un bail qu'après avoir vérifié qu'aucune `cryptsetup` opération n'est en cours sur le nœud qui le détient. Pour les étapes de récupération, voir <<rwx-luks-stuck-lease,Corriger un Lease bloqué pour les volumes RWX Linux Unified Key Setup (LUKS)>>.
+
+Comme les nœuds ouvrent le volume à tour de rôle, le démarrage des workloads sur plusieurs nœuds peut prendre plus de temps qu'avec un volume non chiffré. Kubernetes relance les tentatives en cas d'erreur de verrouillage transitoire une fois l'opération en cours terminée. Les pods peuvent rester à l’état  `ContainerCreating` plus longtemps lors d’extensions à grande échelle ; les workloads sur un même nœud peuvent partager un seul mappage de périphérique ouvert.
 
 
 

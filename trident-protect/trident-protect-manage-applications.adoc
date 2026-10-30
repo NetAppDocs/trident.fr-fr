@@ -51,6 +51,7 @@ NOTE: Pour définir une application à portée de machine virtuelle qui protège
 **** *LabelSelector*: (_Optional_) filtre les ressources du cluster-scoped en fonction de leurs étiquettes.
 
 
+*** *spec.volumeGroups*: (_Facultatif_) Utilisez cet attribut pour créer ensemble des instantanés de volumes associés sous forme d’instantanés de groupe de volumes cohérents après incident. Pour plus de détails, reportez-vous à link:trident-protect-volume-group-snapshots.html["Utilisez les instantanés de groupes de volumes avec Trident Protect"].
 *** *metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*: (_Optional_) Cette annotation s'applique uniquement aux applications définies à partir de machines virtuelles, comme dans les environnements KubeVirt, où les gels du système de fichiers se produisent avant les instantanés. Indiquez si cette application peut écrire sur le système de fichiers lors d'un instantané. Si cette option est activée (true), l'application ignore le paramètre global et peut écrire sur le système de fichiers pendant la création d'un instantané. Si cette option est désactivée, l'application ignore le paramètre global et le système de fichiers est figé lors de la création d'un instantané. Si cette annotation est spécifiée mais que l'application ne comporte aucune machine virtuelle dans sa définition, elle est ignorée. Sauf indication contraire, la demande suit la procédurelink:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Paramètre de gel global Trident Protect"] .
 +
 [NOTE]
