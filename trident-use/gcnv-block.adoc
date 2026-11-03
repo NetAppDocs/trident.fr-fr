@@ -38,11 +38,49 @@ Le pilote prend en charge les environnements suivants :
 
 WIF échange un jeton projeté de compte de service Kubernetes contre des identifiants Google Cloud de courte durée. Trident utilise ces identifiants pour emprunter l’identité d’un compte de service Google Cloud lorsqu’il appelle l’API Google Cloud NetApp Volumes.
 
-Configurez un pool d'identités de workload Google Cloud et un fournisseur OIDC pour le cluster OpenShift. L'émetteur du fournisseur doit correspondre à la revendication du jeton `iss`, son mappage d'attributs doit mapper `assertion.sub` vers `google.subject`, et son audience autorisée doit correspondre à la revendication du jeton `aud`.
+Configurez un pool d'identités de workload Google Cloud et un fournisseur OIDC pour le cluster OpenShift. L’émetteur du fournisseur doit correspondre à la revendication `iss` du jeton, et son mappage d’attributs doit mapper `assertion.sub` sur `google.subject`.
 
-Accordez au principal WIF du compte de service du contrôleur Trident le `roles/iam.workloadIdentityUser` rôle sur le compte de service Google Cloud que Trident empruntera. Pour le compte de service du contrôleur Trident par défaut, le sujet du jeton est `system:serviceaccount:trident:trident-controller`; utilisez le sujet configuré pour votre installation. Accordez au compte de service emprunté `roles/netapp.admin`, ou des autorisations équivalentes, sur le projet qui contient les ressources Google Cloud NetApp Volumes.
+Installez Trident en spécifiant le nom de ressource du fournisseur comme audience WIF. Cela permet à Trident de projeter le jeton du compte de service du contrôleur à `/var/run/secrets/wif-token/token`.
 
-Le jeton projeté doit être disponible pour le contrôleur Trident à `/var/run/secrets/wif-token/token`. Définissez `wipCredentialConfig.audience` sur la même audience que le jeton et l'audience autorisée du fournisseur. Ajoutez la section suivante à la configuration `spec` du backend SAN illustré ci-dessous, en remplaçant les espaces réservés par les valeurs de votre environnement :
+.Opérateur Trident
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  namespace: trident
+  cloudProvider: GCP
+  gcpWIFAudience: "//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/providers/<provider-id>"
+----
+.Gouvernail
+[source, console]
+----
+helm install trident <trident-operator-package> \
+  --namespace trident \
+  --create-namespace \
+  --set cloudProvider=GCP \
+  --set-string gcpWIFAudience="//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/providers/<provider-id>"
+----
+.tridentctl
+[source, console]
+----
+tridentctl install \
+  --namespace trident \
+  --cloud-provider GCP \
+  --gcp-wif-audience "//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/providers/<provider-id>"
+----
+Utilisez la même audience pour l’installation de Trident et `wipCredentialConfig.audience`. Ne configurez pas non plus GKE `cloudIdentity` ou `--cloud-identity`. Ne modifiez pas le Deployment du contrôleur pour ajouter le jeton projeté ; le Trident operator peut remplacer cette modification.
+
+[IMPORTANT]
+====
+Sur OpenShift Dedicated, le fournisseur OIDC peut être partagé avec d’autres composants OpenShift. Si la liste du fournisseur `allowedAudiences` est vide, Google accepte le nom de ressource canonique du fournisseur, avec ou sans le `https://` préfixe, de sorte qu’aucune modification du fournisseur n’est nécessaire pour l’audience ci-dessus. Ne définissez pas de liste d’audience explicite uniquement pour Trident. Si le fournisseur a déjà des audiences explicites, ajoutez l’audience Trident tout en conservant toutes les valeurs existantes. Le remplacement de la liste peut empêcher d’autres composants OpenShift d’échanger des jetons.
+
+====
+Accordez au principal WIF du compte de service du contrôleur Trident le rôle `roles/iam.workloadIdentityUser` sur le compte de service Google Cloud que Trident empruntera. Pour le compte de service du contrôleur Trident par défaut, le sujet du jeton est `system:serviceaccount:trident:trident-controller`; utilisez le sujet configuré pour votre installation. Accordez au compte de service emprunté `roles/netapp.admin`, ou des autorisations équivalentes, sur le projet contenant les ressources Google Cloud NetApp Volumes.
+
+Ajoutez la strophe suivante au `spec` du backend SAN :
 
 [source, yaml]
 ----

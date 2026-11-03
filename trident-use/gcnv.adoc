@@ -110,6 +110,11 @@ tridentctl install \
 
 WIF échange un jeton de compte de service Kubernetes projeté contre des identifiants Google Cloud éphémères. Trident utilise ces identifiants pour emprunter l'identité d'un compte de service Google Cloud ; les rôles IAM de ce compte autorisent ses appels à l'API Google Cloud NetApp Volumes. Cela évite de stocker une clé de compte de service permanente dans la configuration du backend.
 
+[IMPORTANT]
+====
+Sur OpenShift Dedicated, le fournisseur OIDC peut être partagé avec d'autres composants OpenShift. Si la liste `allowedAudiences` du fournisseur est vide, Google accepte le nom canonique de la ressource du fournisseur, avec ou sans le `https://` préfixe, donc aucune modification du fournisseur n'est nécessaire pour l'audience Trident. Ne définissez pas de liste d'audiences explicite uniquement pour Trident. Si le fournisseur possède déjà des audiences explicites, ajoutez l'audience Trident tout en conservant toutes les valeurs existantes. Le remplacement de la liste peut empêcher d'autres composants OpenShift d'échanger des jetons.
+
+====
 
 
 ==== Préparer le OpenShift cluster
@@ -197,11 +202,6 @@ oc -n trident get deploy trident-controller -o yaml
 
 Configurez un pool d’identités de workload Google Cloud et un fournisseur OIDC pour le cluster. L’émetteur du fournisseur doit correspondre à la revendication `iss` du jeton, et son mappage d’attributs doit mapper `assertion.sub` sur `google.subject`. L’audience autorisée du fournisseur doit correspondre à la revendication `aud` du jeton projeté.
 
-[CAUTION]
-====
-Pour OSD, ne remplacez ni ne restreignez la liste d'audience d'un fournisseur partagé. Lorsque `allowedAudiences` est vide, Google accepte le nom de ressource canonique du fournisseur, avec ou sans le préfixe `https://`. La définition de `--allowed-audiences` remplace cette liste par défaut et peut empêcher d'autres composants OSD d'échanger des jetons. Ajoutez une audience uniquement si le fournisseur possède déjà une liste explicite, et conservez toutes les valeurs existantes. N'ajoutez pas de condition d'attribut au fournisseur partagé d'OSD. Consultez la documentation Google Cloud link:https://docs.cloud.google.com/iam/docs/reference/rest/v1/projects.locations.workloadIdentityPools.providers#Oidc["Référence du fournisseur OIDC"^].
-
-====
 Les points de terminaison Public `.well-known/openid-configuration` et JWKS ne sont requis que lors de l’utilisation de la découverte OIDC. Google prend également en charge le chargement direct du JWKS à l’aide de `public` `jwksJson` ou `jwks` `--jwk-json-path`.
 
 Attribuez au principal WIF le `roles/iam.workloadIdentityUser` rôle sur le compte de service Google Cloud que Trident empruntera. Pour un sujet de jeton de `system:serviceaccount:trident:trident-controller`, le principal se présente sous la forme suivante :

@@ -24,6 +24,11 @@ WARNING: Le `tridentctl` Binaire pour Linux fourni dans le fichier zip du progra
 
 Découvrez les nouveautés de NetApp Trident et Trident Protect, y compris les améliorations, les correctifs et les suppressions.
 
+[WARNING]
+====
+Ne mettez pas à niveau vers Trident 26.10.0 depuis Trident 25.10 ou toute version antérieure. Au démarrage, les pods de nœud Trident peuvent détacher des volumes encore en cours d'utilisation. Les pods concernés peuvent échouer avec l'erreur  `volume ... is not staged`. Attendez une version qui inclut le correctif avant d'effectuer la mise à niveau. Pour plus d'informations, consultez link:known-issues.html["problèmes connus"].
+
+====
 
 
 [[trident]]
