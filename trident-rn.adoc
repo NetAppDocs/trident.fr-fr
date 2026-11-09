@@ -19,6 +19,29 @@ WARNING: Le `tridentctl` Binaire pour Linux fourni dans le fichier zip du progra
 
 
 
+[[whats-new-in-26-10-1]]
+== Nouveautés de la version 26.10.1
+
+Découvrez les nouveautés de NetApp Trident et Trident Protect, y compris les améliorations, les correctifs et les suppressions.
+
+
+
+[[trident]]
+=== Trident
+
+
+
+==== Correctifs
+
+* *Kubernetes* :
++
+** Correction d’un problème dans lequel les pods de nœud Trident détachaient de force les volumes en cours d’utilisation au démarrage après une mise à niveau depuis Trident 25.10 ou une version antérieure, ce qui entraînait l’échec des pods avec `volume ... is not staged`.
+
+
+
+
+
+
 [[whats-new-in-26-10]]
 == Quoi de neuf dans la version 26.10
 
@@ -26,7 +49,7 @@ Découvrez les nouveautés de NetApp Trident et Trident Protect, y compris les a
 
 [WARNING]
 ====
-Ne mettez pas à niveau vers Trident 26.10.0 depuis Trident 25.10 ou toute version antérieure. Au démarrage, les pods de nœud Trident peuvent détacher des volumes encore en cours d'utilisation. Les pods concernés peuvent échouer avec l'erreur  `volume ... is not staged`. Attendez une version qui inclut le correctif avant d'effectuer la mise à niveau. Pour plus d'informations, consultez link:known-issues.html["problèmes connus"].
+Ne mettez pas à niveau vers Trident 26.10.1. Au démarrage, les pods de nœud Trident peuvent détacher des volumes encore en cours d’utilisation. Les pods concernés peuvent échouer avec l’erreur `volume ... is not staged`. Ce problème est corrigé dans Trident 26.10.1. Mettez plutôt à niveau vers Trident 26.10.1 ou une version ultérieure.
 
 ====
 
