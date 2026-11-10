@@ -49,7 +49,7 @@ Découvrez les nouveautés de NetApp Trident et Trident Protect, y compris les a
 
 [WARNING]
 ====
-Ne mettez pas à niveau vers Trident 26.10.1. Au démarrage, les pods de nœud Trident peuvent détacher des volumes encore en cours d’utilisation. Les pods concernés peuvent échouer avec l’erreur `volume ... is not staged`. Ce problème est corrigé dans Trident 26.10.1. Mettez plutôt à niveau vers Trident 26.10.1 ou une version ultérieure.
+Ne mettez pas à niveau vers Trident 26.10.0. Au démarrage, les pods de nœud Trident peuvent détacher des volumes encore en cours d’utilisation. Les pods concernés peuvent échouer avec l’erreur `volume ... is not staged`. Ce problème est corrigé dans Trident 26.10.1. Mettez plutôt à niveau vers Trident 26.10.1 ou une version ultérieure.
 
 ====
 

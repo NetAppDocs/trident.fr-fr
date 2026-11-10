@@ -443,19 +443,6 @@
   <block id="588d2fe1c60271cde75dbeba32e0b25b" category="list-text">Vérifiez que NFS et/ou iSCSI sont configurés pour votre système.</block>
   <block id="03fe5b0d58270efa87041677cac72ad7" category="list-text">Installez et configurez le plug-in de volume NetApp Docker :</block>
   <block id="f45f5a64dae951d3e37c9bd382201b06" category="list-text">Téléchargez et déballez l'application :</block>
-  <block id="b255d9e06a4ca8e9f5bc31c9198426ad" category="list-text">Déplacer vers un emplacement dans le chemin du bac :</block>
-  <block id="e3dec3f86b9a3b1be209ab63855ce432" category="list-text">Créer un volume :</block>
-  <block id="5ff2e3e853922fdb84ef21b85ffdac2e" category="list-text">Provisionnement d'un volume Docker lors du démarrage d'un conteneur :</block>
-  <block id="8f6a91f5f21d0478e3fd89095fc28ab9" category="list-text">Supprimer un volume Docker :</block>
-  <block id="5b51496da86e5a2073e0c618390c3d2a" category="list-text">Copiez le fichier à l'emplacement correct.</block>
-  <block id="44103de0a164f687d305ad91e919d8ee" category="paragraph">Vous devez utiliser des noms uniques pour les fichiers d'unité si plusieurs instances sont en cours d'exécution.</block>
-  <block id="3223aadc84a3ccb4a3473ba01c895184" category="list-text">Modifiez le fichier, modifiez la description (ligne 2) pour qu'elle corresponde au nom du pilote et au chemin du fichier de configuration (ligne 9) pour qu'elle corresponde à votre environnement.</block>
-  <block id="1edae3931401a32d7dd7dd6e0a2ad563" category="list-text">Recharger le système pour qu'il ingère les modifications :</block>
-  <block id="db38a93e27eba57d507611d002ad612f" category="list-text">Activer le service.</block>
-  <block id="c7e0a4deeebe264aa7d5f7f3ca3ef77f" category="paragraph">Ce nom varie en fonction de ce que vous avez nommé le fichier dans le<block ref="dce2a9642217836d54f614dfd625b753" prefix=" " category="inline-code"></block> répertoire.</block>
-  <block id="baa04490a79e9e8de7fa4cd44e2c6fbb" category="list-text">Démarrer le service.</block>
-  <block id="93c7574cf83c1f01b04891cf2d826cea" category="list-text">Afficher l'état.</block>
-  <block id="f4f15418284ae7a01b27fccc1af0463a" category="admonition">Chaque fois que vous modifiez le fichier d'unité, exécutez le<block ref="269b117015efb12595eebf74692e5cbc" prefix=" " category="inline-code"></block> commande pour que le service it soit conscient des modifications.</block>
   <block id="8f327f2ceda84404290184a7454160ed" category="paragraph">Vous avez besoin de plusieurs instances de Trident lorsque vous souhaitez disposer de plusieurs configurations de stockage simultanément. La clé pour plusieurs instances est de leur donner des noms différents à l'aide de<block ref="14742efbfd1451d64cd78e6664734234" prefix=" " category="inline-code"></block> avec le plug-in conteneurisé, ou<block ref="3462d72f00482b2e9f6fcfcdf665289b" prefix=" " category="inline-code"></block> Option lors de l'instanciation de Trident sur l'hôte.</block>
   <block id="52ef1c6ffefaba3249f208369424635d" category="section-title">Étapes du plug-in géré par Docker (version 1.13/17.03 ou ultérieure)</block>
   <block id="547c4a5f7c863aad85f5265c03ed72ea" category="list-text">Lancez la première instance en spécifiant un alias et un fichier de configuration.</block>
@@ -1699,7 +1686,6 @@
   <block id="bba4e1b8d8614fe9da2d67e2dcef4b52" category="paragraph"><block ref="8321592ce24c8a122ecf26a63cfca407" prefix="" category="inline-code"></block>,<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>,<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>,<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block>,<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block></block>
   <block id="c95cada2a569592345ebc18e5ef4c7aa" category="paragraph">Adresse IP de la LIF de protocole.</block>
   <block id="25edde63e4922bb316018c25888e64a6" category="inline-link-macro">Mappage de LUN sélectif ONTAP</block>
-  <block id="0350980c728940d67af063bb5d711f0f" category="paragraph">Un exemple de fichier d'unité pour les systèmes basés sur le système se trouve à l'adresse<block ref="50a97f9b0dec64cc53ca48406c60fe4d" prefix=" " category="inline-code"></block> Dans le Git repo. Pour utiliser le fichier avec RHEL, procédez comme suit :</block>
   <block id="2f6c694f9d016c7193ece4853c402d96" category="doc">Personnalisez l'installation de l'opérateur Trident</block>
   <block id="79445b5dba623a55ad4d974712853c2f" category="cell"><block ref="2b8b5018006a800ae06485c3aacfa08d" prefix="" category="inline-code"></block></block>
   <block id="cbea7dc9eb2c3c926a86130b0be6368f" category="cell">Définit la stratégie de collecte d'image pour l'opérateur Trident. Les valeurs valides sont :<block ref="68eec46437c384d8dad18d5464ebc35c" prefix=" " category="inline-code"></block> pour toujours tirer l'image.<block ref="7803982c6b845094275e8e83f0fad3a6" prefix=" " category="inline-code"></block> pour extraire l'image uniquement s'il n'existe pas déjà sur le nœud.<block ref="6e7b34fa59e1bd229b207892956dc41c" prefix=" " category="inline-code"></block> pour ne jamais tirer l'image.</block>
@@ -2299,7 +2285,6 @@ PME</block>
   <block id="7646000ea978570e919e657f5ec9aa57" category="paragraph"><block ref="7646000ea978570e919e657f5ec9aa57" category="inline-link-macro-rx"></block></block>
   <block id="abefc87b0c4c459aa6fdb12d98caf984" category="paragraph">Vous pouvez à présent ajouter des systèmes back-end supplémentaires, gérer les classes de stockage, gérer les systèmes back-end et effectuer des opérations de volume.</block>
   <block id="ca3c25915a30bef4ec583f6082477acf" category="paragraph">Si vous modifiez la configuration à partir d'une configuration utilisant la configuration par défaut<block ref="47cb44be55a0dffa15dfc900a4c687be" prefix=" " category="inline-code"></block> Groupe d'accès à un groupe qui utilise également d'autres, inclure l'ID pour le<block ref="47cb44be55a0dffa15dfc900a4c687be" prefix=" " category="inline-code"></block> groupe d'accès dans la liste.</block>
-  <block id="b2edeceecc054572188ee3b08cd58c64" category="list-text">Après avoir placé le fichier binaire et créé le fichier de configuration, démarrez le démon Trident en utilisant le fichier de configuration souhaité.</block>
   <block id="b4f83b03956523a39e8bbbd0895f0f29" category="inline-link-macro">Cloud Insights</block>
   <block id="63bfc0691d397470e5b0b05f2a9bcbe4" category="inline-link-macro">Question no 740</block>
   <block id="c8af8b49eb3be9ce411280db66de8a12" category="list-text">Correction de la mise à niveau de Trident pour ignorer les anciens pods bloqués en état de terminaison (<block ref="6f993c83118cc4a1dd5351c8501e26c9" category="inline-link-macro-rx"></block>).</block>
@@ -2434,7 +2419,6 @@ PME</block>
   <block id="de9e7e8f2c463ef15bebdbf8d2d1aa6d" category="inline-link-macro">Pilotes SAN</block>
   <block id="9aa82da0cffe247b84587c1cc8e32746" category="cell">« par défaut »</block>
   <block id="dfb6135042da6e8fbf367d9cf13431ef" category="paragraph">Restriction facultative sur les tailles de volume. Par défaut : « » (non appliqué)</block>
-  <block id="4846d107d8ddb5051591d14dcbddba8c" category="admonition">Sauf indication contraire, le nom par défaut du pilote de volume est « NetApp ».</block>
   <block id="5ab207578468b7bbc201024492654253" category="list-text">Ajout de la prise en charge des fonctions réseau au pilote Azure NetApp Files. (<block ref="e0e89f8bd936a5eb3adce74cac88eab0" category="inline-link-macro-rx"></block>)</block>
   <block id="302e5f91d375f03821f8fd6340563539" category="list-text">Résolution du problème d'échec du clonage d'un volume avec plusieurs règles d'exportation par le pilote Azure NetApp Files.</block>
   <block id="1d61f4e1411b6940bc918fb56346f64d" category="list-text">Correction du pilote Azure NetApp Files pour permettre la duplication des noms de ressources et limiter les opérations à un seul emplacement.</block>
@@ -3077,7 +3061,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="58391bc76e8c1c5635a11134b3e4083d" category="admonition">Si vous avez utilisé Trident antérieur à Docker 1.13/17.03 dans la méthode démon classique, veillez à arrêter le processus Trident et à redémarrer votre démon Docker avant d'utiliser la méthode du plug-in géré.</block>
   <block id="8554af307cedea04e0e39362f35175f4" category="list-text">Démarrez Trident à l'aide du système de plug-in géré. Remplacez<block ref="3d689bd3819ead35ed794427bd12f459" prefix=" " category="inline-code"></block>-le par la version du plug-in (xxx.xx.x) que vous utilisez.</block>
   <block id="8020e7c6d37db1ac7100b3b117f46cfd" category="list-text">Commencez à utiliser Trident pour consommer du stockage du système configuré.</block>
-  <block id="b48e6203239c93859800f96924a39ed7" category="section-title">Démarrez Trident au démarrage du système</block>
   <block id="a5a6bc232526faaa8ab11bd5f46a069c" category="summary">Recherchez des informations sur les problèmes connus lors de l'utilisation de Trident avec Docker.</block>
   <block id="44110fddc560d626db733ac60924ea7c" category="paragraph">Trouvez des informations sur les problèmes connus et les limites lors de l'utilisation de Trident avec Docker.</block>
   <block id="442b5623691118072cf6342e3614f21a" category="section-title">Docker Swarm présente certains comportements qui empêchent Trident de le prendre en charge avec toutes les combinaisons de stockage et de pilotes.</block>
@@ -4718,7 +4701,6 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="8ef3114bf1395e8f04d7b3404982499e" category="list-text">Vous pouvez définir l'indicateur de chiffrement NVE<block ref="9d4568c009d203ab10e33ea9953a0264" prefix=" " category="inline-code"></block> pour créer des volumes NAE.</block>
   <block id="351e2b20bd9ea864b69cd832f3a4a5df" category="list-text">Si NAE n'est pas activé sur le back-end, tout volume provisionné dans Trident est activé sur NVE, à moins que l'indicateur de chiffrement NVE ne soit défini sur<block ref="68934a3e9455fa72420237eb05902327" prefix=" " category="inline-code"></block> (valeur par défaut) dans la configuration back-end.</block>
   <block id="a346cffc17b34fc56f3020d8b33d30c3" category="paragraph">Une fois la classe de stockage et la demande de volume persistant créées, vous pouvez monter le volume persistant sur un pod. Cette section répertorie l'exemple de commande et de configuration permettant d'attacher le volume persistant à un pod.</block>
-  <block id="f253a45a33bc62e467efd426699d9025" category="paragraph">Une fois le démon démarré, vous pouvez créer et gérer des volumes à l'aide de l'interface de ligne de commande de Docker.</block>
   <block id="a0ba0b0d751124c646a352594c7e9d7b" category="paragraph">Les autres pilotes sont soumis à des problèmes tels que les conditions de course qui peuvent entraîner la création d'un grand nombre de volumes pour une seule demande sans « gagnant » clair ; par exemple, Element dispose d'une fonctionnalité qui permet aux volumes d'avoir le même nom mais des ID différents.</block>
   <block id="8904f6454065d44212063d39eeae5f07" category="paragraph">Contrôle précis des options de montage NFS ; valeur par défaut : « -o nfsvers=3 ». *Disponible uniquement pour les<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> pilotes et<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block>*.<block ref="71f7a3f48cfd3876cffba401813b7db0" category="inline-link-rx"></block>.</block>
   <block id="6a3f2fe5a221ff5e914123b7d1d207ac" category="paragraph">Pourcentage de réserve de snapshot. La valeur par défaut est « » pour accepter la valeur par défaut de ONTAP</block>
@@ -7959,6 +7941,20 @@ Vous pouvez spécifier des groupes de règles de QoS dans le back-end ou dans un
   <block id="32e050df1ec85a2f1e5df0a5f58268ec" category="list-text">Utilisez la commande <block ref="cd01e1bae83933b9c59c914bc71332ac" prefix=" " category="inline-code"></block> où <block ref="a4b3c2e901b9e596a96af375fe1d5a7c" prefix=" " category="inline-code"></block> correspond à la version vers laquelle vous souhaitez effectuer la mise à niveau.</block>
   <block id="65eb82fddd05e92e211e0d77aeb0e4e1" category="section-title">Nouveautés de la version 26.10.1</block>
   <block id="24ab713b78d3325367406612bac11467" category="list-text">Correction d’un problème dans lequel les pods de nœud Trident détachaient de force les volumes en cours d’utilisation au démarrage après une mise à niveau depuis Trident 25.10 ou une version antérieure, ce qui entraînait l’échec des pods avec<block ref="8307b5796c66c457d6a138b37abe40c5" prefix=" " category="inline-code"></block>.</block>
-  <block id="08a653a879b277b1ab0d81324b64565e" category="paragraph">Ne mettez pas à niveau vers Trident 26.10.1. Au démarrage, les pods de nœud Trident peuvent détacher des volumes encore en cours d’utilisation. Les pods concernés peuvent échouer avec l’erreur<block ref="8307b5796c66c457d6a138b37abe40c5" prefix=" " category="inline-code"></block>. Ce problème est corrigé dans Trident 26.10.1. Mettez plutôt à niveau vers Trident 26.10.1 ou une version ultérieure.</block>
   <block id="90e0d67f77c8a5ec012e93f3be5c8331" category="list-text">L'Azure<block ref="d5189de027922f81005951e6efe0efd5" prefix=" " category="inline-code"></block> qui contient au moins un élément<block ref="c5f14b2142014dc234282a513132bad4" category="inline-link-rx"></block>. Le<block ref="d5189de027922f81005951e6efe0efd5" prefix=" " category="inline-code"></block> paramètre est requis au niveau supérieur du fichier de configuration du backend. Les valeurs d'emplacement spécifiées dans les pools virtuels sont ignorées.</block>
+  <block id="784329f85fd663964c68f0a0708c6a94" category="paragraph">sudo mv trident-installer/extras/bin/trident /usr/local/bin/ sudo chown root:root /usr/local/bin/trident sudo chmod 755 /usr/local/bin/trident</block>
+  <block id="5dd8f815786ef70394bd3584d3a83edb" category="paragraph">sudo mkdir -p /etc/netappdvp</block>
+  <block id="e3390f4eb37ee288a1506cb1c597aa95" category="paragraph">cat &lt;&lt; EOF &gt; /etc/netappdvp/ontap-nas.json</block>
+  <block id="adc4dd00e378338b858aca4e95957991" category="paragraph">{ "version": 1, "storageDriverName": "ontap-nas", "managementLIF": "10.0.0.1", "dataLIF": "10.0.0.2", "svm": "svm_nfs", "username": "vsadmin", "password": "password", "aggregate": "aggr1" } EOF</block>
+  <block id="59eded362480a8bf2a93749d766232f5" category="paragraph">sudo trident --config=/etc/netappdvp/ontap-nas.json</block>
+  <block id="d61aa82a9c4cc0306260158ad8814a0f" category="paragraph">docker volume create -d netapp --name trident_1</block>
+  <block id="23eec71379bdec8968a87c5d8d0ce0a0" category="paragraph">docker run --rm -it --volume-driver netapp --volume trident_2:/my_vol alpine ash</block>
+  <block id="1a3c38b86779ead156135d6d6117f9e0" category="paragraph">docker volume rm trident_1</block>
+  <block id="8e77e19e4710951abc111ddaa1a9700a" category="paragraph">docker volume rm trident_2</block>
+  <block id="6e764ace6033355001647dc536a222e2" category="paragraph">cp contrib/trident.service.example /usr/lib/systemd/system/trident.service</block>
+  <block id="269b117015efb12595eebf74692e5cbc" category="paragraph">systemctl daemon-reload</block>
+  <block id="906e1aecd65b40017e38c9165527f849" category="paragraph">systemctl enable trident</block>
+  <block id="0bb25bc3cf1d0c26ca853353a2dd7109" category="paragraph">systemctl start trident</block>
+  <block id="f2f8542f9f112ea6545bf028e893aadc" category="paragraph">systemctl status trident</block>
+  <block id="4e7dcfae0cbac5529245e0641c2da2e4" category="paragraph">Ne mettez pas à niveau vers Trident 26.10.0. Au démarrage, les pods de nœud Trident peuvent détacher des volumes encore en cours d’utilisation. Les pods concernés peuvent échouer avec l’erreur<block ref="8307b5796c66c457d6a138b37abe40c5" prefix=" " category="inline-code"></block>. Ce problème est corrigé dans Trident 26.10.1. Mettez plutôt à niveau vers Trident 26.10.1 ou une version ultérieure.</block>
 </blocks>
