@@ -30,33 +30,56 @@ CAUTION: Le basculement vers un instantané plus ancien amène ONTAP SnapMirror 
 [[identify-the-snapshot]]
 == Identifier l'instantané
 
-Chaque instantané a une heure d’achèvement, vous pouvez donc choisir le moment précis que vous souhaitez.
+Chaque instantané possède une heure d’achèvement. Obtenez son chemin d’archive avec `kubectl` sur le cluster source, ou avec l’interface de ligne de commande.
 
-.Étapes
-. Sur le cluster source, listez les instantanés :
+
+NOTE: Utilisez l'interface de ligne de commande (CLI) lorsque le cluster source est hors service ou que la ressource personnalisée de l'instantané n'est pas disponible. Exécutez la commande sur le cluster de destination, ou sur tout cluster qui possède l’AppVault source.
+
+[role="tabbed-block"]
+====
+.Utilisez kubectl
+--
+Utilisez `kubectl` sur le cluster source pour obtenir le chemin d'accès à l'archive.
+
+. Sur le cluster source, listez les instantanés et notez l `completionTimestamp` de l'instantané souhaité:
 +
 [source, console]
 ----
 kubectl get snapshots -n my-app-namespace
 ----
-. Trouvez l’instantané vers lequel basculer. Utilisez la `completionTimestamp` valeur pour sélectionner le point dans le temps.
-. Obtenez le chemin d'accès à l'archive de cet instantané :
+. Obtenez son chemin d'accès à l'archive :
 +
 [source, console]
 ----
 kubectl get snapshots <snapshot_name> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
 ----
-. Enregistrez la dernière partie du chemin, c'est-à-dire tout ce qui suit la dernière barre oblique. Cette partie est le _basename_. Par exemple :
-+
+
+
+--
+.Utiliser l'interface de ligne de commande
+--
+Utilisez la CLI Trident Protect pour obtenir le chemin d'accès à l'archive. Sur le cluster de destination ou sur tout cluster disposant de la source AppVault, listez les instantanés. `TIMESTAMP` correspond à l'heure de fin et `PATH` au chemin d'accès à l'archive.
+
+[source, console]
+----
+tridentctl-protect get appvaultcontent <source_appvault_name> \
+--app <app_name> \
+--show-resources snapshot \
+--show-paths
+----
+
+NOTE: La ressource personnalisée (CR) AppVault de l’application source doit exister sur le cluster où vous exécutez la commande, et votre environnement doit pouvoir se connecter au compartiment de stockage d’objets défini dans la CR AppVault. Si des restrictions réseau empêchent l’accès, exécutez la CLI depuis un pod sur le cluster.
+
+--
+====
+Le nom de base correspond à tout ce qui suit la dernière barre oblique dans le chemin. Par exemple :
+
 [listing]
 ----
 20231114173500_schedule-20231114173500_f8df8bd3-a727-4a14-b954-9666aa618b55
 ----
-+
 
 NOTE: Utilisez le nom de base, et non le nom de la ressource personnalisée de l’instantané.
-
-
 
 .Résultat
 Le nom de base de l'instantané sélectionné est enregistré.
