@@ -27,13 +27,14 @@ Si vous souhaitez utiliser la fonctionnalité snapshot, installez le module comp
 
 [role="tabbed-block"]
 ====
-.Identité du pod
+.Pod Identity (EKS)
 --
 . Ajout du référentiel Trident Helm :
 +
 [source, console]
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
+helm repo update
 ----
 . Installez Trident en utilisant l’exemple suivant :
 +
@@ -53,13 +54,12 @@ helm list -n trident
 [listing]
 ----
 NAME                NAMESPACE   REVISION    UPDATED                                 STATUS       CHART                          APP VERSION
-
 trident-operator    trident     1           2024-10-14 14:31:22.463122 +0300 IDT    deployed     trident-operator-100.2502.0    25.02.0
 ----
 
 
 --
-.Association de comptes de service (IRSA)
+.Rôle IAM pour le compte de service (IRSA) (EKS)
 --
 . Ajout du référentiel Trident Helm :
 +
@@ -72,10 +72,10 @@ helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 [source, console]
 ----
 helm install trident-operator netapp-trident/trident-operator --version 100.2502.1  \
---set cloudProvider="AWS" \
---set cloudIdentity="'eks.amazonaws.com/role-arn: arn:aws:iam::<accountID>:role/<AmazonEKS_FSxN_CSI_DriverRole>'" \
---namespace trident \
---create-namespace
+  --set cloudProvider="AWS" \
+  --set cloudIdentity="'eks.amazonaws.com/role-arn: arn:aws:iam::<accountID>:role/<AmazonEKS_FSxN_CSI_DriverRole>'" \
+  --namespace trident \
+  --create-namespace
 ----
 +
 Vous pouvez utiliser `helm list` la commande pour consulter les détails de l'installation tels que le nom, l'espace de noms, le graphique, l'état, la version de l'application et le numéro de révision.
@@ -92,6 +92,42 @@ NAME                NAMESPACE   REVISION    UPDATED                             
 
 trident-operator    trident     1           2024-10-14 14:31:22.463122 +0300 IDT    deployed     trident-operator-100.2510.0    25.10.0
 ----
+
+
+--
+.Rôle IAM pour la version autogérée de OpenShift
+--
+. Ajout du référentiel Trident Helm :
++
+[source, console]
+----
+helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
+helm repo update
+----
+. Installez Trident en utilisant l’exemple suivant :
++
+[source, console]
+----
+helm install trident-operator netapp-trident/trident-operator --version 100.2606.1 --namespace trident --set hostNetwork=true --create-namespace
+----
++
+Vous pouvez utiliser `helm list` la commande pour consulter les détails de l'installation tels que le nom, l'espace de noms, le graphique, l'état, la version de l'application et le numéro de révision.
+
++
+[source, console]
+----
+helm list -n trident
+----
++
+[listing]
+----
+NAME               NAMESPACE   REVISION   UPDATED                                  STATUS     CHART                         APP VERSION
+trident-operator   trident     1          2026-11-10 16:58:16.108649912 -0600 CST  deployed   trident-operator-100.2606.1   26.06.1
+----
++
+
+NOTE: Le programme d'installation OpenShift autogéré ne crée pas la règle de groupe de sécurité dont Trident a besoin pour le port TCP 8443 lorsque `hostNetwork` est activé. Ajoutez une règle entrante pour le port TCP 8443 depuis le CIDR du VPC aux `<cluster_name>-<random_string>-node` et `<cluster_name>-<random_string>-controlplane` groupes de sécurité créés par le programme d'installation OpenShift.
+
 
 
 --

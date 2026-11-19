@@ -19,10 +19,20 @@ La  https://kubernetes.io/docs/concepts/storage/storage-classes/["Objet classe d
 [[create-a-storageclass-object]]
 == Créer un objet StorageClass
 
-Lorsque vous créez un StorageClass pour FSx for ONTAP, Trident créera automatiquement la configuration backend.
+Lorsque vous créez une StorageClass pour FSx for ONTAP, Trident peut automatiquement créer la configuration du backend.
+
+Pour configurer manuellement le backend de stockage, consultez <<create-a-kubernetes-storageclass-without-automatic-backend-configuration>> pour obtenir des instructions sur la création séparée du backend Trident et de la StorageClass.
 
 
-NOTE: Si vous souhaitez configurer manuellement le stockage backend, veuillez vous référer à la section <<create-a-kubernetes-storageclass-without-automatic-backend-configuration>> pour savoir comment créer séparément le backend Trident et la classe de stockage.
+NOTE: Sur OpenShift, vous devez créer le backend Trident et la StorageClass séparément.
+
+
+
+==== Comprendre le fonctionnement de la configuration automatique du backend
+
+Trident déduit la configuration du backend à partir de la définition de la StorageClass. Lorsque vous appliquez la StorageClass, Trident valide les paramètres requis, crée le backend et annote la StorageClass avec le statut.
+
+Trident crée le VolumeSnapshotClass une seule fois. Trident réutilise le même VolumeSnapshotClass pour les StorageClasses suivants.
 
 
 
@@ -42,7 +52,7 @@ Les trois paramètres suivants doivent être définis lors de la création d'un 
 | `storageDriverName` | Oui. | chaîne | Pilote de stockage Trident (par exemple, `ontap-nas` ou `ontap-san`) 
 
 
-| `credentialsName` | Oui. | chaîne | Nom du secret Kubernetes qui contient les informations d'identification FSx for ONTAP 
+| `credentialsName` | Oui. | chaîne | Nom du secret Kubernetes ou de l’ARN du secret AWS Secrets Manager contenant les informations d’identification de FSx for ONTAP 
 |===
 
 
@@ -193,14 +203,6 @@ Si vous souhaitez créer le backend Trident et le StorageClass séparément, sui
 
 
 
-==== Comprendre le fonctionnement de la configuration automatique du backend
-
-Trident déduit la configuration du backend à partir de la définition de la StorageClass. Lorsque vous appliquez la StorageClass, Trident valide les paramètres requis, crée le backend et annote la StorageClass avec le statut.
-
-Trident crée le VolumeSnapshotClass une seule fois. Trident réutilise le même VolumeSnapshotClass pour les StorageClasses suivants.
-
-
-
 [[create-the-trident-backend]]
 === Créer le backend Trident
 
@@ -219,11 +221,14 @@ metadata:
   namespace: trident
 spec:
   version: 1
+  defaults:
+    skipRecoveryQueue: "true"
   storageDriverName: ontap-nas
   backendName: tbc-ontap-nas
   svm: svm-name
   aws:
     fsxFilesystemID: fs-xxxxxxxxxx
+    apiRegion: us-west-2
   credentials:
     name: "arn:aws:secretsmanager:us-west-2:xxxxxxxx:secret:secret-name"
     type: awsarn
@@ -243,13 +248,16 @@ spec:
   },
   "spec": {
     "version": 1,
+    "defaults": {
+      "skipRecoveryQueue": "true"
+    },
     "storageDriverName": "ontap-nas",
     "backendName": "tbc-ontap-nas",
     "svm": "svm-name",
     "aws": {
-      "fsxFilesystemID": "fs-xxxxxxxxxx"
+      "fsxFilesystemID": "fs-xxxxxxxxxx",
+      "apiRegion": "us-west-2"
     },
-    "managementLIF": null,
     "credentials": {
       "name": "arn:aws:secretsmanager:us-west-2:xxxxxxxx:secret:secret-name",
       "type": "awsarn"
@@ -314,7 +322,6 @@ Kubectl get tbc -n trident
 [listing]
 ----
 NAME                         BACKEND NAME         BACKEND UUID                           PHASE   STATUS
-
 backend-tbc-ontap-nas        tbc-ontap-nas        933e0071-66ce-4324-b9ff-f96d916ac5e9   Bound   Success
 ----
 
@@ -341,6 +348,9 @@ kind: StorageClass
 metadata:
   name: ontap-gold
 provisioner: csi.trident.netapp.io
+allowVolumeExpansion: true
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
 parameters:
   backendType: "ontap-nas"
   provisioningType: "thin"
@@ -448,7 +458,6 @@ kubectl get sc basic-csi
 ----
 NAME         PROVISIONER             AGE
 basic-csi    csi.trident.netapp.io   15h
-
 ----
 
 

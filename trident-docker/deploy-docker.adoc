@@ -153,141 +153,130 @@ Ou https://docs.docker.com/engine/install/["suivez les instructions relatives à
 +
 [source, console]
 ----
-----trident-installer-26.10.1.tar.gz
-wget https://github.com/NetApp/trident/releases/download/10.0/
-tar zxf trident-installer-26.10.1.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v26.10.1/trident-installer-26.10.1.tar.gz
+tar -xf trident-installer-26.10.1.tar.gz
+cd trident-installer
 ----
-
-
-
-
-[listing]
-----
-.. Move to a location in the bin path:
+.. Accédez à un emplacement dans le chemin du bin :
 +
-[source,console]
+[source, console]
 ----
-sudo mv trident-installer/extras/bin/trident /usr/local/bin/ sudo chown root:root /usr/local/bin/trident sudo chmod 755 /usr/local/bin/trident
-
-[listing]
+sudo mv trident-installer/extras/bin/trident /usr/local/bin/
+sudo chown root:root /usr/local/bin/trident
+sudo chmod 755 /usr/local/bin/trident
 ----
-.. Create a location for the configuration file:
+.. Créez un emplacement pour le fichier de configuration :
 +
-[source,console]
+[source, console]
 ----
 sudo mkdir -p /etc/netappdvp
-
-[listing]
 ----
-.. Create the configuration file:
+.. Créez le fichier de configuration :
 +
-[source,console]
+[source, console]
 ----
 cat << EOF > /etc/netappdvp/ontap-nas.json
-
-[listing]
 ----
 +
-[source,json]
+[source, json]
 ----
-{ "version": 1, "storageDriverName": "ontap-nas", "managementLIF": "10.0.0.1", "dataLIF": "10.0.0.2", "svm": "svm_nfs", "username": "vsadmin", "password": "password", "aggregate": "aggr1" } EOF
+{
+  "version": 1,
+  "storageDriverName": "ontap-nas",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.2",
+  "svm": "svm_nfs",
+  "username": "vsadmin",
+  "password": "password",
+  "aggregate": "aggr1"
+}
+EOF
+----
 
-[listing]
-----
-. After placing the binary and creating the configuration file, start the Trident daemon using the desired configuration file.
+
+. Après avoir placé le fichier binaire et créé le fichier de configuration, démarrez le démon Trident en utilisant le fichier de configuration souhaité.
 +
-[source,console]
+[source, console]
 ----
 sudo trident --config=/etc/netappdvp/ontap-nas.json
-
-[listing]
 ----
 +
-NOTE: Unless specified, the default name for the volume driver is "netapp".
-+
-After the daemon is started, you can create and manage volumes by using the Docker CLI interface.
 
-. Create a volume:
+NOTE: Sauf indication contraire, le nom par défaut du pilote de volume est "netapp".
+
 +
-[source,console]
+Après le démarrage du démon, vous pouvez créer et gérer des volumes à l'aide de l'interface CLI Docker.
+
+. Créer un volume :
++
+[source, console]
 ----
 docker volume create -d netapp --name trident_1
-
-[listing]
 ----
-. Provision a Docker volume when starting a container:
+. Provisionnez un volume Docker lors du démarrage d'un conteneur :
 +
-[source,console]
+[source, console]
 ----
 docker run --rm -it --volume-driver netapp --volume trident_2:/my_vol alpine ash
-
-[listing]
 ----
-. Remove a Docker volume:
+. Supprimer un volume Docker :
 +
-[source,console]
+[source, console]
 ----
 docker volume rm trident_1
-
-[listing]
 ----
 +
-[source,console]
+[source, console]
 ----
 docker volume rm trident_2
-
-[listing]
 ----
 
-== Start Trident at system startup
 
-A sample unit file for systemd based systems can be found at `contrib/trident.service.example` in the Git repo. To use the file with RHEL, do the following:
 
-. Copy the file to the correct location.
+
+[[start-trident-at-system-startup]]
+== Démarrer Trident au démarrage du système
+
+Un exemple de fichier d'unité pour les systèmes basés sur systemd est disponible à `contrib/trident.service.example` dans le dépôt Git. Pour utiliser le fichier avec RHEL, procédez comme suit :
+
+. Copiez le fichier à l'emplacement correct.
 +
-You should use unique names for the unit files if you have more than one instance running.
+Vous devez utiliser des noms uniques pour les fichiers d'unité si vous avez plus d'une instance en cours d'exécution.
+
 +
-[source,console]
+[source, console]
 ----
 cp contrib/trident.service.example /usr/lib/systemd/system/trident.service
-
-[listing]
 ----
-. Edit the file, change the description (line 2) to match the driver name and the configuration file path (line 9) to reflect your environment.
-. Reload systemd for it to ingest changes:
+. Modifiez le fichier, changez la description (ligne 2) pour qu'elle corresponde au nom du pilote et le chemin du fichier de configuration (ligne 9) pour qu'il reflète votre environnement.
+. Rechargez systemd pour qu'il prenne en compte les modifications :
 +
-[source,console]
+[source, console]
 ----
 systemctl daemon-reload
-
-[listing]
 ----
-. Enable the service.
+. Activez le service.
 +
-This name varies depending on what you named the file in the `/usr/lib/systemd/system` directory.
+Ce nom varie en fonction du nom que vous avez donné au fichier dans le `/usr/lib/systemd/system` répertoire.
+
 +
-[source,console]
+[source, console]
 ----
 systemctl enable trident
-
-[listing]
 ----
-. Start the service.
+. Démarrez le service.
 +
-[source,console]
+[source, console]
 ----
 systemctl start trident
-
-[listing]
 ----
-. View the status.
+. Consultez le statut.
 +
-[source,console]
+[source, console]
 ----
 systemctl status trident
-
-[listing]
 ----
 
-NOTE: Any time you modify the unit file, run the `systemctl daemon-reload` command for it to be aware of the changes.
-----
+
+
+NOTE: Chaque fois que vous modifiez le fichier d'unité, exécutez la commande  `systemctl daemon-reload` pour qu'il prenne en compte les modifications.

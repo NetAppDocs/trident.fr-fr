@@ -35,7 +35,7 @@ NOTE: Si vous utilisez Kubernetes pour la première fois, familiarisez-vous avec
 
 Trident est compatible avec un large éventail de distributions et de plateformes Kubernetes.
 
-Les plateformes prises en charge incluent : * Kubernetes en amont * Red Hat OpenShift * SUSE Harvester 1.7.0 (ONTAP iSCSI)
+Les plateformes prises en charge incluent : * Kubernetes upstream * Red Hat OpenShift * SUSE Virtualization (Harvester) 1.8.x - 1.9.x (ONTAP NFS, iSCSI, NVMe/TCP et FC)
 
 
 
