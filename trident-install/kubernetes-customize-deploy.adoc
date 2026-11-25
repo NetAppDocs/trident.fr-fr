@@ -76,11 +76,11 @@ Défini sur l'identité de la charge de travail (« Azure.Workload.Identity/clie
 
 
 | `k8sTimeout`  a| 
-Délai d'expiration pour les opérations Kubernetes.
+Délai d'expiration des opérations Kubernetes, spécifié sous forme d'un nombre entier de secondes.
 
 
 NOTE: Le `k8sTimeout` le paramètre s'applique uniquement à l'installation de Trident .
-| `180sec` 
+| `180` 
 
 
 | `silenceAutosupport` | N'envoyez pas de packs AutoSupport à NetApp
@@ -148,7 +148,12 @@ La limite de requêtes par seconde (QPS) utilisée par le contrôleur lors de la
 
 
 | `enableConcurrency`  a| 
-Permet le fonctionnement simultané des contrôleurs Trident pour un débit amélioré. Pour plus d'informations sur les pilotes pris en charge, consultez le lien : https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[Controller Scalability documentation].
+Permet le fonctionnement simultané des contrôleurs Trident pour un débit amélioré.
+
+
+WARNING: Vous devez activer explicitement cette option lors de l’installation de Trident ou lors de la mise à jour d’un déploiement existant.
+
+Pour plus d'informations sur les pilotes pris en charge, consultez le lien : https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[Controller Scalability documentation].
 | `enableCOSI` 
 
 

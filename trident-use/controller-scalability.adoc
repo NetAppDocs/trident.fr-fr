@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/controller-scalability.html 
 keywords: trident, controller scalability, concurrency, san, nas, san-nvme, gcnv, ontap-nas-economy, ontap-san-economy, ontap-nas-flexgroup, asa-r2 
-summary: 'Comprenez l"évolutivité du contrôleur, le comportement en matière de concurrence et la maturité des fonctionnalités.' 
+summary: 'Comprendre l"évolutivité du contrôleur, le comportement en matière de simultanéité et les pilotes pris en charge.' 
 ---
 = Évolutivité du contrôleur
 :hardbreaks:
@@ -14,7 +14,7 @@ summary: 'Comprenez l"évolutivité du contrôleur, le comportement en matière 
 [role="lead"]
 Trident améliore la scalabilité du contrôleur grâce à une concurrence accrue sur plusieurs pilotes de stockage. Lorsque vous activez la scalabilité du contrôleur, le contrôleur Trident traite les opérations de stockage en parallèle au lieu de les sérialiser, ce qui augmente le débit dans les environnements Kubernetes comportant de nombreuses opérations simultanées.
 
-Avant le déploiement, déterminez quels pilotes Trident prennent en charge la mise à l'échelle du contrôleur à la disponibilité générale et quels pilotes sont disponibles en version préliminaire technique dans Trident 26.10. Cela vous aide à prendre des décisions éclairées concernant le déploiement et à gérer les risques. La mise à l'échelle du contrôleur est désactivée par défaut.
+Par défaut, `enableConcurrency` est défini sur `false` et Trident fonctionne en mode série.
 
 
 
@@ -35,24 +35,16 @@ Lorsque vous activez la scalabilité du contrôleur, les opérations sur différ
 [[default-behavior-serial-mode]]
 == Comportement par défaut (mode série)
 
-Par défaut, le contrôleur Trident traite les opérations une à une. Chaque requête de création, de suppression, de redimensionnement ou de capture instantanée est terminée avant que Trident ne lance la suivante. Le mode série est le mode par défaut pris en charge pour toutes les installations et ne nécessite aucune configuration.
-
-Le mode séquentiel est suffisant pour la plupart des charges de travail. N'activez la mise à l'échelle du contrôleur que lorsque le volume d'opérations crée un engorgement en mode séquentiel.
+Par défaut, `enableConcurrency` est défini sur `false` et Trident fonctionne en mode série pour toutes les nouvelles installations et les mises à niveau à partir de versions antérieures de Trident. Le mode série ne nécessite aucune configuration, et tous les backends et pilotes fonctionnent normalement sans configuration supplémentaire. Le comportement d'exécution ne change pas, sauf si vous définissez explicitement `enableConcurrency` sur `true`.
 
 
 
 [[controller-scalability-support]]
 == Prise en charge de l'évolutivité du contrôleur
 
-Trident prend en charge l'évolutivité du contrôleur à différents niveaux de maturité pour différents pilotes de stockage.
-
-
-
-[[general-availability]]
-=== Disponibilité générale
-
 Les pilotes suivants prennent en charge la mise à l'échelle du contrôleur à la disponibilité générale dans Trident 26.10 :
 
+* `asa-r2` (SAN et NVMe)
 * `ontap-san`
 * `ontap-nas`
 * `ontap-nas-economy`
@@ -70,56 +62,40 @@ Les `google-cloud-netapp-volumes` et `google-cloud-netapp-volumes-san` pilotes s
 ====
 
 
-[[technical-preview]]
-=== Aperçu technique
-
-Le pilote suivant prend en charge la mise à l'échelle du contrôleur en tant que fonctionnalité en avant-première technique dans Trident 26.10 :
-
-* `asa-r2` (SAN et NVMe)
-
-
-Ce pilote présente les limitations suivantes :
-
-* La gestion de la concurrence des contrôleurs est disponible uniquement à des fins d'évaluation et de test.
-* Le comportement peut changer d'une version à l'autre.
-* NetApp ne recommande pas l'utilisation en environnement de production.
-
-
-
-
 [[how-enableconcurrency-works]]
 == Comment enableConcurrency fonctionne
 
-Lorsque vous définissez  `enableConcurrency` sur  `true`, Trident applique un traitement simultané à tous les backends gérés par le contrôleur. Ce paramètre s'applique à tous les backends en même temps. Vous ne pouvez pas l'activer pour des backends ou des pilotes individuels.
+L `enableConcurrency`’option est un paramètre global, tout ou rien. Elle ne peut pas être limitée à des pilotes ou des backends individuels. Lorsque vous la définissez sur  `true`, tous les backends passent simultanément en mode concurrent.
 
-Chaque backend configuré doit utiliser un pilote figurant dans la liste de disponibilité générale ou de préversion technique. Si un backend utilise un pilote non pris en charge, Trident ne démarre pas et Trident n'ajoute pas de backend utilisant un pilote non pris en charge.
+[IMPORTANT]
+====
+Avant d'activer la mise à l'échelle du contrôleur, vérifiez que chaque backend utilise un pilote pris en charge. Si un backend utilise un pilote non pris en charge, Trident refusera de démarrer et toutes les opérations de stockage sur tous les backends échoueront. Trident refusera également d'ajouter de nouveaux backends qui utilisent des pilotes non pris en charge lorsque la concurrence est activée.
 
-Pour rétablir le démarrage, supprimez ou reconfigurez tout backend utilisant un pilote non pris en charge ou désactivez la scalabilité du contrôleur.
+====
+Pour identifier les pilotes utilisés par vos backends, exécutez :
+
+[source, console]
+----
+tridentctl get backends -n trident
+----
+Si Trident refuse de démarrer parce qu’un back-end utilise un pilote non pris en charge, supprimez ou reconfigurez ce back-end, ou désactivez la mise à l’échelle du contrôleur.
 
 
 
 [[before-you-enable]]
 == Avant d'activer
 
-[IMPORTANT]
-====
-Avant d'activer la mise à l'échelle du contrôleur, vérifiez que chaque backend configuré utilise un pilote figurant dans la liste de disponibilité générale ou de préversion technique. Si un backend utilise un pilote non pris en charge, Trident ne démarre pas après l'activation de cette fonctionnalité.
+Avant d’activer la mise à l’échelle du contrôleur, identifiez le type de pilote pour chaque backend de votre installation Trident. Exécutez `tridentctl get backends -n trident`, puis utilisez le tableau ci-dessous pour déterminer si votre environnement est prêt.
 
-====
-Utilisez le tableau suivant pour décider d'activer ou non la mise à l'échelle du contrôleur.
-
-[cols="1,1"]
+[cols="2,1,1,3"]
 |===
-| Si votre environnement | Ensuite 
+| Votre environnement backend | Pouvez-vous activer la simultanéité ? | Prêt pour la production? | Conseils 
 
 
-| Utilise uniquement les pilotes pris en charge et rencontre un retard dans les opérations du contrôleur | Activez la scalabilité du contrôleur. 
+| Tous les backends utilisent des pilotes pris en charge (`asa-r2` SAN et NVMe, `ontap-san`, `ontap-nas`, `ontap-nas-economy`, `ontap-nas-flexgroup`, `ontap-san-economy`, `google-cloud-netapp-volumes`, `azure-netapp-files`, `solidfire-san`) | Oui. | Oui. | Peut être activé sans risque en production. Tous les pilotes pris en charge fonctionneront en mode simultané. 
 
 
-| Utilise n'importe quel pilote non pris en charge | Conservez le mode série par défaut. N’activez pas la mise à l’échelle du contrôleur. 
-
-
-| Gère un faible volume d'opérations sans arriérés | Conservez le mode série par défaut. 
+| Un backend utilise un pilote non pris en charge | Non | Non | Trident refusera de démarrer et toutes les opérations de stockage sur tous les backends échoueront. Supprimez ou migrez les backends non pris en charge avant de l’activer. 
 |===
 
 
@@ -269,12 +245,11 @@ Lorsque la mise à l'échelle du contrôleur est activée, le contrôleur Triden
 
 Les considérations suivantes s'appliquent à l'évolutivité du contrôleur dans Trident 26.10 :
 
-* La mise à l'échelle du contrôleur ne prend en charge que les pilotes figurant dans les listes de disponibilité générale et d'aperçu technique. Pour plus de détails, consultez <<before-you-enable,Avant d'activer>>.
+* La scalabilité du contrôleur prend en charge uniquement les pilotes répertoriés dans <<before-you-enable,Avant d'activer>>.
 * Le contrôleur Trident gère la concurrence en interne. Cette version ne propose aucune limite de concurrence configurable par l'utilisateur.
 * Le débit global dépend du pilote de stockage utilisé, de la réactivité du backend et des performances du serveur API Kubernetes.
 * Une forte concurrence peut augmenter la charge sur les systèmes de stockage backend.
 * Le comportement de mise à l'échelle du contrôleur n'est pas identique pour tous les pilotes.
-* Le pilote en préversion technique peut présenter des performances incohérentes en cas de charge élevée et son comportement peut changer d'une version à l'autre.
 * Le débogage des opérations concurrentes peut s'avérer plus complexe en raison de l'exécution parallèle. Les métriques et les journaux peuvent afficher les résultats des opérations entrelacées.
 
 
@@ -283,17 +258,17 @@ Les considérations suivantes s'appliquent à l'évolutivité du contrôleur dan
 [[recommendations]]
 == Recommandations
 
-Avant d'activer la mise à l'échelle du contrôleur, complétez les étapes suivantes :
+Avant d'activer la mise à l'échelle du contrôleur:
 
-. Confirmez que chaque backend configuré utilise un pilote figurant dans la liste de disponibilité générale ou de préversion technique.
-. Testez la modification sur un cluster hors production avant de l'appliquer en production.
-. Vérifiez que la mise à l'échelle du contrôleur est activée après avoir appliqué la modification.
+. Exécutez `tridentctl get backends -n trident` et notez le type de pilote pour chaque backend.
+. Vérifiez que chaque pilote figure dans la liste des pilotes pris en charge pour votre version de Trident.
+. Si un pilote ne figure pas dans la liste des pilotes pris en charge, arrêtez. N'activez pas la concurrence tant que ces backends n'ont pas été supprimés ou migrés vers un pilote pris en charge.
+. Après l'activation, vérifiez les journaux du contrôleur avec `kubectl logs -n trident deploy/trident-controller | grep -i concurrency`.
+. Surveillez les performances du backend et du serveur d'API Kubernetes après l'activation.
++
+** Utilisez des pilotes à disponibilité générale pour les environnements de production nécessitant une évolutivité élevée.
+** Surveillez les performances du backend et du contrôleur lorsque vous opérez à grande échelle.
+** Ne présumez pas de l'ordre des opérations dans les scripts d'automatisation.
 
 
-Appliquez les recommandations générales suivantes lorsque vous utilisez la mise à l'échelle du contrôleur :
-
-* Utilisez des pilotes à disponibilité générale pour les environnements de production nécessitant une évolutivité élevée.
-* Évaluez le pilote en préversion technique uniquement dans des environnements hors production.
-* Surveillez les performances du backend et du contrôleur lorsque vous opérez à grande échelle.
-* Ne présumez pas de l'ordre des opérations dans les scripts d'automatisation.
 

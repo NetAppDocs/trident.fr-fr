@@ -213,6 +213,13 @@ Séparer un clone de son parent lors de sa création. Par défaut, la valeur est
 
 
 
+| `cloneSplitDelay`  a| 
+Délai en secondes avant que Trident ne commence à diviser un clone qui maintient un snapshot occupé pendant la suppression du snapshot. La valeur par défaut est de `86400` secondes (24 heures). À la valeur par défaut ou à une valeur supérieure, Trident applique un délai exponentiel commençant à 5 minutes et plafonné à 1 heure lorsque ONTAP renvoie une erreur « snapshot occupé » ; les nouvelles tentatives dans un intervalle n'appellent pas ONTAP. En dessous de `86400`, Trident appelle ONTAP pour chaque nouvelle tentative CSI et n'utilise pas de délai exponentiel.
+ a| 
+`86400`
+
+
+
 | `encryption`  a| 
 Active NetApp Volume Encryption (NVE) sur le nouveau volume ; valeur par défaut sur `false`. Pour utiliser cette option, NVE doit être sous licence et activé sur le cluster.
 

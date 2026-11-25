@@ -14,8 +14,6 @@ indexpage:
     links:
     - title: Quoi de neuf
       url: trident-rn.html
-    - title: Versions antérieures
-      url: "/earlier-versions.html"
     - title: Prise en charge de Trident pour les systèmes de stockage ASA r2
       url: "/trident-asar2-support.html"
   - title: Commencez

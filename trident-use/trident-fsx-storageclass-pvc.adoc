@@ -600,6 +600,9 @@ Vous pouvez contrôler le provisionnement par défaut à l'aide de ces options d
 | `splitOnClone` | Séparer un clone de son parent lors de sa création | `false` 
 
 
+| `cloneSplitDelay` | Délai en secondes avant que Trident ne commence à diviser un clone qui maintient un snapshot occupé pendant la suppression du snapshot. La valeur par défaut est de `86400` secondes (24 heures). À la valeur par défaut ou à une valeur supérieure, Trident applique un délai exponentiel commençant à 5 minutes et plafonné à 1 heure lorsque ONTAP renvoie une erreur « snapshot occupé » ; les nouvelles tentatives dans un intervalle n'appellent pas ONTAP. En dessous de `86400`, Trident appelle ONTAP pour chaque nouvelle tentative CSI et n'utilise pas de délai exponentiel. | `86400` 
+
+
 | `encryption` | Activez le chiffrement de volume NetApp (NVE) sur le nouveau volume. La valeur par défaut est `false`. Pour utiliser cette option, NVE doit être sous licence et activé sur le cluster. Si NAE est activé sur le back-end, tout volume provisionné dans Trident est activé. Pour plus d'informations, reportez-vous à la section : link:../trident-reco/security-reco.html["Fonctionnement de Trident avec NVE et NAE"]. | `false` 
 
 
